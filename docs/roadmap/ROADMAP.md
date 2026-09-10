@@ -1,7 +1,8 @@
 # Roadmap
 Implement one phase per authorized task, in order. Foundation is delivered and published publicly
 on GitHub; service integration and Docker build passed CI. See COMPLETION_REPORT.md.
-Phase 1 implementation is delivered; verification is recorded in PHASE_1_COMPLETION_REPORT.md.
+Phase 1 is complete with passing PostgreSQL/Redis CI, migration checks and Docker build;
+verification is recorded in PHASE_1_COMPLETION_REPORT.md.
 All phases after 1 are unimplemented.
 0. Foundation — repository, domain base, config, DB, Redis, Docker, CI, audit, testing, logging.
 1. Universal market data — assets/providers/history/candles/trades/quotes/quality/replay.

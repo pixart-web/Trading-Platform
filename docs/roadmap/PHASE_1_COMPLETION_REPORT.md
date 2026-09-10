@@ -33,12 +33,20 @@ DB uniqueness/FKs/precision/order/conflicts; replay boundaries, availability, ga
 API metadata, paging, query validation and unavailable storage; audit-preserving migration roundtrip.
 Persistence/service/replay/API cases run on SQLite and PostgreSQL when PA_INTEGRATION=1.
 
-Verification so far: local Python 3.12.14, Ruff lint/format and strict mypy . pass. 101 tests pass,
+Local verification: Python 3.12.14, Ruff lint/format and strict mypy . pass. 101 tests pass,
 31 skip because PostgreSQL is not configured locally (including one PostgreSQL-only numeric check).
 Two upstream deprecation warnings remain. Coverage is 99% overall; domain, quality, provider,
 service, replay and API are 100%; storage 98%. These are software coverage, not economic claims.
 Docker compose config was attempted locally and failed because Docker is not installed.
-Remote PostgreSQL/Redis, migration and Docker verification will be recorded after CI completes.
+Remote verification completed successfully on code commit 33fcde5:
+https://github.com/pixart-web/Trading-Platform/actions/runs/34472745506
+CI: 131 passed, 1 intentionally skipped (SQLite variant of PostgreSQL-only numeric CHECK test),
+41 dependency/config deprecation warnings. The PostgreSQL variant of that constraint test passed.
+Overall coverage: 730/733 statements, 99%; market domain and quality 100%; storage 98%.
+Ruff check, Ruff format --check, mypy ., PostgreSQL/Redis tests, audit-preserving migration
+0001→0002→0001 roundtrip, alembic metadata checks, docker compose config and Docker build passed.
+No actual Compose stack startup was tested locally; the Docker executable remains unavailable here.
+All 15 acceptance criteria are covered by implemented code and the passing test inventory.
 
 Exact verification commands (venv module invocation locally):
 
