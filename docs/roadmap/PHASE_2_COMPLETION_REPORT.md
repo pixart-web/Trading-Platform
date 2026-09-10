@@ -67,7 +67,16 @@ Package installation initially failed under network sandboxing; approved install
 The esbuild compiler required approved execution outside the sandbox. Chromium download failed
 with DNS errors; PA_TEST_BROWSER_CHANNEL=msedge selected the installed browser for local E2E.
 Docker is unavailable locally. Remote CI verifies PostgreSQL/Redis, migrations, Compose and both
-images and repeats frontend checks with Chromium. Final results are appended after verification.
+images and repeats frontend checks with Chromium.
+
+Final remote verification for code commit 2abe63e: SUCCESS.
+Run: https://github.com/pixart-web/Trading-Platform/actions/runs/34476386699
+- Backend: 133 passed, 1 skipped, 42 upstream warnings; 99% statement coverage.
+- Ruff lint/format and mypy passed.
+- Frontend lint, TypeScript, 37 unit tests and production build passed.
+- Chromium: all 7 browser tests passed.
+- Compose validation and both backend/frontend Docker builds passed.
+- Final local rerun: 102 backend tests passed, 32 skipped; all 7 Edge browser tests passed.
 
 ## Security, assumptions, limitations and debt
 No trading credentials, secrets, external data provider or fake production data. Live trading stays
