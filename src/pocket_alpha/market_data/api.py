@@ -4,13 +4,13 @@ from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException, Query, Request
 from pydantic import ValidationError
-from sqlalchemy import select
+from sqlalchemy import or_, select
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
 
 from pocket_alpha.common.clock import SystemClock
 from pocket_alpha.domain.market import Candle, CandleQuery, Market
-from pocket_alpha.domain.models import Asset, DomainModel, Timeframe
+from pocket_alpha.domain.models import Asset, AssetType, DomainModel, Timeframe
 from pocket_alpha.market_data.quality import DataQualityResult, FreshnessPolicy, inspect_candles
 from pocket_alpha.market_data.storage import (
     AssetRecord,
@@ -34,6 +34,7 @@ def session_dependency(request: Request) -> Iterator[Session]:
 DB = Annotated[Session, Depends(session_dependency)]
 Limit = Annotated[int, Query(ge=1, le=1000)]
 Offset = Annotated[int, Query(ge=0, le=100000)]
+Search = Annotated[str, Query(max_length=128)]
 
 
 class CandleResponse(DomainModel):
@@ -44,12 +45,18 @@ class CandleResponse(DomainModel):
 
 
 @router.get("/assets")
-def assets(db: DB, limit: Limit = 100, offset: Offset = 0) -> list[Asset]:
+def assets(db: DB, limit: Limit = 100, offset: Offset = 0, q: Search = "") -> list[Asset]:
+    statement = select(AssetRecord)
+    if q.strip():
+        statement = statement.where(
+            or_(
+                AssetRecord.symbol.icontains(q.strip(), autoescape=True),
+                AssetRecord.name.icontains(q.strip(), autoescape=True),
+            )
+        )
     return [
         asset_value(row)
-        for row in db.scalars(
-            select(AssetRecord).order_by(AssetRecord.asset_id).offset(offset).limit(limit)
-        )
+        for row in db.scalars(statement.order_by(AssetRecord.asset_id).offset(offset).limit(limit))
     ]
 
 
@@ -62,11 +69,30 @@ def asset(asset_id: str, db: DB) -> Asset:
 
 
 @router.get("/markets")
-def markets(db: DB, limit: Limit = 100, offset: Offset = 0) -> list[Market]:
+def markets(
+    db: DB,
+    limit: Limit = 100,
+    offset: Offset = 0,
+    q: Search = "",
+    asset_type: AssetType | None = None,
+) -> list[Market]:
+    statement = select(MarketRecord).join(
+        AssetRecord, MarketRecord.asset_id == AssetRecord.asset_id
+    )
+    if q.strip():
+        statement = statement.where(
+            or_(
+                MarketRecord.symbol.icontains(q.strip(), autoescape=True),
+                AssetRecord.name.icontains(q.strip(), autoescape=True),
+                AssetRecord.symbol.icontains(q.strip(), autoescape=True),
+            )
+        )
+    if asset_type is not None:
+        statement = statement.where(AssetRecord.asset_type == asset_type.value)
     return [
         market_value(row)
         for row in db.scalars(
-            select(MarketRecord).order_by(MarketRecord.market_id).offset(offset).limit(limit)
+            statement.order_by(MarketRecord.market_id).offset(offset).limit(limit)
         )
     ]
 

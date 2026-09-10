@@ -55,6 +55,22 @@ def test_candles_api_paging_and_quality(repository: MarketRepository) -> None:
     assert len(short.json()["candles"]) == 1
 
 
+def test_market_search_and_class_filter(repository: MarketRepository) -> None:
+    client = client_for(repository)
+    for query in ("test", "synthetic", " TEST "):
+        response = client.get("/api/v1/markets", params={"q": query, "asset_type": "STOCK"})
+        assert response.status_code == 200
+        assert len(response.json()) == 1
+    assert client.get("/api/v1/markets", params={"q": "missing"}).json() == []
+    assert client.get("/api/v1/markets", params={"asset_type": "CRYPTO"}).json() == []
+    assert client.get("/api/v1/markets", params={"q": "%"}).json() == []
+    assert client.get("/api/v1/markets", params={"q": "_"}).json() == []
+    assert client.get("/api/v1/markets", params={"q": "a" * 129}).status_code == 422
+    assert client.get("/api/v1/markets", params={"asset_type": "WRONG"}).status_code == 422
+    assert len(client.get("/api/v1/assets", params={"q": "synthetic"}).json()) == 1
+    assert client.get("/api/v1/assets", params={"q": "absent"}).json() == []
+
+
 def test_candle_query_validation(repository: MarketRepository) -> None:
     client = client_for(repository)
     assert client.get("/api/v1/markets/missing/candles", params=parameters()).status_code == 404

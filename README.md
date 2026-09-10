@@ -1,7 +1,7 @@
 # Pocket Alpha
 
-Phase 1: universal market-data domain, validated historical ingestion, PostgreSQL candle storage,
-deterministic replay and a read-only API, built on the Phase 0 foundation.
+Phase 2: Next.js charting workspace with asset search, candles, volume and quality states, over
+the Phase 1 universal market-data API, PostgreSQL storage and deterministic replay.
 No external provider is connected and no market data is seeded. No analysis or execution exists.
 See [market-data architecture](docs/architecture/MARKET_DATA_ARCHITECTURE.md).
 
@@ -15,6 +15,20 @@ Probes: `/health/live` and `/health/ready`. Compose runs migrations before the A
 For host development, start `docker compose up -d db redis`, copy `.env.example` to `.env`,
 run `alembic upgrade head`, then `uvicorn pocket_alpha.main:app --no-access-log`.
 Sample credentials and loopback bindings are for local development, not production deployment.
+
+The charting interface runs at http://localhost:3000 when using Compose. Without imported market
+metadata/data it displays honest empty states. With the backend stopped it displays a service error.
+For frontend-only development, install Node 24 and pnpm 11.19.0, then run in frontend/:
+
+    pnpm install --frozen-lockfile
+    pnpm dev
+
+Copy frontend/.env.example to frontend/.env.local to change the server-only backend origin.
+Frontend checks: pnpm lint, pnpm typecheck, pnpm test, pnpm build.
+Browser tests: pnpm exec playwright install chromium, then pnpm test:e2e.
+Tests use synthetic fixtures only and never import them into application data.
+For a local installed Edge browser, set PA_TEST_BROWSER_CHANNEL=msedge.
+See docs/architecture/CHARTING_ARCHITECTURE.md for quality gating and timezone semantics.
 
 Checks: `ruff check .`, `ruff format --check .`, `mypy .`,
 `pytest --cov=pocket_alpha --cov-report=term-missing`.
