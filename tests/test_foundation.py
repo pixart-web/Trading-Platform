@@ -32,6 +32,11 @@ def test_secrets_are_masked() -> None:
     assert "local_only" not in repr(Settings())
 
 
+def test_disabled_environment_flag(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("PA_LIVE_TRADING_ENABLED", "false")
+    assert Settings().live_trading_enabled is False
+
+
 def test_domain_precision_and_immutability() -> None:
     money = Money.model_validate({"amount": "0.123456789123456789", "currency": "EUR"})
     assert money.amount == Decimal("0.123456789123456789")

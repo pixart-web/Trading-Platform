@@ -1,6 +1,6 @@
 from typing import Literal
 
-from pydantic import SecretStr
+from pydantic import SecretStr, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -14,3 +14,10 @@ class Settings(BaseSettings):
     redis_url: SecretStr = SecretStr("redis://localhost:6379/0")
     # Live execution is unavailable in Foundation, even with environment overrides.
     live_trading_enabled: Literal[False] = False
+
+    @field_validator("live_trading_enabled", mode="before")
+    @classmethod
+    def parse_disabled_flag(cls, value: object) -> object:
+        if isinstance(value, str) and value.lower() == "false":
+            return False
+        return value
