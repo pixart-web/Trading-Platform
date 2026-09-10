@@ -18,15 +18,22 @@ pytest --cov=pocket_alpha --cov-report=term-missing,
 alembic upgrade head --sql, alembic downgrade 0001:base --sql, git diff --check.
 Initial network-restricted install failed; approved retry installed successfully.
 Initial mypy found seven type issues, corrected without suppressions; final run passed all 12 files.
-Final Ruff lint and format passed. Pytest: 9 passed, 1 integration skipped, 2 upstream deprecation
-warnings (Starlette/httpx and AnyIO). Coverage: 99% of 178 foundation statements. Financially
+Final Ruff lint and format passed. Local Pytest: 10 passed, 1 integration skipped, 2 upstream deprecation
+warnings (Starlette/httpx and AnyIO). Local coverage: 99% of 184 foundation statements. Financially
 critical modules do not exist yet: financial coverage and economic performance are not applicable.
 Tests cover live rejection, secret masking, exact money, immutable values, UTC, duplicate audit,
 dependency health/failure, startup audit failure and logging. SQLite tests are not PostgreSQL proof.
 
-Docker is unavailable locally. Compose/build and PostgreSQL/Redis migration roundtrip tests are
-configured in CI; local real-service execution remains unverified. No frontend exists; its checks
-are not applicable. GitHub authentication was rechecked successfully during this task.
+Docker is unavailable locally. GitHub CI run 34468029358 succeeded on code commit e83831d:
+11 tests passed, 100% of 184 foundation statements covered, with 7 dependency/config deprecation
+warnings. PostgreSQL/Redis readiness, migration upgrade/downgrade and metadata checks passed.
+Docker Compose configuration and Docker image build passed. Full Compose application startup
+was not exercised. No frontend exists; its checks are not applicable.
+The first CI run revealed that Literal[False] did not parse the string environment value false.
+An explicit parser and regression test fixed it; true is still rejected. Required local checks
+were rerun successfully and the second CI passed. No assertions were weakened.
+Repository: https://github.com/pixart-web/Trading-Platform (private), main tracks origin/main.
+Verification: https://github.com/pixart-web/Trading-Platform/actions/runs/34468029358.
 
 Security/limitations: Compose uses local example passwords and loopback host ports. Production
 authentication, authorization, TLS, managed secrets, dedicated audit DB permissions and observability
@@ -36,7 +43,7 @@ Readiness requires restart after failed startup audit. Lock includes dev tools i
 pins package versions without hashes; platform build validation belongs to CI.
 Economic assumptions: none; no prices, probabilities, costs, forecasts or profits are fabricated.
 Technical debt: upstream deprecations, production hardening and expanded metrics/tracing remain.
-Next roadmap phase: 1, universal market data, only after foundation service checks are resolved.
+Next roadmap phase: 1, universal market data. Not implemented in this task.
 
 Complete changed/added file list:
 

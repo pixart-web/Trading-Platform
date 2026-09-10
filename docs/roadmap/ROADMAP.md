@@ -1,6 +1,6 @@
 # Roadmap
-Implement one phase per authorized task, in order. Foundation code is delivered; local service
-verification and GitHub publication remain outstanding as recorded in COMPLETION_REPORT.md.
+Implement one phase per authorized task, in order. Foundation is delivered and published privately
+on GitHub; service integration and Docker build passed CI. See COMPLETION_REPORT.md.
 All phases after 0 are unimplemented.
 0. Foundation — repository, domain base, config, DB, Redis, Docker, CI, audit, testing, logging.
 1. Universal market data — assets/providers/history/candles/trades/quotes/quality/replay.
