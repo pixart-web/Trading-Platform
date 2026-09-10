@@ -1,4 +1,4 @@
-name: Foundation
+name: Quality and integration
 on: [push, pull_request]
 permissions:
   contents: read
@@ -34,7 +34,7 @@ jobs:
       - run: pip install -r requirements.lock && pip install --no-deps -e .
       - run: ruff check .
       - run: ruff format --check .
-      - run: mypy
+      - run: mypy .
       - run: pytest --cov=pocket_alpha --cov-report=term-missing
-      - run: docker compose config --quiet
+      - run: docker compose config
       - run: docker build -t pocket-alpha:ci .

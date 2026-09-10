@@ -1,8 +1,13 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from decimal import Decimal
 from enum import StrEnum
+from typing import Annotated
 
 from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, field_validator
+
+AssetId = Annotated[str, Field(min_length=1, max_length=128, pattern=r"^[A-Za-z0-9_.:-]+$")]
+Symbol = Annotated[str, Field(min_length=1, max_length=64, pattern=r"^\S+$")]
+Currency = Annotated[str, Field(pattern=r"^[A-Z0-9]{2,12}$")]
 
 
 class AssetType(StrEnum):
@@ -27,6 +32,21 @@ class Timeframe(StrEnum):
     D1 = "1d"
     W1 = "1w"
 
+    @property
+    def duration(self) -> timedelta:
+        return timedelta(
+            seconds={
+                "1m": 60,
+                "5m": 300,
+                "15m": 900,
+                "30m": 1800,
+                "1h": 3600,
+                "4h": 14400,
+                "1d": 86400,
+                "1w": 604800,
+            }[self.value]
+        )
+
 
 class ForecastHorizon(StrEnum):
     H1 = "1H"
@@ -49,15 +69,15 @@ class DomainModel(BaseModel):
 
 
 class Asset(DomainModel):
-    asset_id: str = Field(min_length=1)
-    symbol: str = Field(min_length=1)
-    name: str = Field(min_length=1)
+    asset_id: AssetId
+    symbol: Symbol
+    name: str = Field(min_length=1, max_length=256)
     asset_type: AssetType
 
 
 class Money(DomainModel):
     amount: Decimal
-    currency: str = Field(pattern=r"^[A-Z0-9]{2,12}$")
+    currency: Currency
 
 
 class TimestampedModel(DomainModel):

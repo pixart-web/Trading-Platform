@@ -5,6 +5,11 @@ exists. PostgreSQL is the durable source of truth; Redis is disposable coordinat
 the financial ledger. Add TimescaleDB only with time-series workloads and measured justification.
 Foundation implements domain values, configuration, audit persistence and dependency health.
 
+Phase 1 adds the universal market-data domain, provider ports, fixture adapter, validated atomic
+historical ingestion, canonical candle storage and deterministic replay. See
+[Market data architecture](MARKET_DATA_ARCHITECTURE.md) and
+[ADR 0001](ADR_0001_MARKET_STORAGE_AND_PROVIDERS.md) for identity, quality and storage contracts.
+
 Planned boundaries: domain; market_data/providers; intelligence (technical, structure, zones,
 regimes, fundamentals, derivatives, sentiment, macro); forecasts/scoring/decisions/opportunities;
 portfolio; strategies/research/machine_learning; backtesting/simulation/paper_trading; risk/leverage;

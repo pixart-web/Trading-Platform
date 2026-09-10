@@ -3,9 +3,11 @@ from alembic import context
 from pocket_alpha.audit.models import AuditRecord
 from pocket_alpha.config import Settings
 from pocket_alpha.database import Base, build_engine
+from pocket_alpha.market_data.storage import CandleRecord
 
 target_metadata = Base.metadata
 assert AuditRecord.__tablename__ in target_metadata.tables
+assert CandleRecord.__tablename__ in target_metadata.tables
 
 if context.is_offline_mode():
     context.configure(

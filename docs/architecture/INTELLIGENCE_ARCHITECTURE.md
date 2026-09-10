@@ -12,3 +12,7 @@ Their relevance must be measured by asset, horizon and regime.
 Pocket Score has configurable inspectable weights. Opportunity Score has a versioned economic
 formula including calibrated probability, move, costs, liquidity, uncertainty and risk/reward.
 No scoring, indicators or recommendations are implemented in phase 0.
+
+Phase 1 now provides quality-checked historical ingestion and fail-closed replay. Future analytical
+consumers must use the trusted replay boundary and explicit freshness/session policies described
+in MARKET_DATA_ARCHITECTURE.md. Read-only inspection responses are not implicitly trusted input.
