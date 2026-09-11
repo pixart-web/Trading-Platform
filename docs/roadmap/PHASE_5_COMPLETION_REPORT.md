@@ -66,7 +66,21 @@ retained per its generated guidance. No dependencies, migrations or CI configura
 Frontend commands use installed Node executables for eslint, tsc --noEmit, vitest run, next build
 and playwright test; equivalent package scripts are pnpm lint/typecheck/test/build/test:e2e.
 Local PostgreSQL/Redis integration and Docker checks were not executed (services unavailable).
-Remote CI result is recorded below when verified. No valid test assertion was weakened.
+Remote CI covers those checks below. No valid test assertion was weakened.
+
+## Remote verification
+
+Implementation commit 191c905: SUCCESS on 2026-09-11.
+Run: https://github.com/pixart-web/Trading-Platform/actions/runs/34610643354
+
+- Backend: 305 passed, 1 skipped, 56 warnings, including PostgreSQL/Redis and migration checks.
+- Overall coverage: 99% (1330 statements, 3 missed).
+- Ruff lint/format and strict mypy passed.
+- Frontend lint, TypeScript, 41 unit tests, production build and 10 Chromium tests passed.
+- Compose validation and both Docker builds passed.
+
+CI also reports existing action-runtime deprecation annotations for checkout/setup actions;
+these and dependency warnings remain maintenance debt, not failed checks.
 
 ## Financial coverage, security, migration risks and debt
 
