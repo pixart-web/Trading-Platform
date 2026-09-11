@@ -1,9 +1,12 @@
 # Pocket Alpha
 
-Phase 2: Next.js charting workspace with asset search, candles, volume and quality states, over
-the Phase 1 universal market-data API, PostgreSQL storage and deterministic replay.
-No external provider is connected and no market data is seeded. No analysis or execution exists.
+Phase 3: shared Python technical intelligence with 15 versioned indicator groups, explicit warm-up,
+causal availability and reproducible input hashes, over the trusted market-data replay.
+The Phase 2 Next.js workspace provides search, candles, volume and quality states.
+No external provider is connected and no market data is seeded. No signals or execution exist.
 See [market-data architecture](docs/architecture/MARKET_DATA_ARCHITECTURE.md).
+See [technical intelligence](docs/architecture/TECHNICAL_INTELLIGENCE.md) for backend usage,
+formula conventions and the implemented catalogue. Indicators are not yet exposed in the UI/API.
 
 ## Development
 

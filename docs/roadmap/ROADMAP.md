@@ -4,7 +4,9 @@ on GitHub; service integration and Docker build passed CI. See COMPLETION_REPORT
 Phase 1 is complete with passing PostgreSQL/Redis CI, migration checks and Docker build;
 verification is recorded in PHASE_1_COMPLETION_REPORT.md.
 Phase 2 charting is implemented; verification is recorded in PHASE_2_COMPLETION_REPORT.md.
-All phases after 2 are unimplemented.
+Phase 3 technical intelligence is implemented as the initial five-family feature engine;
+scope, catalogue extensions and verification are recorded in PHASE_3_COMPLETION_REPORT.md.
+All phases after 3 are unimplemented.
 0. Foundation — repository, domain base, config, DB, Redis, Docker, CI, audit, testing, logging.
 1. Universal market data — assets/providers/history/candles/trades/quotes/quality/replay.
 2. Charting foundation — Next.js shell, search, candles, timeframes, volume, API.

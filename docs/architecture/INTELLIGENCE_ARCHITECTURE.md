@@ -16,3 +16,8 @@ No scoring, indicators or recommendations are implemented in phase 0.
 Phase 1 now provides quality-checked historical ingestion and fail-closed replay. Future analytical
 consumers must use the trusted replay boundary and explicit freshness/session policies described
 in MARKET_DATA_ARCHITECTURE.md. Read-only inspection responses are not implicitly trusted input.
+
+Phase 3 implements the initial five-family technical feature catalogue and shared service described
+in TECHNICAL_INTELLIGENCE.md. Snapshots retain causal availability, prefix hashes, parameters,
+versions and explicit unavailable states. No scoring, classifications, predictions or recommendations
+are introduced; advanced catalogue extensions and empirical feature evaluation remain future work.

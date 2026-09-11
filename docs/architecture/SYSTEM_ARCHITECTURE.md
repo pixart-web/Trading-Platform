@@ -19,6 +19,8 @@ Create functioning modules as their phase arrives, not empty implementations cla
 Next.js/TypeScript charting is implemented in phase 2 (frontend/). Backend computes analytics;
 frontend renders them. See CHARTING_ARCHITECTURE.md for the read-only gateway and chart contracts.
 Polars/NumPy and justified ML packages arrive with consuming phases. MLflow tracks experiments later.
+Phase 3 adds intelligence/technical as a shared historical application service over trusted replay.
+It uses standard-library Decimal, with no new dependencies or persistence. See TECHNICAL_INTELLIGENCE.md.
 Docker Compose is local development only; GitHub Actions performs quality and service integration.
 JSON logs carry generated correlation IDs. Liveness is process health; readiness requires migrated
 database, Redis and successful startup audit. Failed startup audit requires restart after recovery.
