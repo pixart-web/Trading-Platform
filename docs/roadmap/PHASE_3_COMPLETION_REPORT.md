@@ -49,7 +49,15 @@ pytest: 210 passed, 40 skipped, 2 upstream deprecation warnings. Overall stateme
 (969 statements, 4 missed); all three technical modules have 100% statement coverage.
 The 40 skips require PostgreSQL/Redis locally. Docker/service integration and frontend regression
 checks are delegated to the existing GitHub CI because neither schema nor frontend changed.
-Remote results will be recorded after verification.
+Remote verification for code commit d8836fc: SUCCESS on 2026-09-11.
+Run: https://github.com/pixart-web/Trading-Platform/actions/runs/34600743877
+
+- Backend: 249 passed, 1 skipped, 50 warnings; PostgreSQL/Redis integration included.
+- Coverage: 99% overall (969 statements, 3 missed); technical modules 100%.
+- Ruff lint/format and strict mypy passed.
+- Frontend regression: lint, TypeScript, 37 unit tests, build and 7 Chromium E2E tests passed.
+- Compose configuration and both backend/frontend Docker builds passed.
+- No new migrations; the existing migration integration tests passed unchanged.
 
 Initial checks found formatting issues and three typing errors; these were corrected, with no test
 assertions removed or weakened. All numerical reference tests passed on their first execution.
