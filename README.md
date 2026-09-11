@@ -1,12 +1,14 @@
 # Pocket Alpha
 
-Phase 3: shared Python technical intelligence with 15 versioned indicator groups, explicit warm-up,
-causal availability and reproducible input hashes, over the trusted market-data replay.
+Phase 4: shared market structure with confirmed swings, HH/HL/LH/LL, BOS/CHOCH and explicit
+causal evidence, alongside the Phase 3 versioned technical indicators over trusted replay.
 The Phase 2 Next.js workspace provides search, candles, volume and quality states.
 No external provider is connected and no market data is seeded. No signals or execution exist.
 See [market-data architecture](docs/architecture/MARKET_DATA_ARCHITECTURE.md).
 See [technical intelligence](docs/architecture/TECHNICAL_INTELLIGENCE.md) for backend usage,
 formula conventions and the implemented catalogue. Indicators are not yet exposed in the UI/API.
+See [market structure](docs/architecture/MARKET_STRUCTURE.md) for backend usage and exact
+confirmation/break conventions. Structure is not yet exposed in the UI/API either.
 
 ## Development
 

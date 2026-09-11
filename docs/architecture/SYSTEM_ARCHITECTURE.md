@@ -21,6 +21,8 @@ frontend renders them. See CHARTING_ARCHITECTURE.md for the read-only gateway an
 Polars/NumPy and justified ML packages arrive with consuming phases. MLflow tracks experiments later.
 Phase 3 adds intelligence/technical as a shared historical application service over trusted replay.
 It uses standard-library Decimal, with no new dependencies or persistence. See TECHNICAL_INTELLIGENCE.md.
+Phase 4 adds intelligence/structure over the same trusted replay and a shared provenance encoder.
+See MARKET_STRUCTURE.md; no new persistence, API, frontend or execution dependency is introduced.
 Docker Compose is local development only; GitHub Actions performs quality and service integration.
 JSON logs carry generated correlation IDs. Liveness is process health; readiness requires migrated
 database, Redis and successful startup audit. Failed startup audit requires restart after recovery.

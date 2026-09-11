@@ -21,3 +21,7 @@ Phase 3 implements the initial five-family technical feature catalogue and share
 in TECHNICAL_INTELLIGENCE.md. Snapshots retain causal availability, prefix hashes, parameters,
 versions and explicit unavailable states. No scoring, classifications, predictions or recommendations
 are introduced; advanced catalogue extensions and empirical feature evaluation remain future work.
+
+Phase 4 implements confirmed swings and versioned close-break structure in MARKET_STRUCTURE.md.
+It distinguishes pivot position from confirmation and availability, retains evidence, and does not
+convert structure into trade decisions or probabilities. Analytical hashes share one canonical encoder.

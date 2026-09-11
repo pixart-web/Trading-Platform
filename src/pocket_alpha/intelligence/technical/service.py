@@ -1,8 +1,9 @@
 import hashlib
-import json
-from decimal import ROUND_HALF_EVEN, Context, Decimal, localcontext
+from decimal import ROUND_HALF_EVEN, Context, localcontext
 
 from pocket_alpha.domain.market import CandleQuery
+from pocket_alpha.intelligence.provenance import candle_bytes
+from pocket_alpha.intelligence.provenance import canonical as canonical
 from pocket_alpha.intelligence.technical.indicators import calculate
 from pocket_alpha.intelligence.technical.models import (
     FeatureSnapshot,
@@ -14,20 +15,6 @@ from pocket_alpha.market_data.quality import FreshnessPolicy
 from pocket_alpha.market_data.replay import MarketReplay
 
 DEFAULT_SPECS = tuple(IndicatorSpec(kind=kind) for kind in IndicatorKind)
-
-
-def canonical(value: object) -> object:
-    """Stable hashes across SQLite/PostgreSQL decimal scale and caller context."""
-    if isinstance(value, Decimal):
-        if value == 0:
-            return "0"
-        plain = format(value, "f")
-        return plain.rstrip("0").rstrip(".") if "." in plain else plain
-    if isinstance(value, dict):
-        return {str(k): canonical(v) for k, v in value.items()}
-    if isinstance(value, (tuple, list)):
-        return [canonical(v) for v in value]
-    return value
 
 
 class TechnicalIntelligence:
@@ -60,11 +47,7 @@ class TechnicalIntelligence:
             available = candles[0].received_at
             digest = hashlib.sha256(b"pocket-alpha-candle-prefix-v1")
             for i, candle in enumerate(candles):
-                payload = candle.model_dump()
-                for key in ("open_time", "close_time", "received_at"):
-                    payload[key] = payload[key].isoformat()
-                encoded = json.dumps(canonical(payload), sort_keys=True, separators=(",", ":"))
-                digest.update(encoded.encode() + b"\n")
+                digest.update(candle_bytes(candle))
                 available = max(available, candle.received_at)
                 snapshots.append(
                     FeatureSnapshot(
