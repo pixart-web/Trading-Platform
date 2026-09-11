@@ -48,7 +48,16 @@ Targeted run: 31 passed, 4 skipped (PostgreSQL unavailable locally); structure 1
 branch coverage (180 statements, 40 branches).
 Final local full suite: 241 passed, 44 skipped, 2 upstream deprecation warnings; overall statement
 coverage 99% (1154 statements, 4 missed). Ruff lint passed, format checked 68 files, and strict mypy
-passed on 46 source files. PostgreSQL/Redis skips and remote CI results are verified separately.
+passed on 46 source files.
+
+Remote CI for implementation commit e5d3c50: SUCCESS on 2026-09-11.
+Run: https://github.com/pixart-web/Trading-Platform/actions/runs/34606507029
+
+- Backend: 284 passed, 1 skipped, 54 warnings; PostgreSQL/Redis integration included.
+- Overall statement coverage: 99% (1154 statements, 3 missed).
+- Ruff lint/format and strict mypy passed.
+- Frontend lint, TypeScript, 37 unit tests, production build and 7 Chromium tests passed.
+- Compose validation and both Docker builds passed; existing migration checks passed unchanged.
 
 Commands: python -m ruff check .; python -m ruff format --check .; python -m mypy .;
 python -m pytest --cov=pocket_alpha --cov-report=term-missing;
