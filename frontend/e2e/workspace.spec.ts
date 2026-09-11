@@ -4,7 +4,7 @@ import { durations, type Timeframe } from "../lib/market-data";
 const market = { market_id: "synthetic-test", asset_id: "synthetic", venue_id: "fixture-only",
   symbol: "SYNTHETIC", quote_currency: "EUR" };
 
-async function fixtures(page: Page, mode: "valid" | "gap" | "empty" | "offline" = "valid") {
+async function fixtures(page: Page, mode: "valid" | "gap" | "empty" | "offline" | "zones" | "badzones" | "nozones" = "valid") {
   await page.route("**/api/market-data/**", async route => {
     const url = new URL(route.request().url());
     if (mode === "offline") return route.fulfill({ status: 503, json: {} });
@@ -25,6 +25,20 @@ async function fixtures(page: Page, mode: "valid" | "gap" | "empty" | "offline" 
       close: String(102 + i % 10), volume: String(20 + i % 7), source: "fixture",
     }));
     return route.fulfill({ json: {
+      ...(url.pathname.endsWith("/zones") ? { snapshot: {
+        engine_version: "zones-1.0.0", spec: { version: "1.0.0" }, market_id: market.market_id,
+        timeframe, source: "fixture", input_start: new Date(start).toISOString(),
+        input_count: mode === "badzones" ? 1 : candles.length, input_hash: "a".repeat(64),
+        bar_close: new Date(end).toISOString(), available_at: new Date(end).toISOString(),
+        zones: mode === "nozones" ? [] : [
+          { zone_id: "test-support", role: "SUPPORT", lower: "94", center: "96", upper: "98" },
+          { zone_id: "test-resistance", role: "RESISTANCE", lower: "116", center: "118", upper: "120" },
+        ].map(z => ({ ...z, first_seen: new Date(start + 10 * step).toISOString(),
+          visible_from: new Date(start + 10 * step).toISOString(), last_seen: new Date(end).toISOString(),
+          pivot_count: 1, contacts: 0, rejections: 0, flips: 0, age_bars: 0, strength: 30,
+          components: { pivots: 10, contacts: 0, rejections: 0, recency: 20 },
+          confidence: null, confidence_reason: "UNCALIBRATED" })),
+      } } : {}),
       candles: mode === "gap" ? candles.slice(1) : candles,
       quality: { valid: mode !== "gap", severity: mode === "gap" ? "ERROR" : "OK",
         reason_codes: mode === "gap" ? ["MISSING_INTERVAL"] : [], warnings: [],
@@ -108,4 +122,41 @@ test("mobile empty layout fits the viewport", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByText("Ainda não existem mercados")).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+});
+
+test("zone toggle renders bands, evidence and survives timeframe changes", async ({ page }) => {
+  const errors: string[] = [];
+  page.on("pageerror", error => errors.push(error.message));
+  await fixtures(page, "zones");
+  await page.goto("/");
+  await page.getByRole("button", { name: /SYNTHETIC/ }).click();
+  await page.getByLabel("Mostrar zonas de suporte / resistência").check();
+  await expect(page.getByRole("table", { name: "Zonas confirmadas — valores exatos" })).toBeVisible();
+  await expect(page.getByTestId("price-chart").locator("canvas").first()).toBeVisible();
+  await page.getByRole("button", { name: "4h", exact: true }).click();
+  await expect(page.getByRole("cell", { name: "94 — 98", exact: true })).toBeVisible();
+  await page.screenshot({ path: "test-results/zones-synthetic.png", fullPage: true });
+  await page.setViewportSize({ width: 390, height: 844 });
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  await page.getByLabel("Mostrar zonas de suporte / resistência").uncheck();
+  await expect(page.getByRole("region", { name: "Evidência das zonas" })).toHaveCount(0);
+  expect(errors).toEqual([]);
+});
+
+test("mismatched zone response blocks chart", async ({ page }) => {
+  await fixtures(page, "badzones");
+  await page.goto("/");
+  await page.getByRole("button", { name: /SYNTHETIC/ }).click();
+  await page.getByLabel("Mostrar zonas de suporte / resistência").check();
+  await expect(page.getByText("As zonas não correspondem aos dados deste gráfico.")).toBeVisible();
+  await expect(page.getByTestId("price-chart")).toHaveCount(0);
+});
+
+test("insufficient pivot evidence shows honest no-zone state", async ({ page }) => {
+  await fixtures(page, "nozones");
+  await page.goto("/");
+  await page.getByRole("button", { name: /SYNTHETIC/ }).click();
+  await page.getByLabel("Mostrar zonas de suporte / resistência").check();
+  await expect(page.getByText("Ainda não existem zonas confirmadas neste período.")).toBeVisible();
+  await expect(page.getByTestId("price-chart")).toBeVisible();
 });

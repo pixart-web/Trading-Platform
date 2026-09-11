@@ -25,3 +25,7 @@ are introduced; advanced catalogue extensions and empirical feature evaluation r
 Phase 4 implements confirmed swings and versioned close-break structure in MARKET_STRUCTURE.md.
 It distinguishes pivot position from confirmation and availability, retains evidence, and does not
 convert structure into trade decisions or probabilities. Analytical hashes share one canonical encoder.
+
+Phase 5 adds SupportResistance over trusted replay and confirmed structure pivots. Immutable zones
+retain fixed bounds, contact episodes, rejections, role flips, recency and explained heuristic strength.
+Confidence remains null/UNCALIBRATED. See SUPPORT_RESISTANCE.md for precise conventions and limits.

@@ -45,3 +45,10 @@ PA_STANDALONE=1 and runs as the node user. Standard local build/start uses Next.
 pnpm version and package lock are committed; only esbuild and unrs-resolver install scripts are
 approved. Node 24 is the tested runtime. CI adds lint, TypeScript, Vitest, production build,
 Playwright Chromium tests and frontend Docker build alongside all previous backend checks.
+
+Phase 5 extends the gateway allowlist with the read-only zones route. Enabling the zones control
+replaces the candle request with one atomic candles/snapshot request, using the same cancellation
+and quality gates plus zone identity, availability, exact bounds and component checks. Baseline
+series shade fixed bands from current-role availability, never from the earlier pivot position.
+An exact-values evidence table remains available; late imports outside the plotted history do not
+produce a retrospective band. See SUPPORT_RESISTANCE.md. Analytics remain entirely in Python.

@@ -8,6 +8,8 @@ import {
   assetSchema, chartProblem, marketSchema, qualityLabels, readJSON, recentRange,
   responseSchema, timeframes, validateRange, type Market, type Range, type Timeframe,
 } from "@/lib/market-data";
+import { zoneProblem, zoneResponseSchema, type ZoneSnapshot } from "@/lib/zones";
+import type { CandleResponse } from "@/lib/market-data";
 
 const PriceChart = dynamic(() => import("./price-chart").then(m => m.PriceChart), {
   ssr: false, loading: () => <div className="empty-chart" role="status">A preparar o gráfico…</div>,
@@ -62,6 +64,7 @@ export function MarketWorkspace({ initialRange }: { initialRange: Range }) {
   const [timeframe, setTimeframe] = useState<Timeframe>("1h");
   const [range, setRange] = useState(initialRange);
   const [revision, setRevision] = useState(0);
+  const [showZones, setShowZones] = useState(false);
   const catalogParams = new URLSearchParams({
     q: query, offset: String(offset), limit: "40", _refresh: String(revision),
   });
@@ -70,11 +73,12 @@ export function MarketWorkspace({ initialRange }: { initialRange: Range }) {
   const metadata = useResource(selected
     ? "/api/market-data/assets/" + encodeURIComponent(selected.asset_id) : null, assetSchema);
   const candleParams = new URLSearchParams({ ...range, timeframe, limit: "1000", _refresh: String(revision) });
-  const data = useResource(selected
-    ? "/api/market-data/markets/" + encodeURIComponent(selected.market_id) + "/candles?" + candleParams
-    : null, responseSchema);
+  const data = useResource<CandleResponse & { snapshot?: ZoneSnapshot }>(selected
+    ? "/api/market-data/markets/" + encodeURIComponent(selected.market_id) + (showZones ? "/zones?" : "/candles?") + candleParams
+    : null, showZones ? zoneResponseSchema : responseSchema);
   const response = data?.data;
-  const problem = response && selected ? chartProblem(response, selected.market_id, timeframe, range) : null;
+  const problem = response && selected ? chartProblem(response, selected.market_id, timeframe, range)
+    ?? (response.snapshot ? zoneProblem(response.snapshot, response.candles, selected.market_id, timeframe, range) : null) : null;
   const last = !problem && response?.candles.length ? response.candles[response.candles.length - 1] : null;
   const isEmpty = response?.candles.length === 0;
 
@@ -121,7 +125,7 @@ export function MarketWorkspace({ initialRange }: { initialRange: Range }) {
           <button disabled={catalog?.data?.length !== 40 || offset >= 100000} onClick={() => setOffset(n => n + 40)}>Seguinte</button>
         </div>}
         <div className="sidebar-note"><span className="eyebrow">DADOS, ANTES DE DECISÕES</span>
-          <p>Sem indicadores ou recomendações nesta fase. Cada gráfico depende de observações armazenadas.</p></div>
+          <p>Zonas baseadas em observações armazenadas. Não são recomendações nem probabilidades.</p></div>
       </aside>
 
       <main id="workspace" className="workspace">
@@ -146,6 +150,9 @@ export function MarketWorkspace({ initialRange }: { initialRange: Range }) {
               {value}</button>)}</div><span className="utc-label">UTC</span></div>
           <RangeForm key={timeframe + range.start + range.end} range={range} timeframe={timeframe}
             onApply={next => { setRange(next); setRevision(r => r + 1); }} />
+          <label className="zone-toggle"><input type="checkbox" checked={showZones}
+            onChange={e => { setShowZones(e.target.checked); setRevision(r => r + 1); }} />
+            Mostrar zonas de suporte / resistência</label>
           {!selected && <div className="empty-chart"><div className="empty-symbol" aria-hidden="true">⌕</div>
             <h3>Começa por um mercado</h3><p>Pesquisa um ativo na lista e seleciona o mercado que queres explorar.</p>
             <span className="empty-caption">CRYPTO / STOCK / ETF / INDEX</span></div>}
@@ -160,10 +167,23 @@ export function MarketWorkspace({ initialRange }: { initialRange: Range }) {
               {response.quality.reason_codes.map(code => <li key={code}>{qualityLabels[code] ?? code}</li>)}</ul>}
             {response.quality.missing_intervals.length > 0 && <small>{response.quality.missing_intervals.length} intervalos em falta. Nenhum foi preenchido.</small>}
           </div>}
-          {response && !problem && response.candles.length > 0 && <PriceChart key={selected?.market_id + timeframe + range.start + range.end + revision} candles={response.candles} />}
+          {response && !problem && response.candles.length > 0 && <PriceChart key={selected?.market_id + timeframe + range.start + range.end + revision} candles={response.candles} zones={response.snapshot?.zones} />}
           <div className="data-provenance"><span>{response ? "Fonte: " + response.quality.source : "Fonte: aguardando seleção"}</span>
             <span>{response ? response.candles.length + " observações recebidas" : "Apenas observações armazenadas"}</span></div>
         </div>
+        {showZones && response?.snapshot && !problem && <section className="zone-evidence" aria-label="Evidência das zonas">
+          <h3>Suporte e resistência</h3>
+          <p>Força explicada, não probabilidade. As faixas mostram o estado no último fecho e começam apenas quando disponível; dados recebidos mais tarde podem ficar fora do gráfico.</p>
+          {response.snapshot.zones.length === 0 ? <p role="status">Ainda não existem zonas confirmadas neste período.</p>
+            : <div className="table-scroll" tabIndex={0}><table><caption>Zonas confirmadas — valores exatos</caption>
+              <thead><tr><th>Função</th><th>Limites</th><th>Força / 100</th><th>Evidência</th><th>Disponível desde (UTC)</th></tr></thead>
+              <tbody>{response.snapshot.zones.map(zone => <tr key={zone.zone_id}>
+                <td>{zone.role === "SUPPORT" ? "Suporte" : "Resistência"}</td><td>{zone.lower} — {zone.upper}</td>
+                <td>{zone.strength}<small> Pivôs {zone.components.pivots} + contactos {zone.components.contacts} + rejeições {zone.components.rejections} + recência {zone.components.recency}</small></td>
+                <td>{zone.pivot_count} pivôs · {zone.contacts} contactos · {zone.rejections} rejeições · {zone.flips} inversões</td>
+                <td>{zone.visible_from}</td></tr>)}</tbody></table></div>}
+          <small>Modelo {response.snapshot.engine_version} · Confiança não calibrada</small>
+        </section>}
         {response?.quality.warnings.length ? <div className="notice" role="status">{response.quality.warnings.join(" · ")}</div> : null}
         <div className="workspace-notes"><p>Os períodos são avaliados como intervalos contínuos. Fechos de sessão podem ser assinalados como intervalos em falta.</p>
           <p>O gráfico usa aproximações visuais; os valores originais são preservados na tabela.</p></div>

@@ -8,7 +8,9 @@ Phase 3 technical intelligence is implemented as the initial five-family feature
 scope, catalogue extensions and verification are recorded in PHASE_3_COMPLETION_REPORT.md.
 Phase 4 market structure is implemented; conventions and verification are recorded in
 PHASE_4_COMPLETION_REPORT.md and ../architecture/MARKET_STRUCTURE.md.
-All phases after 4 are unimplemented.
+Phase 5 support/resistance zones and overlays are implemented; verification is recorded in
+PHASE_5_COMPLETION_REPORT.md and conventions in ../architecture/SUPPORT_RESISTANCE.md.
+All phases after 5 are unimplemented.
 0. Foundation — repository, domain base, config, DB, Redis, Docker, CI, audit, testing, logging.
 1. Universal market data — assets/providers/history/candles/trades/quotes/quality/replay.
 2. Charting foundation — Next.js shell, search, candles, timeframes, volume, API.

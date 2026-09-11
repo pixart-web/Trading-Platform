@@ -102,3 +102,10 @@ th { color: var(--muted); font-weight: 400; }
   .empty-chart { min-height: 330px; padding: 36px 20px; } .chart-canvas { height: 350px; } .data-provenance { padding: 12px 14px; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+/* Phase 5: extend the existing working surface, without changing its layout. */
+.zone-toggle { display: flex; align-items: center; gap: .6rem; padding: .8rem 1.3rem; font-size: .875rem; }
+.zone-toggle input { width: 1.1rem; height: 1.1rem; accent-color: #6cceaf; }
+.zone-evidence { margin-top: 1rem; padding: 1rem; border: 1px solid #2a3742; border-radius: .75rem; min-width: 0; }
+.zone-evidence h3 { margin: 0 0 .5rem; }
+.zone-evidence p { font-size: .875rem; line-height: 1.5; color: #b7c4cf; }
+.zone-evidence small { display: block; color: #9aabb9; }

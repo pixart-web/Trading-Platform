@@ -15,6 +15,7 @@ from pocket_alpha.audit.models import AuditEvent, AuditReason
 from pocket_alpha.audit.repository import append_event
 from pocket_alpha.config import Settings
 from pocket_alpha.database import build_engine
+from pocket_alpha.intelligence.zones.api import router as zone_router
 from pocket_alpha.market_data.api import router as market_router
 from pocket_alpha.observability import configure_logging
 
@@ -51,6 +52,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     app = FastAPI(title="Pocket Alpha", version="0.1.0", lifespan=lifespan)
     app.include_router(market_router)
+    app.include_router(zone_router)
 
     @app.middleware("http")
     async def correlation(

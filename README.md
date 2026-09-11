@@ -1,7 +1,7 @@
 # Pocket Alpha
 
-Phase 4: shared market structure with confirmed swings, HH/HL/LH/LL, BOS/CHOCH and explicit
-causal evidence, alongside the Phase 3 versioned technical indicators over trusted replay.
+Phase 5: causal support/resistance zones with explained strength and optional chart overlays,
+alongside shared market structure and versioned technical indicators over trusted replay.
 The Phase 2 Next.js workspace provides search, candles, volume and quality states.
 No external provider is connected and no market data is seeded. No signals or execution exist.
 See [market-data architecture](docs/architecture/MARKET_DATA_ARCHITECTURE.md).
@@ -9,6 +9,8 @@ See [technical intelligence](docs/architecture/TECHNICAL_INTELLIGENCE.md) for ba
 formula conventions and the implemented catalogue. Indicators are not yet exposed in the UI/API.
 See [market structure](docs/architecture/MARKET_STRUCTURE.md) for backend usage and exact
 confirmation/break conventions. Structure is not yet exposed in the UI/API either.
+See [support/resistance](docs/architecture/SUPPORT_RESISTANCE.md) for zone conventions,
+the atomic candles/zones API and availability-gated overlays. Strength is not a probability.
 
 ## Development
 

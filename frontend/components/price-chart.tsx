@@ -2,12 +2,15 @@
 
 import { useEffect, useRef, useState } from "react";
 import {
-  createChart, CandlestickSeries, HistogramSeries, ColorType, CrosshairMode,
+  createChart, CandlestickSeries, HistogramSeries, BaselineSeries, ColorType, CrosshairMode,
   type IChartApi, type UTCTimestamp,
 } from "lightweight-charts";
 import type { Candle } from "@/lib/market-data";
+import { zoneTimes, type Zone } from "@/lib/zones";
 
-export function PriceChart({ candles }: { candles: Candle[] }) {
+const NO_ZONES: Zone[] = [];
+
+export function PriceChart({ candles, zones = NO_ZONES }: { candles: Candle[]; zones?: Zone[] }) {
   const container = useRef<HTMLDivElement>(null);
   const chartRef = useRef<IChartApi | null>(null);
   const [hovered, setHovered] = useState<Candle | null>(null);
@@ -44,13 +47,28 @@ export function PriceChart({ candles }: { candles: Candle[] }) {
       time: Date.parse(c.open_time) / 1000 as UTCTimestamp, value: Number(c.volume),
       color: Number(c.close) >= Number(c.open) ? "#407b6c" : "#865457",
     })));
+    for (const zone of zones) {
+      const times = zoneTimes(zone, candles);
+      if (!times) continue;
+      const support = zone.role === "SUPPORT";
+      const color = support ? "#6cceaf" : "#ec8f8f";
+      const band = chart.addSeries(BaselineSeries, {
+        baseValue: { type: "price", price: Number(zone.lower) },
+        topLineColor: color, topFillColor1: support ? "#6cceaf22" : "#ec8f8f22",
+        topFillColor2: support ? "#6cceaf22" : "#ec8f8f22",
+        bottomLineColor: color, bottomFillColor1: "transparent", bottomFillColor2: "transparent",
+        baseLineVisible: false, priceLineVisible: false, lastValueVisible: false,
+        crosshairMarkerVisible: false, lineWidth: 1, autoscaleInfoProvider: () => null,
+      });
+      band.setData(times.map(time => ({ time: time as UTCTimestamp, value: Number(zone.upper) })));
+    }
     const byTime = new Map(candles.map(c => [Date.parse(c.open_time) / 1000, c]));
     chart.subscribeCrosshairMove(param => {
       setHovered(typeof param.time === "number" ? byTime.get(param.time) ?? null : null);
     });
     chart.timeScale().fitContent();
     return () => { chartRef.current = null; chart.remove(); };
-  }, [candles]);
+  }, [candles, zones]);
 
   function zoom(factor: number) {
     const scale = chartRef.current?.timeScale();

@@ -3,7 +3,7 @@ export function upstreamURL(parts: string[], search: URLSearchParams, base: stri
   const id = /^[A-Za-z0-9_.:-]{1,128}$/;
   const allowed = (parts.length === 1 && ["assets", "markets"].includes(parts[0]))
     || (parts.length === 2 && parts[0] === "assets" && id.test(parts[1]))
-    || (parts.length === 3 && parts[0] === "markets" && id.test(parts[1]) && parts[2] === "candles");
+    || (parts.length === 3 && parts[0] === "markets" && id.test(parts[1]) && ["candles", "zones"].includes(parts[2]));
   if (!allowed || parts.some(part => part === "." || part === "..")) throw new Error("Unsupported resource");
   const root = new URL(base);
   if (!["http:", "https:"].includes(root.protocol) || root.username || root.password
