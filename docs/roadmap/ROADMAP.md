@@ -12,7 +12,9 @@ Phase 5 support/resistance zones and overlays are implemented; verification is r
 PHASE_5_COMPLETION_REPORT.md and conventions in ../architecture/SUPPORT_RESISTANCE.md.
 Phase 6 multi-timeframe analysis is implemented; contracts are in
 ../architecture/MULTI_TIMEFRAME.md and verification in PHASE_6_COMPLETION_REPORT.md.
-All phases after 6 are unimplemented.
+Phase 7 regime classification, research probabilities and temporal evaluation are implemented;
+see ../architecture/REGIME_ENGINE.md and PHASE_7_COMPLETION_REPORT.md.
+All phases after 7 are unimplemented.
 0. Foundation — repository, domain base, config, DB, Redis, Docker, CI, audit, testing, logging.
 1. Universal market data — assets/providers/history/candles/trades/quotes/quality/replay.
 2. Charting foundation — Next.js shell, search, candles, timeframes, volume, API.

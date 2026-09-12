@@ -35,3 +35,8 @@ Phase 6 adds intelligence/multi_timeframe: independent native-resolution analyse
 cutoff, unanimous structural context, explicit disagreement and higher-timeframe opposition.
 It reuses the existing kernels after one trusted replay per frame, with explicit freshness and
 unavailable states. No persistence, HTTP, UI or execution dependency is added. See MULTI_TIMEFRAME.md.
+
+Phase 7 adds intelligence/regimes over trusted replay and the shared technical kernel. Descriptive
+trend/volatility rules and explicitly fitted Gaussian research posteriors retain causal evidence;
+temporal evaluation rejects training/holdout overlap. Probabilities remain uncalibrated and absent
+without a model. No forecasts, persistence, API/UI or execution path. See REGIME_ENGINE.md.

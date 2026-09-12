@@ -1,5 +1,10 @@
 # Pocket Alpha
 
+Phase 7 adds a shared [regime engine](docs/architecture/REGIME_ENGINE.md): explained trend and
+volatility classifications, explicit supervised research probabilities and temporal held-out
+evaluation. No trained model or real dataset is shipped; probabilities are unavailable without
+a supplied model and remain explicitly uncalibrated when modeled. This is a Python service only.
+
 Phase 6: causal multi-timeframe context with independent technical, structure and zone analyses,
 explicit agreement/disagreement and higher-timeframe opposition over trusted replay.
 See [multi-timeframe intelligence](docs/architecture/MULTI_TIMEFRAME.md) for the shared Python
