@@ -1,7 +1,10 @@
 # Pocket Alpha
 
-Phase 5: causal support/resistance zones with explained strength and optional chart overlays,
-alongside shared market structure and versioned technical indicators over trusted replay.
+Phase 6: causal multi-timeframe context with independent technical, structure and zone analyses,
+explicit agreement/disagreement and higher-timeframe opposition over trusted replay.
+See [multi-timeframe intelligence](docs/architecture/MULTI_TIMEFRAME.md) for the shared Python
+service, cutoff/freshness contracts and usage. This service is not yet exposed in the UI/API.
+Phase 5 support/resistance zones retain explained strength and optional chart overlays.
 The Phase 2 Next.js workspace provides search, candles, volume and quality states.
 No external provider is connected and no market data is seeded. No signals or execution exist.
 See [market-data architecture](docs/architecture/MARKET_DATA_ARCHITECTURE.md).

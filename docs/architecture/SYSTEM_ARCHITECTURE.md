@@ -30,3 +30,8 @@ JSON logs carry generated correlation IDs. Liveness is process health; readiness
 database, Redis and successful startup audit. Failed startup audit requires restart after recovery.
 Prometheus, Grafana, OpenTelemetry and Sentry are planned observability expansion, not yet installed.
 No public deployment/authentication or production credential management is implemented.
+
+Phase 6 adds intelligence/multi_timeframe: independent native-resolution analyses at one causal
+cutoff, unanimous structural context, explicit disagreement and higher-timeframe opposition.
+It reuses the existing kernels after one trusted replay per frame, with explicit freshness and
+unavailable states. No persistence, HTTP, UI or execution dependency is added. See MULTI_TIMEFRAME.md.

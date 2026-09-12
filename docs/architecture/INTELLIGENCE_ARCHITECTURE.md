@@ -29,3 +29,8 @@ convert structure into trade decisions or probabilities. Analytical hashes share
 Phase 5 adds SupportResistance over trusted replay and confirmed structure pivots. Immutable zones
 retain fixed bounds, contact episodes, rejections, role flips, recency and explained heuristic strength.
 Confidence remains null/UNCALIBRATED. See SUPPORT_RESISTANCE.md for precise conventions and limits.
+
+Phase 6 adds intelligence/multi_timeframe: independent native-resolution analyses at one causal
+cutoff, unanimous structural context, explicit disagreement and higher-timeframe opposition.
+It reuses the existing kernels after one trusted replay per frame, with explicit freshness and
+unavailable states. No persistence, HTTP, UI or execution dependency is added. See MULTI_TIMEFRAME.md.

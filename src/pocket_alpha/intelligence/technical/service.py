@@ -1,7 +1,7 @@
 import hashlib
 from decimal import ROUND_HALF_EVEN, Context, localcontext
 
-from pocket_alpha.domain.market import CandleQuery
+from pocket_alpha.domain.market import Candle, CandleQuery
 from pocket_alpha.intelligence.provenance import candle_bytes
 from pocket_alpha.intelligence.provenance import canonical as canonical
 from pocket_alpha.intelligence.technical.indicators import calculate
@@ -38,33 +38,43 @@ class TechnicalIntelligence:
             raise ValueError("request 1..32 unique indicator specifications")
         events = self.replay.replay(query, policy)
         candles = tuple(sorted((event.candle for event in events), key=lambda c: c.open_time))
-        if not candles:
-            return ()
-        # Fully specified Context, not a copy of ambient precision/rounding/traps.
-        with localcontext(Context(prec=50, rounding=ROUND_HALF_EVEN)):
-            series = [calculate(candles, spec) for spec in specs]
-            snapshots: list[FeatureSnapshot] = []
-            available = candles[0].received_at
-            digest = hashlib.sha256(b"pocket-alpha-candle-prefix-v1")
-            for i, candle in enumerate(candles):
-                digest.update(candle_bytes(candle))
-                available = max(available, candle.received_at)
-                snapshots.append(
-                    FeatureSnapshot(
-                        market_id=query.market_id,
-                        timeframe=query.timeframe,
-                        source=candle.source,
-                        freshness_policy=policy,
-                        input_start=query.start,
-                        bar_open=candle.open_time,
-                        bar_close=candle.close_time,
-                        available_at=available,
-                        input_count=i + 1,
-                        input_hash=digest.hexdigest(),
-                        results=tuple(
-                            IndicatorResult(spec=spec, features=values[i])
-                            for spec, values in zip(specs, series, strict=True)
-                        ),
-                    )
+        return _calculate(candles, query, policy, specs)
+
+
+def _calculate(
+    candles: tuple[Candle, ...],
+    query: CandleQuery,
+    policy: FreshnessPolicy,
+    specs: tuple[IndicatorSpec, ...],
+) -> tuple[FeatureSnapshot, ...]:
+    """Internal kernel; caller must enforce trusted replay and validated specs."""
+    if not candles:
+        return ()
+    # Fully specified Context, not a copy of ambient precision/rounding/traps.
+    with localcontext(Context(prec=50, rounding=ROUND_HALF_EVEN)):
+        series = [calculate(candles, spec) for spec in specs]
+        snapshots: list[FeatureSnapshot] = []
+        available = candles[0].received_at
+        digest = hashlib.sha256(b"pocket-alpha-candle-prefix-v1")
+        for i, candle in enumerate(candles):
+            digest.update(candle_bytes(candle))
+            available = max(available, candle.received_at)
+            snapshots.append(
+                FeatureSnapshot(
+                    market_id=query.market_id,
+                    timeframe=query.timeframe,
+                    source=candle.source,
+                    freshness_policy=policy,
+                    input_start=query.start,
+                    bar_open=candle.open_time,
+                    bar_close=candle.close_time,
+                    available_at=available,
+                    input_count=i + 1,
+                    input_hash=digest.hexdigest(),
+                    results=tuple(
+                        IndicatorResult(spec=spec, features=values[i])
+                        for spec, values in zip(specs, series, strict=True)
+                    ),
                 )
-            return tuple(snapshots)
+            )
+        return tuple(snapshots)
