@@ -46,3 +46,14 @@ externally produced immutable forecast snapshots, followed later by separate obs
 deterministic reference evaluation. Migration 0003 persists both records; no model generation,
 score, decision, strategy, risk, execution, broker, HTTP or UI path is added. See
 FORECAST_ARCHITECTURE.md.
+
+Phase 9 adds an in-memory research producer after the forecast boundary: deterministic Gaussian
+direction baselines, separate temporal temperature calibration and cost-aware held-out evaluation.
+It emits Phase 8 forecast values and cannot reach strategy, portfolio, risk, execution or broker
+modules. No persistence, migration, endpoint, frontend or dependency is added. See
+BASELINE_FORECAST_MODELS.md.
+
+Phase 10 adds the scoring boundary as an in-memory deterministic module after forecasts. It combines
+versioned normalized evidence using an explicit configuration and fails closed when required inputs
+or configured coverage are missing. No persistence, endpoint, frontend, strategy, risk, execution
+or broker dependency is added. See POCKET_SCORE.md.

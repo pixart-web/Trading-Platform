@@ -45,3 +45,15 @@ availability must precede forecast generation and is stored with canonical conte
 forecast horizon remains separate from each input candle timeframe. Forecast infrastructure does
 not reinterpret intelligence scores as probabilities or allow later outcomes to mutate evidence.
 See FORECAST_ARCHITECTURE.md.
+
+Phase 9 consumes named, versioned feature vectors and causal evidence snapshots without adding a
+parallel intelligence implementation. Training, calibration and held-out evaluation are disjoint in
+time, and model artifacts retain feature, dataset, code and environment identity. The research
+baseline does not convert intelligence directly into a score or trading decision. See
+BASELINE_FORECAST_MODELS.md.
+
+Phase 10 adds scoring after intelligence and forecasts. Pocket Score accepts only externally
+normalized, versioned 0-100 setup-quality components with causal evidence; it does not invent
+transformations for existing indicators. Configured weights, coverage, missing inputs and every
+contribution remain inspectable. The result is neither a probability nor a directional or economic
+decision. See POCKET_SCORE.md.

@@ -17,7 +17,12 @@ see ../architecture/REGIME_ENGINE.md and PHASE_7_COMPLETION_REPORT.md.
 Phase 8 immutable forecast and separate outcome infrastructure is implemented; conventions and
 verification are recorded in ../architecture/FORECAST_ARCHITECTURE.md and
 PHASE_8_COMPLETION_REPORT.md.
-All phases after 8 are unimplemented.
+Phase 9 deterministic baseline forecasts, separate temperature calibration and temporal economic
+evaluation are implemented; see ../architecture/BASELINE_FORECAST_MODELS.md and
+PHASE_9_COMPLETION_REPORT.md.
+Phase 10 configurable, explained Pocket Score aggregation is implemented; see
+../architecture/POCKET_SCORE.md and PHASE_10_COMPLETION_REPORT.md.
+All phases after 10 are unimplemented.
 0. Foundation — repository, domain base, config, DB, Redis, Docker, CI, audit, testing, logging.
 1. Universal market data — assets/providers/history/candles/trades/quotes/quality/replay.
 2. Charting foundation — Next.js shell, search, candles, timeframes, volume, API.

@@ -1,5 +1,16 @@
 # Pocket Alpha
 
+Phase 10 adds a configurable, explained Pocket Score over versioned normalized setup-quality
+components. Missing required evidence fails closed; weights, coverage and contributions remain
+inspectable. The score is not a probability, direction, recommendation or economic ranking. See
+[Pocket Score architecture](docs/architecture/POCKET_SCORE.md).
+
+Phase 9 adds an interpretable research forecast baseline, separate temperature calibration and
+cost-aware temporal evaluation over explicit train/calibration/validation/final-holdout partitions.
+Artifacts retain causal cutoffs, versions and hashes; predictions use the immutable Phase 8
+forecast contract. Tests use synthetic fixtures, and no accuracy, calibration or profitability is
+claimed. See [baseline forecast models](docs/architecture/BASELINE_FORECAST_MODELS.md).
+
 Phase 8 adds a validated append-only forecast ledger, immutable causal evidence snapshots, separate
 post-expiry outcomes and deterministic reference metrics. It accepts externally produced forecasts
 and does not ship a forecast model or fabricate predictions. See

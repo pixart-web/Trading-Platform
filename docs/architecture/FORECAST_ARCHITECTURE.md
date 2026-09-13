@@ -66,10 +66,15 @@ Migration 0003 creates `forecasts` and `forecast_outcomes`, preserving the forei
 market metadata and uniqueness of one outcome per forecast. Upgrade is additive. Downgrade deletes
 all forecast and outcome history, so retained data must be exported before rollback.
 
-## Explicit limitations
+## Phase 9 research producer and explicit limitations
 
-There is no baseline forecast model, fitting/calibration procedure, outcome collection worker,
-exchange calendar, corporate-action adjustment, net expectancy, transaction-cost evaluation,
+Phase 9 adds an in-memory, deterministic Gaussian baseline, separate temperature calibration and
+cost-aware temporal evaluation described in
+[Baseline forecast models](BASELINE_FORECAST_MODELS.md). It produces the same Phase 8 immutable
+Forecast contract in RESEARCH stage; it does not alter ledger or outcome persistence.
+
+There is still no outcome collection worker, exchange calendar, corporate-action adjustment,
 asset/class/regime/confidence stratification, registry persistence, drift monitoring, API or UI.
-Phase 9 owns baseline models and temporal economic validation. Phase 10 owns the explained,
-configurable Pocket Score. Neither phase is started here.
+No trained artifact or real dataset ships with the code. Phase 10 adds the separate explained,
+configurable setup-quality aggregation described in [Pocket Score](POCKET_SCORE.md); it does not
+change forecast probabilities or their meaning.
