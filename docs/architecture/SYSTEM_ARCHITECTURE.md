@@ -40,3 +40,9 @@ Phase 7 adds intelligence/regimes over trusted replay and the shared technical k
 trend/volatility rules and explicitly fitted Gaussian research posteriors retain causal evidence;
 temporal evaluation rejects training/holdout overlap. Probabilities remain uncalibrated and absent
 without a model. No forecasts, persistence, API/UI or execution path. See REGIME_ENGINE.md.
+
+Phase 8 adds forecasts as the next boundary after intelligence: a validated append-only ledger of
+externally produced immutable forecast snapshots, followed later by separate observed outcomes and
+deterministic reference evaluation. Migration 0003 persists both records; no model generation,
+score, decision, strategy, risk, execution, broker, HTTP or UI path is added. See
+FORECAST_ARCHITECTURE.md.

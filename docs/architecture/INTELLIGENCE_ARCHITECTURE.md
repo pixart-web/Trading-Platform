@@ -39,3 +39,9 @@ Phase 7 adds intelligence/regimes over trusted replay and the shared technical k
 trend/volatility rules and explicitly fitted Gaussian research posteriors retain causal evidence;
 temporal evaluation rejects training/holdout overlap. Probabilities remain uncalibrated and absent
 without a model. No forecasts, persistence, API/UI or execution path. See REGIME_ENGINE.md.
+
+Phase 8 consumes versioned causal evidence only through immutable forecast snapshots. Evidence
+availability must precede forecast generation and is stored with canonical content hashes; the
+forecast horizon remains separate from each input candle timeframe. Forecast infrastructure does
+not reinterpret intelligence scores as probabilities or allow later outcomes to mutate evidence.
+See FORECAST_ARCHITECTURE.md.

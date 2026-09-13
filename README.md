@@ -1,5 +1,11 @@
 # Pocket Alpha
 
+Phase 8 adds a validated append-only forecast ledger, immutable causal evidence snapshots, separate
+post-expiry outcomes and deterministic reference metrics. It accepts externally produced forecasts
+and does not ship a forecast model or fabricate predictions. See
+[forecast architecture](docs/architecture/FORECAST_ARCHITECTURE.md). Migration 0003 adds forecast
+and outcome tables; no forecast API/UI, score, strategy or execution path exists.
+
 Phase 7 adds a shared [regime engine](docs/architecture/REGIME_ENGINE.md): explained trend and
 volatility classifications, explicit supervised research probabilities and temporal held-out
 evaluation. No trained model or real dataset is shipped; probabilities are unavailable without
@@ -64,8 +70,10 @@ Use `MarketRepository.register` for metadata and `HistoricalIngestion.ingest` wi
 `CandleQuery`, `FreshnessPolicy` and injected `Clock` inside a SQLAlchemy transaction.
 Only `FixtureProvider` exists now, for offline synthetic tests. No public write/import API exists.
 Use `MarketReplay.replay` for trusted replay; `.inspect` exposes quality failures without filling gaps.
-Apply `alembic upgrade head` to upgrade an existing Phase 0 database. Migration 0002 adds market
-tables and preserves audit history. Downgrading to 0001 deletes market data; back up before rollback.
+Apply `alembic upgrade head` to upgrade an existing database. Migrations 0002 and 0003 add market
+and forecast tables respectively while preserving audit history. Applying 0003 is additive.
+Downgrading 0003 deletes forecast/outcome history; downgrading to 0001 also deletes market data.
+Back up retained data before rollback.
 
 ## Trabalhar noutra máquina
 
