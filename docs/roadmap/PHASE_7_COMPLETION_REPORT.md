@@ -70,8 +70,18 @@ The existing GitHub CI runs service integration, migrations, Docker builds and f
 
 ## Remote verification
 
-Pending the authorized branch push at the time of the implementation commit. No remote result
-is claimed until the corresponding run is inspected.
+Implementation commit 8140594b0f1d2ad044dc2b3018068d976552289a: SUCCESS.
+Run: https://github.com/pixart-web/Trading-Platform/actions/runs/34716187176
+
+- Backend lint, format and strict mypy passed.
+- Backend suite: 411 passed, 1 skipped, 89 warnings; includes PostgreSQL/Redis and migration checks.
+- Overall statement coverage: 99% (1,793 statements, 3 missed).
+- Frontend lint, typecheck, 41 unit tests, production build and 10 Chromium tests passed.
+- Compose configuration and both Docker builds passed.
+
+Results were inspected after the implementation push. Dependency warnings remain maintenance debt.
+This verification records the implementation commit above; the follow-up report commit changes
+only this document. Phase 7 is published on codex/phase-7-regime-engine, not merged into main.
 
 ## Migrations, security and financial coverage
 
