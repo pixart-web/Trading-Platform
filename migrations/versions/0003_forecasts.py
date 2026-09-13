@@ -43,11 +43,9 @@ def upgrade() -> None:
         sa.Column("observation_available_at", sa.DateTime(timezone=True), nullable=False),
         sa.Column("payload", sa.Text(), nullable=False),
     )
-    op.create_index("ix_forecast_outcomes_forecast_id", "forecast_outcomes", ["forecast_id"])
 
 
 def downgrade() -> None:
-    op.drop_index("ix_forecast_outcomes_forecast_id", table_name="forecast_outcomes")
     op.drop_table("forecast_outcomes")
     op.drop_index("ix_forecasts_market_horizon_generated", table_name="forecasts")
     op.drop_table("forecasts")

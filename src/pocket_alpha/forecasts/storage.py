@@ -33,9 +33,7 @@ class ForecastRecord(Base):
 class ForecastOutcomeRecord(Base):
     __tablename__ = "forecast_outcomes"
     outcome_id: Mapped[UUID] = mapped_column(Uuid, primary_key=True)
-    forecast_id: Mapped[UUID] = mapped_column(
-        ForeignKey("forecasts.forecast_id"), unique=True, index=True
-    )
+    forecast_id: Mapped[UUID] = mapped_column(ForeignKey("forecasts.forecast_id"), unique=True)
     recorded_at: Mapped[datetime] = mapped_column(Timestamp())
     end_price_at: Mapped[datetime] = mapped_column(Timestamp())
     observation_available_at: Mapped[datetime] = mapped_column(Timestamp())

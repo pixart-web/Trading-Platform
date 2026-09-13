@@ -66,6 +66,15 @@ A real local PostgreSQL/Redis migration round trip was not executed because the 
 unavailable. The full pytest run includes the integration test but skips it, along with parameterized
 PostgreSQL repository cases, unless `PA_INTEGRATION=1` and services are configured.
 
+## Remote validation status
+
+GitHub Actions run 34748264638 on the already published commit `c6f00e6` passed backend lint,
+format and mypy, then failed the migration drift check. The cause was duplicate ORM intent for the
+outcome foreign key: `unique=True, index=True` represented a unique index while migration 0003
+represented a unique constraint plus a separate index. The local follow-up removes `index=True`
+and the redundant migration index, retaining the one-outcome unique constraint. The correction requires a follow-up CI run to verify PostgreSQL schema
+parity.
+
 ## Validation and acceptance
 
 Python 3.12.14 in the existing `.venv` with `requirements.lock`:
