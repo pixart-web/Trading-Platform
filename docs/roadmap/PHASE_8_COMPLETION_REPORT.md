@@ -68,12 +68,15 @@ PostgreSQL repository cases, unless `PA_INTEGRATION=1` and services are configur
 
 ## Remote validation status
 
-GitHub Actions run 34748264638 on the already published commit `c6f00e6` passed backend lint,
-format and mypy, then failed the migration drift check. The cause was duplicate ORM intent for the
-outcome foreign key: `unique=True, index=True` represented a unique index while migration 0003
-represented a unique constraint plus a separate index. The local follow-up removes `index=True`
-and the redundant migration index, retaining the one-outcome unique constraint. The correction requires a follow-up CI run to verify PostgreSQL schema
-parity.
+Implementation/fix commit `d621b2023de5c78c363592d0b612bd38160f6371` passed GitHub Actions
+run 34748623079 after retrying one external Docker Hub 502 response. Backend lint, format, strict
+mypy, PostgreSQL/Redis migrations and tests passed: 428 passed, 1 skipped, 91 warnings and 99%
+statement coverage (2,149 statements, 4 missed). Compose configuration and the backend Docker build
+passed. Frontend lint, typecheck, unit tests, production build, Chromium tests and Docker build also
+passed. Run: https://github.com/pixart-web/Trading-Platform/actions/runs/34748623079.
+
+The preceding commit `c6f00e6` had exposed the ORM/Alembic uniqueness mismatch; `d621b20` removes
+the redundant outcome index while retaining the unique one-outcome-per-forecast constraint.
 
 ## Validation and acceptance
 
