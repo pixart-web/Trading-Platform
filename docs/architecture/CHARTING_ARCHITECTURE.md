@@ -52,3 +52,19 @@ and quality gates plus zone identity, availability, exact bounds and component c
 series shade fixed bands from current-role availability, never from the earlier pivot position.
 An exact-values evidence table remains available; late imports outside the plotted history do not
 produce a retrospective band. See SUPPORT_RESISTANCE.md. Analytics remain entirely in Python.
+
+Phase 13 adds the Analyze panel to the same selected-market workspace. The browser requests one
+exact stored snapshot for the selected timeframe and chart-end UTC timestamp, validates the full
+response before rendering, and shows all thirteen horizons with explicit missing states. The gateway
+allowlists the read-only analysis path and `as_of`; no analytical write route or client-side model is
+introduced. See ANALYZE.md.
+
+Phase 14 adds a watchlist panel to the same workspace. Its runtime-validated local mutations pass only
+through method/path/query allowlists in the existing gateway. Users can capture the exact chart-end
+Analyze state and inspect transition events; the browser does not calculate conclusions or send external
+notifications. See WATCHLISTS.md.
+
+Phase 15 adds the Scanner panel at the current chart timeframe and end timestamp. The browser sends only
+explicit filters through the existing allowlisted gateway, validates the full immutable report and keeps
+policy groups and exclusions visible. It performs no client-side ranking or financial calculation. See
+SCANNER.md.

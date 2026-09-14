@@ -57,3 +57,28 @@ normalized, versioned 0-100 setup-quality components with causal evidence; it do
 transformations for existing indicators. Configured weights, coverage, missing inputs and every
 contribution remain inspectable. The result is neither a probability nor a directional or economic
 decision. See POCKET_SCORE.md.
+
+Phase 11 adds independent LONG and SHORT policy evaluation after forecasts and scoring. It accepts
+versioned causal metrics and retains their evidence rather than recomputing intelligence. Missing
+evidence, two qualifying sides or no qualifying side produce an explained NO_TRADE. The result
+contains no broker capability or risk approval. See DIRECTIONAL_ANALYSIS.md.
+
+
+Phase 12 adds opportunities after forecasts and directional analysis. It combines a calibrated
+side-specific forecast probability, expected movement and interval, explicit round-trip costs, and
+causal liquidity and uncertainty into versioned explained economics. Eligibility gates remain
+separate from the 0-100 ranking index. Missing or stale inputs fail closed, and comparable snapshots
+use deterministic ranking. See OPPORTUNITY_SCORE.md.
+
+Phase 13 assembles the existing shared intelligence outputs into one immutable Analyze report rather
+than recalculating features or conclusions. Each snapshot covers all supported horizons and retains
+both directional cases, evidence, opposition, uncertainty, economics and versions. Missing artifacts
+remain explicit. See ANALYZE.md.
+
+Phase 14 consumes Analyze only as a stored read model. Watchlist snapshots copy exact report identities
+and horizon conclusions without recomputing intelligence, scores, forecasts or economics. Alert events
+record observed changes between immutable snapshots and do not represent new signals. See WATCHLISTS.md.
+
+Phase 15 consumes stored Analyze reports without recomputing intelligence or economic scores. Scanner
+filters retain exact timeframe, forecast horizon, UTC as-of and policy identity; all absent, unavailable,
+ineligible and filtered markets remain explicit. See SCANNER.md.

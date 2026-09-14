@@ -57,3 +57,29 @@ Phase 10 adds the scoring boundary as an in-memory deterministic module after fo
 versioned normalized evidence using an explicit configuration and fails closed when required inputs
 or configured coverage are missing. No persistence, endpoint, frontend, strategy, risk, execution
 or broker dependency is added. See POCKET_SCORE.md.
+
+Phase 11 adds directional as an in-memory deterministic boundary after forecasts/scoring and before
+strategy. LONG and SHORT use separate explicit criteria; NO_TRADE is fail-closed for conflict,
+failure or incomplete evidence. No persistence, endpoint, frontend, strategy, risk, execution or
+broker dependency is added. See DIRECTIONAL_ANALYSIS.md.
+
+
+Phase 12 adds opportunities as an in-memory deterministic consumer of immutable forecasts and
+Phase 11 directional analysis. It exposes net economics, configured gates and same-horizon ranking
+without adding persistence, an endpoint, frontend, strategy, portfolio, risk, execution or broker
+dependency. See OPPORTUNITY_SCORE.md.
+
+Phase 13 adds the analysis read-model boundary, append-only Analyze report persistence, a read-only
+FastAPI route and its validated Next.js presentation. The report composes existing artifacts for all
+thirteen horizons and never creates a strategy, portfolio, risk, execution or broker dependency.
+Migration 0004 is additive. See ANALYZE.md.
+
+Phase 14 adds the watchlist application boundary over registered markets and stored Analyze reports.
+Mutable lists use optimistic revisions; snapshots and transition events are append-only and preserve
+exact as-of identity. Migration 0005 is additive. No scanner, strategy, portfolio, risk, execution or
+broker dependency is introduced. See WATCHLISTS.md.
+
+Phase 15 adds the scanner application/read-model boundary over registered markets and exact stored
+Analyze reports. It filters existing Opportunity Scores and ranks them only within identical policy
+version/hash groups. Migration 0006 is additive. No strategy, portfolio, risk, leverage, execution or
+broker dependency is introduced. See SCANNER.md.

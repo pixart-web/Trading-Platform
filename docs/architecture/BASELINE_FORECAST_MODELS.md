@@ -68,4 +68,4 @@ claim is made about accuracy, calibration, confidence, profitability, statistica
 financial coverage. Walk-forward orchestration, bootstrap/Monte Carlo, cross-asset and regime
 stratification, stress suites, registry persistence, drift monitoring and outcome collection remain
 research work. Phase 10 adds the separate configurable, explained aggregation described in
-[Pocket Score](POCKET_SCORE.md). Phase 11 directional analysis is not started.
+[Pocket Score](POCKET_SCORE.md). Phase 11 directional analysis is implemented in [Directional analysis](DIRECTIONAL_ANALYSIS.md).

@@ -2,8 +2,8 @@
 
 Phase 10 introduces a configurable, explained setup-quality score after intelligence and forecasts.
 It does not produce a direction, rank a trade, estimate success probability or represent expected
-return. Directional LONG/SHORT/NO_TRADE analysis belongs to Phase 11 and economic opportunity
-ranking belongs to Phase 12.
+return. Directional LONG/SHORT/NO_TRADE analysis belongs to Phase 11 and the separate economic opportunity
+ranking is implemented by Phase 12 in OPPORTUNITY_SCORE.md.
 
 ## Input and configuration contract
 
@@ -61,4 +61,5 @@ leverage, execution or brokers, and it cannot bypass any future risk decision.
 Tests use synthetic normalized inputs. The repository ships no empirically validated component
 normalization, default financial weights, thresholds, real dataset or claim that a higher score
 predicts returns. Calibration, temporal outcome studies, sensitivity analysis and score governance
-remain required before a configuration can have financial meaning. Phase 11 is not started.
+remain required before a configuration can have financial meaning. Phase 11 consumes versioned
+metrics without changing Pocket Score semantics; see [Directional analysis](DIRECTIONAL_ANALYSIS.md).

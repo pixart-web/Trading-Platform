@@ -22,7 +22,17 @@ evaluation are implemented; see ../architecture/BASELINE_FORECAST_MODELS.md and
 PHASE_9_COMPLETION_REPORT.md.
 Phase 10 configurable, explained Pocket Score aggregation is implemented; see
 ../architecture/POCKET_SCORE.md and PHASE_10_COMPLETION_REPORT.md.
-All phases after 10 are unimplemented.
+Phase 11 independent LONG/SHORT/NO_TRADE directional analysis is implemented; see
+../architecture/DIRECTIONAL_ANALYSIS.md and PHASE_11_COMPLETION_REPORT.md.
+Phase 12 horizon-specific net economic scoring and deterministic eligibility ranking are implemented;
+see ../architecture/OPPORTUNITY_SCORE.md and PHASE_12_COMPLETION_REPORT.md.
+Phase 13 immutable shared Analyze reports, read-only API and validated web experience are implemented;
+see ../architecture/ANALYZE.md and PHASE_13_COMPLETION_REPORT.md.
+Phase 14 persistent watchlists, immutable exact-time snapshots and derived alert events are implemented;
+see ../architecture/WATCHLISTS.md and PHASE_14_COMPLETION_REPORT.md.
+Phase 15 cross-market filters, policy-isolated rankings and immutable scan reports are implemented;
+see ../architecture/SCANNER.md and PHASE_15_COMPLETION_REPORT.md.
+All phases after 15 are unimplemented.
 0. Foundation — repository, domain base, config, DB, Redis, Docker, CI, audit, testing, logging.
 1. Universal market data — assets/providers/history/candles/trades/quotes/quality/replay.
 2. Charting foundation — Next.js shell, search, candles, timeframes, volume, API.

@@ -1,5 +1,34 @@
 # Pocket Alpha
 
+Phase 15 adds immutable cross-market scans over exact stored Analyze reports. Metadata and economic
+filters produce deterministic Opportunity Score rankings kept separate by policy version/hash, while
+every non-ranked market retains explicit exclusion reasons. The web workspace validates and shows exact
+values; results are not probabilities, recommendations or risk approvals. Migration 0006 is additive.
+See [scanner architecture](docs/architecture/SCANNER.md).
+Phase 14 adds persistent local watchlists, optimistic revisions, immutable exact-time Analyze snapshots
+and append-only transition events. The web workspace can organize registered markets and inspect honest
+coverage or changed horizon conclusions. Events do not send notifications and are not recommendations
+or risk approvals. Migration 0005 is additive. See
+[watchlist architecture](docs/architecture/WATCHLISTS.md).
+
+Phase 13 adds the shared Analyze experience: immutable reports combine Pocket Score and all thirteen
+forecast horizons with their forecasts, independent directional cases and net economic opportunity
+assessment. Migration 0004 stores append-only snapshots; a read-only API and validated responsive
+web panel show exact evidence, opposition, uncertainty, reasons and versions, or honest
+unavailability when no snapshot exists. See [Analyze architecture](docs/architecture/ANALYZE.md).
+
+Phase 12 adds a versioned Opportunity Score for one directional trade and forecast horizon after
+explicit fees, spread, slippage and latency. Calibrated probability, expected move, liquidity,
+uncertainty and risk/reward remain explained; economic gates determine eligibility and deterministic
+rankings exclude unavailable or ineligible opportunities. The score is not a probability,
+recommendation or risk approval. See
+[Opportunity Score architecture](docs/architecture/OPPORTUNITY_SCORE.md).
+
+Phase 11 adds independent LONG and SHORT criterion evaluation with explicit NO_TRADE outcomes
+for conflict, failed cases and incomplete evidence. Policies, thresholds, source evidence and
+reasons remain inspectable; broker capabilities cannot alter analysis. See
+[directional analysis](docs/architecture/DIRECTIONAL_ANALYSIS.md).
+
 Phase 10 adds a configurable, explained Pocket Score over versioned normalized setup-quality
 components. Missing required evidence fails closed; weights, coverage and contributions remain
 inspectable. The score is not a probability, direction, recommendation or economic ranking. See
@@ -81,10 +110,10 @@ Use `MarketRepository.register` for metadata and `HistoricalIngestion.ingest` wi
 `CandleQuery`, `FreshnessPolicy` and injected `Clock` inside a SQLAlchemy transaction.
 Only `FixtureProvider` exists now, for offline synthetic tests. No public write/import API exists.
 Use `MarketReplay.replay` for trusted replay; `.inspect` exposes quality failures without filling gaps.
-Apply `alembic upgrade head` to upgrade an existing database. Migrations 0002 and 0003 add market
-and forecast tables respectively while preserving audit history. Applying 0003 is additive.
-Downgrading 0003 deletes forecast/outcome history; downgrading to 0001 also deletes market data.
-Back up retained data before rollback.
+Apply `alembic upgrade head` to upgrade an existing database. Migrations 0002 through 0006 add market data, forecasts/outcomes, Analyze reports, watchlists and scans
+while preserving earlier history. Applying 0006 is additive. Downgrading 0006 deletes scan reports; downgrading 0005 deletes watchlists,
+their snapshots and alert events; downgrading 0004 deletes Analyze snapshots; downgrading 0003 deletes
+forecast/outcome history; downgrading to 0001 also deletes market data. Back up retained data before rollback.
 
 ## Trabalhar noutra máquina
 

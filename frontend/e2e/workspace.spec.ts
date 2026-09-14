@@ -4,14 +4,88 @@ import { durations, type Timeframe } from "../lib/market-data";
 const market = { market_id: "synthetic-test", asset_id: "synthetic", venue_id: "fixture-only",
   symbol: "SYNTHETIC", quote_currency: "EUR" };
 
-async function fixtures(page: Page, mode: "valid" | "gap" | "empty" | "offline" | "zones" | "badzones" | "nozones" = "valid") {
+async function fixtures(page: Page, mode: "valid" | "gap" | "empty" | "offline" | "zones" | "badzones" | "nozones" | "analysis" | "watchlist" | "scanner" = "valid") {
+  const watchlistId = "11111111-1111-4111-8111-111111111101";
+  let activeList = {
+    schema_version: "watchlist-1.0.0", watchlist_id: watchlistId, name: "A acompanhar",
+    revision: 1, created_at: "2025-01-01T00:00:00Z", updated_at: "2025-01-01T00:00:00Z",
+    members: [] as Array<{ member_id: string; market_id: string; asset_id: string;
+      candle_timeframe: Timeframe; added_at: string }>,
+  };
   await page.route("**/api/market-data/**", async route => {
     const url = new URL(route.request().url());
     if (mode === "offline") return route.fulfill({ status: 503, json: {} });
+    if (url.pathname === "/api/market-data/scans") {
+      if (route.request().method() === "GET") return route.fulfill({ json: [] });
+      const body = route.request().postDataJSON();
+      return route.fulfill({ json: {
+        schema_version: "scan-report-1.0.0", scan_id: body.scan_id,
+        candle_timeframe: body.candle_timeframe, horizon: body.horizon, as_of: body.as_of,
+        generated_at: body.as_of, scanner_version: "scanner-1.0.0", filters: body.filters,
+        status: "NO_MATCHES", universe_size: 1, analyze_reports_found: 0, groups: [],
+        excluded: [{ market: { ...market, name: "Synthetic test asset", asset_type: "STOCK" },
+          report_id: null, opportunity: null, reasons: ["NO_ANALYZE_REPORT"] }],
+        input_hash: "c".repeat(64),
+      } });
+    }
+    if (url.pathname === "/api/market-data/watchlists") {
+      return route.fulfill({ json: mode === "watchlist" ? [activeList] : [] });
+    }
+    if (url.pathname.includes(`/watchlists/${watchlistId}`)) {
+      if (url.pathname.endsWith("/snapshots/latest")) return route.fulfill({ json: null });
+      if (url.pathname.endsWith("/alerts")) return route.fulfill({ json: [] });
+      if (url.pathname.includes("/markets/") && route.request().method() === "PUT") {
+        const body = route.request().postDataJSON();
+        activeList = { ...activeList, revision: 2, updated_at: "2025-01-01T01:00:00Z",
+          members: [{ member_id: body.member_id, market_id: market.market_id,
+            asset_id: market.asset_id, candle_timeframe: body.candle_timeframe,
+            added_at: "2025-01-01T01:00:00Z" }] };
+        return route.fulfill({ json: activeList });
+      }
+      if (url.pathname.endsWith("/snapshots") && route.request().method() === "POST") {
+        const body = route.request().postDataJSON();
+        const snapshot = { schema_version: "watchlist-snapshot-1.0.0",
+          snapshot_id: body.snapshot_id, watchlist_id: watchlistId, watchlist_revision: 2,
+          as_of: body.as_of, generated_at: body.as_of, status: "UNAVAILABLE",
+          input_hash: "b".repeat(64), items: activeList.members.map(item => ({
+            member_id: item.member_id, market_id: item.market_id, asset_id: item.asset_id,
+            candle_timeframe: item.candle_timeframe, report_id: null, report_status: null,
+            unavailable_reason: "NO_ANALYSIS_SNAPSHOT", horizons: ["1H", "4H", "8H", "12H",
+              "24H", "2D", "3D", "7D", "14D", "30D", "90D", "6M", "12M"].map(horizon =>
+                ({ horizon, conclusion: "UNAVAILABLE" })),
+          })) };
+        return route.fulfill({ json: { snapshot, events: [] } });
+      }
+    }
     if (url.pathname.endsWith("/markets")) return route.fulfill({ json: mode === "empty" ? [] : [market] });
     if (url.pathname.includes("/assets/")) return route.fulfill({ json: {
       asset_id: "synthetic", symbol: "SYNTHETIC", name: "Synthetic test asset", asset_type: "STOCK",
     } });
+    if (url.pathname.endsWith("/analysis")) {
+      const asOf = url.searchParams.get("as_of")!;
+      if (mode !== "analysis") return route.fulfill({ json: {
+        schema_version: "analyze-response-1.0.0", market_id: market.market_id,
+        candle_timeframe: url.searchParams.get("timeframe"), requested_as_of: asOf,
+        status: "UNAVAILABLE", report: null, unavailable_reason: "NO_ANALYSIS_SNAPSHOT",
+      } });
+      const horizons = ["1H", "4H", "8H", "12H", "24H", "2D", "3D", "7D", "14D", "30D", "90D", "6M", "12M"];
+      return route.fulfill({ json: {
+        schema_version: "analyze-response-1.0.0", market_id: market.market_id,
+        candle_timeframe: url.searchParams.get("timeframe"), requested_as_of: asOf,
+        status: "AVAILABLE", unavailable_reason: null, report: {
+          report_id: "00000000-0000-0000-0000-000000000001", market_id: market.market_id,
+          asset_id: market.asset_id, candle_timeframe: url.searchParams.get("timeframe"), as_of: asOf,
+          generated_at: asOf, status: "UNAVAILABLE", report_version: "synthetic-analyze-v1",
+          input_hash: "a".repeat(64), issues: ["POCKET_SCORE_NOT_PRODUCED"],
+          pocket_score: null, pocket_score_unavailable_reason: "POCKET_SCORE_NOT_PRODUCED",
+          horizons: horizons.map(horizon => ({ horizon, status: "UNAVAILABLE", conclusion: "UNAVAILABLE",
+            issues: ["FORECAST_NOT_PRODUCED", "DIRECTIONAL_NOT_PRODUCED", "OPPORTUNITY_NOT_PRODUCED"],
+            forecast: null, forecast_unavailable_reason: "FORECAST_NOT_PRODUCED",
+            directional: null, directional_unavailable_reason: "DIRECTIONAL_NOT_PRODUCED",
+            opportunity: null, opportunity_unavailable_reason: "OPPORTUNITY_NOT_PRODUCED" })),
+        },
+      } });
+    }
     const timeframe = url.searchParams.get("timeframe") as Timeframe;
     const start = Date.parse(url.searchParams.get("start")!);
     const end = Date.parse(url.searchParams.get("end")!);
@@ -94,7 +168,8 @@ test("invalid quality blocks the chart", async ({ page }) => {
 test("offline service does not invent market data", async ({ page }) => {
   await fixtures(page, "offline");
   await page.goto("/");
-  await expect(page.getByRole("alert").filter({ hasText: "Não foi possível" })).toBeVisible();
+  await expect(page.getByRole("complementary", { name: "Pesquisa de mercados" })
+    .getByRole("alert")).toBeVisible();
   await expect(page.getByRole("button", { name: "Tentar novamente" })).toBeVisible();
 });
 
@@ -159,4 +234,44 @@ test("insufficient pivot evidence shows honest no-zone state", async ({ page }) 
   await page.getByLabel("Mostrar zonas de suporte / resistência").check();
   await expect(page.getByText("Ainda não existem zonas confirmadas neste período.")).toBeVisible();
   await expect(page.getByTestId("price-chart")).toBeVisible();
+});
+
+
+test("stored Analyze snapshot renders every honest horizon state", async ({ page }) => {
+  await fixtures(page, "analysis");
+  await page.goto("/");
+  await page.getByRole("button", { name: /SYNTHETIC/ }).click();
+  const panel = page.getByRole("region", { name: "Análise partilhada" });
+  await expect(panel.getByText("0 / 13 horizontes completos")).toBeVisible();
+  await expect(panel.getByText("1H", { exact: true })).toBeVisible();
+  await expect(panel.getByText("12M", { exact: true })).toBeVisible();
+  await expect(panel.getByText("Índices não são probabilidades nem aprovação de risco.")).toBeVisible();
+  await page.screenshot({ path: "test-results/analyze-synthetic.png", fullPage: true });
+});
+
+
+test("watchlist persists a market and records an honest snapshot", async ({ page }) => {
+  await fixtures(page, "watchlist");
+  await page.goto("/");
+  await page.getByRole("button", { name: /SYNTHETIC/ }).click();
+  const panel = page.getByRole("region", { name: "Watchlists" });
+  await panel.getByRole("button", { name: "Adicionar mercado" }).click();
+  await expect(panel.getByText("synthetic-test", { exact: true }).first()).toBeVisible();
+  await panel.getByRole("button", { name: "Registar snapshot" }).click();
+  await expect(panel.getByText("UNAVAILABLE", { exact: true })).toBeVisible();
+  await expect(panel.getByText("0 horizontes elegíveis")).toBeVisible();
+  await expect(panel.getByText(/Não são alertas de preço/)).toBeVisible();
+});
+
+
+test("scanner records an honest no-match result with exclusions", async ({ page }) => {
+  await fixtures(page, "scanner");
+  await page.goto("/");
+  const panel = page.getByRole("region", { name: "Scanner de oportunidades" });
+  await panel.getByRole("button", { name: "Executar scan" }).click();
+  await expect(panel.getByText("Sem correspondências", { exact: true })).toBeVisible();
+  await expect(panel.getByText("0 relatórios encontrados em 1 mercados")).toBeVisible();
+  await panel.getByText("Exclusões explícitas · 1").click();
+  await expect(panel.getByText("Sem relatório Analyze")).toBeVisible();
+  await expect(panel.getByText(/Índices não são probabilidades/)).toBeVisible();
 });

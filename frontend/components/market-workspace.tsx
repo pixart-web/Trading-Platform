@@ -1,6 +1,9 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { AnalysisPanel } from "./analysis-panel";
+import { WatchlistPanel } from "./watchlist-panel";
+import { ScannerPanel } from "./scanner-panel";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { z } from "zod";
@@ -10,6 +13,7 @@ import {
 } from "@/lib/market-data";
 import { zoneProblem, zoneResponseSchema, type ZoneSnapshot } from "@/lib/zones";
 import type { CandleResponse } from "@/lib/market-data";
+import { analysisResponseSchema } from "@/lib/analysis";
 
 const PriceChart = dynamic(() => import("./price-chart").then(m => m.PriceChart), {
   ssr: false, loading: () => <div className="empty-chart" role="status">A preparar o gráfico…</div>,
@@ -76,6 +80,10 @@ export function MarketWorkspace({ initialRange }: { initialRange: Range }) {
   const data = useResource<CandleResponse & { snapshot?: ZoneSnapshot }>(selected
     ? "/api/market-data/markets/" + encodeURIComponent(selected.market_id) + (showZones ? "/zones?" : "/candles?") + candleParams
     : null, showZones ? zoneResponseSchema : responseSchema);
+  const analysisParams = new URLSearchParams({ timeframe, as_of: range.end, _refresh: String(revision) });
+  const analysis = useResource(selected
+    ? "/api/market-data/markets/" + encodeURIComponent(selected.market_id) + "/analysis?" + analysisParams
+    : null, analysisResponseSchema);
   const response = data?.data;
   const problem = response && selected ? chartProblem(response, selected.market_id, timeframe, range)
     ?? (response.snapshot ? zoneProblem(response.snapshot, response.candles, selected.market_id, timeframe, range) : null) : null;
@@ -86,7 +94,7 @@ export function MarketWorkspace({ initialRange }: { initialRange: Range }) {
     <a className="skip-link" href="#workspace">Ir para o gráfico</a>
     <header className="app-header">
       <Link className="brand" href="/" aria-label="Pocket Alpha — início"><span className="brand-mark">pα</span>Pocket Alpha</Link>
-      <span className="header-section">Mercados <span>/</span> Gráficos</span>
+      <span className="header-section">Mercados <span>/</span> Gráficos <span>/</span> Analyze <span>/</span> Watchlists <span>/</span> Scanner</span>
       <span className="mode-label">Consulta histórica</span>
     </header>
     <div className="workbench">
@@ -184,6 +192,10 @@ export function MarketWorkspace({ initialRange }: { initialRange: Range }) {
                 <td>{zone.visible_from}</td></tr>)}</tbody></table></div>}
           <small>Modelo {response.snapshot.engine_version} · Confiança não calibrada</small>
         </section>}
+        <WatchlistPanel market={selected} timeframe={timeframe} asOf={range.end} />
+        <ScannerPanel timeframe={timeframe} asOf={range.end} />
+        {selected && <AnalysisPanel result={analysis} marketId={selected.market_id}
+          timeframe={timeframe} asOf={range.end} />}
         {response?.quality.warnings.length ? <div className="notice" role="status">{response.quality.warnings.join(" · ")}</div> : null}
         <div className="workspace-notes"><p>Os períodos são avaliados como intervalos contínuos. Fechos de sessão podem ser assinalados como intervalos em falta.</p>
           <p>O gráfico usa aproximações visuais; os valores originais são preservados na tabela.</p></div>
