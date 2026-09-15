@@ -13,3 +13,7 @@ Model liquidation per instrument and venue before derivative execution.
 Profit protection includes high-water mark, trailing drawdown, reserves and dynamic risk reduction.
 These are requirements for later phases, not implemented risk controls. Current hard control:
 live trading cannot be enabled through configuration and no execution adapter exists.
+
+Phase 16 portfolio accounting supplies exact manual cash, position and P&L state for later controls.
+It does not implement exposure limits, sizing or risk decisions, and a recorded BUY or SELL is not an
+approved order or verified fill. Live trading remains disabled.

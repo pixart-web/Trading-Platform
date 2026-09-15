@@ -87,4 +87,27 @@ describe("gateway route", () => {
     expect(read.status).toBe(200);
     expect(fetcher.mock.calls[1][0].search).toBe("?limit=20");
   });
+
+  it("forwards only portfolio collection, ledger and snapshot routes", async () => {
+    const fetcher = vi.fn().mockImplementation(() => Promise.resolve(Response.json({ revision: 2 })));
+    vi.stubGlobal("fetch", fetcher);
+    const id = "00000000-0000-0000-0000-000000000900";
+    const created = await POST(new Request("http://localhost/api/market-data/portfolios", {
+      method: "POST", body: JSON.stringify({ portfolio_id: id }),
+    }), { params: Promise.resolve({ path: ["portfolios"] }) });
+    expect(created.status).toBe(200);
+    const recorded = await POST(new Request(`http://localhost/api/market-data/portfolios/${id}/entries`, {
+      method: "POST", body: JSON.stringify({ entry_id: id }),
+    }), { params: Promise.resolve({ path: ["portfolios", id, "entries"] }) });
+    expect(recorded.status).toBe(200);
+    const snapshot = await GET(new Request(`http://localhost/api/market-data/portfolios/${id}/snapshot?as_of=2025-01-01T00%3A00%3A00Z&secret=no`),
+      { params: Promise.resolve({ path: ["portfolios", id, "snapshot"] }) });
+    expect(snapshot.status).toBe(200);
+    expect(fetcher.mock.calls[2][0].pathname).toBe(`/api/v1/portfolios/${id}/snapshot`);
+    expect(fetcher.mock.calls[2][0].searchParams.has("as_of")).toBe(true);
+    expect(fetcher.mock.calls[2][0].searchParams.has("secret")).toBe(false);
+    const rejected = await DELETE(new Request("http://localhost", { method: "DELETE" }),
+      { params: Promise.resolve({ path: ["portfolios", id] }) });
+    expect(rejected.status).toBe(400);
+  });
 });

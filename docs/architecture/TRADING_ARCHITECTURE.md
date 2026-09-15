@@ -37,3 +37,8 @@ path to execution or a broker. See WATCHLISTS.md.
 Phase 15 ranks eligible stored Opportunity Scores only within an identical policy version and hash. A
 scan remains a discovery read model and cannot emit a strategy intention, allocate capital, approve risk
 or reach execution or a broker. See SCANNER.md.
+
+Phase 16 implements the portfolio accounting boundary for manually supplied deposits, withdrawals,
+buys and sells. These immutable records describe user-entered accounting facts and are not fills or
+orders. The portfolio can inform later risk work, but this phase performs no allocation, sizing, risk
+approval, leverage assessment, execution or broker action. See PORTFOLIO.md.

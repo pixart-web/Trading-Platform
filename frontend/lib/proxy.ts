@@ -8,6 +8,11 @@ export function upstreamURL(
     || (parts.length === 2 && parts[0] === "assets" && id.test(parts[1]))
     || (parts.length === 3 && parts[0] === "markets" && id.test(parts[1])
       && ["analysis", "candles", "zones"].includes(parts[2]));
+  const portfolioCollection = parts.length === 1 && parts[0] === "portfolios";
+  const portfolioId = parts[0] === "portfolios" && parts.length > 1 && uuid.test(parts[1]);
+  const portfolioDetail = portfolioId && parts.length === 2;
+  const portfolioEntries = portfolioId && parts.length === 3 && parts[2] === "entries";
+  const portfolioSnapshot = portfolioId && parts.length === 3 && parts[2] === "snapshot";
   const scanCollection = parts.length === 1 && parts[0] === "scans";
   const scanDetail = parts.length === 2 && parts[0] === "scans" && uuid.test(parts[1]);
   const watchlistId = parts[0] === "watchlists" && parts.length > 1 && uuid.test(parts[1]);
@@ -19,9 +24,10 @@ export function upstreamURL(
   const watchlistLatest = watchlistId && parts.length === 4 && parts[2] === "snapshots"
     && parts[3] === "latest";
   const watchlistAlerts = watchlistId && parts.length === 3 && parts[2] === "alerts";
-  const allowed = (method === "GET" && (marketRead || scanCollection || scanDetail || watchlistCollection || watchlistDetail
+  const allowed = (method === "GET" && (marketRead || portfolioCollection || portfolioDetail || portfolioEntries || portfolioSnapshot
+      || scanCollection || scanDetail || watchlistCollection || watchlistDetail
       || watchlistLatest || watchlistAlerts))
-    || (method === "POST" && (scanCollection || watchlistCollection || watchlistSnapshot))
+    || (method === "POST" && (portfolioCollection || portfolioEntries || scanCollection || watchlistCollection || watchlistSnapshot))
     || (method === "PATCH" && watchlistDetail)
     || (method === "PUT" && watchlistMember)
     || (method === "DELETE" && watchlistMember);

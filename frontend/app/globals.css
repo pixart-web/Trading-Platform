@@ -213,3 +213,39 @@ th { color: var(--muted); font-weight: 400; }
   .scanner-controls { grid-template-columns: 1fr; } .scanner-summary span { display: block; margin-top: .35rem; }
   .scanner-exclusions li { grid-template-columns: 1fr; } .scanner-exclusions li small { grid-column: auto; }
 }
+
+/* Phase 16: manual portfolio ledger and exact stored-price dashboard. */
+.portfolio-panel { margin-top: 1rem; border: 1px solid var(--line); border-radius: 18px; background: var(--panel); overflow: hidden; }
+.portfolio-heading { display: flex; align-items: start; justify-content: space-between; gap: 1rem; padding: 1.25rem; border-bottom: 1px solid var(--line); }
+.portfolio-heading h3 { margin: .35rem 0 .2rem; font-size: 1.35rem; }
+.portfolio-heading p { margin: 0; color: var(--muted); font-size: .85rem; }
+.portfolio-disclaimer { max-width: 21rem; color: #d8c987; font-size: .75rem; text-align: right; }
+.portfolio-message { margin: 1rem 1.25rem; padding: 1rem; color: var(--muted); background: var(--panel-soft); border: 1px solid var(--line); border-radius: .6rem; }
+.portfolio-message.error { color: #f4abab; }
+.portfolio-create, .portfolio-entry-form { display: flex; align-items: end; gap: .75rem; flex-wrap: wrap; padding: 1.25rem; }
+.portfolio-create label, .portfolio-entry-form label { display: grid; flex: 1; min-width: 9rem; gap: .35rem; color: var(--muted); font-size: .7rem; letter-spacing: .04em; text-transform: uppercase; }
+.portfolio-create button, .portfolio-entry-form button { min-height: 42px; }
+.portfolio-controls { display: flex; justify-content: space-between; align-items: end; gap: 1rem; padding: 1rem 1.25rem; border-bottom: 1px solid var(--line); }
+.portfolio-controls label { display: grid; gap: .3rem; color: var(--muted); font-size: .72rem; }
+.portfolio-controls span { color: var(--muted); font-size: .75rem; }
+.portfolio-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-bottom: 1px solid var(--line); }
+.portfolio-metrics div { padding: 1rem 1.25rem; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); min-width: 0; }
+.portfolio-metrics span, .portfolio-metrics strong { display: block; overflow-wrap: anywhere; }
+.portfolio-metrics span { color: var(--muted); font-size: .72rem; }
+.portfolio-metrics strong { margin-top: .25rem; font: .9rem monospace; }
+.portfolio-panel table strong, .portfolio-panel table small { display: block; }
+.portfolio-panel table small { color: var(--muted); }
+.portfolio-entry-form { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.portfolio-ledger { margin: 1rem 1.25rem; border: 1px solid var(--line); border-radius: .6rem; }
+.portfolio-ledger summary { padding: .85rem 1rem; }
+.portfolio-ledger ol { list-style: none; padding: 0 1rem 1rem; margin: 0; }
+.portfolio-ledger li { display: grid; grid-template-columns: 9rem minmax(0, 1fr) 14rem; gap: .7rem; padding: .6rem 0; border-top: 1px solid var(--line); font-size: .75rem; }
+.portfolio-ledger span, .portfolio-ledger small { color: var(--muted); overflow-wrap: anywhere; }
+.portfolio-footnote { margin: 1rem 1.25rem 1.25rem; color: var(--muted); font-size: .75rem; }
+@media (max-width: 720px) {
+  .portfolio-heading, .portfolio-controls { display: block; } .portfolio-disclaimer { display: block; text-align: left; margin-top: .7rem; }
+  .portfolio-controls span { display: block; margin-top: .5rem; } .portfolio-metrics { grid-template-columns: 1fr; }
+  .portfolio-create, .portfolio-entry-form { align-items: stretch; flex-direction: column; }
+  .portfolio-create label, .portfolio-entry-form label { width: 100%; }
+  .portfolio-ledger li { grid-template-columns: 1fr; }
+}

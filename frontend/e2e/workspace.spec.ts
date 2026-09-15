@@ -4,8 +4,30 @@ import { durations, type Timeframe } from "../lib/market-data";
 const market = { market_id: "synthetic-test", asset_id: "synthetic", venue_id: "fixture-only",
   symbol: "SYNTHETIC", quote_currency: "EUR" };
 
-async function fixtures(page: Page, mode: "valid" | "gap" | "empty" | "offline" | "zones" | "badzones" | "nozones" | "analysis" | "watchlist" | "scanner" = "valid") {
+async function fixtures(page: Page, mode: "valid" | "gap" | "empty" | "offline" | "zones" | "badzones" | "nozones" | "analysis" | "watchlist" | "scanner" | "portfolio" = "valid") {
   const watchlistId = "11111111-1111-4111-8111-111111111101";
+  const portfolioId = "22222222-2222-4222-8222-222222222202";
+  let hasPortfolio = false;
+  let portfolioRevision = 1;
+  let portfolioEntries: Array<Record<string, unknown>> = [];
+  const portfolioValue = () => ({
+    schema_version: "portfolio-1.0.0", portfolio_id: portfolioId, name: "Carteira principal",
+    base_currency: "EUR", accounting_method: "MOVING_AVERAGE_V1", valuation_timeframe: "1h",
+    revision: portfolioRevision, created_at: "2025-01-01T00:00:00Z",
+    updated_at: portfolioRevision === 1 ? "2025-01-01T00:00:00Z" : "2025-01-01T01:00:00Z",
+  });
+  const snapshotValue = (asOf: string) => ({
+    schema_version: "portfolio-snapshot-1.0.0", portfolio_id: portfolioId,
+    portfolio_revision: portfolioRevision, ledger_sequence: portfolioEntries.length,
+    as_of: asOf, generated_at: asOf, status: "COMPLETE", base_currency: "EUR",
+    accounting_method: "MOVING_AVERAGE_V1", valuation_timeframe: "1h",
+    cash_balance: portfolioEntries.length ? "500.000000000000000000" : "0E-18",
+    net_contributions: portfolioEntries.length ? "500.000000000000000000" : "0E-18",
+    total_fees: "0E-18", realized_pnl: "0E-18", positions: [],
+    total_cost_basis: "0E-18", total_market_value: "0E-18",
+    unrealized_pnl: "0E-18", equity: portfolioEntries.length ? "500.000000000000000000" : "0E-18",
+    input_hash: "d".repeat(64),
+  });
   let activeList = {
     schema_version: "watchlist-1.0.0", watchlist_id: watchlistId, name: "A acompanhar",
     revision: 1, created_at: "2025-01-01T00:00:00Z", updated_at: "2025-01-01T00:00:00Z",
@@ -15,6 +37,33 @@ async function fixtures(page: Page, mode: "valid" | "gap" | "empty" | "offline" 
   await page.route("**/api/market-data/**", async route => {
     const url = new URL(route.request().url());
     if (mode === "offline") return route.fulfill({ status: 503, json: {} });
+    if (url.pathname === "/api/market-data/portfolios") {
+      if (route.request().method() === "GET") {
+        return route.fulfill({ json: mode === "portfolio" && hasPortfolio ? [portfolioValue()] : [] });
+      }
+      hasPortfolio = true;
+      return route.fulfill({ status: 201, json: portfolioValue() });
+    }
+    if (url.pathname.startsWith(`/api/market-data/portfolios/${portfolioId}`)) {
+      if (url.pathname.endsWith("/entries")) {
+        if (route.request().method() === "GET") return route.fulfill({ json: portfolioEntries });
+        const body = route.request().postDataJSON();
+        portfolioRevision = 2;
+        portfolioEntries = [{
+          schema_version: "portfolio-entry-1.0.0", entry_id: body.entry_id,
+          portfolio_id: portfolioId, sequence: 1, entry_type: "DEPOSIT", currency: "EUR",
+          cash_amount: "500.000000000000000000", market_id: null, asset_id: null,
+          quantity: null, unit_price: null, fee: "0E-18", gross_value: "500.000000000000000000",
+          cash_effect: "500.000000000000000000", occurred_at: body.occurred_at,
+          recorded_at: "2025-01-01T01:00:00Z", note: null,
+        }];
+        return route.fulfill({ status: 201, json: { entry: portfolioEntries[0], portfolio: portfolioValue() } });
+      }
+      if (url.pathname.endsWith("/snapshot")) {
+        return route.fulfill({ json: snapshotValue(url.searchParams.get("as_of")!) });
+      }
+      return route.fulfill({ json: portfolioValue() });
+    }
     if (url.pathname === "/api/market-data/scans") {
       if (route.request().method() === "GET") return route.fulfill({ json: [] });
       const body = route.request().postDataJSON();
@@ -274,4 +323,22 @@ test("scanner records an honest no-match result with exclusions", async ({ page 
   await panel.getByText("Exclusões explícitas · 1").click();
   await expect(panel.getByText("Sem relatório Analyze")).toBeVisible();
   await expect(panel.getByText(/Índices não são probabilidades/)).toBeVisible();
+});
+
+
+test("manual portfolio records funded cash without creating an order", async ({ page }) => {
+  const errors: string[] = [];
+  page.on("pageerror", error => errors.push(error.message));
+  await fixtures(page, "portfolio");
+  await page.goto("/");
+  const panel = page.getByRole("region", { name: "Carteira" });
+  await panel.getByRole("button", { name: "Criar carteira" }).click();
+  await expect(panel.getByText("0E-18 EUR", { exact: true })).toBeVisible();
+  await panel.getByLabel("Montante").fill("500");
+  await panel.getByRole("button", { name: "Registar lançamento" }).click();
+  await expect(panel.getByText("500.000000000000000000 EUR", { exact: true })).toBeVisible();
+  await panel.getByText("Livro imutável · 1 lançamentos").click();
+  await expect(panel.getByText("#1 · DEPOSIT", { exact: true })).toBeVisible();
+  await expect(panel.getByText(/Registos manuais não são ordens/)).toBeVisible();
+  expect(errors).toEqual([]);
 });

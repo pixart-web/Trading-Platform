@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { AnalysisPanel } from "./analysis-panel";
 import { WatchlistPanel } from "./watchlist-panel";
 import { ScannerPanel } from "./scanner-panel";
+import { PortfolioPanel } from "./portfolio-panel";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { z } from "zod";
@@ -94,7 +95,7 @@ export function MarketWorkspace({ initialRange }: { initialRange: Range }) {
     <a className="skip-link" href="#workspace">Ir para o gráfico</a>
     <header className="app-header">
       <Link className="brand" href="/" aria-label="Pocket Alpha — início"><span className="brand-mark">pα</span>Pocket Alpha</Link>
-      <span className="header-section">Mercados <span>/</span> Gráficos <span>/</span> Analyze <span>/</span> Watchlists <span>/</span> Scanner</span>
+      <span className="header-section">Mercados <span>/</span> Gráficos <span>/</span> Analyze <span>/</span> Watchlists <span>/</span> Scanner <span>/</span> Portfolio</span>
       <span className="mode-label">Consulta histórica</span>
     </header>
     <div className="workbench">
@@ -194,6 +195,7 @@ export function MarketWorkspace({ initialRange }: { initialRange: Range }) {
         </section>}
         <WatchlistPanel market={selected} timeframe={timeframe} asOf={range.end} />
         <ScannerPanel timeframe={timeframe} asOf={range.end} />
+        <PortfolioPanel market={selected} timeframe={timeframe} />
         {selected && <AnalysisPanel result={analysis} marketId={selected.market_id}
           timeframe={timeframe} asOf={range.end} />}
         {response?.quality.warnings.length ? <div className="notice" role="status">{response.quality.warnings.join(" · ")}</div> : null}

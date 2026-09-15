@@ -32,7 +32,9 @@ Phase 14 persistent watchlists, immutable exact-time snapshots and derived alert
 see ../architecture/WATCHLISTS.md and PHASE_14_COMPLETION_REPORT.md.
 Phase 15 cross-market filters, policy-isolated rankings and immutable scan reports are implemented;
 see ../architecture/SCANNER.md and PHASE_15_COMPLETION_REPORT.md.
-All phases after 15 are unimplemented.
+Phase 16 manual portfolios, immutable accounting entries and causal valuation snapshots are implemented;
+see ../architecture/PORTFOLIO.md and PHASE_16_COMPLETION_REPORT.md.
+All phases after 16 are unimplemented.
 0. Foundation — repository, domain base, config, DB, Redis, Docker, CI, audit, testing, logging.
 1. Universal market data — assets/providers/history/candles/trades/quotes/quality/replay.
 2. Charting foundation — Next.js shell, search, candles, timeframes, volume, API.

@@ -68,3 +68,7 @@ Phase 15 adds the Scanner panel at the current chart timeframe and end timestamp
 explicit filters through the existing allowlisted gateway, validates the full immutable report and keeps
 policy groups and exclusions visible. It performs no client-side ranking or financial calculation. See
 SCANNER.md.
+
+Phase 16 adds the Portfolio panel to the shared workspace. The gateway allowlists bounded portfolio
+reads and manual writes; the browser validates exact backend snapshots and never recalculates financial
+totals. Missing stored prices produce a visible partial state. See PORTFOLIO.md.

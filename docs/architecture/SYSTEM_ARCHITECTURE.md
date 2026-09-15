@@ -83,3 +83,8 @@ Phase 15 adds the scanner application/read-model boundary over registered market
 Analyze reports. It filters existing Opportunity Scores and ranks them only within identical policy
 version/hash groups. Migration 0006 is additive. No strategy, portfolio, risk, leverage, execution or
 broker dependency is introduced. See SCANNER.md.
+
+Phase 16 implements the portfolio boundary as a persistent manual accounting ledger. It consumes
+registered market identity and causal stored candle closes for valuation, but does not consume scans,
+create strategy intentions, approve risk or reach leverage, execution or broker modules. Migration
+0007 is additive. See PORTFOLIO.md.

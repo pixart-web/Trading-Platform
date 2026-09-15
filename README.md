@@ -1,5 +1,11 @@
 # Pocket Alpha
 
+Phase 16 adds persistent manual portfolios, immutable deposits/withdrawals/buys/sells, exact
+moving-average accounting and causal as-of valuation from stored candles. Missing prices remain
+explicit and prevent aggregate valuation; manual records are not orders, fills, recommendations or
+risk approvals. Migration 0007 is additive. See
+[portfolio architecture](docs/architecture/PORTFOLIO.md).
+
 Phase 15 adds immutable cross-market scans over exact stored Analyze reports. Metadata and economic
 filters produce deterministic Opportunity Score rankings kept separate by policy version/hash, while
 every non-ranked market retains explicit exclusion reasons. The web workspace validates and shows exact
@@ -110,8 +116,9 @@ Use `MarketRepository.register` for metadata and `HistoricalIngestion.ingest` wi
 `CandleQuery`, `FreshnessPolicy` and injected `Clock` inside a SQLAlchemy transaction.
 Only `FixtureProvider` exists now, for offline synthetic tests. No public write/import API exists.
 Use `MarketReplay.replay` for trusted replay; `.inspect` exposes quality failures without filling gaps.
-Apply `alembic upgrade head` to upgrade an existing database. Migrations 0002 through 0006 add market data, forecasts/outcomes, Analyze reports, watchlists and scans
-while preserving earlier history. Applying 0006 is additive. Downgrading 0006 deletes scan reports; downgrading 0005 deletes watchlists,
+Apply `alembic upgrade head` to upgrade an existing database. Migrations 0002 through 0007 add market data, forecasts/outcomes, Analyze reports, watchlists, scans and portfolios
+while preserving earlier history. Applying 0007 is additive. Downgrading 0007 deletes manual portfolios and
+their accounting entries; downgrading 0006 deletes scan reports; downgrading 0005 deletes watchlists,
 their snapshots and alert events; downgrading 0004 deletes Analyze snapshots; downgrading 0003 deletes
 forecast/outcome history; downgrading to 0001 also deletes market data. Back up retained data before rollback.
 
