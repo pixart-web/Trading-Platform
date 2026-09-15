@@ -106,6 +106,11 @@ describe("gateway route", () => {
     expect(fetcher.mock.calls[2][0].pathname).toBe(`/api/v1/portfolios/${id}/snapshot`);
     expect(fetcher.mock.calls[2][0].searchParams.has("as_of")).toBe(true);
     expect(fetcher.mock.calls[2][0].searchParams.has("secret")).toBe(false);
+    const intelligence = await POST(new Request(`http://localhost/api/market-data/portfolios/${id}/intelligence`, {
+      method: "POST", body: JSON.stringify({ analysis_id: id }),
+    }), { params: Promise.resolve({ path: ["portfolios", id, "intelligence"] }) });
+    expect(intelligence.status).toBe(200);
+    expect(fetcher.mock.calls[3][0].pathname).toBe(`/api/v1/portfolios/${id}/intelligence`);
     const rejected = await DELETE(new Request("http://localhost", { method: "DELETE" }),
       { params: Promise.resolve({ path: ["portfolios", id] }) });
     expect(rejected.status).toBe(400);

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { z } from "zod";
 import type { Market, Timeframe } from "@/lib/market-data";
+import { PortfolioIntelligencePanel } from "@/components/portfolio-intelligence-panel";
 import {
   portfolioEntriesSchema, portfolioEntryResultSchema, portfolioProblem, portfolioSchema,
   portfoliosSchema, portfolioSnapshotSchema, snapshotProblem, type EntryType,
@@ -152,6 +153,7 @@ export function PortfolioPanel({ market, timeframe }: { market: Market | null; t
         {state.entries.length === 0 ? <p className="muted">Ainda não existem lançamentos.</p> : <ol>{state.entries.map(entry => <li key={entry.entry_id}>
           <strong>#{entry.sequence} · {entry.entry_type}</strong><span>{entry.market_id ?? entry.cash_amount} · efeito em caixa {entry.cash_effect} {entry.currency}</span><small>{entry.occurred_at}</small>
         </li>)}</ol>}</details>
+      <PortfolioIntelligencePanel portfolio={selected} />
       <p className="portfolio-footnote">A carteira aceita apenas mercados na moeda-base e caixa financiado. Ausência de FX ou preço fica explícita; o browser não recalcula valores financeiros.</p></>}
   </section>;
 }

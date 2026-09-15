@@ -249,3 +249,9 @@ th { color: var(--muted); font-weight: 400; }
   .portfolio-create label, .portfolio-entry-form label { width: 100%; }
   .portfolio-ledger li { grid-template-columns: 1fr; }
 }
+
+.portfolio-intelligence { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+.portfolio-intelligence-heading { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+.portfolio-intelligence-heading h4 { margin: .2rem 0; font-size: 1rem; }
+.portfolio-intelligence details { margin-top: .75rem; }
+.portfolio-intelligence li { margin: .35rem 0; color: var(--muted); }

@@ -59,4 +59,8 @@ amounts. Manual records are labelled as neither orders, recommendations nor risk
 Phase 16 supports one base currency, long manual positions and moving-average accounting. It does
 not implement FX, short positions, tax lots, dividends, splits, transfers, reversals, broker imports,
 authentication, ownership, allocation, concentration, correlations, portfolio risk, orders or
-reconciliation. Portfolio intelligence belongs to Phase 17 and is not started.
+reconciliation. Portfolio intelligence is implemented separately in Phase 17.
+
+Phase 17 consumes the immutable accounting snapshot through a separate portfolio-intelligence
+boundary. It cannot mutate the ledger and does not turn an observation into an allocation, risk approval
+or order. See PORTFOLIO_INTELLIGENCE.md.

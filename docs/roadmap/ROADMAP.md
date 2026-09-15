@@ -34,7 +34,10 @@ Phase 15 cross-market filters, policy-isolated rankings and immutable scan repor
 see ../architecture/SCANNER.md and PHASE_15_COMPLETION_REPORT.md.
 Phase 16 manual portfolios, immutable accounting entries and causal valuation snapshots are implemented;
 see ../architecture/PORTFOLIO.md and PHASE_16_COMPLETION_REPORT.md.
-All phases after 16 are unimplemented.
+Phase 17 immutable portfolio intelligence is implemented with causal allocation, concentration and
+supported historical risk metrics; see ../architecture/PORTFOLIO_INTELLIGENCE.md and
+PHASE_17_COMPLETION_REPORT.md.
+All phases after 17 are unimplemented.
 0. Foundation — repository, domain base, config, DB, Redis, Docker, CI, audit, testing, logging.
 1. Universal market data — assets/providers/history/candles/trades/quotes/quality/replay.
 2. Charting foundation — Next.js shell, search, candles, timeframes, volume, API.

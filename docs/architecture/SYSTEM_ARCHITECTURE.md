@@ -88,3 +88,8 @@ Phase 16 implements the portfolio boundary as a persistent manual accounting led
 registered market identity and causal stored candle closes for valuation, but does not consume scans,
 create strategy intentions, approve risk or reach leverage, execution or broker modules. Migration
 0007 is additive. See PORTFOLIO.md.
+
+Phase 17 adds a portfolio-intelligence read-model boundary over Phase 16 snapshots and causal stored
+candles. Versioned immutable reports explain allocation, concentration and supported historical risk
+metrics while retaining explicit unavailable states. Migration 0008 is additive. See
+PORTFOLIO_INTELLIGENCE.md.

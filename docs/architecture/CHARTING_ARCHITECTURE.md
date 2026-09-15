@@ -72,3 +72,7 @@ SCANNER.md.
 Phase 16 adds the Portfolio panel to the shared workspace. The gateway allowlists bounded portfolio
 reads and manual writes; the browser validates exact backend snapshots and never recalculates financial
 totals. Missing stored prices produce a visible partial state. See PORTFOLIO.md.
+
+Phase 17 adds a nested intelligence view inside the Portfolio panel. It validates immutable backend
+reports and shows exact allocations and unavailable reasons; no financial metric is recomputed in
+JavaScript. See PORTFOLIO_INTELLIGENCE.md.

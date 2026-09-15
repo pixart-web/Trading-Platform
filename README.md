@@ -1,5 +1,10 @@
 # Pocket Alpha
 
+Phase 17 adds immutable portfolio-intelligence reports over exact Phase 16 state: allocation,
+concentration, effective diversification, non-annualized volatility, correlations, optional beta and
+risk contribution use causal stored data. Unsupported sector, liquidity, drawdown, regime and horizon
+metrics stay explicitly unavailable. Migration 0008 is additive. See
+[portfolio intelligence](docs/architecture/PORTFOLIO_INTELLIGENCE.md).
 Phase 16 adds persistent manual portfolios, immutable deposits/withdrawals/buys/sells, exact
 moving-average accounting and causal as-of valuation from stored candles. Missing prices remain
 explicit and prevent aggregate valuation; manual records are not orders, fills, recommendations or
@@ -116,9 +121,9 @@ Use `MarketRepository.register` for metadata and `HistoricalIngestion.ingest` wi
 `CandleQuery`, `FreshnessPolicy` and injected `Clock` inside a SQLAlchemy transaction.
 Only `FixtureProvider` exists now, for offline synthetic tests. No public write/import API exists.
 Use `MarketReplay.replay` for trusted replay; `.inspect` exposes quality failures without filling gaps.
-Apply `alembic upgrade head` to upgrade an existing database. Migrations 0002 through 0007 add market data, forecasts/outcomes, Analyze reports, watchlists, scans and portfolios
-while preserving earlier history. Applying 0007 is additive. Downgrading 0007 deletes manual portfolios and
-their accounting entries; downgrading 0006 deletes scan reports; downgrading 0005 deletes watchlists,
+Apply `alembic upgrade head` to upgrade an existing database. Migrations 0002 through 0008 add market data, forecasts/outcomes, Analyze reports, watchlists, scans, portfolios and portfolio intelligence
+while preserving earlier history. Applying 0008 is additive. Downgrading 0008 deletes portfolio-intelligence reports;
+downgrading 0007 deletes manual portfolios and their accounting entries; downgrading 0006 deletes scan reports; downgrading 0005 deletes watchlists,
 their snapshots and alert events; downgrading 0004 deletes Analyze snapshots; downgrading 0003 deletes
 forecast/outcome history; downgrading to 0001 also deletes market data. Back up retained data before rollback.
 

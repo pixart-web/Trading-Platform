@@ -20,6 +20,7 @@ from pocket_alpha.intelligence.zones.api import router as zone_router
 from pocket_alpha.market_data.api import router as market_router
 from pocket_alpha.observability import configure_logging
 from pocket_alpha.portfolio.api import router as portfolio_router
+from pocket_alpha.portfolio_intelligence.api import router as portfolio_intelligence_router
 from pocket_alpha.scanner.api import router as scanner_router
 from pocket_alpha.watchlists.api import router as watchlist_router
 
@@ -61,6 +62,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app.include_router(watchlist_router)
     app.include_router(scanner_router)
     app.include_router(portfolio_router)
+    app.include_router(portfolio_intelligence_router)
 
     @app.middleware("http")
     async def correlation(

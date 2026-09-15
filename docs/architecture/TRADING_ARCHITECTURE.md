@@ -42,3 +42,8 @@ Phase 16 implements the portfolio accounting boundary for manually supplied depo
 buys and sells. These immutable records describe user-entered accounting facts and are not fills or
 orders. The portfolio can inform later risk work, but this phase performs no allocation, sizing, risk
 approval, leverage assessment, execution or broker action. See PORTFOLIO.md.
+
+Phase 17 observes portfolio accounting state and historical market relationships. Its allocations,
+concentrations, volatility, beta, correlations and risk contributions are descriptive inputs for later
+risk work. They cannot approve risk, size capital or authorize execution. See
+PORTFOLIO_INTELLIGENCE.md.

@@ -28,6 +28,46 @@ async function fixtures(page: Page, mode: "valid" | "gap" | "empty" | "offline" 
     unrealized_pnl: "0E-18", equity: portfolioEntries.length ? "500.000000000000000000" : "0E-18",
     input_hash: "d".repeat(64),
   });
+  const unavailableMetric = (reason: string, explanation: string) => ({
+    status: "UNAVAILABLE", value: null, reason, explanation,
+  });
+  const intelligenceValue = (asOf: string) => ({
+    schema_version: "portfolio-intelligence-report-1.0.0",
+    analysis_id: "33333333-3333-4333-8333-333333333303", portfolio_id: portfolioId,
+    portfolio_revision: portfolioRevision, ledger_sequence: portfolioEntries.length,
+    timeframe: "1h", benchmark_market_id: null, as_of: asOf, generated_at: asOf,
+    status: "PARTIAL", policy: {
+      schema_version: "portfolio-intelligence-policy-1.0.0",
+      policy_version: "portfolio-intelligence-1.0.0", lookback_bars: 60,
+      minimum_observations: 20, maximum_price_age_bars: 3,
+    }, policy_hash: "f".repeat(64), portfolio_input_hash: "d".repeat(64),
+    equity: portfolioEntries.length ? "500.000000000000000000" : "0E-18",
+    allocations: portfolioEntries.length ? [
+      { dimension: "CASH", key: "EUR", value: "500.000000000000000000",
+        portfolio_weight: "1.000000000000000000" },
+      { dimension: "CURRENCY", key: "EUR", value: "500.000000000000000000",
+        portfolio_weight: "1.000000000000000000" },
+    ] : [],
+    concentrations: [], market_risk: [], correlations: [],
+    portfolio_per_bar_volatility: unavailableMetric("NO_OPEN_POSITIONS",
+      "Portfolio market risk requires valued open positions."),
+    portfolio_beta: unavailableMetric("BENCHMARK_NOT_CONFIGURED",
+      "Portfolio beta requires an explicit benchmark market."),
+    risk_contributions: [],
+    sector_concentration: unavailableMetric("SECTOR_DATA_UNAVAILABLE",
+      "No versioned sector taxonomy exists."),
+    drawdown: unavailableMetric("NAV_HISTORY_UNAVAILABLE",
+      "Drawdown requires causal portfolio NAV history."),
+    liquidity: unavailableMetric("LIQUIDITY_DATA_UNAVAILABLE",
+      "No authoritative executable liquidity exists."),
+    regime_exposure: unavailableMetric("REGIME_ATTRIBUTION_UNAVAILABLE",
+      "No immutable regime attribution exists."),
+    horizon_exposure: unavailableMetric("HORIZON_ATTRIBUTION_UNAVAILABLE",
+      "No immutable horizon attribution exists."),
+    observations: [{ code: "ACCOUNTING_CONTEXT", severity: "INFO",
+      message: "Accounting context only.", evidence: ["realized_pnl=0"] }],
+    input_hash: "9".repeat(64),
+  });
   let activeList = {
     schema_version: "watchlist-1.0.0", watchlist_id: watchlistId, name: "A acompanhar",
     revision: 1, created_at: "2025-01-01T00:00:00Z", updated_at: "2025-01-01T00:00:00Z",
@@ -45,6 +85,12 @@ async function fixtures(page: Page, mode: "valid" | "gap" | "empty" | "offline" 
       return route.fulfill({ status: 201, json: portfolioValue() });
     }
     if (url.pathname.startsWith(`/api/market-data/portfolios/${portfolioId}`)) {
+      if (url.pathname.endsWith("/intelligence")) {
+        if (route.request().method() === "GET") return route.fulfill({ json: [] });
+        const body = route.request().postDataJSON();
+        return route.fulfill({ json: { ...intelligenceValue(body.as_of),
+          analysis_id: body.analysis_id } });
+      }
       if (url.pathname.endsWith("/entries")) {
         if (route.request().method() === "GET") return route.fulfill({ json: portfolioEntries });
         const body = route.request().postDataJSON();
@@ -340,5 +386,9 @@ test("manual portfolio records funded cash without creating an order", async ({ 
   await panel.getByText("Livro imutável · 1 lançamentos").click();
   await expect(panel.getByText("#1 · DEPOSIT", { exact: true })).toBeVisible();
   await expect(panel.getByText(/Registos manuais não são ordens/)).toBeVisible();
+  const intelligence = panel.getByRole("region", { name: "Inteligência da carteira" });
+  await intelligence.getByRole("button", { name: "Registar análise" }).click();
+  await expect(intelligence.getByText(/NO_OPEN_POSITIONS/).first()).toBeVisible();
+  await expect(intelligence.getByText("CASH", { exact: true })).toBeVisible();
   expect(errors).toEqual([]);
 });
