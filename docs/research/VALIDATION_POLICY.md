@@ -11,5 +11,11 @@ turnover, exposure and cost attribution. Include losing periods and unprofitable
 Economic regressions use identified reference datasets; changes are measured, never hidden.
 Monitor rolling expectancy, execution drift, feature/regime drift and deviations from expectations;
 reduce or suspend using configured degradation limits. Live promotion needs paper/shadow evidence.
-Foundation has no economic models, financial modules or market datasets; tests use clearly synthetic
-domain fixtures only. No profitability, financial coverage or statistical confidence is claimed.
+The initial Foundation had no economic models, financial modules or market datasets. Subsequent
+phases add descriptive intelligence and versioned research infrastructure; this does not establish
+profitability or calibrated statistical confidence. Automated tests use clearly synthetic fixtures.
+Phase 20 introduces explicit public Coinbase imports and frozen REAL/SYNTHETIC datasets. Economic
+research must record dataset identity/hash and economic market/asset/venue/currency identity and may
+not silently mix origins. Imported historical prices are available locally at receipt/capture, never
+retroactively at candle open. Real-data smoke/replay evidence is not economic validation, survivorship
+protection, production readiness or execution authorization.

@@ -103,3 +103,9 @@ Phase 19 adds precise immutable derivative contract identity and causal observat
 funding, open interest, basis, reported option volatility/Greeks, aligned futures curves and explicit
 option skew. Migration 0010 and GET-only endpoints add no execution/risk/broker dependency.
 See DERIVATIVES_INTELLIGENCE.md for units, unavailable states and provider/financial limitations.
+
+Phase 20 adds a shared causal context boundary for news and explicit normalized sentiment/macro,
+GET-only context snapshots, a public Coinbase historical adapter and frozen REAL/SYNTHETIC datasets.
+Migration 0011 is additive. Explicit network imports never run at startup and add no strategy, risk
+approval, leverage, execution or broker dependency. See CONTEXTUAL_INTELLIGENCE.md and
+REAL_MARKET_DATA.md for provenance, economic identity, conservative availability and limitations.

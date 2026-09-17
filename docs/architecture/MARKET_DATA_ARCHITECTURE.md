@@ -1,8 +1,9 @@
 # Universal market data — Phase 1
 ## Scope and boundaries
 Only domain, historical ingestion, storage, quality, read-only API and replay are implemented.
-No public provider, credential, order route, indicator, forecast, signal or UI is added.
-The optional real-provider integration is deliberately deferred. Fixture data is synthetic and
+Phase 1 added no public provider, credential, order route, indicator, forecast, signal or UI.
+Phase 20 adds an explicit public Coinbase adapter and frozen datasets; see REAL_MARKET_DATA.md.
+The original Phase 1 integration was deliberately deferred. Fixture data is synthetic and
 never seeded into application startup. An empty production database returns empty inspection
 results, never invented observations.
 

@@ -37,3 +37,6 @@ Desktop.ini
 *.log
 *.tmp
 *.swp
+
+# Local opt-in real research evidence; never bundled into unit fixtures.
+data/local/

@@ -15,6 +15,7 @@ from pocket_alpha.analysis.api import router as analysis_router
 from pocket_alpha.audit.models import AuditEvent, AuditReason
 from pocket_alpha.audit.repository import append_event
 from pocket_alpha.config import Settings
+from pocket_alpha.contextual.api import router as context_router
 from pocket_alpha.database import build_engine
 from pocket_alpha.derivatives.api import router as derivatives_router
 from pocket_alpha.fundamentals.api import router as fundamentals_router
@@ -59,6 +60,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     app = FastAPI(title="Pocket Alpha", version="0.1.0", lifespan=lifespan)
     app.include_router(market_router)
+    app.include_router(context_router)
     app.include_router(derivatives_router)
     app.include_router(fundamentals_router)
     app.include_router(analysis_router)

@@ -41,7 +41,10 @@ Phase 18 immutable fundamentals and descriptive causal financial context are imp
 see ../architecture/FUNDAMENTALS.md and PHASE_18_COMPLETION_REPORT.md.
 Phase 19 precise derivative identity, observations and descriptive intelligence are implemented;
 see ../architecture/DERIVATIVES_INTELLIGENCE.md and PHASE_19_COMPLETION_REPORT.md.
-All phases after 19 are unimplemented.
+Phase 20 causal context, public Coinbase ingestion and frozen labelled research datasets are
+implemented; see ../architecture/CONTEXTUAL_INTELLIGENCE.md, ../architecture/REAL_MARKET_DATA.md
+and PHASE_20_COMPLETION_REPORT.md. Service integration limits remain explicit.
+All phases after 20 are unimplemented.
 0. Foundation — repository, domain base, config, DB, Redis, Docker, CI, audit, testing, logging.
 1. Universal market data — assets/providers/history/candles/trades/quotes/quality/replay.
 2. Charting foundation — Next.js shell, search, candles, timeframes, volume, API.
@@ -64,7 +67,8 @@ All phases after 19 are unimplemented.
     [completion report](PHASE_18_COMPLETION_REPORT.md) for coverage and validation limits.
 19. Derivatives intelligence — causal funding/basis/OI and reported options context implemented;
     see [completion report](PHASE_19_COMPLETION_REPORT.md).
-20. Sentiment/news/macro — validated contextual features.
+20. Sentiment/news/macro — causal context and real public market-data gate implemented; see
+    [completion report](PHASE_20_COMPLETION_REPORT.md).
 21. Backtesting — realistic causal event-driven simulation.
 22. Research factory — experiments, registry, reproducibility.
 23. Paper trading — live data, simulated execution.
