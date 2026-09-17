@@ -93,3 +93,8 @@ Phase 17 adds a portfolio-intelligence read-model boundary over Phase 16 snapsho
 candles. Versioned immutable reports explain allocation, concentration and supported historical risk
 metrics while retaining explicit unavailable states. Migration 0008 is additive. See
 PORTFOLIO_INTELLIGENCE.md.
+
+Phase 18 adds provider-independent immutable corporate facts, conservative point-in-time SEC
+ingestion and descriptive financial context. Migration 0009 and read-only asset endpoints preserve
+publication/availability/ingestion and revisions. No strategy, risk approval, execution or broker
+dependency is introduced. See FUNDAMENTALS.md for coverage and unavailable metrics.

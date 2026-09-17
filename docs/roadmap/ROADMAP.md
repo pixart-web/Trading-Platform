@@ -56,7 +56,8 @@ All phases after 17 are unimplemented.
 15. Scanner — cross-market filters and ranking.
 16. Portfolio — manual positions, accounting and dashboard.
 17. Portfolio intelligence — correlations, concentration and allocation.
-18. Fundamentals — providers, financials, valuation.
+18. Fundamentals — immutable provider facts and causal financial context implemented; see
+    [completion report](PHASE_18_COMPLETION_REPORT.md) for coverage and validation limits.
 19. Derivatives intelligence — positioning and volatility context.
 20. Sentiment/news/macro — validated contextual features.
 21. Backtesting — realistic causal event-driven simulation.
