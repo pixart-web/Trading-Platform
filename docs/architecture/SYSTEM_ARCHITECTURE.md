@@ -98,3 +98,8 @@ Phase 18 adds provider-independent immutable corporate facts, conservative point
 ingestion and descriptive financial context. Migration 0009 and read-only asset endpoints preserve
 publication/availability/ingestion and revisions. No strategy, risk approval, execution or broker
 dependency is introduced. See FUNDAMENTALS.md for coverage and unavailable metrics.
+
+Phase 19 adds precise immutable derivative contract identity and causal observations, with descriptive
+funding, open interest, basis, reported option volatility/Greeks, aligned futures curves and explicit
+option skew. Migration 0010 and GET-only endpoints add no execution/risk/broker dependency.
+See DERIVATIVES_INTELLIGENCE.md for units, unavailable states and provider/financial limitations.

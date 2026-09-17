@@ -37,7 +37,11 @@ see ../architecture/PORTFOLIO.md and PHASE_16_COMPLETION_REPORT.md.
 Phase 17 immutable portfolio intelligence is implemented with causal allocation, concentration and
 supported historical risk metrics; see ../architecture/PORTFOLIO_INTELLIGENCE.md and
 PHASE_17_COMPLETION_REPORT.md.
-All phases after 17 are unimplemented.
+Phase 18 immutable fundamentals and descriptive causal financial context are implemented;
+see ../architecture/FUNDAMENTALS.md and PHASE_18_COMPLETION_REPORT.md.
+Phase 19 precise derivative identity, observations and descriptive intelligence are implemented;
+see ../architecture/DERIVATIVES_INTELLIGENCE.md and PHASE_19_COMPLETION_REPORT.md.
+All phases after 19 are unimplemented.
 0. Foundation — repository, domain base, config, DB, Redis, Docker, CI, audit, testing, logging.
 1. Universal market data — assets/providers/history/candles/trades/quotes/quality/replay.
 2. Charting foundation — Next.js shell, search, candles, timeframes, volume, API.
@@ -58,7 +62,8 @@ All phases after 17 are unimplemented.
 17. Portfolio intelligence — correlations, concentration and allocation.
 18. Fundamentals — immutable provider facts and causal financial context implemented; see
     [completion report](PHASE_18_COMPLETION_REPORT.md) for coverage and validation limits.
-19. Derivatives intelligence — positioning and volatility context.
+19. Derivatives intelligence — causal funding/basis/OI and reported options context implemented;
+    see [completion report](PHASE_19_COMPLETION_REPORT.md).
 20. Sentiment/news/macro — validated contextual features.
 21. Backtesting — realistic causal event-driven simulation.
 22. Research factory — experiments, registry, reproducibility.

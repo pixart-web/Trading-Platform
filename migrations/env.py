@@ -4,6 +4,7 @@ from pocket_alpha.analysis.storage import AnalyzeReportRecord
 from pocket_alpha.audit.models import AuditRecord
 from pocket_alpha.config import Settings
 from pocket_alpha.database import Base, build_engine
+from pocket_alpha.derivatives.storage import DerivativeContractRecord, DerivativeObservationRecord
 from pocket_alpha.forecasts.storage import ForecastOutcomeRecord, ForecastRecord
 from pocket_alpha.fundamentals.storage import FundamentalFactRecord, FundamentalMappingRecord
 from pocket_alpha.market_data.storage import CandleRecord
@@ -19,6 +20,8 @@ from pocket_alpha.watchlists.storage import (
 )
 
 target_metadata = Base.metadata
+assert DerivativeContractRecord.__tablename__ in target_metadata.tables
+assert DerivativeObservationRecord.__tablename__ in target_metadata.tables
 assert FundamentalFactRecord.__tablename__ in target_metadata.tables
 assert FundamentalMappingRecord.__tablename__ in target_metadata.tables
 assert AuditRecord.__tablename__ in target_metadata.tables
