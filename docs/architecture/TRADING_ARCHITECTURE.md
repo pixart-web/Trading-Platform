@@ -55,3 +55,5 @@ Offline Phase 21 research preserves the data -> shared intelligence -> forecast 
 ## Phase 22 research factory
 
 Phase 22 research states qualify model evidence only. CHALLENGER requires real OOS net economics; SHADOW additionally requires frozen one-shot holdout evidence. PRODUCTION entry remains disabled. No state is risk approval, broker authorization or actual shadow/live operation. Strategy lifecycle/paper execution remains future work; see [RESEARCH_FACTORY.md](RESEARCH_FACTORY.md).
+
+Phase 23 PAPER uses the existing strategy intention/risk/execution interfaces with durable checkpoints and shared simulated fills. Local disconnection suspends until explicit fresh accounting reconciliation. No real broker is implemented; all capital/execution remains PAPER. See [PAPER_TRADING.md](PAPER_TRADING.md).

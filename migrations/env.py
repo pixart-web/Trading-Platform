@@ -15,6 +15,7 @@ from pocket_alpha.forecasts.storage import ForecastOutcomeRecord, ForecastRecord
 from pocket_alpha.fundamentals.storage import FundamentalFactRecord, FundamentalMappingRecord
 from pocket_alpha.market_data.datasets import MarketDatasetRecord
 from pocket_alpha.market_data.storage import CandleRecord
+from pocket_alpha.paper_trading.storage import PaperAccountRecord, PaperJournalRecord
 from pocket_alpha.portfolio.storage import PortfolioEntryRecord, PortfolioRecord
 from pocket_alpha.portfolio_intelligence.storage import PortfolioIntelligenceRecord
 from pocket_alpha.research.registry import RegistryEventRecord, RegistryRecord
@@ -29,6 +30,8 @@ from pocket_alpha.watchlists.storage import (
 )
 
 target_metadata = Base.metadata
+assert PaperAccountRecord.__tablename__ in target_metadata.tables
+assert PaperJournalRecord.__tablename__ in target_metadata.tables
 assert BacktestRecord.__tablename__ in target_metadata.tables
 for record in (StudyRecord, ResearchRecord, HoldoutRecord, RegistryRecord, RegistryEventRecord):
     assert record.__tablename__ in target_metadata.tables

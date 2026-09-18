@@ -27,3 +27,5 @@ Phase 21 uses original recorded receipts, immutable dataset/forecast inputs and 
 ## Phase 22 research factory
 
 Phase 22 seals bounded temporal matrices with horizon-covering embargo, recorded receipt cutoffs and complete fitted JSON artifacts. All parameter/cost variants and losing trials remain in reports. Final selection/artifacts are frozen; economic asset consumption commits before evaluation and persists after failure, forbidding retries or renamed-study reuse. Bootstrap/permutation quantiles and calibration/drift metrics are descriptive, not confidence or ruin probability. Promotion requires explicit real OOS economic evidence; production is unavailable. See ../architecture/RESEARCH_FACTORY.md.
+
+Phase 23 PAPER shares Phase 21 execution economics and preserves actual processing-time causality. Synthetic/mock regressions prove mechanics only; public observation is not trading performance. Persisted decisions/checkpoints replay without repeating historical strategy callbacks. Complete-bar-close and uncalibrated costs remain explicit assumptions; no PAPER result grants model/lifecycle/live promotion. See ../architecture/PAPER_TRADING.md.

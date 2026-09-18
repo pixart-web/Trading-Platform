@@ -117,3 +117,5 @@ Phase 21 adds an offline backtesting module to the modular monolith. It reuses s
 ## Phase 22 research factory
 
 Phase 22 adds offline research orchestration, immutable experiment matrices, descriptive robustness/calibration/drift analysis, durable one-use holdout consumption and an evidence-linked model registry. It reuses shared intelligence, forecast/outcome validation and Phase 21 simulation; see [RESEARCH_FACTORY.md](RESEARCH_FACTORY.md). No live execution or paper process is added.
+
+Phase 23 adds persistent PAPER heads/journals, replay recovery, explicit public polling and read-only views. Backtesting and PAPER share simulation/engine.py and the existing intelligence kernel. See [PAPER_TRADING.md](PAPER_TRADING.md).

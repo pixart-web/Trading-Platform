@@ -27,7 +27,9 @@ export function upstreamURL(
   const watchlistLatest = watchlistId && parts.length === 4 && parts[2] === "snapshots"
     && parts[3] === "latest";
   const watchlistAlerts = watchlistId && parts.length === 3 && parts[2] === "alerts";
-  const allowed = (method === "GET" && (marketRead || portfolioCollection || portfolioDetail || portfolioEntries || portfolioIntelligence || intelligenceDetail || portfolioSnapshot
+  const paperRead = parts[0] === "paper" && parts[1] === "accounts"
+    && (parts.length === 2 || (parts.length === 3 && uuid.test(parts[2])));
+  const allowed = (method === "GET" && (marketRead || paperRead || portfolioCollection || portfolioDetail || portfolioEntries || portfolioIntelligence || intelligenceDetail || portfolioSnapshot
       || scanCollection || scanDetail || watchlistCollection || watchlistDetail
       || watchlistLatest || watchlistAlerts))
     || (method === "POST" && (portfolioCollection || portfolioEntries || portfolioIntelligence || scanCollection || watchlistCollection || watchlistSnapshot))

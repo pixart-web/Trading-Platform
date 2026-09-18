@@ -154,3 +154,5 @@ Nunca publiques credenciais. Usa ficheiros `.env` locais e mantém apenas um
 Faz commit e push antes de trocar de máquina;
 na outra máquina faz pull da mesma branch. Bases de dados, segredos e ficheiros sem commit
 não são sincronizados por Git e têm de ser provisionados separadamente.
+
+Phase 23 persistent PAPER execution, public one-shot observation and read-only `/paper` are documented in [PAPER architecture](docs/architecture/PAPER_TRADING.md) and [completion report](docs/roadmap/PHASE_23_COMPLETION_REPORT.md). All capital and fills are simulated; live execution remains disabled.

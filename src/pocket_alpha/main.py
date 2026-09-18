@@ -23,6 +23,7 @@ from pocket_alpha.fundamentals.api import router as fundamentals_router
 from pocket_alpha.intelligence.zones.api import router as zone_router
 from pocket_alpha.market_data.api import router as market_router
 from pocket_alpha.observability import configure_logging
+from pocket_alpha.paper_trading.api import router as paper_router
 from pocket_alpha.portfolio.api import router as portfolio_router
 from pocket_alpha.portfolio_intelligence.api import router as portfolio_intelligence_router
 from pocket_alpha.research.api import router as research_router
@@ -64,6 +65,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app.include_router(market_router)
     app.include_router(backtest_router)
     app.include_router(research_router)
+    app.include_router(paper_router)
     app.include_router(context_router)
     app.include_router(derivatives_router)
     app.include_router(fundamentals_router)

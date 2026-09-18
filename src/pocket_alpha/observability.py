@@ -13,6 +13,11 @@ class JsonFormatter(logging.Formatter):
                 "event": record.getMessage(),
                 "correlation_id": getattr(record, "correlation_id", None),
                 "status_code": getattr(record, "status_code", None),
+                "mode": getattr(record, "mode", None),
+                "account_id": getattr(record, "account_id", None),
+                "revision": getattr(record, "revision", None),
+                "paper_status": getattr(record, "paper_status", None),
+                "paper_reason": getattr(record, "paper_reason", None),
             }
         )
 
