@@ -13,7 +13,7 @@ from pocket_alpha.market_data.storage import (
     asset_value,
     market_value,
 )
-from pocket_alpha.paper_trading.engine import PaperRuntime, PaperStrategy
+from pocket_alpha.paper_trading.engine import GuardedPaperStrategy, PaperRuntime, PaperStrategy
 from pocket_alpha.paper_trading.models import (
     PaperConfig,
     PaperHeader,
@@ -139,6 +139,20 @@ class PaperService:
                 raise ValueError("paper event timestamp/account state invalid")
             with localcontext(Context(prec=80, rounding=ROUND_HALF_EVEN)):
                 event = event.model_copy(update={"at": now})
+                if event.kind not in {"KILL", "CLOSE"} and isinstance(
+                    strategy, GuardedPaperStrategy
+                ):
+                    try:
+                        permitted = strategy.preflight(account_id, header.config)
+                    except Exception:
+                        permitted = False
+                    if not permitted:
+                        event = PaperInput(
+                            event_id=event.event_id,
+                            at=now,
+                            kind="DISCONNECT",
+                            reason="STRATEGY_NOT_READY",
+                        )
                 previous_hash = entries[-1].content_hash if entries else runtime.state().state_hash
                 try:
                     runtime.market(event)

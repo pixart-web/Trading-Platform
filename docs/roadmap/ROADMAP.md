@@ -51,7 +51,9 @@ are implemented with explicit financial/statistical and infrastructure limits; s
 ../architecture/RESEARCH_FACTORY.md and PHASE_22_COMPLETION_REPORT.md.
 Phase 23 persistent incremental PAPER execution, recovery/reconciliation and read-only views are
 implemented with explicit execution and infrastructure limits; see ../architecture/PAPER_TRADING.md
-and PHASE_23_COMPLETION_REPORT.md. All phases after 23 are unimplemented.
+and PHASE_23_COMPLETION_REPORT.md. Phase 24 versioned strategy proposals, portfolio sizing and
+evidence-linked lifecycle are implemented; see ../architecture/STRATEGIES.md and
+PHASE_24_COMPLETION_REPORT.md. All phases after 24 are unimplemented.
 0. Foundation — repository, domain base, config, DB, Redis, Docker, CI, audit, testing, logging.
 1. Universal market data — assets/providers/history/candles/trades/quotes/quality/replay.
 2. Charting foundation — Next.js shell, search, candles, timeframes, volume, API.
@@ -82,7 +84,8 @@ and PHASE_23_COMPLETION_REPORT.md. All phases after 23 are unimplemented.
     and model registry implemented; see [completion report](PHASE_22_COMPLETION_REPORT.md).
 23. Paper trading — explicit public data, persistent simulated execution; see
     [completion report](PHASE_23_COMPLETION_REPORT.md).
-24. Strategies — validated lifecycle and portfolio.
+24. Strategies — versioned proposals, portfolio and evidence-linked lifecycle; see
+    [completion report](PHASE_24_COMPLETION_REPORT.md).
 25. Leverage research — liquidation and stress.
 26. Live read-only — balances, positions and reconciliation.
 27. Live small — explicitly configured strict spot limits.

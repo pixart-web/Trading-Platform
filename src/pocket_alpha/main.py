@@ -28,6 +28,7 @@ from pocket_alpha.portfolio.api import router as portfolio_router
 from pocket_alpha.portfolio_intelligence.api import router as portfolio_intelligence_router
 from pocket_alpha.research.api import router as research_router
 from pocket_alpha.scanner.api import router as scanner_router
+from pocket_alpha.strategies.api import router as strategy_router
 from pocket_alpha.watchlists.api import router as watchlist_router
 
 
@@ -66,6 +67,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app.include_router(backtest_router)
     app.include_router(research_router)
     app.include_router(paper_router)
+    app.include_router(strategy_router)
     app.include_router(context_router)
     app.include_router(derivatives_router)
     app.include_router(fundamentals_router)

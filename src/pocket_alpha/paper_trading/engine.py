@@ -1,5 +1,5 @@
 from decimal import ROUND_HALF_EVEN, Context, Decimal, localcontext
-from typing import Protocol
+from typing import Protocol, runtime_checkable
 from uuid import UUID
 
 from pocket_alpha.backtesting.inputs import ResearchStrategy
@@ -25,6 +25,11 @@ D = Decimal
 class PaperStrategy(ResearchStrategy, Protocol):
     def checkpoint(self) -> str: ...
     def restore(self, checkpoint: str) -> None: ...
+
+
+@runtime_checkable
+class GuardedPaperStrategy(PaperStrategy, Protocol):
+    def preflight(self, account_id: UUID, config: PaperConfig) -> bool: ...
 
 
 class PaperRuntime:
@@ -130,8 +135,10 @@ class PaperRuntime:
                 self.status, self.reason = "HALTED", self.sim.halted
                 self.cancel(self.reason)
             elif (
-                self.at - self.last.close_time
-            ).total_seconds() > self.config.run.risk.maximum_data_age_seconds:
+                event.kind != "DISCONNECT"
+                and (self.at - self.last.close_time).total_seconds()
+                > self.config.run.risk.maximum_data_age_seconds
+            ):
                 self.suspend("STALE_FEED")
         if event.kind == "RECONCILE":
             expected = self.state().accounting_hash

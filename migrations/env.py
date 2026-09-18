@@ -21,6 +21,7 @@ from pocket_alpha.portfolio_intelligence.storage import PortfolioIntelligenceRec
 from pocket_alpha.research.registry import RegistryEventRecord, RegistryRecord
 from pocket_alpha.research.storage import HoldoutRecord, ResearchRecord, StudyRecord
 from pocket_alpha.scanner.storage import ScanReportRecord
+from pocket_alpha.strategies.registry import StrategyEventRecord, StrategyRecord
 from pocket_alpha.watchlists.storage import (
     AlertEventRecord,
     WatchlistMemberRecord,
@@ -30,6 +31,8 @@ from pocket_alpha.watchlists.storage import (
 )
 
 target_metadata = Base.metadata
+assert StrategyRecord.__tablename__ in target_metadata.tables
+assert StrategyEventRecord.__tablename__ in target_metadata.tables
 assert PaperAccountRecord.__tablename__ in target_metadata.tables
 assert PaperJournalRecord.__tablename__ in target_metadata.tables
 assert BacktestRecord.__tablename__ in target_metadata.tables

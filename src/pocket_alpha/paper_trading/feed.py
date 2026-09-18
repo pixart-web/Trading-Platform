@@ -74,6 +74,6 @@ class PublicPaperPoller:
                     event_id=uuid4(), at=utc(self.service.clock.now()), kind="CANDLE", candle=bar
                 )
             )
-            if state.reason == "INVALID_MARKET_DATA" or state.status == "HALTED":
+            if state.next_open <= bar.open_time or state.status == "HALTED":
                 break
         return state
