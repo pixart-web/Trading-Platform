@@ -125,3 +125,5 @@ Phase 24 adds versioned strategy proposals, portfolio sizing and an evidence-lin
 Phase 25 adds an independent leverage research calculation boundary with immutable contract/portfolio/prior-risk inputs, conditional isolated linear liquidation and explicit stress losses. No migration, persistence, API, UI or execution consumer is introduced. See [LEVERAGE_RESEARCH.md](LEVERAGE_RESEARCH.md).
 
 Phase 26 adds a native private Binance Spot GET-only observation adapter, immutable account state and explicit local reconciliation receipts. It has no strategy dependency, public account API, startup polling, broker writes or database migration. See [LIVE_READ_ONLY.md](LIVE_READ_ONLY.md); authenticated venue qualification remains unexecuted.
+
+Phase 27 adds spot_execution: explicit admission limits, a separate local SQLite account journal, idempotent synthetic dispatch and a narrowly allowlisted Binance Spot adapter for read-only qualification/query recovery. Native dispatch is unreachable behind independent configuration, risk and transport barriers; there is no main-schema migration. See [SPOT_EXECUTION.md](SPOT_EXECUTION.md).
