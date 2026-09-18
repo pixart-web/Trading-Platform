@@ -2,6 +2,7 @@ from alembic import context
 
 from pocket_alpha.analysis.storage import AnalyzeReportRecord
 from pocket_alpha.audit.models import AuditRecord
+from pocket_alpha.backtesting.storage import BacktestRecord
 from pocket_alpha.config import Settings
 from pocket_alpha.contextual.storage import (
     ContextEntityRecord,
@@ -26,6 +27,7 @@ from pocket_alpha.watchlists.storage import (
 )
 
 target_metadata = Base.metadata
+assert BacktestRecord.__tablename__ in target_metadata.tables
 assert ContextEntityRecord.__tablename__ in target_metadata.tables
 assert ContextMappingRecord.__tablename__ in target_metadata.tables
 assert ContextObservationRecord.__tablename__ in target_metadata.tables

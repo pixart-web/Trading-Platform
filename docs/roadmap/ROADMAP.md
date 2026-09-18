@@ -44,7 +44,9 @@ see ../architecture/DERIVATIVES_INTELLIGENCE.md and PHASE_19_COMPLETION_REPORT.m
 Phase 20 causal context, public Coinbase ingestion and frozen labelled research datasets are
 implemented; see ../architecture/CONTEXTUAL_INTELLIGENCE.md, ../architecture/REAL_MARKET_DATA.md
 and PHASE_20_COMPLETION_REPORT.md. Service integration limits remain explicit.
-All phases after 20 are unimplemented.
+Phase 21 causal event-driven crypto spot LONG backtesting is implemented with explicit execution
+assumptions and validation limits; see ../architecture/BACKTESTING.md and
+PHASE_21_COMPLETION_REPORT.md. All phases after 21 are unimplemented.
 0. Foundation — repository, domain base, config, DB, Redis, Docker, CI, audit, testing, logging.
 1. Universal market data — assets/providers/history/candles/trades/quotes/quality/replay.
 2. Charting foundation — Next.js shell, search, candles, timeframes, volume, API.
@@ -69,7 +71,8 @@ All phases after 20 are unimplemented.
     see [completion report](PHASE_19_COMPLETION_REPORT.md).
 20. Sentiment/news/macro — causal context and real public market-data gate implemented; see
     [completion report](PHASE_20_COMPLETION_REPORT.md).
-21. Backtesting — realistic causal event-driven simulation.
+21. Backtesting — causal event-driven simulation implemented for crypto spot LONG; see
+    [completion report](PHASE_21_COMPLETION_REPORT.md) for assumptions and unsupported markets.
 22. Research factory — experiments, registry, reproducibility.
 23. Paper trading — live data, simulated execution.
 24. Strategies — validated lifecycle and portfolio.

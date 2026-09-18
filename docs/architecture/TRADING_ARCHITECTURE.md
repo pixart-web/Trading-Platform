@@ -47,3 +47,7 @@ Phase 17 observes portfolio accounting state and historical market relationships
 concentrations, volatility, beta, correlations and risk contributions are descriptive inputs for later
 risk work. They cannot approve risk, size capital or authorize execution. See
 PORTFOLIO_INTELLIGENCE.md.
+
+## Phase 21 offline research
+
+Offline Phase 21 research preserves the data -> shared intelligence -> forecast inputs -> strategy intent -> portfolio -> risk -> simulated execution boundary. Spot LONG inventory only is supported; unsupported leverage/SHORT routes cannot execute. Strategy callbacks receive causal immutable views. See [BACKTESTING.md](BACKTESTING.md) for receipt and complete-bar-close assumptions.

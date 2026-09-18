@@ -17,3 +17,7 @@ live trading cannot be enabled through configuration and no execution adapter ex
 Phase 16 portfolio accounting supplies exact manual cash, position and P&L state for later controls.
 It does not implement exposure limits, sizing or risk decisions, and a recorded BUY or SELL is not an
 approved order or verified fill. Live trading remains disabled.
+
+## Phase 21 offline research
+
+Phase 21 simulation approvals and reservations are research-only. Kill switch, stale inputs, spread, worst-case debit, exposure, daily loss and drawdown halt pending/new orders. They do not grant broker authorization or guarantee drawdown limits on existing inventory. Close marks omit intrabar stress; leverage and ruin probability remain unsupported.

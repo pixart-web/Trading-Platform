@@ -19,3 +19,7 @@ research must record dataset identity/hash and economic market/asset/venue/curre
 not silently mix origins. Imported historical prices are available locally at receipt/capture, never
 retroactively at candle open. Real-data smoke/replay evidence is not economic validation, survivorship
 protection, production readiness or execution authorization.
+
+## Phase 21 offline research
+
+Phase 21 uses original recorded receipts, immutable dataset/forecast inputs and verified source/environment hashes. Single-market selection/survivorship bias is explicitly unassessed. Synthetic profitability is never evidence. Complete-bar-close fills and costs are modeled assumptions; ratios/tail estimates require supported sample size and intervals. FINAL_HOLDOUT is blocked until protected research authorization exists. See ../architecture/BACKTESTING.md.

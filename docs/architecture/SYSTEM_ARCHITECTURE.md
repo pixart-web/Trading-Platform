@@ -109,3 +109,7 @@ GET-only context snapshots, a public Coinbase historical adapter and frozen REAL
 Migration 0011 is additive. Explicit network imports never run at startup and add no strategy, risk
 approval, leverage, execution or broker dependency. See CONTEXTUAL_INTELLIGENCE.md and
 REAL_MARKET_DATA.md for provenance, economic identity, conservative availability and limitations.
+
+## Phase 21 offline research
+
+Phase 21 adds an offline backtesting module to the modular monolith. It reuses shared technical intelligence and immutable forecasts, validates causal risk approval before simulated execution, and exposes immutable read-only reports. See [BACKTESTING.md](BACKTESTING.md). No broker connection or live readiness is introduced.
