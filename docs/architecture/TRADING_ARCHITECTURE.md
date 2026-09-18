@@ -59,3 +59,5 @@ Phase 22 research states qualify model evidence only. CHALLENGER requires real O
 Phase 23 PAPER uses the existing strategy intention/risk/execution interfaces with durable checkpoints and shared simulated fills. Local disconnection suspends until explicit fresh accounting reconciliation. No real broker is implemented; all capital/execution remains PAPER. See [PAPER_TRADING.md](PAPER_TRADING.md).
 
 Phase 25 evaluates leverage only in offline research after an explicitly bound caller portfolio/prior-risk context. Results are not approvals and cannot enter spot/PAPER/execution routes. Conditional liquidation, deficits and survival stresses are documented in [LEVERAGE_RESEARCH.md](LEVERAGE_RESEARCH.md).
+
+Phase 26 observes private Binance Spot account identity, balances/spot inventory, open orders, scoped trade history and instrument metadata. Exact local reconciliation and key-scope guards can only establish read-only readiness; they cannot approve orders or enable live trading. No strategy imports the adapter. See [LIVE_READ_ONLY.md](LIVE_READ_ONLY.md).

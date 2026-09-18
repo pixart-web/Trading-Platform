@@ -123,3 +123,5 @@ Phase 23 adds persistent PAPER heads/journals, replay recovery, explicit public 
 Phase 24 adds versioned strategy proposals, portfolio sizing and an evidence-linked registry. It reuses technical/forecast/directional intelligence and the shared risk/simulation boundary; registered PAPER strategies check lifecycle before pending fills. See [STRATEGIES.md](STRATEGIES.md).
 
 Phase 25 adds an independent leverage research calculation boundary with immutable contract/portfolio/prior-risk inputs, conditional isolated linear liquidation and explicit stress losses. No migration, persistence, API, UI or execution consumer is introduced. See [LEVERAGE_RESEARCH.md](LEVERAGE_RESEARCH.md).
+
+Phase 26 adds a native private Binance Spot GET-only observation adapter, immutable account state and explicit local reconciliation receipts. It has no strategy dependency, public account API, startup polling, broker writes or database migration. See [LIVE_READ_ONLY.md](LIVE_READ_ONLY.md); authenticated venue qualification remains unexecuted.

@@ -55,7 +55,9 @@ and PHASE_23_COMPLETION_REPORT.md. Phase 24 versioned strategy proposals, portfo
 evidence-linked lifecycle are implemented; see ../architecture/STRATEGIES.md and
 PHASE_24_COMPLETION_REPORT.md. Phase 25 adds independent conditional leverage/liquidation stress
 research; see ../architecture/LEVERAGE_RESEARCH.md and PHASE_25_COMPLETION_REPORT.md.
-All phases after 25 are unimplemented.
+Phase 26 implements native private read-only account observations and explicit local reconciliation;
+see ../architecture/LIVE_READ_ONLY.md and PHASE_26_COMPLETION_REPORT.md for qualification limits.
+All phases after 26 are unimplemented.
 0. Foundation — repository, domain base, config, DB, Redis, Docker, CI, audit, testing, logging.
 1. Universal market data — assets/providers/history/candles/trades/quotes/quality/replay.
 2. Charting foundation — Next.js shell, search, candles, timeframes, volume, API.
@@ -90,7 +92,8 @@ All phases after 25 are unimplemented.
     [completion report](PHASE_24_COMPLETION_REPORT.md).
 25. Leverage research — conditional isolated linear liquidation and stress; see
     [completion report](PHASE_25_COMPLETION_REPORT.md).
-26. Live read-only — balances, positions and reconciliation.
+26. Live read-only — native Binance Spot GET observations and local reconciliation implemented;
+    see [completion report](PHASE_26_COMPLETION_REPORT.md). Authenticated venue qualification remains pending.
 27. Live small — explicitly configured strict spot limits.
 28. Autopilot — scanning, allocation, monitoring and compounding.
 29. Derivative execution — independently validated SHORT and controlled leverage.

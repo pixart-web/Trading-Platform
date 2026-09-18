@@ -160,3 +160,5 @@ Phase 23 persistent PAPER execution, public one-shot observation and read-only `
 Phase 24 versioned strategy proposals, portfolio sizing and evidence-linked lifecycle are documented in [strategy architecture](docs/architecture/STRATEGIES.md) and [completion report](docs/roadmap/PHASE_24_COMPLETION_REPORT.md). The initial family is SMA trend for spot LONG; real promotion requires matching sealed evidence and live execution remains disabled.
 
 Phase 25 independent conditional leverage research is documented in [architecture](docs/architecture/LEVERAGE_RESEARCH.md) and [completion report](docs/roadmap/PHASE_25_COMPLETION_REPORT.md). It models isolated linear margin and explicit survival stresses only; it cannot approve orders or enable execution.
+
+Phase 26 adds explicit local Binance Spot private GET observations and exact account-bound reconciliation; see [architecture](docs/architecture/LIVE_READ_ONLY.md) and [completion report](docs/roadmap/PHASE_26_COMPLETION_REPORT.md). Credentials are environment-only; live execution remains disabled. Authenticated real-account qualification is still unexecuted.

@@ -40,3 +40,6 @@ Desktop.ini
 
 # Local opt-in real research evidence; never bundled into unit fixtures.
 data/local/
+
+# Private broker observations and independently verified local reconciliation state.
+.private/
