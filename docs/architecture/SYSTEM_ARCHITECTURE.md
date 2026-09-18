@@ -121,3 +121,5 @@ Phase 22 adds offline research orchestration, immutable experiment matrices, des
 Phase 23 adds persistent PAPER heads/journals, replay recovery, explicit public polling and read-only views. Backtesting and PAPER share simulation/engine.py and the existing intelligence kernel. See [PAPER_TRADING.md](PAPER_TRADING.md).
 
 Phase 24 adds versioned strategy proposals, portfolio sizing and an evidence-linked registry. It reuses technical/forecast/directional intelligence and the shared risk/simulation boundary; registered PAPER strategies check lifecycle before pending fills. See [STRATEGIES.md](STRATEGIES.md).
+
+Phase 25 adds an independent leverage research calculation boundary with immutable contract/portfolio/prior-risk inputs, conditional isolated linear liquidation and explicit stress losses. No migration, persistence, API, UI or execution consumer is introduced. See [LEVERAGE_RESEARCH.md](LEVERAGE_RESEARCH.md).

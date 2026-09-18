@@ -158,3 +158,5 @@ não são sincronizados por Git e têm de ser provisionados separadamente.
 Phase 23 persistent PAPER execution, public one-shot observation and read-only `/paper` are documented in [PAPER architecture](docs/architecture/PAPER_TRADING.md) and [completion report](docs/roadmap/PHASE_23_COMPLETION_REPORT.md). All capital and fills are simulated; live execution remains disabled.
 
 Phase 24 versioned strategy proposals, portfolio sizing and evidence-linked lifecycle are documented in [strategy architecture](docs/architecture/STRATEGIES.md) and [completion report](docs/roadmap/PHASE_24_COMPLETION_REPORT.md). The initial family is SMA trend for spot LONG; real promotion requires matching sealed evidence and live execution remains disabled.
+
+Phase 25 independent conditional leverage research is documented in [architecture](docs/architecture/LEVERAGE_RESEARCH.md) and [completion report](docs/roadmap/PHASE_25_COMPLETION_REPORT.md). It models isolated linear margin and explicit survival stresses only; it cannot approve orders or enable execution.
