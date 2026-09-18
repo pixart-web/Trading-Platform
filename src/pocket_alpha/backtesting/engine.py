@@ -53,12 +53,24 @@ class Backtester:
         strategy: ResearchStrategy,
         forecasts: tuple[Forecast, ...] = (),
     ) -> BacktestReport:
+        return self._run(dataset, config, strategy, forecasts, final_authorized=False)
+
+    def _run(
+        self,
+        dataset: MarketDataset,
+        config: RunConfig,
+        strategy: ResearchStrategy,
+        forecasts: tuple[Forecast, ...],
+        *,
+        final_authorized: bool,
+    ) -> BacktestReport:
+        # Internal research-only entry: persisted holdout consumption precedes authorization.
         dataset = MarketDataset.model_validate_json(dataset.model_dump_json())
         config = RunConfig.model_validate_json(config.model_dump_json())
-        if config.evaluation_split == "FINAL_HOLDOUT":
+        if config.evaluation_split == "FINAL_HOLDOUT" and not final_authorized:
             raise ValueError(
                 "final holdout consumption requires protected research authorization; "
-                "unavailable in Phase 21"
+                "use the protected research factory"
             )
         if strategy.identity != config.strategy:
             raise ValueError("strategy implementation identity does not match run configuration")

@@ -45,8 +45,8 @@ RunConfig requires dataset identity/hash, strategy/model/feature/cost/risk versi
 parameters, declared git revision, verified source-tree and environment hashes, seed,
 selection rationale and evaluation split. The engine uses no random generator. External
 callback determinism is the caller's responsibility; differing persisted results for the
-same manifest are rejected. FINAL_HOLDOUT runs are blocked pending protected research
-factory authorization. No final-test optimization facility is provided.
+same manifest are rejected. Public FINAL_HOLDOUT runs are blocked; Phase 22 supplies protected one-shot research
+factory authorization with durable consumption and frozen fitted artifacts. No final-test optimization facility is provided.
 
 BacktestService loads the frozen dataset, runs Backtester and stores a validated report
 using BacktestRepository; the caller commits the SQLAlchemy transaction. Reports include

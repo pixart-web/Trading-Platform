@@ -113,3 +113,7 @@ REAL_MARKET_DATA.md for provenance, economic identity, conservative availability
 ## Phase 21 offline research
 
 Phase 21 adds an offline backtesting module to the modular monolith. It reuses shared technical intelligence and immutable forecasts, validates causal risk approval before simulated execution, and exposes immutable read-only reports. See [BACKTESTING.md](BACKTESTING.md). No broker connection or live readiness is introduced.
+
+## Phase 22 research factory
+
+Phase 22 adds offline research orchestration, immutable experiment matrices, descriptive robustness/calibration/drift analysis, durable one-use holdout consumption and an evidence-linked model registry. It reuses shared intelligence, forecast/outcome validation and Phase 21 simulation; see [RESEARCH_FACTORY.md](RESEARCH_FACTORY.md). No live execution or paper process is added.

@@ -17,6 +17,8 @@ from pocket_alpha.market_data.datasets import MarketDatasetRecord
 from pocket_alpha.market_data.storage import CandleRecord
 from pocket_alpha.portfolio.storage import PortfolioEntryRecord, PortfolioRecord
 from pocket_alpha.portfolio_intelligence.storage import PortfolioIntelligenceRecord
+from pocket_alpha.research.registry import RegistryEventRecord, RegistryRecord
+from pocket_alpha.research.storage import HoldoutRecord, ResearchRecord, StudyRecord
 from pocket_alpha.scanner.storage import ScanReportRecord
 from pocket_alpha.watchlists.storage import (
     AlertEventRecord,
@@ -28,6 +30,8 @@ from pocket_alpha.watchlists.storage import (
 
 target_metadata = Base.metadata
 assert BacktestRecord.__tablename__ in target_metadata.tables
+for record in (StudyRecord, ResearchRecord, HoldoutRecord, RegistryRecord, RegistryEventRecord):
+    assert record.__tablename__ in target_metadata.tables
 assert ContextEntityRecord.__tablename__ in target_metadata.tables
 assert ContextMappingRecord.__tablename__ in target_metadata.tables
 assert ContextObservationRecord.__tablename__ in target_metadata.tables

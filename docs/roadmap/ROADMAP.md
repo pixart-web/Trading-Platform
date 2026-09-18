@@ -46,7 +46,10 @@ implemented; see ../architecture/CONTEXTUAL_INTELLIGENCE.md, ../architecture/REA
 and PHASE_20_COMPLETION_REPORT.md. Service integration limits remain explicit.
 Phase 21 causal event-driven crypto spot LONG backtesting is implemented with explicit execution
 assumptions and validation limits; see ../architecture/BACKTESTING.md and
-PHASE_21_COMPLETION_REPORT.md. All phases after 21 are unimplemented.
+PHASE_21_COMPLETION_REPORT.md. Phase 22 offline research orchestration and model evidence
+are implemented with explicit financial/statistical and infrastructure limits; see
+../architecture/RESEARCH_FACTORY.md and PHASE_22_COMPLETION_REPORT.md.
+All phases after 22 are unimplemented.
 0. Foundation — repository, domain base, config, DB, Redis, Docker, CI, audit, testing, logging.
 1. Universal market data — assets/providers/history/candles/trades/quotes/quality/replay.
 2. Charting foundation — Next.js shell, search, candles, timeframes, volume, API.
@@ -73,7 +76,8 @@ PHASE_21_COMPLETION_REPORT.md. All phases after 21 are unimplemented.
     [completion report](PHASE_20_COMPLETION_REPORT.md).
 21. Backtesting — causal event-driven simulation implemented for crypto spot LONG; see
     [completion report](PHASE_21_COMPLETION_REPORT.md) for assumptions and unsupported markets.
-22. Research factory — experiments, registry, reproducibility.
+22. Research factory — immutable temporal experiments, robustness diagnostics, one-shot holdout
+    and model registry implemented; see [completion report](PHASE_22_COMPLETION_REPORT.md).
 23. Paper trading — live data, simulated execution.
 24. Strategies — validated lifecycle and portfolio.
 25. Leverage research — liquidation and stress.

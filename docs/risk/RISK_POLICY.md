@@ -21,3 +21,7 @@ approved order or verified fill. Live trading remains disabled.
 ## Phase 21 offline research
 
 Phase 21 simulation approvals and reservations are research-only. Kill switch, stale inputs, spread, worst-case debit, exposure, daily loss and drawdown halt pending/new orders. They do not grant broker authorization or guarantee drawdown limits on existing inventory. Close marks omit intrabar stress; leverage and ruin probability remain unsupported.
+
+## Phase 22 research factory
+
+Phase 22 model qualification cannot approve an order or enable live configuration. Promotion policies must explicitly declare positive net return/closed-trade expectancy, samples, assets, temporal folds, drawdown and baseline improvement; synthetic/in-sample evidence cannot promote. Descriptive Monte Carlo/permutation scenarios do not estimate validated ruin risk. Registry degradation is metadata, not an implemented live suspension process.

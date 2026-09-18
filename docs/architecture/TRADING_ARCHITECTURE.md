@@ -51,3 +51,7 @@ PORTFOLIO_INTELLIGENCE.md.
 ## Phase 21 offline research
 
 Offline Phase 21 research preserves the data -> shared intelligence -> forecast inputs -> strategy intent -> portfolio -> risk -> simulated execution boundary. Spot LONG inventory only is supported; unsupported leverage/SHORT routes cannot execute. Strategy callbacks receive causal immutable views. See [BACKTESTING.md](BACKTESTING.md) for receipt and complete-bar-close assumptions.
+
+## Phase 22 research factory
+
+Phase 22 research states qualify model evidence only. CHALLENGER requires real OOS net economics; SHADOW additionally requires frozen one-shot holdout evidence. PRODUCTION entry remains disabled. No state is risk approval, broker authorization or actual shadow/live operation. Strategy lifecycle/paper execution remains future work; see [RESEARCH_FACTORY.md](RESEARCH_FACTORY.md).
