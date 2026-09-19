@@ -33,6 +33,6 @@ Evidence exists in green GitHub Actions run 35438637940. Main integration is che
 - [x] no withdrawal capability
 - [x] final release documents complete
 - [x] final candidate GitHub CI observed green — run 35438637940
-- [ ] final branch integrated into `main`
+- [x] final branch integrated into `main` — fast-forward integration completed at `64a42477a3b0994a09edd2abe250738d983cd247`
 
 A future deployment operator must additionally verify DNS/TLS, firewall, host patch level, secret files, off-server encrypted backup target, alerts, resolved image digests and a manual rollback/restore rehearsal.
