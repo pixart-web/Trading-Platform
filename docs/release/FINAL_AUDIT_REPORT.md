@@ -2,18 +2,18 @@
 
 ## Executive summary
 
-This independent audit covers the complete F0-F29 repository rather than accepting phase reports as proof. The audited remediation source is `f235ca8feb9a3d61a8514dad79699e5b22fa09c3`, based on F0-F29 main revision `2ee7d31d7bfe4f617de2d20ba6480eeb5787a7ba`. The documentation commit will be recorded after final CI; this split avoids a self-referential commit SHA.
+This independent audit covers the complete F0-F29 repository rather than accepting phase reports as proof. The audited candidate source is `0838ef5fef7f70be34a2550690f8156d47afda43`, based on F0-F29 main revision `2ee7d31d7bfe4f617de2d20ba6480eeb5787a7ba`. This evidence-only documentation revision follows the green candidate run, avoiding a self-referential commit SHA.
 
 The modular boundary remains market data → intelligence → forecasts → directional analysis → strategy → portfolio → risk → leverage assessment → execution → broker. No HTTP execution endpoint was added. `live_trading_enabled` and `derivative_execution_enabled` remain structurally `Literal[False]`. The candidate is intended only for research, read-only analysis and PAPER operation.
 
-The audit found 15 items: 0 critical, 2 high, 6 medium, 4 low and 3 informational. Eleven are remediated in the audited source; four are explicit non-blocking debt or real-money limitations. Final deployment readiness remains pending until the GitHub run for the final documentation revision is green.
+The audit found 15 items: 0 critical, 2 high, 6 medium, 4 low and 3 informational. Eleven are remediated in the audited source; four are explicit non-blocking debt or real-money limitations. GitHub Actions run 35438637940 is green across backend, frontend, security and container/recovery jobs. The limited research/read-only/PAPER candidate is deployment-ready with the documented non-blocking debt and manual prerequisites.
 
 ## Repository revision audited
 
 - F0-F29 baseline: `2ee7d31d7bfe4f617de2d20ba6480eeb5787a7ba`
-- Remediated source: `f235ca8feb9a3d61a8514dad79699e5b22fa09c3`
-- Audit-documentation revision: pending final commit
-- GitHub Actions: [run 35437576308](https://github.com/pixart-web/Trading-Platform/actions/runs/35437576308), pending at document creation
+- Audited candidate source: `0838ef5fef7f70be34a2550690f8156d47afda43`
+- Evidence documentation: subsequent documentation-only revision
+- GitHub Actions: [run 35438637940](https://github.com/pixart-web/Trading-Platform/actions/runs/35438637940), SUCCESS
 
 ## Skills and tools used
 
@@ -42,14 +42,14 @@ The shared intelligence layer is reused by Analyze, strategy and research. Strat
 | PA-004 | MEDIUM | Outbound HTTP | Native public and SEC HTTP transports followed redirects before checking final origin; Bandit also required explicit URL validation. | A compromised provider redirect could cross the intended network boundary. | Native redirect handlers now reject redirects; HTTPS/credential checks and exact SEC origin checks happen before I/O. 33 targeted tests pass. | REMEDIATED |
 | PA-005 | MEDIUM | Dependency | `pytest 8.4.2` matched PYSEC-2026-1845. | Development/CI tooling carried a known advisory. | Upgraded and pinned pytest 9.0.3; full suite passes. Both Python lock audits report no known vulnerabilities. | REMEDIATED |
 | PA-006 | MEDIUM | Supply chain | GitHub Actions used moving major tags and CI had no SAST, secret or vulnerability gates. | Action drift and known vulnerable dependencies/images could enter unnoticed. | Actions are commit-SHA pinned; CI runs pip-audit, pnpm audit, Bandit, detect-secrets and Trivy. | REMEDIATED |
-| PA-007 | MEDIUM | Containers/recovery | API/web had no image healthcheck; disposable startup and PostgreSQL restore were not CI gates. | Broken images or unusable backups could appear release-ready. | Added healthchecks plus development and production startup, API/web smoke and pg_dump/pg_restore CI exercises. | REMEDIATED, final CI pending |
+| PA-007 | MEDIUM | Containers/recovery | API/web had no image healthcheck; disposable startup and PostgreSQL restore were not CI gates. | Broken images or unusable backups could appear release-ready. | Added healthchecks plus development and production startup, API/web smoke and pg_dump/pg_restore CI exercises. | REMEDIATED |
 | PA-008 | MEDIUM | Browser security | The Next shell had no repository-defined CSP, anti-framing, MIME, referrer or permission headers. | Browser attack surface depended on undeclared infrastructure. | Added headers in `next.config.ts`; Playwright verifies them. | REMEDIATED |
 | PA-009 | LOW | Runtime image | Backend runtime installed test/typecheck tools from the development lock. | Larger attack surface and image size. | Added `requirements-runtime.lock` and a two-stage non-root image. | REMEDIATED |
 | PA-010 | LOW | Image provenance | Python, Node, PostgreSQL and Redis use version-family tags rather than immutable per-platform digests. | Rebuild bytes may drift. | Caddy and Trivy are patch-pinned; release procedure records resolved digests and requires Trivy. Multi-architecture digest locking remains operational debt. | OPEN, non-blocking |
 | PA-011 | LOW | Observability | JSON logs, correlation IDs and probes exist, but metrics, tracing and an error reporter are absent. | Slower diagnosis and no native SLO history. | Deployment document requires external probes, log shipping, resource alerts and an alerting target before public operation. | OPEN, non-blocking for limited research deployment |
 | PA-012 | LOW | Authentication maturity | Minimal single-operator bcrypt Basic Auth has no SSO, MFA or application roles. | It is unsuitable for multi-user or privileged production workflows. | Scope deployment to a private single-operator platform behind TLS/firewall; add identity proxy before adding users. | OPEN, scope constraint |
 | PA-013 | LOW | Local validation host | Docker Desktop on the audit workstation has inaccessible stale Windows socket reparse points. | Local PostgreSQL/Redis/container evidence could not be produced. | Repository config validated locally; identical disposable tests run in GitHub Linux CI. Host repair is external to the repo. | OPEN environment debt |
-| PA-014 | INFO | Test skips | Local full suite reports 231 skips because repository fixtures parameterize SQLite/PostgreSQL and `PA_INTEGRATION` is absent. | Local pass count alone does not validate PostgreSQL. | CI sets `PA_INTEGRATION=1`; final skip reasons and count are recorded in test evidence. | REMEDIATED by CI gate, pending result |
+| PA-014 | INFO | Test skips | Local full suite reports 231 skips because repository fixtures parameterize SQLite/PostgreSQL and `PA_INTEGRATION` is absent. | Local pass count alone does not validate PostgreSQL. | CI sets `PA_INTEGRATION=1`; final skip reasons and count are recorded in test evidence. | REMEDIATED by CI gate |
 | PA-015 | INFO | Economics/real money | No independently validated real OOS edge, broker qualification, live permissions, safe leverage proof or ruin probability exists. | Real-money trading would be unsupported. | No claim or enabling change was made. Real-money readiness remains NO. | OPEN real-money blocker only |
 
 ## Security results
@@ -70,7 +70,7 @@ Alembic reports exactly one head (`0015`). The integration test exercises empty/
 
 ## Backend, frontend, Docker and dependency results
 
-Local: Ruff, format and strict mypy pass; 1069 tests pass with 231 environment skips; branch coverage is 91%. Frontend lint/typecheck, 66 unit tests, production build and 18 Chromium E2E pass. Runtime Python and production Node dependency audits report zero known vulnerabilities; Bandit has zero medium/high findings. Containers are non-root for API/web, health checked and use minimized runtime dependencies. Final Linux builds/Trivy/startup remain tied to the recorded CI run.
+Local: Ruff, format and strict mypy pass; 1069 tests pass with 231 environment skips; branch coverage is 91%. Frontend lint/typecheck, 66 unit tests, production build and 18 Chromium E2E pass. Runtime Python and production Node dependency audits report zero known vulnerabilities; Bandit has zero medium/high findings. Containers are non-root for API/web, health checked and use minimized runtime dependencies. Linux image builds, Trivy scans, development and production startup, authentication and restore all pass in the recorded CI run.
 
 ## Economic-validation status
 
@@ -82,7 +82,7 @@ Immutable multi-platform image digests, native metrics/tracing/error reporting, 
 
 ## Deployment blockers
 
-At document creation, the only release blocker is observing green GitHub CI for the final documentation commit. DNS, a Linux host, off-server encrypted backup target and operator credentials are manual prerequisites to an actual later deployment, not reasons to alter the repository candidate.
+No repository blocker remains for the limited research/read-only/PAPER deployment candidate. DNS, a Linux host, off-server encrypted backup target, monitoring and operator credentials remain mandatory manual prerequisites to an actual later deployment.
 
 ## Real-money blockers
 
@@ -90,6 +90,8 @@ Authenticated venue qualification; independently approved permissions with withd
 
 ## Final verdict
 
-`DEPLOYMENT_READINESS = PENDING_FINAL_CI`
+`DEPLOYMENT_READY = YES`
+
+`DEPLOYMENT_STATE = READY_WITH_NON_BLOCKING_DEBT`
 
 `REAL_MONEY_TRADING_READY = NO`

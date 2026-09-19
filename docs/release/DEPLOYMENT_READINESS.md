@@ -2,7 +2,9 @@
 
 ## Current state
 
-`READY_STATE = PENDING_FINAL_CI`
+`DEPLOYMENT_READY = YES`
+
+`READY_STATE = READY_WITH_NON_BLOCKING_DEBT`
 
 `REAL_MONEY_TRADING_READY = NO`
 
@@ -16,7 +18,7 @@ The candidate is scoped to a single-operator research, read-only and PAPER deplo
 - Connection strings are mounted as Docker secret files and redacted by Pydantic.
 - API/web run non-root, with read-only filesystems, dropped capabilities and healthchecks.
 - Migrations run as a one-shot dependency before API startup.
-- PostgreSQL, Redis and Caddy state use named volumes; no database/cache port is published.
+- PostgreSQL and Caddy state use named volumes; Redis is deliberately disposable and non-persistent; no database/cache port is published.
 - CI verifies config, builds, critical image CVEs, startup, probes, authentication and restore.
 
 ## Manual prerequisites before deployment
@@ -34,4 +36,4 @@ The candidate is scoped to a single-operator research, read-only and PAPER deplo
 
 ## Blocker policy
 
-Any non-green final CI job, missing backup destination, failed restore rehearsal, absent TLS/domain, inability to protect secret files, public API/data port, or changed execution flag makes the state `NOT_READY`. Missing real-money evidence does not block this limited mode because real execution remains off.
+The audited candidate CI is green. Any later non-green CI job, missing backup destination, failed restore rehearsal, absent TLS/domain, inability to protect secret files, public API/data port, or changed execution flag makes the state `NOT_READY`. Missing real-money evidence does not block this limited mode because real execution remains off.
