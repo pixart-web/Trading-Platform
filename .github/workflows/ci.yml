@@ -64,12 +64,12 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           persist-credentials: false
+      - run: npm install --global pnpm@11.19.0
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: "24"
           cache: pnpm
           cache-dependency-path: frontend/pnpm-lock.yaml
-      - run: npm install --global pnpm@11.19.0
       - run: pnpm install --frozen-lockfile
       - run: pnpm lint
       - run: pnpm typecheck
@@ -117,7 +117,10 @@ jobs:
           printf '%s' 'local-ci-only' > /tmp/pocket-alpha-secrets/redis_password
           printf '%s' 'postgresql+psycopg://pocket_alpha:local-ci-only@db:5432/pocket_alpha' > /tmp/pocket-alpha-secrets/database_url
           printf '%s' 'redis://:local-ci-only@redis:6379/0' > /tmp/pocket-alpha-secrets/redis_url
-          chmod 600 /tmp/pocket-alpha-secrets/*
+          chmod 755 /tmp/pocket-alpha-secrets
+          chmod 400 /tmp/pocket-alpha-secrets/*
+          sudo chown 10001:10001 /tmp/pocket-alpha-secrets/database_url /tmp/pocket-alpha-secrets/redis_url
+          sudo chown 999:999 /tmp/pocket-alpha-secrets/postgres_password /tmp/pocket-alpha-secrets/redis_password
           echo "PA_DOMAIN=research.example.test" >> "$GITHUB_ENV"
           echo "PA_ADMIN_USER=operator" >> "$GITHUB_ENV"
           echo "PA_ADMIN_PASSWORD_HASH=ci-validation-hash" >> "$GITHUB_ENV"

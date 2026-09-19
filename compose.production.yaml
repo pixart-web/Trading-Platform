@@ -110,10 +110,8 @@ services:
     command:
       - sh
       - -ec
-      - exec redis-server --appendonly yes --requirepass "$$(cat /run/secrets/redis_password)"
+      - exec redis-server --save "" --appendonly no --requirepass "$$(cat /run/secrets/redis_password)"
     secrets: [redis_password]
-    volumes:
-      - redis_data:/data
     networks: [data]
     healthcheck:
       test:
@@ -145,6 +143,5 @@ secrets:
 
 volumes:
   postgres_data: {}
-  redis_data: {}
   caddy_data: {}
   caddy_config: {}
