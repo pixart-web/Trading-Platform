@@ -15,7 +15,7 @@ Only Caddy publishes host ports. The application and data networks are Docker-in
 ## Host layout
 
 - `/srv/pocket-alpha/repository`: immutable approved checkout.
-- `/srv/pocket-alpha/secrets`: root-owned mode 711; URL secrets owned by API UID 10001 and provider password files by provider UID 999, all mode 400. Verify UIDs against the approved images.
+- `/srv/pocket-alpha/secrets`: root-owned mode 700; all secret files root-owned mode 444. Compose mounts each file read-only only into its authorized service, avoiding image-specific UID assumptions.
 - Docker named volumes: PostgreSQL, Redis AOF, Caddy certificates/config.
 - `/srv/pocket-alpha/backups`: encrypted staging with short retention before off-server copy.
 - Central log destination: receives stdout JSON without request bodies/tokens.

@@ -23,7 +23,7 @@ The candidate is scoped to a single-operator research, read-only and PAPER deplo
 
 1. Provision a supported Linux host with current Docker Engine and Compose plugin.
 2. Point the chosen domain to the host; allow inbound 80/443 and restrict SSH to operator networks.
-3. Create `/srv/pocket-alpha/secrets` root-owned mode 711. Set the URL files to UID/GID 10001 and the PostgreSQL/Redis password files to the provider UID/GID 999, all mode 400; verify the image UIDs before startup.
+3. Create `/srv/pocket-alpha/secrets` root-owned mode 700. Keep all secret files root-owned mode 444; Compose mounts each file read-only only into its authorized service.
 4. Generate independent random PostgreSQL and Redis passwords and matching connection URLs.
 5. Generate a Caddy bcrypt password hash; never commit plaintext or the production env file.
 6. Provision encrypted off-server backup storage, log shipping, uptime probes, disk/CPU/memory alerts and an alert recipient.
