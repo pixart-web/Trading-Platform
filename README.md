@@ -166,3 +166,11 @@ Phase 26 adds explicit local Binance Spot private GET observations and exact acc
 Phase 27 adds safety-gated spot risk, durable client-order identity, account reservations, kill latch and a narrowly allowlisted Binance Spot adapter for read-only qualification and query recovery; see [architecture](docs/architecture/SPOT_EXECUTION.md) and [report](docs/roadmap/PHASE_27_COMPLETION_REPORT.md). Only explicit synthetic qualification can dispatch; native live execution remains blocked and authenticated qualification remains unexecuted.
 
 Phase 28 adds fail-closed Autopilot orchestration over the existing scanner, lifecycle, portfolio, risk and execution stack; see [architecture](docs/architecture/AUTOPILOT.md) and [completion report](docs/roadmap/PHASE_28_COMPLETION_REPORT.md). It is disabled by default, has no public control surface or background worker, and only explicit synthetic qualification can reach the still-authoritative Phase 27 risk boundary. Native execution remains blocked.
+
+Phase 29 adds independently gated derivative execution mechanism qualification for isolated linear
+cash-settled perpetuals/futures, LONG/SHORT and reduce-only closing. It reuses the shared strategy,
+portfolio, risk and Phase 25 leverage evidence, with a durable idempotent journal and query-only
+UNKNOWN reconciliation. See [architecture](docs/architecture/DERIVATIVE_EXECUTION.md), [security
+audit](docs/security/PHASE_26_29_SECURITY_AUDIT.md) and [completion
+report](docs/roadmap/PHASE_29_COMPLETION_REPORT.md). Both general live and derivative execution remain
+disabled; no native derivative broker or network path exists.

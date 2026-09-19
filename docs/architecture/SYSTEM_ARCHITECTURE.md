@@ -129,3 +129,9 @@ Phase 26 adds a native private Binance Spot GET-only observation adapter, immuta
 Phase 27 adds spot_execution: explicit admission limits, a separate local SQLite account journal, idempotent synthetic dispatch and a narrowly allowlisted Binance Spot adapter for read-only qualification/query recovery. Native dispatch is unreachable behind independent configuration, risk and transport barriers; there is no main-schema migration. See [SPOT_EXECUTION.md](SPOT_EXECUTION.md).
 
 Phase 28 adds `autopilot`: durable, reasoned orchestration over ScanReport, immutable model/strategy lifecycle evidence, complete SpotRequest and SpotExecution. It introduces no alternative intelligence/risk/broker path, API, scheduler or main-schema migration. Default/native operation is disabled; only explicit synthetic qualification may present one unchanged request to Phase 27 execution. See [AUTOPILOT.md](AUTOPILOT.md).
+
+Phase 29 adds derivative_execution as a distinct post-leverage risk and durable execution boundary.
+It supports only synthetic qualification for isolated linear cash-settled perpetuals/futures,
+LONG/SHORT and exact reduce-only closes. Independent live and derivative settings remain structurally
+false; there is no native adapter, API, scheduler or main-schema migration. See
+[DERIVATIVE_EXECUTION.md](DERIVATIVE_EXECUTION.md).

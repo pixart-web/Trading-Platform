@@ -61,7 +61,9 @@ Phase 27 adds safety-gated spot architecture, synthetic execution qualification 
 Spot read/query protocol. Native dispatch and operational live acceptance remain blocked/unqualified.
 See PHASE_27_COMPLETION_REPORT.md. Phase 28 adds fail-closed Autopilot orchestration over the same
 scanner, lifecycle, portfolio, risk and execution stack; see ../architecture/AUTOPILOT.md and
-PHASE_28_COMPLETION_REPORT.md. Native operation remains blocked. All phases after 28 are unimplemented.
+PHASE_28_COMPLETION_REPORT.md. Phase 29 adds independently gated derivative execution mechanism
+qualification for isolated linear LONG/SHORT and reduce-only close flows; see
+../architecture/DERIVATIVE_EXECUTION.md and PHASE_29_COMPLETION_REPORT.md. Native operation remains blocked.
 0. Foundation — repository, domain base, config, DB, Redis, Docker, CI, audit, testing, logging.
 1. Universal market data — assets/providers/history/candles/trades/quotes/quality/replay.
 2. Charting foundation — Next.js shell, search, candles, timeframes, volume, API.
@@ -101,4 +103,6 @@ PHASE_28_COMPLETION_REPORT.md. Native operation remains blocked. All phases afte
 27. Live small — spot admission/journal/idempotency architecture and native read/query adapter implemented;
     authenticated qualification, native dispatch and live acceptance remain blocked; see [report](PHASE_27_COMPLETION_REPORT.md).
 28. Autopilot — fail-closed scanning, existing allocation, monitoring and fresh-portfolio compounding orchestration implemented; see [report](PHASE_28_COMPLETION_REPORT.md).
-29. Derivative execution — independently validated SHORT and controlled leverage.
+29. Derivative execution — isolated linear LONG/SHORT, controlled leverage, durable synthetic
+    qualification and independent fail-closed enablement implemented; see
+    [completion report](PHASE_29_COMPLETION_REPORT.md). Native execution remains blocked.

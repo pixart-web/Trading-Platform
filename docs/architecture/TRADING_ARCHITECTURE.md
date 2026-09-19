@@ -65,3 +65,9 @@ Phase 26 observes private Binance Spot account identity, balances/spot inventory
 Phase 27 consumes the shared strategy proposal/intent, portfolio snapshot and broker observation/local reconciliation before its distinct spot risk admission and durable dispatch. Only synthetic submission is reachable; the native adapter is restricted to qualification/query recovery and research approval cannot grant live execution. Unknown submission state blocks the account and requires a query, never a blind retry. See [SPOT_EXECUTION.md](SPOT_EXECUTION.md).
 
 Phase 28 consumes an existing causal ScanReport and full shared SpotRequest, verifies immutable SHADOW model/strategy events, portfolio/loss state and dependency health, then delegates at most one unchanged request to SpotExecution. Durable cycle idempotency, cooldown, suspension, kill propagation and query-only reconciliation fail closed. Scanner rank selects only among fully eligible candidates and cannot override risk or size an order. See [AUTOPILOT.md](AUTOPILOT.md).
+
+Phase 29 consumes immutable SHADOW derivative strategy evidence, exact portfolio/prior-risk bindings,
+a Phase 25 LeverageAssessment, current mark/index/funding/margin rules and reconciled account state.
+Independent derivative risk is authoritative before the durable broker boundary. Unsupported
+contract conventions and every REAL broker fail closed; only an injected synthetic broker can
+exercise submission/reconciliation. See [DERIVATIVE_EXECUTION.md](DERIVATIVE_EXECUTION.md).

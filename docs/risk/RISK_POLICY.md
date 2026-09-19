@@ -35,3 +35,10 @@ Phase 26 private observation requires explicit read permission and denial of eve
 Phase 27 implements explicit spot admission limits for capital, order/position/total exposure, inventory, daily loss, drawdown, positions, rates, freshness, spread, fee budget and kill/health. Durable unresolved orders reserve the entire account flow. These controls are qualified mechanically using a synthetic broker. The native adapter may qualify/query through GET, while REAL admission, execution authorization, configuration and transport independently block order submission. Loss limits do not liquidate existing inventory or guarantee future loss caps. See ../architecture/SPOT_EXECUTION.md.
 
 Phase 28 adds a stricter Autopilot policy above the Phase 27 risk boundary: allowlists, capital/exposure/daily-loss/drawdown/position limits, cooldown, freshness, dependency health, unresolved execution, manual suspension and kill all halt autonomously. Its limits cannot exceed SpotPolicy and its kill propagates to SpotExecution. A SUBMIT decision authorizes only presentation to the independent risk engine; it never grants native execution or guarantees loss caps. See ../architecture/AUTOPILOT.md.
+
+Phase 29 independently rechecks strategy, portfolio, prior risk, leverage stress, contract, current
+margin, collateral, liquidation buffer, mark/index basis, funding, expiry, venue steps, account
+reconciliation, exposure, loss and drawdown before any synthetic dispatch. OPEN and CLOSE have
+separate economics: reduce-only closes reserve fees/funding rather than new initial margin and are
+not trapped by breached entry limits. Native execution and automated liquidation remain disabled.
+See ../architecture/DERIVATIVE_EXECUTION.md.

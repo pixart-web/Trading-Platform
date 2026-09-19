@@ -37,3 +37,9 @@ Phase 26 acquisition tests use synthetic private responses and no real orders or
 Phase 27 mechanical synthetic execution qualification is separate from economic and authenticated broker qualification. Native read/query transport tests use injected responses; they do not establish a venue session or writing readiness. The adapter cannot promote RESEARCH_PROPOSAL, simulated risk approvals or caller qualification assertions into native execution. Tests/CI send no real orders; all native dispatch remains hard-blocked. See ../architecture/SPOT_EXECUTION.md.
 
 Phase 28 tests synthetic orchestration mechanics, not economic performance or operational autonomy. Scan rank, Opportunity Score and forecast probability choose neither authorization nor size. Immutable SHADOW lifecycle events are required, but caller-supplied evidence and health remain unqualified until independently sourced. Cycle, scan, lifecycle, proposal, quote, loss and portfolio timestamps enforce availability at the declared decision time. No synthetic result promotes a strategy, validates compounding returns or enables native execution. See ../architecture/AUTOPILOT.md.
+
+Phase 29 tests only synthetic derivative state-machine and risk-gate mechanics. Strategy evidence,
+venue rules, account state, independent qualification and broker reports in tests are explicitly
+synthetic. No result validates alpha, SHORT profitability, leverage safety, liquidation execution,
+funding accuracy, authenticated permissions or live readiness. REAL dispatch is structurally
+unreachable. See ../architecture/DERIVATIVE_EXECUTION.md.

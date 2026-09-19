@@ -14,8 +14,11 @@ class Settings(BaseSettings):
     redis_url: SecretStr = SecretStr("redis://localhost:6379/0")
     # Live execution is unavailable in Foundation, even with environment overrides.
     live_trading_enabled: Literal[False] = False
+    # Derivative execution has a separate fail-closed gate. A fresh environment
+    # cannot opt into leveraged trading through configuration.
+    derivative_execution_enabled: Literal[False] = False
 
-    @field_validator("live_trading_enabled", mode="before")
+    @field_validator("live_trading_enabled", "derivative_execution_enabled", mode="before")
     @classmethod
     def parse_disabled_flag(cls, value: object) -> object:
         if isinstance(value, str) and value.lower() == "false":

@@ -34,6 +34,7 @@ services:
       PA_DATABASE_URL: postgresql+psycopg://pocket_alpha:local_only@db:5432/pocket_alpha
       PA_REDIS_URL: redis://redis:6379/0
       PA_LIVE_TRADING_ENABLED: "false"
+      PA_DERIVATIVE_EXECUTION_ENABLED: "false"
     depends_on:
       migrate: {condition: service_completed_successfully}
       redis: {condition: service_healthy}
