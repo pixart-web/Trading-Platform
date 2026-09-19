@@ -59,8 +59,9 @@ Phase 26 implements native private read-only account observations and explicit l
 see ../architecture/LIVE_READ_ONLY.md and PHASE_26_COMPLETION_REPORT.md for qualification limits.
 Phase 27 adds safety-gated spot architecture, synthetic execution qualification and a native Binance
 Spot read/query protocol. Native dispatch and operational live acceptance remain blocked/unqualified.
-See PHASE_27_COMPLETION_REPORT.md.
-All phases after 27 are unimplemented.
+See PHASE_27_COMPLETION_REPORT.md. Phase 28 adds fail-closed Autopilot orchestration over the same
+scanner, lifecycle, portfolio, risk and execution stack; see ../architecture/AUTOPILOT.md and
+PHASE_28_COMPLETION_REPORT.md. Native operation remains blocked. All phases after 28 are unimplemented.
 0. Foundation — repository, domain base, config, DB, Redis, Docker, CI, audit, testing, logging.
 1. Universal market data — assets/providers/history/candles/trades/quotes/quality/replay.
 2. Charting foundation — Next.js shell, search, candles, timeframes, volume, API.
@@ -99,5 +100,5 @@ All phases after 27 are unimplemented.
     see [completion report](PHASE_26_COMPLETION_REPORT.md). Authenticated venue qualification remains pending.
 27. Live small — spot admission/journal/idempotency architecture and native read/query adapter implemented;
     authenticated qualification, native dispatch and live acceptance remain blocked; see [report](PHASE_27_COMPLETION_REPORT.md).
-28. Autopilot — scanning, allocation, monitoring and compounding.
+28. Autopilot — fail-closed scanning, existing allocation, monitoring and fresh-portfolio compounding orchestration implemented; see [report](PHASE_28_COMPLETION_REPORT.md).
 29. Derivative execution — independently validated SHORT and controlled leverage.
