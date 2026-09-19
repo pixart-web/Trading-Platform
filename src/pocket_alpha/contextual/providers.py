@@ -2,8 +2,9 @@ import hashlib
 from dataclasses import dataclass
 from email.utils import parsedate_to_datetime
 from typing import Protocol
-from xml.etree import ElementTree
 
+from defusedxml import ElementTree
+from defusedxml.common import DefusedXmlException
 from pydantic import HttpUrl
 
 from pocket_alpha.common.clock import utc
@@ -78,5 +79,11 @@ class FederalReserveNewsProvider:
                     )
                 )
             return ContextPage(tuple(sorted(records, key=lambda r: (r.published_at, r.event_key))))
-        except (PublicDataError, ElementTree.ParseError, ValueError, TypeError) as error:
+        except (
+            PublicDataError,
+            ElementTree.ParseError,
+            DefusedXmlException,
+            ValueError,
+            TypeError,
+        ) as error:
             raise ContextProviderError("Federal Reserve news unavailable or invalid") from error

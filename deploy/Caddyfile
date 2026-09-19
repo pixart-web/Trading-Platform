@@ -1,0 +1,14 @@
+{$PA_DOMAIN} {
+    encode zstd gzip
+    basic_auth {
+        {$PA_ADMIN_USER} {$PA_ADMIN_PASSWORD_HASH}
+    }
+    request_body {
+        max_size 1MB
+    }
+    header {
+        Strict-Transport-Security "max-age=31536000; includeSubDomains"
+        -Server
+    }
+    reverse_proxy web:3000
+}

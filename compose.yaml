@@ -21,6 +21,7 @@ services:
       timeout: 3s
       retries: 10
   migrate:
+    image: pocket-alpha-api:latest
     build: .
     command: ["alembic", "upgrade", "head"]
     environment:
@@ -28,22 +29,35 @@ services:
     depends_on:
       db: {condition: service_healthy}
   api:
+    image: pocket-alpha-api:latest
     build: .
     ports: ["127.0.0.1:8000:8000"]
     environment:
       PA_DATABASE_URL: postgresql+psycopg://pocket_alpha:local_only@db:5432/pocket_alpha
       PA_REDIS_URL: redis://redis:6379/0
+      PA_ENVIRONMENT: development
       PA_LIVE_TRADING_ENABLED: "false"
       PA_DERIVATIVE_EXECUTION_ENABLED: "false"
     depends_on:
       migrate: {condition: service_completed_successfully}
       redis: {condition: service_healthy}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health/ready', timeout=3).read()"]
+      interval: 10s
+      timeout: 4s
+      retries: 5
   web:
+    image: pocket-alpha-web:latest
     build: ./frontend
     ports: ["127.0.0.1:3000:3000"]
     environment:
       PA_API_BASE_URL: http://api:8000
     depends_on:
-      api: {condition: service_started}
+      api: {condition: service_healthy}
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 4s
+      retries: 5
 volumes:
   postgres_data:

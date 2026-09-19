@@ -10,11 +10,11 @@ requires-python = ">=3.12"
 dependencies = [
   "fastapi>=0.115,<1", "uvicorn>=0.34,<1", "pydantic>=2.10,<3",
   "pydantic-settings>=2.7,<3", "sqlalchemy>=2.0,<3", "alembic>=1.14,<2",
-  "psycopg[binary]>=3.2,<4", "redis>=5.2,<7",
+  "psycopg[binary]>=3.2,<4", "redis>=5.2,<7", "defusedxml>=0.7,<1",
 ]
 
 [project.optional-dependencies]
-dev = ["ruff>=0.9,<1", "mypy>=1.14,<2", "pytest>=8.3,<9", "pytest-cov>=6,<7", "httpx>=0.28,<1"]
+dev = ["ruff>=0.9,<1", "mypy>=1.14,<2", "pytest>=9.0.3,<10", "pytest-cov>=6,<7", "httpx>=0.28,<1", "types-defusedxml>=0.7.0.20260504,<1"]
 
 [tool.ruff]
 target-version = "py312"

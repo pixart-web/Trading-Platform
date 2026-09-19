@@ -7,7 +7,8 @@ from decimal import Decimal, InvalidOperation
 from email.message import Message
 from typing import Protocol
 from urllib.error import HTTPError, URLError
-from urllib.request import Request, urlopen
+from urllib.parse import urlsplit
+from urllib.request import HTTPRedirectHandler, Request, build_opener
 
 from pydantic import Field
 
@@ -63,11 +64,30 @@ class HttpTransport(Protocol):
 MAX_RESPONSE_BYTES = 20_000_000
 
 
+class RejectRedirects(HTTPRedirectHandler):
+    def redirect_request(
+        self, req: Request, fp: object, code: int, msg: str, headers: object, newurl: str
+    ) -> None:
+        return None
+
+
 class UrllibTransport:
     def get(self, url: str, headers: Mapping[str, str], timeout: float) -> HttpResponse:
+        origin = urlsplit(url)
+        if (origin.scheme, origin.hostname, origin.port, origin.username, origin.password) != (
+            "https",
+            "data.sec.gov",
+            None,
+            None,
+            None,
+        ):
+            raise FundamentalProviderError("SEC origin is invalid")
         request = Request(url, headers=dict(headers), method="GET")
         try:
-            with urlopen(request, timeout=timeout) as response:
+            with build_opener(RejectRedirects).open(request, timeout=timeout) as response:
+                final = urlsplit(response.geturl())
+                if (final.scheme, final.hostname, final.port) != ("https", "data.sec.gov", None):
+                    raise FundamentalProviderError("SEC redirect origin is invalid")
                 response_headers: Message = response.headers
                 return HttpResponse(
                     status=response.status,

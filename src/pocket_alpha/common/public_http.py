@@ -8,7 +8,7 @@ from email.utils import parsedate_to_datetime
 from typing import Protocol
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlsplit
-from urllib.request import Request, urlopen
+from urllib.request import HTTPRedirectHandler, Request, build_opener
 
 from pocket_alpha.common.clock import Clock, SystemClock, utc
 
@@ -28,10 +28,20 @@ class Transport(Protocol):
     def get(self, url: str, timeout: float, maximum_bytes: int) -> Response: ...
 
 
+class RejectRedirects(HTTPRedirectHandler):
+    def redirect_request(
+        self, req: Request, fp: object, code: int, msg: str, headers: object, newurl: str
+    ) -> None:
+        return None
+
+
 class UrllibTransport:
     def get(self, url: str, timeout: float, maximum_bytes: int) -> Response:
+        parts = urlsplit(url)
+        if parts.scheme != "https" or not parts.hostname or parts.username or parts.password:
+            raise PublicDataError("public source origin is invalid")
         try:
-            with urlopen(
+            with build_opener(RejectRedirects).open(
                 Request(
                     url,
                     headers={

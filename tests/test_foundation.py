@@ -2,6 +2,7 @@ import json
 import logging
 from datetime import UTC, datetime
 from decimal import Decimal
+from pathlib import Path
 from unittest.mock import MagicMock, patch
 from uuid import UUID, uuid4
 
@@ -30,6 +31,28 @@ def test_live_execution_cannot_be_enabled(monkeypatch: pytest.MonkeyPatch) -> No
 
 def test_secrets_are_masked() -> None:
     assert "local_only" not in repr(Settings())
+
+
+def test_settings_load_connection_secrets_from_files(tmp_path: Path) -> None:
+    database = tmp_path / "database-url"
+    redis = tmp_path / "redis-url"
+    database.write_text("postgresql+psycopg://user:private@db/app\n", encoding="utf-8")
+    redis.write_text("redis://:private@redis:6379/0\n", encoding="utf-8")
+
+    settings = Settings(database_url_file=database, redis_url_file=redis)
+
+    assert settings.database_url.get_secret_value().endswith("@db/app")
+    assert settings.redis_url.get_secret_value().endswith("@redis:6379/0")
+    assert "private" not in repr(settings)
+
+
+def test_settings_reject_invalid_secret_file_without_leaking_path(tmp_path: Path) -> None:
+    missing = tmp_path / "contains-sensitive-name"
+
+    with pytest.raises(ValueError, match="invalid database_url secret file") as error:
+        Settings(database_url_file=missing)
+
+    assert "contains-sensitive-name" not in str(error.value)
 
 
 def test_disabled_environment_flag(monkeypatch: pytest.MonkeyPatch) -> None:

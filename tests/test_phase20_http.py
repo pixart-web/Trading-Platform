@@ -2,6 +2,7 @@ from datetime import timedelta
 from email.message import Message
 from email.utils import format_datetime
 from io import BytesIO
+from types import SimpleNamespace
 from unittest.mock import MagicMock
 from urllib.error import HTTPError, URLError
 
@@ -23,7 +24,7 @@ def test_native_get_is_bounded_and_checks_final_https_origin(
     response.headers = {"Content-Type": "application/json"}
     response.read.return_value = b"data"
     request = MagicMock(return_value=response)
-    monkeypatch.setattr(public_http, "urlopen", request)
+    monkeypatch.setattr(public_http, "build_opener", lambda _: SimpleNamespace(open=request))
     result = UrllibTransport().get("https://example.org/data", 3, 100)
     assert result == Response(200, b"data", {"content-type": "application/json"})
     response.read.assert_called_once_with(101)
@@ -33,7 +34,8 @@ def test_native_get_is_bounded_and_checks_final_https_origin(
         response.geturl.return_value = final
         with pytest.raises(PublicDataError, match="origin"):
             UrllibTransport().get("https://example.org/data", 3, 100)
-    monkeypatch.setattr(public_http, "urlopen", MagicMock(side_effect=URLError("sensitive detail")))
+    failed = MagicMock(side_effect=URLError("sensitive detail"))
+    monkeypatch.setattr(public_http, "build_opener", lambda _: SimpleNamespace(open=failed))
     with pytest.raises(PublicDataError, match="transport failed"):
         UrllibTransport().get("https://example.org/data", 3, 100)
 
@@ -45,7 +47,8 @@ def test_http_error_response_is_closed_and_retry_after_date_respected(
     headers = Message()
     headers["Retry-After"] = "1"
     error = HTTPError("https://example.org/data", 429, "limited", headers, body)
-    monkeypatch.setattr(public_http, "urlopen", MagicMock(side_effect=error))
+    failed = MagicMock(side_effect=error)
+    monkeypatch.setattr(public_http, "build_opener", lambda _: SimpleNamespace(open=failed))
     response = UrllibTransport().get("https://example.org/data", 3, 100)
     assert response.status == 429 and response.headers["retry-after"] == "1"
     assert body.closed
