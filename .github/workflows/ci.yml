@@ -161,8 +161,8 @@ jobs:
           export PA_DOMAIN=http://localhost
           export PA_ADMIN_PASSWORD_HASH="$(docker run --rm caddy:2.11.4-alpine caddy hash-password --plaintext ci-only-password)"
           docker compose -f compose.production.yaml up --detach --wait --wait-timeout 240
-          test "$(curl --silent --output /dev/null --write-out '%{http_code}' http://127.0.0.1/)" = "401"
-          curl --fail --silent --show-error --user operator:ci-only-password http://127.0.0.1/ > /dev/null
+          test "$(curl --silent --output /dev/null --write-out '%{http_code}' http://localhost/)" = "401"
+          curl --fail --silent --show-error --user operator:ci-only-password http://localhost/ > /dev/null
       - name: Logs on failure
         if: failure()
         run: |
