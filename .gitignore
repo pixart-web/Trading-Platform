@@ -11,6 +11,7 @@ node_modules/
 .next/
 playwright-report/
 test-results/
+frontend/output/
 *.tsbuildinfo
 dist/
 build/

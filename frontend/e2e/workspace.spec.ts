@@ -226,6 +226,22 @@ test("application shell sends the production security headers", async ({ request
   expect(response.headers()["referrer-policy"]).toBe("no-referrer");
 });
 
+test("application shell exposes labelled controls and landmarks", async ({ page }) => {
+  await fixtures(page, "empty");
+  await page.goto("/");
+  await expect(page.getByRole("navigation", { name: "Navegação principal" })).toBeVisible();
+  await expect(page.getByRole("main")).toHaveCount(1);
+  const violations = await page.locator("button, input, select").evaluateAll(elements => elements
+    .filter(element => {
+      const id = element.getAttribute("id");
+      const labelled = element.getAttribute("aria-label") || element.getAttribute("aria-labelledby")
+        || element.textContent?.trim() || element.closest("label")
+        || (id && document.querySelector(`label[for="${CSS.escape(id)}"]`));
+      return !labelled;
+    }).map(element => element.outerHTML));
+  expect(violations).toEqual([]);
+});
+
 test("empty installation is honest", async ({ page }) => {
   await fixtures(page, "empty");
   await page.goto("/");
@@ -236,6 +252,7 @@ test("empty installation is honest", async ({ page }) => {
 });
 
 test("search, select, chart, timeframe and exact table", async ({ page }) => {
+  await page.setViewportSize({ width: 1536, height: 1024 });
   const errors: string[] = [];
   page.on("pageerror", error => errors.push(error.message));
   await fixtures(page);
@@ -255,7 +272,8 @@ test("search, select, chart, timeframe and exact table", async ({ page }) => {
   await page.getByText(/Consultar valores originais/).click();
   await expect(page.getByRole("table", { name: "Observações históricas — timestamps UTC" })).toBeVisible();
   await page.getByText(/Consultar valores originais/).click();
-  await page.screenshot({ path: "test-results/workspace-synthetic-test.png", fullPage: true });
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.screenshot({ path: "output/playwright/dashboard-1536x1024.png" });
   expect(errors).toEqual([]);
 });
 

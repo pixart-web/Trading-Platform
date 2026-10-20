@@ -5,7 +5,6 @@ import { AnalysisPanel } from "./analysis-panel";
 import { WatchlistPanel } from "./watchlist-panel";
 import { ScannerPanel } from "./scanner-panel";
 import { PortfolioPanel } from "./portfolio-panel";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { z } from "zod";
 import {
@@ -91,13 +90,7 @@ export function MarketWorkspace({ initialRange }: { initialRange: Range }) {
   const last = !problem && response?.candles.length ? response.candles[response.candles.length - 1] : null;
   const isEmpty = response?.candles.length === 0;
 
-  return <div className="app-shell">
-    <a className="skip-link" href="#workspace">Ir para o gráfico</a>
-    <header className="app-header">
-      <Link className="brand" href="/" aria-label="Pocket Alpha — início"><span className="brand-mark">pα</span>Pocket Alpha</Link>
-      <span className="header-section">Mercados <span>/</span> Gráficos <span>/</span> Analyze <span>/</span> Watchlists <span>/</span> Scanner <span>/</span> Portfolio</span>
-      <span className="mode-label">Consulta histórica</span>
-    </header>
+  return <div className="app-shell market-terminal" id="market-intelligence">
     <div className="workbench">
       <aside className="market-sidebar" aria-label="Pesquisa de mercados">
         <div className="sidebar-heading"><span className="eyebrow">EXPLORAR</span><h1>Mercados</h1>
@@ -137,7 +130,7 @@ export function MarketWorkspace({ initialRange }: { initialRange: Range }) {
           <p>Zonas baseadas em observações armazenadas. Não são recomendações nem probabilidades.</p></div>
       </aside>
 
-      <main id="workspace" className="workspace">
+      <div id="workspace" className="workspace">
         <div className="workspace-heading"><div><span className="eyebrow">VISÃO DE MERCADO</span>
           <h2>{selected?.symbol ?? "O mercado, em detalhe."}</h2>
           <p>{selected ? (metadata?.data?.name ?? selected.asset_id) + " · " + selected.venue_id + " · " + selected.quote_currency
@@ -193,11 +186,11 @@ export function MarketWorkspace({ initialRange }: { initialRange: Range }) {
                 <td>{zone.visible_from}</td></tr>)}</tbody></table></div>}
           <small>Modelo {response.snapshot.engine_version} · Confiança não calibrada</small>
         </section>}
-        <WatchlistPanel market={selected} timeframe={timeframe} asOf={range.end} />
-        <ScannerPanel timeframe={timeframe} asOf={range.end} />
-        <PortfolioPanel market={selected} timeframe={timeframe} />
-        {selected && <AnalysisPanel result={analysis} marketId={selected.market_id}
-          timeframe={timeframe} asOf={range.end} />}
+        <section id="watchlists"><WatchlistPanel market={selected} timeframe={timeframe} asOf={range.end} /></section>
+        <section id="scanner"><ScannerPanel timeframe={timeframe} asOf={range.end} /></section>
+        <section id="portfolio"><PortfolioPanel market={selected} timeframe={timeframe} /></section>
+        {selected && <section id="analysis"><AnalysisPanel result={analysis} marketId={selected.market_id}
+          timeframe={timeframe} asOf={range.end} /></section>}
         {response?.quality.warnings.length ? <div className="notice" role="status">{response.quality.warnings.join(" · ")}</div> : null}
         <div className="workspace-notes"><p>Os períodos são avaliados como intervalos contínuos. Fechos de sessão podem ser assinalados como intervalos em falta.</p>
           <p>O gráfico usa aproximações visuais; os valores originais são preservados na tabela.</p></div>
@@ -210,7 +203,7 @@ export function MarketWorkspace({ initialRange }: { initialRange: Range }) {
         </details>}
         <footer className="workspace-footer"><span>Pocket Alpha / Market workspace</span>
           <a href="https://www.tradingview.com/" target="_blank" rel="noreferrer">TradingView Lightweight Charts™ · Copyright (c) 2025 TradingView, Inc.</a></footer>
-      </main>
+      </div>
     </div>
   </div>;
 }
