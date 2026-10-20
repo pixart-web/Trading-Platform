@@ -21,6 +21,7 @@ from pocket_alpha.database import build_engine
 from pocket_alpha.derivatives.api import router as derivatives_router
 from pocket_alpha.fundamentals.api import router as fundamentals_router
 from pocket_alpha.intelligence.zones.api import router as zone_router
+from pocket_alpha.live_control.api import router as live_control_router
 from pocket_alpha.market_data.api import router as market_router
 from pocket_alpha.observability import configure_logging
 from pocket_alpha.paper_trading.api import router as paper_router
@@ -63,6 +64,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             engine.dispose()
 
     app = FastAPI(title="Pocket Alpha", version="0.1.0", lifespan=lifespan)
+    app.state.settings = config
     app.include_router(market_router)
     app.include_router(backtest_router)
     app.include_router(research_router)
@@ -77,6 +79,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app.include_router(scanner_router)
     app.include_router(portfolio_router)
     app.include_router(portfolio_intelligence_router)
+    app.include_router(live_control_router)
 
     @app.middleware("http")
     async def correlation(

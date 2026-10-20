@@ -10,3 +10,8 @@ No server was modified by this release. The target is a dedicated Linux host sha
 6. In an approved window only, run `deploy/scripts/deploy.sh --apply`; verify certificate, unauthenticated 401, authenticated dashboard, readiness, migrations and RESEARCH/PAPER workflows.
 
 Required external values: host/IP, approved domain, DNS control, operator SSH and bcrypt credentials, off-server backup location, monitoring/alert receiver. Broker venue and credentials are not deployment prerequisites for RESEARCH/PAPER.
+
+Phase 30 additionally requires a random 32+ character `control_proxy_token` secret shared only by
+the web and API containers. Deployment flags default false. Setting either gate true requires the
+matching explicit preflight acknowledgement and still cannot activate LIVE without the persistent
+operator state, current qualification evidence, risk approval and clear kill switch.

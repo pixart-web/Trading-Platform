@@ -115,4 +115,24 @@ describe("gateway route", () => {
       { params: Promise.resolve({ path: ["portfolios", id] }) });
     expect(rejected.status).toBe(400);
   });
+
+  it("protects live-control mutations and injects only the server token", async () => {
+    const fetcher = vi.fn().mockResolvedValue(Response.json({ mode: "OFF" }));
+    vi.stubGlobal("fetch", fetcher);
+    vi.stubEnv("PA_CONTROL_PROXY_TOKEN", "x".repeat(32));
+    vi.stubEnv("PA_OPERATOR_ID", "operator");
+    const context = { params: Promise.resolve({ path: ["live-control", "transitions"] }) };
+    const rejected = await POST(new Request("http://localhost/api/market-data/live-control/transitions", {
+      method: "POST", headers: { "Content-Type": "application/json" }, body: "{}",
+    }), context);
+    expect(rejected.status).toBe(403);
+    const accepted = await POST(new Request("http://localhost/api/market-data/live-control/transitions", {
+      method: "POST", headers: { "Content-Type": "application/json", "Sec-Fetch-Site": "same-origin",
+        "X-PA-UI-Request": "live-control" }, body: JSON.stringify({ action: "ENABLE_PAPER" }),
+    }), context);
+    expect(accepted.status).toBe(200);
+    const headers = fetcher.mock.calls[0][1].headers as Record<string, string>;
+    expect(headers["X-PA-Control-Token"]).toBe("x".repeat(32));
+    expect(headers["X-PA-Actor"]).toBe("operator");
+  });
 });

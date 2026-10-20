@@ -302,15 +302,16 @@ def test_broker_report_rejects_overfill() -> None:
         DerivativeBrokerReport.model_validate(values)
 
 
-def test_fresh_settings_cannot_enable_live_or_derivative_execution() -> None:
+def test_deployment_gates_default_off_and_derivatives_require_live_gate() -> None:
     settings = Settings()
     assert settings.live_trading_enabled is False
     assert settings.derivative_execution_enabled is False
 
+    assert Settings(live_trading_enabled=True).live_trading_enabled
     with pytest.raises(ValidationError):
-        Settings(live_trading_enabled=True)  # type: ignore[arg-type]
-    with pytest.raises(ValidationError):
-        Settings(derivative_execution_enabled=True)  # type: ignore[arg-type]
+        Settings(derivative_execution_enabled=True)
+    configured = Settings(live_trading_enabled=True, derivative_execution_enabled=True)
+    assert configured.derivative_execution_enabled
 
 
 def test_synthetic_dispatch_is_idempotent_and_reconciles_fill(tmp_path: Path) -> None:

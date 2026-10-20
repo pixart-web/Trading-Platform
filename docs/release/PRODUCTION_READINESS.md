@@ -5,7 +5,8 @@
 | UI_READY | YES | Reference-derived shell, responsive workflows, visual capture/diff, E2E |
 | APPLICATION_PRODUCTION_READY | YES_WITH_LIMITATIONS | RESEARCH/PAPER scope, proxy authentication, internal services, prior audit |
 | HETZNER_DEPLOYMENT_PACKAGE_READY | YES | Compose, Caddy, environment template, preflight/deploy/backup/restore and runbooks |
-| LIVE_SPOT_ENGINEERING_READY | NO | No selected venue, write adapter conformance, credentials or live qualification |
+| LIVE_CONTROL_PLANE_READY | YES | Persistent mode/policy/readiness/kill state, audited API and operator UI |
+| LIVE_SPOT_ENGINEERING_READY | NO | Binance write conformance, credential management and authenticated qualification remain incomplete |
 | LIVE_SPOT_ACTIVATION_AUTHORIZED | NO | Explicitly outside this task |
 | LIVE_DERIVATIVES_READY | NO | No venue-specific native implementation/qualification |
 | AUTOPILOT_LIVE_READY | NO | No qualified live execution or approved operator controls/drills |

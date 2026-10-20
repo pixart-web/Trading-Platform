@@ -63,6 +63,11 @@ strategy. LONG and SHORT use separate explicit criteria; NO_TRADE is fail-closed
 failure or incomplete evidence. No persistence, endpoint, frontend, strategy, risk, execution or
 broker dependency is added. See DIRECTIONAL_ANALYSIS.md.
 
+Phase 30 adds a PostgreSQL-backed operator control plane above risk/execution. Deployment flags are
+configurable and default false; they cannot authorize orders independently. Explicit persisted mode,
+policy/account binding, fresh qualification evidence, risk approval and a clear kill switch remain
+mandatory. See LIVE_CONTROL_PLANE.md. Native dispatch is not added by this phase.
+
 
 Phase 12 adds opportunities as an in-memory deterministic consumer of immutable forecasts and
 Phase 11 directional analysis. It exposes net economics, configured gates and same-horizon ranking

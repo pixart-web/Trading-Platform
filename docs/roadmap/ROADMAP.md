@@ -64,6 +64,10 @@ scanner, lifecycle, portfolio, risk and execution stack; see ../architecture/AUT
 PHASE_28_COMPLETION_REPORT.md. Phase 29 adds independently gated derivative execution mechanism
 qualification for isolated linear LONG/SHORT and reduce-only close flows; see
 ../architecture/DERIVATIVE_EXECUTION.md and PHASE_29_COMPLETION_REPORT.md. Native operation remains blocked.
+Phase 30 adds the persistent operator control plane, configurable deployment gates, versioned risk
+policy, independently supplied readiness, explicit state transitions and restart-safe kill switch;
+see ../architecture/LIVE_CONTROL_PLANE.md and PHASE_30_COMPLETION_REPORT.md. It does not add native
+order dispatch. Phase 31 broker/credential architecture has not been started.
 0. Foundation — repository, domain base, config, DB, Redis, Docker, CI, audit, testing, logging.
 1. Universal market data — assets/providers/history/candles/trades/quotes/quality/replay.
 2. Charting foundation — Next.js shell, search, candles, timeframes, volume, API.
@@ -106,3 +110,5 @@ qualification for isolated linear LONG/SHORT and reduce-only close flows; see
 29. Derivative execution — isolated linear LONG/SHORT, controlled leverage, durable synthetic
     qualification and independent fail-closed enablement implemented; see
     [completion report](PHASE_29_COMPLETION_REPORT.md). Native execution remains blocked.
+30. Live control plane — persistent modes, policy, readiness, operator transitions and kill switch;
+    see [completion report](PHASE_30_COMPLETION_REPORT.md). Native dispatch remains independently gated.

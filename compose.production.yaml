@@ -33,6 +33,9 @@ services:
     restart: unless-stopped
     environment:
       PA_API_BASE_URL: http://api:8000
+      PA_CONTROL_PROXY_TOKEN_FILE: /run/secrets/control_proxy_token
+      PA_OPERATOR_ID: ${PA_OPERATOR_ID:-operator}
+    secrets: [control_proxy_token]
     networks: [edge, application]
     depends_on:
       api: {condition: service_healthy}
@@ -50,9 +53,10 @@ services:
       PA_ENVIRONMENT: production
       PA_DATABASE_URL_FILE: /run/secrets/database_url
       PA_REDIS_URL_FILE: /run/secrets/redis_url
-      PA_LIVE_TRADING_ENABLED: "false"
-      PA_DERIVATIVE_EXECUTION_ENABLED: "false"
-    secrets: [database_url, redis_url]
+      PA_CONTROL_PROXY_TOKEN_FILE: /run/secrets/control_proxy_token
+      PA_LIVE_TRADING_ENABLED: "${PA_LIVE_TRADING_ENABLED:-false}"
+      PA_DERIVATIVE_EXECUTION_ENABLED: "${PA_DERIVATIVE_EXECUTION_ENABLED:-false}"
+    secrets: [database_url, redis_url, control_proxy_token]
     networks: [application, data]
     depends_on:
       migrate: {condition: service_completed_successfully}
@@ -72,9 +76,10 @@ services:
       PA_ENVIRONMENT: production
       PA_DATABASE_URL_FILE: /run/secrets/database_url
       PA_REDIS_URL_FILE: /run/secrets/redis_url
-      PA_LIVE_TRADING_ENABLED: "false"
-      PA_DERIVATIVE_EXECUTION_ENABLED: "false"
-    secrets: [database_url, redis_url]
+      PA_CONTROL_PROXY_TOKEN_FILE: /run/secrets/control_proxy_token
+      PA_LIVE_TRADING_ENABLED: "${PA_LIVE_TRADING_ENABLED:-false}"
+      PA_DERIVATIVE_EXECUTION_ENABLED: "${PA_DERIVATIVE_EXECUTION_ENABLED:-false}"
+    secrets: [database_url, redis_url, control_proxy_token]
     networks: [data]
     depends_on:
       db: {condition: service_healthy}
@@ -140,6 +145,8 @@ secrets:
     file: ${PA_POSTGRES_PASSWORD_SECRET_FILE:?set PA_POSTGRES_PASSWORD_SECRET_FILE}
   redis_password:
     file: ${PA_REDIS_PASSWORD_SECRET_FILE:?set PA_REDIS_PASSWORD_SECRET_FILE}
+  control_proxy_token:
+    file: ${PA_CONTROL_PROXY_TOKEN_SECRET_FILE:?set PA_CONTROL_PROXY_TOKEN_SECRET_FILE}
 
 volumes:
   postgres_data: {}

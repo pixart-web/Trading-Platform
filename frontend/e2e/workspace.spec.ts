@@ -76,6 +76,14 @@ async function fixtures(page: Page, mode: "valid" | "gap" | "empty" | "offline" 
   };
   await page.route("**/api/market-data/**", async route => {
     const url = new URL(route.request().url());
+    if (url.pathname === "/api/market-data/live-control") {
+      return route.fulfill({ json: {
+        control_id: "00000000-0000-4000-8000-000000000030", revision: 0, mode: "OFF",
+        broker: null, market: null, account_identity_hash: null, policy: null, policy_hash: null,
+        readiness: null, kill_switch_active: false, live_deployment_enabled: false,
+        derivative_deployment_enabled: false, updated_at: "2026-10-20T10:00:00Z",
+      } });
+    }
     if (mode === "offline") return route.fulfill({ status: 503, json: {} });
     if (url.pathname === "/api/market-data/portfolios") {
       if (route.request().method() === "GET") {
@@ -224,6 +232,17 @@ test("application shell sends the production security headers", async ({ request
   expect(response.headers()["x-content-type-options"]).toBe("nosniff");
   expect(response.headers()["x-frame-options"]).toBe("DENY");
   expect(response.headers()["referrer-policy"]).toBe("no-referrer");
+});
+
+test("live control is explicit and empty state does not invent account data", async ({ page }) => {
+  await fixtures(page, "empty");
+  await page.goto("/live-trading");
+  await expect(page.getByRole("heading", { name: "Live Trading" })).toBeVisible();
+  await expect(page.getByText("OFF", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("Não vinculada")).toBeVisible();
+  await expect(page.getByText("Sem evidência independente atual.")).toBeVisible();
+  await expect(page.getByRole("button", { name: "activate kill switch" })).toBeVisible();
+  await page.screenshot({ path: "test-results/live-control-empty.png", fullPage: true });
 });
 
 test("application shell exposes labelled controls and landmarks", async ({ page }) => {

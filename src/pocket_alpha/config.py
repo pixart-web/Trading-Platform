@@ -15,16 +15,18 @@ class Settings(BaseSettings):
     redis_url: SecretStr = SecretStr("redis://localhost:6379/0")
     database_url_file: Path | None = Field(default=None, repr=False)
     redis_url_file: Path | None = Field(default=None, repr=False)
-    # Live execution stays structurally unavailable, including via environment overrides.
-    live_trading_enabled: Literal[False] = False
-    # Derivative execution has a separate fail-closed gate.
-    derivative_execution_enabled: Literal[False] = False
+    control_proxy_token: SecretStr = Field(default=SecretStr(""), repr=False)
+    control_proxy_token_file: Path | None = Field(default=None, repr=False)
+    # Deployment gates never authorize an order by themselves. The persistent control plane,
+    # qualification evidence and independent risk engine must also approve execution.
+    live_trading_enabled: bool = False
+    derivative_execution_enabled: bool = False
 
     @field_validator("live_trading_enabled", "derivative_execution_enabled", mode="before")
     @classmethod
-    def parse_disabled_flag(cls, value: object) -> object:
-        if isinstance(value, str) and value.lower() == "false":
-            return False
+    def parse_boolean_flag(cls, value: object) -> object:
+        if isinstance(value, str) and value.lower() in {"true", "false"}:
+            return value.lower() == "true"
         return value
 
     @model_validator(mode="after")
@@ -33,6 +35,7 @@ class Settings(BaseSettings):
         for path, field in (
             (self.database_url_file, "database_url"),
             (self.redis_url_file, "redis_url"),
+            (self.control_proxy_token_file, "control_proxy_token"),
         ):
             if path is None:
                 continue
@@ -45,4 +48,11 @@ class Settings(BaseSettings):
             if not value:
                 raise ValueError(f"empty {field} secret file")
             object.__setattr__(self, field, SecretStr(value))
+        if (
+            self.environment == "production"
+            and len(self.control_proxy_token.get_secret_value()) < 32
+        ):
+            raise ValueError("production control proxy token must contain at least 32 characters")
+        if self.derivative_execution_enabled and not self.live_trading_enabled:
+            raise ValueError("derivative deployment gate requires live trading deployment gate")
         return self

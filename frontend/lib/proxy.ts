@@ -29,10 +29,14 @@ export function upstreamURL(
   const watchlistAlerts = watchlistId && parts.length === 3 && parts[2] === "alerts";
   const paperRead = parts[0] === "paper" && parts[1] === "accounts"
     && (parts.length === 2 || (parts.length === 3 && uuid.test(parts[2])));
-  const allowed = (method === "GET" && (marketRead || paperRead || portfolioCollection || portfolioDetail || portfolioEntries || portfolioIntelligence || intelligenceDetail || portfolioSnapshot
+  const liveControl = parts.length === 1 && parts[0] === "live-control";
+  const liveTransition = parts.length === 2 && parts[0] === "live-control"
+    && parts[1] === "transitions";
+  const allowed = (method === "GET" && (liveControl || marketRead || paperRead || portfolioCollection || portfolioDetail || portfolioEntries || portfolioIntelligence || intelligenceDetail || portfolioSnapshot
       || scanCollection || scanDetail || watchlistCollection || watchlistDetail
       || watchlistLatest || watchlistAlerts))
-    || (method === "POST" && (portfolioCollection || portfolioEntries || portfolioIntelligence || scanCollection || watchlistCollection || watchlistSnapshot))
+    || (method === "POST" && (liveTransition || portfolioCollection || portfolioEntries || portfolioIntelligence || scanCollection || watchlistCollection || watchlistSnapshot))
+    || (method === "PUT" && liveControl)
     || (method === "PATCH" && watchlistDetail)
     || (method === "PUT" && watchlistMember)
     || (method === "DELETE" && watchlistMember);

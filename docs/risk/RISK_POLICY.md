@@ -42,3 +42,9 @@ reconciliation, exposure, loss and drawdown before any synthetic dispatch. OPEN 
 separate economics: reduce-only closes reserve fees/funding rather than new initial margin and are
 not trapped by breached entry limits. Native execution and automated liquidation remain disabled.
 See ../architecture/DERIVATIVE_EXECUTION.md.
+
+Phase 30 persists operator-defined capital, exposure, loss, drawdown, leverage, rate, price and
+freshness limits in a versioned live policy. `LIVE_ACTIVE` requires complete fresh readiness plus an
+explicit armed transition; a deployment boolean cannot approve an order. The persistent kill switch
+blocks activation and reset clears readiness, requiring a new qualification/rearm sequence. See
+../architecture/LIVE_CONTROL_PLANE.md.

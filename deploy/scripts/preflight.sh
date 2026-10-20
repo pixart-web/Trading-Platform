@@ -21,16 +21,28 @@ docker compose version >/dev/null 2>&1 || { echo "ERROR: docker compose v2 is re
 case "$PA_DOMAIN" in research.example.com|example.com|"") echo "ERROR: set the approved DNS name" >&2; exit 1;; esac
 case "$PA_ADMIN_PASSWORD_HASH" in \$2a\$*|\$2b\$*|\$2y\$*) :;; *) echo "ERROR: PA_ADMIN_PASSWORD_HASH must be a bcrypt hash" >&2; exit 1;; esac
 
-for variable in PA_DATABASE_URL_SECRET_FILE PA_REDIS_URL_SECRET_FILE PA_POSTGRES_PASSWORD_SECRET_FILE PA_REDIS_PASSWORD_SECRET_FILE; do
+for variable in PA_DATABASE_URL_SECRET_FILE PA_REDIS_URL_SECRET_FILE PA_POSTGRES_PASSWORD_SECRET_FILE PA_REDIS_PASSWORD_SECRET_FILE PA_CONTROL_PROXY_TOKEN_SECRET_FILE; do
   eval "secret_path=\${$variable:-}"
   [ -n "$secret_path" ] && [ -f "$secret_path" ] && [ -s "$secret_path" ] || { echo "ERROR: $variable must name a non-empty file" >&2; exit 1; }
 done
+[ "$(wc -c < "$PA_CONTROL_PROXY_TOKEN_SECRET_FILE" | tr -d ' ')" -ge 32 ] || { echo "ERROR: control proxy token must contain at least 32 characters" >&2; exit 1; }
+
+case "${PA_LIVE_TRADING_ENABLED:-false}" in
+  false) : ;;
+  true) [ "${PA_LIVE_DEPLOYMENT_ACK:-}" = "ENABLE_LIVE_CONTROL_PLANE" ] || { echo "ERROR: explicit live deployment acknowledgement missing" >&2; exit 1; } ;;
+  *) echo "ERROR: PA_LIVE_TRADING_ENABLED must be true or false" >&2; exit 1 ;;
+esac
+case "${PA_DERIVATIVE_EXECUTION_ENABLED:-false}" in
+  false) : ;;
+  true) [ "${PA_LIVE_TRADING_ENABLED:-false}" = "true" ] && [ "${PA_DERIVATIVE_DEPLOYMENT_ACK:-}" = "ENABLE_DERIVATIVE_CONTROL_PLANE" ] || { echo "ERROR: derivative deployment acknowledgement missing" >&2; exit 1; } ;;
+  *) echo "ERROR: PA_DERIVATIVE_EXECUTION_ENABLED must be true or false" >&2; exit 1 ;;
+esac
 
 config=$(docker compose --env-file "$ENV_FILE" -f "$COMPOSE_FILE" config)
-printf '%s\n' "$config" | grep -q 'PA_LIVE_TRADING_ENABLED: "false"' || { echo "ERROR: live spot guard changed" >&2; exit 1; }
-printf '%s\n' "$config" | grep -q 'PA_DERIVATIVE_EXECUTION_ENABLED: "false"' || { echo "ERROR: derivative guard changed" >&2; exit 1; }
+printf '%s\n' "$config" | grep -q "PA_LIVE_TRADING_ENABLED: \"${PA_LIVE_TRADING_ENABLED:-false}\"" || { echo "ERROR: live deployment gate interpolation failed" >&2; exit 1; }
+printf '%s\n' "$config" | grep -q "PA_DERIVATIVE_EXECUTION_ENABLED: \"${PA_DERIVATIVE_EXECUTION_ENABLED:-false}\"" || { echo "ERROR: derivative deployment gate interpolation failed" >&2; exit 1; }
 published=$(printf '%s\n' "$config" | grep -c 'published:' || true)
 [ "$published" -eq 3 ] || { echo "ERROR: only Caddy 80/443 TCP+UDP may be published" >&2; exit 1; }
 
 docker compose --env-file "$ENV_FILE" -f "$COMPOSE_FILE" config --quiet
-echo "Preflight passed for RESEARCH/PAPER deployment. No service was changed."
+echo "Preflight passed. Deployment gates: LIVE=${PA_LIVE_TRADING_ENABLED:-false}, DERIVATIVES=${PA_DERIVATIVE_EXECUTION_ENABLED:-false}. No service was changed."

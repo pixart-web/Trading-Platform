@@ -17,4 +17,4 @@ fi
 "$ROOT_DIR/deploy/scripts/backup.sh"
 docker compose --env-file "$PA_ENV_FILE" -f "$ROOT_DIR/compose.production.yaml" up -d --wait --wait-timeout 240
 docker compose --env-file "$PA_ENV_FILE" -f "$ROOT_DIR/compose.production.yaml" ps
-echo "Deployment started in RESEARCH/PAPER-safe mode. Verify HTTPS and authenticated workflows before closing the window."
+echo "Deployment started. Persistent mode remains authoritative; verify HTTPS, authentication, readiness and operator control before closing the window."

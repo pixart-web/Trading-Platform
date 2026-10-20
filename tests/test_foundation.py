@@ -8,7 +8,7 @@ from uuid import UUID, uuid4
 
 import pytest
 from fastapi.testclient import TestClient
-from pydantic import ValidationError
+from pydantic import SecretStr, ValidationError
 from redis.exceptions import ConnectionError as RedisConnectionError
 from sqlalchemy import create_engine, select
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
@@ -23,10 +23,19 @@ from pocket_alpha.main import create_app
 from pocket_alpha.observability import JsonFormatter
 
 
-def test_live_execution_cannot_be_enabled(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_live_deployment_gate_is_explicit_and_defaults_disabled(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    assert Settings().live_trading_enabled is False
     monkeypatch.setenv("PA_LIVE_TRADING_ENABLED", "true")
-    with pytest.raises(ValidationError):
-        Settings()
+    assert Settings().live_trading_enabled is True
+
+
+def test_production_requires_internal_control_proxy_secret() -> None:
+    with pytest.raises(ValueError, match="control proxy token"):
+        Settings(environment="production")
+    value = Settings(environment="production", control_proxy_token=SecretStr("x" * 32))
+    assert "x" * 32 not in repr(value)
 
 
 def test_secrets_are_masked() -> None:

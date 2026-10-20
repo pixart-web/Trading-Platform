@@ -254,6 +254,11 @@ th { color: var(--muted); font-weight: 400; }
 .market-feed { min-width: 0; flex: 1; display: flex; align-items: center; gap: 22px; color: #8499ae; font-size: 10px; }
 .market-feed span { display: flex; align-items: center; gap: 7px; white-space: nowrap; }
 .research-mode { display: flex; align-items: center; gap: 7px; color: #adbdcc; font-size: 10px; white-space: nowrap; }
+.operational-mode { padding: 6px 8px; border: 1px solid #234054; border-radius: 5px; text-decoration: none; }
+.operational-mode strong { color: #dce8f3; }
+.operational-mode span { color: #7f94a9; }
+.operational-live { border-color: #8c6724; background: #241c0d; }
+.operational-live strong { color: #ffcf66; }
 .operator-avatar { width: 29px; height: 29px; display: grid; place-items: center; border-radius: 50%; background: #12345b; color: #dcecff; font-size: 10px; font-weight: 700; }
 .terminal-content { min-width: 0; }
 
@@ -438,3 +443,38 @@ th { color: var(--muted); font-weight: 400; }
 .portfolio-intelligence-heading h4 { margin: .2rem 0; font-size: 1rem; }
 .portfolio-intelligence details { margin-top: .75rem; }
 .portfolio-intelligence li { margin: .35rem 0; color: var(--muted); }
+
+/* Phase 30: persistent operator control plane. */
+.live-control-page { padding: 28px; max-width: 1500px; margin: 0 auto; }
+.live-control-heading { display: flex; justify-content: space-between; gap: 24px; align-items: start; margin-bottom: 18px; }
+.live-control-heading h1 { margin: 3px 0; font-size: 1.7rem; }
+.live-control-heading p { margin: 0; color: var(--muted); }
+.mode-badge { padding: 9px 13px; border: 1px solid #365067; border-radius: 6px; background: #0b1b28; font: 700 .75rem monospace; letter-spacing: .06em; }
+.mode-live_active, .mode-live_armed { color: #ffcf66; border-color: #8c6724; }
+.mode-kill_switch { color: #ff8193; border-color: #943448; background: #260d15; }
+.mode-paper { color: #60dfb8; border-color: #276c58; }
+.live-error { padding: 12px 14px; color: #ffacb8; border: 1px solid #6d2a3a; border-radius: 7px; background: #210d14; }
+.live-summary { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); border: 1px solid var(--line); border-radius: 9px; overflow: hidden; background: var(--panel); }
+.live-summary article { min-width: 0; padding: 14px; border-right: 1px solid var(--line); }
+.live-summary article:last-child { border-right: 0; }
+.live-summary span, .live-summary strong { display: block; overflow-wrap: anywhere; }
+.live-summary span { color: var(--muted); font-size: .68rem; text-transform: uppercase; letter-spacing: .05em; }
+.live-summary strong { margin-top: 6px; font: 700 .78rem monospace; }
+.live-grid { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(330px, .7fr); gap: 14px; margin-top: 14px; align-items: start; }
+.control-stack { display: grid; gap: 14px; }
+.control-card { padding: 18px; border: 1px solid var(--line); border-radius: 9px; background: var(--panel); }
+.control-card h2 { margin: 0 0 4px; font-size: 1rem; }
+.control-card > p, .control-card > small { color: var(--muted); }
+.form-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 17px 0; }
+.form-grid label, .control-card > label { display: grid; gap: 5px; color: var(--muted); font-size: .68rem; text-transform: uppercase; letter-spacing: .04em; }
+.form-grid .wide { grid-column: 1 / -1; }
+.form-grid input, .form-grid select, .control-card > label input { min-width: 0; width: 100%; height: 37px; }
+.gate-list { display: grid; gap: 10px; padding: 0; list-style: none; }
+.gate-list li { display: grid; grid-template-columns: 10px 1fr auto; align-items: center; gap: 8px; color: var(--muted); font-size: .76rem; }
+.gate-list strong { color: var(--text); font: .7rem monospace; }
+.status-dot-danger { background: #f44f68; box-shadow: 0 0 0 4px rgb(244 79 104 / 8%); }
+.action-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 14px 0; }
+.action-grid button { min-height: 38px; font-size: .68rem; text-transform: uppercase; }
+.action-grid .danger { color: #ff9aaa; border-color: #6d2a3a; background: #210d14; }
+@media (max-width: 1050px) { .live-summary { grid-template-columns: repeat(3, 1fr); } .live-grid { grid-template-columns: 1fr; } }
+@media (max-width: 700px) { .live-control-page { padding: 18px 14px; } .live-control-heading { display: block; } .mode-badge { display: inline-block; margin-top: 12px; } .live-summary { grid-template-columns: repeat(2, 1fr); } .form-grid { grid-template-columns: 1fr; } }

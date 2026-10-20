@@ -110,6 +110,11 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           persist-credentials: false
+      - name: Prepare live-control CI secret
+        run: | # pragma: allowlist secret -- deterministic CI-only fixture
+          mkdir -p /tmp/pocket-alpha-secrets
+          printf '%s' 'ci-only-control-token-ci-only-control-token' > /tmp/pocket-alpha-secrets/control_proxy_token
+          echo "PA_CONTROL_PROXY_TOKEN_SECRET_FILE=/tmp/pocket-alpha-secrets/control_proxy_token" >> "$GITHUB_ENV"
       - name: Validate development and production Compose
         run: |
           mkdir -p /tmp/pocket-alpha-secrets
