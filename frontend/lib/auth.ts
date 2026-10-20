@@ -10,7 +10,7 @@ async function secret(path: string) { return (await fs.readFile(path, "utf8")).t
 export async function credentials() { return { user: USER, email: EMAIL, pinHash: await secret(PIN_HASH_FILE), sessionSecret: await secret(SESSION_SECRET_FILE) }; }
 export function pinDigest(pin: string) { return crypto.createHash("sha256").update(pin, "utf8").digest("hex"); }
 export function validPin(pin: string, expected: string) {
-  if (!/^\\d{6}$/.test(pin)) return false;
+  if (!/^\d{6}$/.test(pin)) return false;
   const a=Buffer.from(pinDigest(pin),"hex"), b=Buffer.from(expected,"hex");
   return a.length===b.length && crypto.timingSafeEqual(a,b);
 }
