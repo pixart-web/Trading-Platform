@@ -35,7 +35,10 @@ services:
       PA_API_BASE_URL: http://api:8000
       PA_CONTROL_PROXY_TOKEN_FILE: /run/secrets/control_proxy_token
       PA_OPERATOR_ID: ${PA_OPERATOR_ID:-operator}
-    secrets: [control_proxy_token]
+      PA_OPERATOR_EMAIL: ${PA_OPERATOR_EMAIL:-webmaster@pixart.pt}
+      PA_OPERATOR_PIN_HASH_FILE: /run/secrets/operator_pin_hash
+      PA_SESSION_SECRET_FILE: /run/secrets/session_secret
+    secrets: [control_proxy_token, operator_pin_hash, session_secret]
     networks: [edge, application]
     depends_on:
       api: {condition: service_healthy}
@@ -147,6 +150,10 @@ secrets:
     file: ${PA_REDIS_PASSWORD_SECRET_FILE:?set PA_REDIS_PASSWORD_SECRET_FILE}
   control_proxy_token:
     file: ${PA_CONTROL_PROXY_TOKEN_SECRET_FILE:?set PA_CONTROL_PROXY_TOKEN_SECRET_FILE}
+  operator_pin_hash:
+    file: ${PA_OPERATOR_PIN_HASH_SECRET_FILE:?set PA_OPERATOR_PIN_HASH_SECRET_FILE}
+  session_secret:
+    file: ${PA_SESSION_SECRET_FILE:?set PA_SESSION_SECRET_FILE}
 
 volumes:
   postgres_data: {}

@@ -1,8 +1,5 @@
 {$PA_DOMAIN} {
     encode zstd gzip
-    basic_auth {
-        {$PA_ADMIN_USER} {$PA_ADMIN_PASSWORD_HASH}
-    }
     request_body {
         max_size 1MB
     }

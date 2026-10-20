@@ -4,9 +4,9 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Pocket Alpha | Market Intelligence",
-  description: "Inteligência de mercado e investigação quantitativa com evidência verificável.",
+  description: "Market intelligence and quantitative research with verifiable evidence.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="pt-PT"><body><ApplicationShell>{children}</ApplicationShell></body></html>;
+  return <html lang="en"><body><ApplicationShell>{children}</ApplicationShell></body></html>;
 }
