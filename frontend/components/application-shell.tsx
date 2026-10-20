@@ -25,18 +25,18 @@ const navigation = [
 export function ApplicationShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   return <div className="terminal-shell">
-    <a className="skip-link" href="#main-content">Saltar para o conteúdo</a>
-    <aside className="primary-sidebar" aria-label="Navegação principal">
-      <Link className="terminal-brand" href="/" aria-label="Pocket Alpha — início">
+    <a className="skip-link" href="#main-content">Skip to content</a>
+    <aside className="primary-sidebar" aria-label="Main navigation">
+      <Link className="terminal-brand" href="/" aria-label="Pocket Alpha — home">
         <span className="terminal-logo" aria-hidden="true"><i />▲</span><strong>Pocket Alpha</strong>
       </Link>
-      <nav className="primary-nav" aria-label="Navegação principal">
+      <nav className="primary-nav" aria-label="Main navigation">
         {navigation.map(([label, href, icon]) => <Link key={label} href={href}
           aria-current={(href === "/" ? pathname === "/" : pathname === href) ? "page" : undefined}>
           <span aria-hidden="true">{icon}</span>{label}
         </Link>)}
       </nav>
-      <div className="system-rail" aria-label="Estado esperado do sistema">
+      <div className="system-rail" aria-label="Status esperado do sistema">
         <small>SYSTEM</small>
         <span><i className="status-dot status-dot-neutral" />Data status via API</span>
         <span><i className="status-dot status-dot-neutral" />Dependencies checked</span>
@@ -47,7 +47,7 @@ export function ApplicationShell({ children }: { children: ReactNode }) {
     <div className="terminal-stage">
       <header className="terminal-topbar">
         <Link className="global-search" href="/#search"><span aria-hidden="true">⌕</span>Search assets (BTC, ETH, AAPL, …)</Link>
-        <div className="market-feed" aria-label="Origem da informação de mercado">
+        <div className="market-feed" aria-label="Market data source">
           <span><i className="status-dot status-dot-neutral" /> Stored market observations</span>
           <span>UTC</span>
         </div>

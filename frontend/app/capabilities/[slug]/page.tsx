@@ -23,7 +23,7 @@ const capabilities = {
   execution: {
     title: "Execution", status: "Live submission unavailable",
     endpoint: "No public live-order HTTP endpoint", tone: "blocked",
-    summary: "Paper and qualification engines exist behind the application boundary. Real submission remains structurally unavailable without a selected venue, qualified credentials and separate operator authorization.",
+    summary: "Paper and qualifiestion engines exist behind the application boundary. Real submission remains structurally unavailable without a selected venue, qualified credentials and separate operator authorization.",
     boundary: "LIVE_SPOT_ENABLED=false · LIVE_DERIVATIVES_ENABLED=false · unknown orders require reconciliation before retry.",
   },
   risk: {

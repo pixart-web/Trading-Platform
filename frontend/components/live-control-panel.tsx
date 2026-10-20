@@ -73,43 +73,43 @@ export function LiveControlPanel() {
   return <section className="live-control-page" aria-labelledby="live-control-title">
     <header className="live-control-heading">
       <div><p className="eyebrow">OPERATOR CONTROL PLANE</p><h1 id="live-control-title">Live Trading</h1>
-        <p>O backend é autoritativo. Nenhum controlo do browser envia uma ordem.</p></div>
+        <p>The backend is authoritative. No browser control submits an order.</p></div>
       <strong className={`mode-badge mode-${control?.mode.toLowerCase() ?? "unknown"}`}>
         {control?.mode ?? "UNAVAILABLE"}</strong>
     </header>
     {error && <p className="live-error" role="alert">{error}</p>}
     <div className="live-summary">
-      <article><span>Broker</span><strong>{control?.broker ?? "Não configurado"}</strong></article>
-      <article><span>Mercado</span><strong>{control?.market ?? "Não configurado"}</strong></article>
+      <article><span>Broker</span><strong>{control?.broker ?? "Not configured"}</strong></article>
+      <article><span>Market</span><strong>{control?.market ?? "Not configured"}</strong></article>
       <article><span>Deployment LIVE</span><strong>{control?.live_deployment_enabled ? "ENABLED" : "DISABLED"}</strong></article>
       <article><span>Kill switch</span><strong>{control?.kill_switch_active ? "ACTIVE" : "CLEAR"}</strong></article>
-      <article><span>Revisão</span><strong>{control?.revision ?? "—"}</strong></article>
-      <article><span>Conta</span><strong>{control?.account_identity_hash ? `${control.account_identity_hash.slice(0, 10)}…` : "Não vinculada"}</strong></article>
+      <article><span>Revision</span><strong>{control?.revision ?? "—"}</strong></article>
+      <article><span>Conta</span><strong>{control?.account_identity_hash ? `${control.account_identity_hash.slice(0, 10)}…` : "Not linked"}</strong></article>
     </div>
     <div className="live-grid">
       <form key={control?.revision ?? "loading"} className="control-card policy-form" onSubmit={configure}>
-        <h2>Política e conta</h2><p>Todos os limites são definidos pelo operador e validados no backend.</p>
+        <h2>Policy and account</h2><p>All limits are defined by the operator and validated by the backend.</p>
         <div className="form-grid">
           <label>Broker<select name="broker" defaultValue={control?.broker ?? "BINANCE"}><option>BINANCE</option><option>KUCOIN</option></select></label>
-          <label>Mercado<select name="market" defaultValue={control?.market ?? "SPOT"}><option>SPOT</option><option>FUTURES</option></select></label>
-          <label>Versão<input required name="version" defaultValue={control?.policy?.version ?? ""} /></label>
+          <label>Market<select name="market" defaultValue={control?.market ?? "SPOT"}><option>SPOT</option><option>FUTURES</option></select></label>
+          <label>Version<input required name="version" defaultValue={control?.policy?.version ?? ""} /></label>
           <label>Moeda<input required name="currency" pattern="[A-Z0-9]{2,12}" defaultValue={control?.policy?.currency ?? ""} /></label>
           <label className="wide">Hash da conta<input required name="account_identity_hash" pattern="[0-9a-f]{64}" defaultValue={control?.account_identity_hash ?? ""} /></label>
           {moneyFields.map(name => <label key={name}>{label(name)}<input required name={name} inputMode="decimal" defaultValue={control?.policy?.[name] ?? ""} /></label>)}
           <label>maximum leverage<input required name="maximum_leverage" inputMode="decimal" defaultValue={control?.policy?.maximum_leverage ?? ""} /></label>
           {fractionFields.map(name => <label key={name}>{label(name)}<input required name={name} inputMode="decimal" defaultValue={control?.policy?.[name] ?? ""} /></label>)}
           {countFields.map(name => <label key={name}>{label(name)}<input required name={name} type="number" min="1" defaultValue={control?.policy?.[name] ?? ""} /></label>)}
-        </div><button disabled={busy || !control} type="submit">Guardar política</button>
+        </div><button disabled={busy || !control} type="submit">Save policy</button>
       </form>
       <div className="control-stack">
         <section className="control-card"><h2>Readiness</h2>
           {gates.length ? <ul className="gate-list">{gates.map(([name, passed]) => <li key={name}><i className={`status-dot ${passed ? "status-dot-safe" : "status-dot-danger"}`} />{label(name)} <strong>{passed ? "PASS" : "FAIL"}</strong></li>)}</ul>
-            : <p className="muted">Sem evidência independente atual. LIVE_ACTIVE permanece bloqueado.</p>}
+            : <p className="muted">No current independent evidence. LIVE_ACTIVE remains blocked.</p>}
         </section>
-        <section className="control-card"><h2>Ações operacionais</h2>
-          <label>Confirmação exata<input value={confirmation} onChange={event => setConfirmation(event.target.value)} placeholder="ARM LIVE" /></label>
+        <section className="control-card"><h2>Stocks operacionais</h2>
+          <label>Exact confirmation<input value={confirmation} onChange={event => setConfirmation(event.target.value)} placeholder="ARM LIVE" /></label>
           <div className="action-grid">{actions.map(action => <button type="button" disabled={busy || !control} key={action} onClick={() => void transition(action)} className={action.includes("KILL") ? "danger" : ""}>{label(action)}</button>)}</div>
-          <small>O kill switch impede novas ordens, persiste após reinício e exige RESET KILL SWITCH antes de novo armamento.</small>
+          <small>The kill switch prevents new orders, persists after restart, and requires RESET KILL SWITCH before re-arming.</small>
         </section>
       </div>
     </div>

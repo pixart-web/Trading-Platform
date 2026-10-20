@@ -18,10 +18,10 @@ async function request<T>(url: string, schema: z.ZodType<T>, init?: RequestInit)
     "Content-Type": "application/json", ...(init?.headers ?? {}),
   } });
   if (!response.ok) {
-    let detail = "Não foi possível atualizar a carteira.";
+    let detail = "Unable to update the portfolio.";
     try { const body = await response.json() as { detail?: unknown };
       if (typeof body.detail === "string") detail = body.detail; } catch { /* use safe fallback */ }
-    throw new Error(response.status === 409 ? "A carteira mudou noutro pedido. Atualiza e repete a operação." : detail);
+    throw new Error(response.status === 409 ? "The portfolio changed in another request. Refresh and retry the operation." : detail);
   }
   return schema.parse(await response.json());
 }
@@ -31,7 +31,7 @@ function nowInput(): string { return new Date().toISOString().slice(0, 16); }
 export function PortfolioPanel({ market, timeframe }: { market: Market | null; timeframe: Timeframe }) {
   const [state, setState] = useState<State>({ portfolios: [], selectedId: null, snapshot: null,
     entries: [], loading: true, busy: false, error: null });
-  const [name, setName] = useState("Carteira principal");
+  const [name, setName] = useState("Main portfolio");
   const [currency, setCurrency] = useState("EUR");
   const [entryType, setEntryType] = useState<EntryType>("DEPOSIT");
   const [cashAmount, setCashAmount] = useState("");
@@ -73,27 +73,27 @@ export function PortfolioPanel({ market, timeframe }: { market: Market | null; t
               error: problem, loading: false }));
           }).catch(error => {
             if (!controller.signal.aborted) setState(old => ({ ...old, loading: false,
-              error: error instanceof Error ? error.message : "Carteira indisponível." }));
+              error: error instanceof Error ? error.message : "Portfolio unavailable." }));
           });
         }
       }).catch(error => { if (!controller.signal.aborted) setState(old => ({ ...old, loading: false,
-        error: error instanceof Error ? error.message : "Carteiras indisponíveis." })); });
+        error: error instanceof Error ? error.message : "Portfolios unavailable." })); });
     return () => controller.abort();
   }, []);
 
   async function mutate(action: () => Promise<void>) {
     setState(old => ({ ...old, busy: true, error: null }));
     try { await action(); } catch (error) {
-      setState(old => ({ ...old, error: error instanceof Error ? error.message : "Operação falhou." }));
+      setState(old => ({ ...old, error: error instanceof Error ? error.message : "Operation failed." }));
     } finally { setState(old => ({ ...old, busy: false })); }
   }
 
   const trade = entryType === "BUY" || entryType === "SELL";
-  return <section className="portfolio-panel" aria-label="Carteira">
+  return <section className="portfolio-panel" aria-label="Portfolio">
     <div className="portfolio-heading"><div><span className="eyebrow">FASE 16 · PORTFOLIO</span>
-      <h3>Carteira manual</h3><p>Caixa, posições e P&amp;L por custo médio móvel.</p></div>
-      <span className="portfolio-disclaimer">Registos manuais não são ordens, recomendações ou aprovação de risco.</span></div>
-    {state.loading && <p className="portfolio-message" role="status">A consultar carteiras…</p>}
+      <h3>Manual portfolio</h3><p>Cash, positions, and P&amp;L using moving average cost.</p></div>
+      <span className="portfolio-disclaimer">Manual records are not orders, recommendations, or risk approval.</span></div>
+    {state.loading && <p className="portfolio-message" role="status">Loading portfolios…</p>}
     {state.error && <p className="portfolio-message error" role="alert">{state.error}</p>}
     {!state.loading && state.portfolios.length === 0 && <form className="portfolio-create" onSubmit={event => {
       event.preventDefault(); mutate(async () => {
@@ -101,32 +101,32 @@ export function PortfolioPanel({ market, timeframe }: { market: Market | null; t
           method: "POST", body: JSON.stringify({ portfolio_id: crypto.randomUUID(), name,
             base_currency: currency.toUpperCase(), valuation_timeframe: timeframe }),
         });
-        if (portfolioProblem(portfolio)) throw new Error("A carteira recebida é incoerente.");
+        if (portfolioProblem(portfolio)) throw new Error("The received portfolio is inconsistent.");
         setState(old => ({ ...old, portfolios: [portfolio], selectedId: portfolio.portfolio_id }));
         await loadDashboard(portfolio, [portfolio]);
       });
     }}><label>Nome<input required maxLength={80} value={name} onChange={e => setName(e.target.value)} /></label>
       <label>Moeda-base<input required pattern="[A-Z0-9]{2,12}" maxLength={12} value={currency} onChange={e => setCurrency(e.target.value.toUpperCase())} /></label>
-      <button disabled={state.busy} type="submit">Criar carteira</button></form>}
-    {selected && <><div className="portfolio-controls"><label>Carteira<select value={selected.portfolio_id}
+      <button disabled={state.busy} type="submit">Create portfolio</button></form>}
+    {selected && <><div className="portfolio-controls"><label>Portfolio<select value={selected.portfolio_id}
       onChange={event => { const portfolio = state.portfolios.find(item => item.portfolio_id === event.target.value);
         if (portfolio) loadDashboard(portfolio).catch(error => setState(old => ({ ...old,
-          error: error instanceof Error ? error.message : "Carteira indisponível." }))); }}>
+          error: error instanceof Error ? error.message : "Portfolio unavailable." }))); }}>
       {state.portfolios.map(item => <option key={item.portfolio_id} value={item.portfolio_id}>{item.name} · {item.base_currency}</option>)}</select></label>
-      <span>Avaliação: candles {selected.valuation_timeframe} · custo médio móvel v1</span></div>
+      <span>Valuation: candles {selected.valuation_timeframe} · moving average cost v1</span></div>
       {state.snapshot && <><div className="portfolio-metrics">
-        <div><span>Caixa</span><strong>{state.snapshot.cash_balance} {selected.base_currency}</strong></div>
-        <div><span>Equity</span><strong>{state.snapshot.equity ?? "Indisponível"}</strong></div>
-        <div><span>Custo das posições</span><strong>{state.snapshot.total_cost_basis}</strong></div>
-        <div><span>P&amp;L não realizado</span><strong>{state.snapshot.unrealized_pnl ?? "Indisponível"}</strong></div>
-        <div><span>P&amp;L realizado</span><strong>{state.snapshot.realized_pnl}</strong></div>
+        <div><span>Cash</span><strong>{state.snapshot.cash_balance} {selected.base_currency}</strong></div>
+        <div><span>Equity</span><strong>{state.snapshot.equity ?? "Unavailable"}</strong></div>
+        <div><span>Position cost</span><strong>{state.snapshot.total_cost_basis}</strong></div>
+        <div><span>Unrealized P&amp;L</span><strong>{state.snapshot.unrealized_pnl ?? "Unavailable"}</strong></div>
+        <div><span>Realized P&amp;L</span><strong>{state.snapshot.realized_pnl}</strong></div>
         <div><span>Taxas registadas</span><strong>{state.snapshot.total_fees}</strong></div>
-      </div>{state.snapshot.status === "PARTIAL" && <p className="portfolio-message">Avaliação parcial: pelo menos uma posição aberta não tem preço armazenado disponível neste instante.</p>}
-      <div className="table-scroll" tabIndex={0}><table><caption>Posições contabilísticas — valores exatos em {selected.base_currency}</caption>
-        <thead><tr><th>Mercado</th><th>Estado</th><th>Quantidade</th><th>Custo médio</th><th>Custo</th><th>Último preço</th><th>Valor</th><th>P&amp;L não realizado</th><th>P&amp;L realizado</th></tr></thead>
+      </div>{state.snapshot.status === "PARTIAL" && <p className="portfolio-message">Partial valuation: at least one open position has no stored price available at this instant.</p>}
+      <div className="table-scroll" tabIndex={0}><table><caption>Accounting positions — exact values in {selected.base_currency}</caption>
+        <thead><tr><th>Market</th><th>Status</th><th>Quantity</th><th>Average cost</th><th>Cost</th><th>Last price</th><th>Value</th><th>Unrealized P&amp;L</th><th>Realized P&amp;L</th></tr></thead>
         <tbody>{state.snapshot.positions.map(item => <tr key={item.market.market_id}><td><strong>{item.market.symbol}</strong><small>{item.market.market_id}</small></td>
           <td>{item.status}</td><td>{item.quantity}</td><td>{item.average_cost}</td><td>{item.cost_basis}</td>
-          <td>{item.last_price ?? "—"}<small>{item.price_time ?? "Sem preço disponível"}</small></td>
+          <td>{item.last_price ?? "—"}<small>{item.price_time ?? "No price available"}</small></td>
           <td>{item.market_value ?? "—"}</td><td>{item.unrealized_pnl ?? "—"}</td><td>{item.realized_pnl}</td></tr>)}</tbody></table></div></>}
       <form className="portfolio-entry-form" onSubmit={event => { event.preventDefault(); mutate(async () => {
         const body = { entry_id: crypto.randomUUID(), entry_type: entryType,
@@ -140,20 +140,20 @@ export function PortfolioPanel({ market, timeframe }: { market: Market | null; t
         setCashAmount(""); setQuantity(""); setUnitPrice(""); setFee("0");
         await loadDashboard(result.portfolio, portfolios);
       }); }}><label>Tipo<select value={entryType} onChange={e => setEntryType(e.target.value as EntryType)}>
-        <option value="DEPOSIT">Depósito</option><option value="WITHDRAWAL">Levantamento</option>
+        <option value="DEPOSIT">Deposit</option><option value="WITHDRAWAL">Levantamento</option>
         <option value="BUY">Compra manual</option><option value="SELL">Venda manual</option></select></label>
-        {trade ? <><label>Mercado<input readOnly value={market?.market_id ?? "Seleciona um mercado"} /></label>
-          <label>Quantidade<input required type="number" min="0" step="any" value={quantity} onChange={e => setQuantity(e.target.value)} /></label>
-          <label>Preço unitário<input required type="number" min="0" step="any" value={unitPrice} onChange={e => setUnitPrice(e.target.value)} /></label>
+        {trade ? <><label>Market<input readOnly value={market?.market_id ?? "Select a market"} /></label>
+          <label>Quantity<input required type="number" min="0" step="any" value={quantity} onChange={e => setQuantity(e.target.value)} /></label>
+          <label>Unit price<input required type="number" min="0" step="any" value={unitPrice} onChange={e => setUnitPrice(e.target.value)} /></label>
           <label>Taxa<input required type="number" min="0" step="any" value={fee} onChange={e => setFee(e.target.value)} /></label></>
           : <label>Montante<input required type="number" min="0" step="any" value={cashAmount} onChange={e => setCashAmount(e.target.value)} /></label>}
         <label>Ocorrido em UTC<input required type="datetime-local" value={occurredAt} onChange={e => setOccurredAt(e.target.value)} /></label>
-        <button type="submit" disabled={state.busy || (trade && !market)}>Registar lançamento</button></form>
-      <details className="portfolio-ledger"><summary>Livro imutável · {state.entries.length} lançamentos</summary>
-        {state.entries.length === 0 ? <p className="muted">Ainda não existem lançamentos.</p> : <ol>{state.entries.map(entry => <li key={entry.entry_id}>
+        <button type="submit" disabled={state.busy || (trade && !market)}>Record entry</button></form>
+      <details className="portfolio-ledger"><summary>Immutable ledger · {state.entries.length} entries</summary>
+        {state.entries.length === 0 ? <p className="muted">No entries yet.</p> : <ol>{state.entries.map(entry => <li key={entry.entry_id}>
           <strong>#{entry.sequence} · {entry.entry_type}</strong><span>{entry.market_id ?? entry.cash_amount} · efeito em caixa {entry.cash_effect} {entry.currency}</span><small>{entry.occurred_at}</small>
         </li>)}</ol>}</details>
       <PortfolioIntelligencePanel portfolio={selected} />
-      <p className="portfolio-footnote">A carteira aceita apenas mercados na moeda-base e caixa financiado. Ausência de FX ou preço fica explícita; o browser não recalcula valores financeiros.</p></>}
+      <p className="portfolio-footnote">The portfolio accepts only base-currency markets and funded cash. Missing FX or price remains explicit; the browser does not recalculate financial values.</p></>}
   </section>;
 }

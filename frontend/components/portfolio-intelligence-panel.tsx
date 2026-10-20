@@ -9,7 +9,7 @@ import {
 
 async function parseResponse(response: Response): Promise<unknown> {
   if (response.ok) return response.json();
-  let message = "Não foi possível gerar a inteligência da carteira.";
+  let message = "Unable to generate portfolio intelligence.";
   try {
     const value = await response.json() as { detail?: unknown };
     if (typeof value.detail === "string") message = value.detail;
@@ -18,7 +18,7 @@ async function parseResponse(response: Response): Promise<unknown> {
 }
 
 function metric(value: PortfolioIntelligence["portfolio_per_bar_volatility"]): string {
-  return value.status === "AVAILABLE" ? value.value! : "Indisponível · " + value.reason;
+  return value.status === "AVAILABLE" ? value.value! : "Unavailable · " + value.reason;
 }
 
 export function PortfolioIntelligencePanel({ portfolio }: { portfolio: Portfolio }) {
@@ -39,7 +39,7 @@ export function PortfolioIntelligencePanel({ portfolio }: { portfolio: Portfolio
         setError(problem);
       }).catch(reason => {
         if (!controller.signal.aborted)
-          setError(reason instanceof Error ? reason.message : "Inteligência indisponível.");
+          setError(reason instanceof Error ? reason.message : "Intelligence unavailable.");
       });
     return () => controller.abort();
   }, [portfolio]);
@@ -57,34 +57,34 @@ export function PortfolioIntelligencePanel({ portfolio }: { portfolio: Portfolio
       if (problem) throw new Error(problem);
       setReport(value);
     } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "Inteligência indisponível.");
+      setError(reason instanceof Error ? reason.message : "Intelligence unavailable.");
     } finally { setBusy(false); }
   }
 
-  return <section className="portfolio-intelligence" aria-label="Inteligência da carteira">
+  return <section className="portfolio-intelligence" aria-label="Portfolio intelligence">
     <div className="portfolio-intelligence-heading"><div>
-      <span className="eyebrow">FASE 17 · INTELIGÊNCIA</span>
-      <h4>Exposição e risco observado</h4>
+      <span className="eyebrow">PHASE 17 · INTELLIGENCE</span>
+      <h4>Observed exposure and risk</h4>
     </div><button type="button" disabled={busy} onClick={generate}>
-      {busy ? "A calcular…" : "Registar análise"}
+      {busy ? "A calcular…" : "Record analysis"}
     </button></div>
-    <p className="portfolio-footnote">Observações explicáveis sobre dados causais armazenados. Não geram recomendações, risco aprovado ou ordens.</p>
+    <p className="portfolio-footnote">Explainable observations on stored causal data. They do not generate recommendations, approved risk, or orders.</p>
     {error && <p className="portfolio-message error" role="alert">{error}</p>}
-    {!report && !error && <p className="muted">Ainda não existe uma análise imutável desta carteira.</p>}
+    {!report && !error && <p className="muted">No immutable analysis exists for this portfolio yet.</p>}
     {report && <><div className="portfolio-metrics">
       <div><span>Volatilidade por barra</span><strong>{metric(report.portfolio_per_bar_volatility)}</strong></div>
       <div><span>Beta</span><strong>{metric(report.portfolio_beta)}</strong></div>
       <div><span>Drawdown</span><strong>{metric(report.drawdown)}</strong></div>
-      <div><span>Liquidez</span><strong>{metric(report.liquidity)}</strong></div>
+      <div><span>Liquidity</span><strong>{metric(report.liquidity)}</strong></div>
     </div>
     <div className="table-scroll" tabIndex={0}><table>
-      <caption>Alocação atual — valores exatos</caption>
-      <thead><tr><th>Dimensão</th><th>Grupo</th><th>Valor</th><th>Peso</th></tr></thead>
+      <caption>Current allocation — exact values</caption>
+      <thead><tr><th>Dimension</th><th>Grupo</th><th>Value</th><th>Peso</th></tr></thead>
       <tbody>{report.allocations.map(item => <tr key={item.dimension + item.key}>
         <td>{item.dimension}</td><td>{item.key}</td><td>{item.value}</td>
         <td>{item.portfolio_weight}</td></tr>)}</tbody>
     </table></div>
-    <details><summary>Observações e indisponibilidades</summary>
+    <details><summary>Observations and unavailability</summary>
       <ul>{report.observations.map(item => <li key={item.code}>
         <strong>{item.code}</strong> · {item.message}
       </li>)}

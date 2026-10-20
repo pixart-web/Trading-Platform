@@ -19,15 +19,15 @@ async function request<T>(url: string, schema: z.ZodType<T>, init?: RequestInit)
     "Content-Type": "application/json", ...(init?.headers ?? {}),
   } });
   if (!response.ok) throw new Error(response.status === 409
-    ? "A lista mudou noutro pedido. Atualiza e repete a operação."
-    : "Não foi possível atualizar a watchlist.");
+    ? "The list changed in another request. Refresh and retry the operation."
+    : "Unable to update the watchlist.");
   return schema.parse(await response.json());
 }
 
 const label: Record<string, string> = {
-  ANALYSIS_BECAME_AVAILABLE: "Análise passou a estar disponível",
-  ANALYSIS_BECAME_UNAVAILABLE: "Análise deixou de estar disponível",
-  HORIZON_CONCLUSION_CHANGED: "Conclusão alterada",
+  ANALYSIS_BECAME_AVAILABLE: "Analysis became available",
+  ANALYSIS_BECAME_UNAVAILABLE: "Analysis became unavailable",
+  HORIZON_CONCLUSION_CHANGED: "Conclusion changed",
 };
 
 export function WatchlistPanel({ market, timeframe, asOf }: {
@@ -67,11 +67,11 @@ export function WatchlistPanel({ market, timeframe, asOf }: {
           setState(old => ({ ...old, snapshot: problem ? null : snapshot, alerts, error: problem }));
         }).catch(error => {
           if (!controller.signal.aborted) setState(old => ({ ...old, loading: false,
-            error: error instanceof Error ? error.message : "Watchlist indisponível." }));
+            error: error instanceof Error ? error.message : "Watchlist unavailable." }));
         });
       }).catch(error => {
         if (!controller.signal.aborted) setState(old => ({ ...old, loading: false,
-          error: error instanceof Error ? error.message : "Watchlists indisponíveis." }));
+          error: error instanceof Error ? error.message : "Watchlists unavailable." }));
       });
     return () => controller.abort();
   }, []);
@@ -79,36 +79,36 @@ export function WatchlistPanel({ market, timeframe, asOf }: {
   async function mutate(action: () => Promise<void>) {
     setState(old => ({ ...old, busy: true, error: null }));
     try { await action(); } catch (error) {
-      setState(old => ({ ...old, error: error instanceof Error ? error.message : "Operação falhou." }));
+      setState(old => ({ ...old, error: error instanceof Error ? error.message : "Operation failed." }));
     } finally { setState(old => ({ ...old, busy: false })); }
   }
 
   const member = market && selected?.members.find(item => item.market_id === market.market_id);
   return <section className="watchlist-panel" aria-label="Watchlists">
     <div className="watchlist-heading"><div><span className="eyebrow">WATCHLISTS · SNAPSHOTS</span>
-      <h3>A acompanhar</h3><p>Listas persistentes e mudanças observadas na análise armazenada.</p></div>
+      <h3>Watchlist</h3><p>Persistent lists and changes observed in stored analysis.</p></div>
       {selected && <button className="secondary" disabled={state.busy} onClick={() => mutate(async () => {
         const result = await request(`/api/market-data/watchlists/${selected.watchlist_id}/snapshots`,
           snapshotResultSchema, { method: "POST", body: JSON.stringify({ snapshot_id: crypto.randomUUID(), as_of: asOf }) });
         setState(old => ({ ...old, snapshot: result.snapshot,
           alerts: [...result.events].reverse().concat(old.alerts).slice(0, 40) }));
-      })}>Registar snapshot</button>}
+      })}>Record snapshot</button>}
     </div>
-    {state.loading && <p role="status" className="watchlist-message">A consultar watchlists…</p>}
+    {state.loading && <p role="status" className="watchlist-message">Loading watchlists…</p>}
     {state.error && <p role="alert" className="watchlist-message">{state.error}</p>}
     {!state.loading && state.lists.length === 0 && <div className="watchlist-message">
-      <strong>Ainda não há listas</strong><p>Cria uma lista para guardar mercados e comparar snapshots Analyze.</p>
+      <strong>No lists yet</strong><p>Create a list to save markets and compare Analyze snapshots.</p>
       <button disabled={state.busy} onClick={() => mutate(async () => {
         const list = await request("/api/market-data/watchlists", watchlistSchema, {
-          method: "POST", body: JSON.stringify({ watchlist_id: crypto.randomUUID(), name: "A acompanhar" }),
+          method: "POST", body: JSON.stringify({ watchlist_id: crypto.randomUUID(), name: "Watchlist" }),
         });
-        if (watchlistProblem(list)) throw new Error("A lista recebida é incoerente.");
+        if (watchlistProblem(list)) throw new Error("The received list is inconsistent.");
         setState(old => ({ ...old, lists: [list], selectedId: list.watchlist_id }));
-      })}>Criar watchlist</button></div>}
+      })}>Create watchlist</button></div>}
     {selected && <><div className="watchlist-controls">
       <label>Lista<select value={selected.watchlist_id} onChange={event => {
         loadHistory(event.target.value).catch(error => setState(old => ({ ...old,
-          error: error instanceof Error ? error.message : "Watchlist indisponível." })));
+          error: error instanceof Error ? error.message : "Watchlist unavailable." })));
       }}>{state.lists.map(item => <option key={item.watchlist_id} value={item.watchlist_id}>
         {item.name} · {item.members.length}</option>)}</select></label>
       {market && <button disabled={state.busy} onClick={() => mutate(async () => {
@@ -118,24 +118,24 @@ export function WatchlistPanel({ market, timeframe, asOf }: {
             member_id: crypto.randomUUID(), candle_timeframe: timeframe, expected_revision: selected.revision,
           }) });
         setState(old => ({ ...old, lists: old.lists.map(item => item.watchlist_id === list.watchlist_id ? list : item) }));
-      })}>{member ? "Remover mercado" : "Adicionar mercado"}</button>}
+      })}>{member ? "Remove market" : "Add market"}</button>}
     </div>
-    <div className="watchlist-grid"><div><h4>Mercados guardados</h4>
-      {selected.members.length === 0 ? <p className="muted">Seleciona um mercado e adiciona-o à lista.</p>
+    <div className="watchlist-grid"><div><h4>Markets guardados</h4>
+      {selected.members.length === 0 ? <p className="muted">Select a market and add it to the list.</p>
         : <ul className="watchlist-members">{selected.members.map(item => <li key={item.member_id}>
           <strong>{item.market_id}</strong><span>{item.candle_timeframe} · desde {item.added_at}</span>
-        </li>)}</ul>}</div><div><h4>Último snapshot</h4>
-      {!state.snapshot ? <p className="muted">Ainda não foi registado um snapshot.</p>
-        : <><p><strong>{state.snapshot.status}</strong> · revisão {state.snapshot.watchlist_revision}<br />
+        </li>)}</ul>}</div><div><h4>Latest snapshot</h4>
+      {!state.snapshot ? <p className="muted">No snapshot has been recorded yet.</p>
+        : <><p><strong>{state.snapshot.status}</strong> · revision {state.snapshot.watchlist_revision}<br />
           <small>{state.snapshot.as_of}</small></p><ul className="snapshot-items">{state.snapshot.items.map(item => <li key={item.member_id}>
             <strong>{item.market_id}</strong><span>{item.report_status ?? item.unavailable_reason}</span>
-            <small>{item.horizons.filter(value => value.conclusion.startsWith("ELIGIBLE_")).length} horizontes elegíveis</small>
+            <small>{item.horizons.filter(value => value.conclusion.startsWith("ELIGIBLE_")).length} eligible horizons</small>
           </li>)}</ul></>}</div></div>
     <details className="watchlist-events"><summary>Eventos observados · {state.alerts.length}</summary>
-      {state.alerts.length === 0 ? <p className="muted">Sem transições entre snapshots.</p>
+      {state.alerts.length === 0 ? <p className="muted">No transitions between snapshots.</p>
         : <ol>{state.alerts.map(event => <li key={event.event_id}><strong>{event.market_id}</strong>
           <span>{label[event.event_type] ?? event.event_type}{event.horizon ? ` · ${event.horizon}` : ""}</span>
           {event.previous_conclusion && <small>{event.previous_conclusion} → {event.current_conclusion}</small>}</li>)}</ol>}
-    </details><p className="watchlist-disclaimer">Os eventos registam mudanças em artefactos armazenados. Não são alertas de preço, recomendações ou aprovação de risco.</p></>}
+    </details><p className="watchlist-disclaimer">Events record changes in stored artifacts. They are not price alerts, recommendations, or risk approval.</p></>}
   </section>;
 }

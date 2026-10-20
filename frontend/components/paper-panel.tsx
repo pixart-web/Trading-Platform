@@ -18,28 +18,28 @@ export default function PaperPanel() {
     return () => controller.abort();
   }, [refresh]);
   return <main className="workspace" style={{ padding: "2rem", maxWidth: "1200px", margin: "auto" }}>
-    <Link href="/">Voltar ao mercado</Link>
-    <h1>PAPER — execução simulada</h1>
-    <p role="note">Capital, ordens e resultados simulados. Nenhuma ordem é enviada a um broker real. Sem alegação de rentabilidade.</p>
-    <button type="button" onClick={() => setRefresh(value => value + 1)}>Atualizar contas PAPER</button>
-    {failed ? <p role="alert">PAPER indisponível: não foi possível validar o journal e a contabilidade.</p>
-      : accounts === null ? <p role="status">A consultar contas PAPER…</p>
-      : accounts.length === 0 ? <p>Nenhuma conta PAPER registada. A criação exige configuração explícita pelo operador local.</p>
+    <Link href="/">Back to market</Link>
+    <h1>PAPER — simulated execution</h1>
+    <p role="note">Simulated capital, orders, and results. No orders are sent to a real broker. No profitability claim.</p>
+    <button type="button" onClick={() => setRefresh(value => value + 1)}>Refresh PAPER accounts</button>
+    {failed ? <p role="alert">PAPER unavailable: the journal and accounting could not be validated.</p>
+      : accounts === null ? <p role="status">Loading PAPER accounts…</p>
+      : accounts.length === 0 ? <p>No PAPER account is registered. Creation requires explicit configuration by the local operator.</p>
       : accounts.map(view => <section key={view.state.account_id} style={{ marginTop: "2rem" }}>
         <h2>{view.state.market_id} · PAPER</h2>
-        <p>{view.state.origin === "REAL" ? "Dados de mercado reais · execução simulada" : "Dados sintéticos · execução simulada"}</p>
-        <p>Estado à observação: {view.state.status} · Revisão: {view.state.revision} · {view.ready ? "PAPER pronto" : `PAPER não pronto: ${view.readiness_reason ?? view.state.reason ?? "sem dados"}`}</p>
-        <p>Observado: {view.observed_at} · Último candle: {view.state.last_close ?? "indisponível"}</p>
+        <p>{view.state.origin === "REAL" ? "Real market data · simulated execution" : "Synthetic data · simulated execution"}</p>
+        <p>State at observation: {view.state.status} · Revision: {view.state.revision} · {view.ready ? "PAPER ready" : `PAPER not ready: ${view.readiness_reason ?? view.state.reason ?? "no data"}`}</p>
+        <p>Observed: {view.observed_at} · Last candle: {view.state.last_close ?? "unavailable"}</p>
         <dl>
-          <dt>Caixa simulada ({view.state.quote_currency})</dt><dd>{view.state.portfolio.cash}</dd>
-          <dt>Quantidade simulada</dt><dd>{view.state.portfolio.quantity}</dd>
-          <dt>Equity simulada</dt><dd>{view.state.portfolio.equity}</dd>
-          <dt>Caixa reservada</dt><dd>{view.state.portfolio.reserved_cash}</dd>
-          <dt>PnL realizado simulado</dt><dd>{view.state.realized_pnl}</dd>
-          <dt>PnL não realizado simulado</dt><dd>{view.state.unrealized_pnl ?? "indisponível"}</dd>
+          <dt>Simulated cash ({view.state.quote_currency})</dt><dd>{view.state.portfolio.cash}</dd>
+          <dt>Simulated quantity</dt><dd>{view.state.portfolio.quantity}</dd>
+          <dt>Simulated equity</dt><dd>{view.state.portfolio.equity}</dd>
+          <dt>Reserved cash</dt><dd>{view.state.portfolio.reserved_cash}</dd>
+          <dt>Simulated realized PnL</dt><dd>{view.state.realized_pnl}</dd>
+          <dt>Simulated unrealized PnL</dt><dd>{view.state.unrealized_pnl ?? "unavailable"}</dd>
           <dt>Fees simuladas</dt><dd>{view.state.total_fees}</dd>
         </dl>
-        <h3>Ordens simuladas ({view.state.pending.length} pendentes)</h3>
+        <h3>Simulated orders ({view.state.pending.length} pending)</h3>
         <ul>{view.state.orders.slice(-50).map((order, i) => <li key={i}>{order.at} · {order.client_id} · {order.state} · {order.reason}</li>)}</ul>
         <h3>Fills simulados</h3>
         <ul>{view.state.fills.slice(-50).map((fill, i) => <li key={i}>{fill.at} · {fill.client_id} · {fill.quantity} @ {fill.price} · fee {fill.fee}</li>)}</ul>

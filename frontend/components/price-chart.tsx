@@ -79,17 +79,17 @@ export function PriceChart({ candles, zones = NO_ZONES }: { candles: Candle[]; z
     }
   }
 
-  return <section aria-label="Gráfico de preço e volume">
+  return <section aria-label="Price and volume chart">
     <div className="chart-legend">
       <span>{current ? new Date(current.open_time).toISOString().replace("T", " ").slice(0, 16) : "—"} UTC</span>
-      {current && <><span>A <b>{current.open}</b></span><span>Máx <b>{current.high}</b></span>
-        <span>Mín <b>{current.low}</b></span><span>F <b>{current.close}</b></span><span>Vol <b>{current.volume}</b></span></>}
+      {current && <><span>A <b>{current.open}</b></span><span>High <b>{current.high}</b></span>
+        <span>Low <b>{current.low}</b></span><span>F <b>{current.close}</b></span><span>Vol <b>{current.volume}</b></span></>}
     </div>
     <div ref={container} className="chart-canvas" data-testid="price-chart" />
-    <div className="chart-footer"><span>Preço · Volume · UTC</span>
+    <div className="chart-footer"><span>Price · Volume · UTC</span>
       <div className="chart-actions">
-        <button onClick={() => zoom(0.75)} aria-label="Aproximar gráfico">+</button>
-        <button onClick={() => zoom(1.3)} aria-label="Afastar gráfico">−</button>
+        <button onClick={() => zoom(0.75)} aria-label="Zoom in">+</button>
+        <button onClick={() => zoom(1.3)} aria-label="Zoom out">−</button>
         <button onClick={() => chartRef.current?.timeScale().fitContent()}>Ajustar</button>
       </div>
     </div>
