@@ -19,6 +19,7 @@ class Settings(BaseSettings):
     control_proxy_token_file: Path | None = Field(default=None, repr=False)
     # Deployment gates never authorize an order by themselves. The persistent control plane,
     # qualification evidence and independent risk engine must also approve execution.
+    mobile_api_enabled: bool = False
     live_trading_enabled: bool = False
     derivative_execution_enabled: bool = False
 

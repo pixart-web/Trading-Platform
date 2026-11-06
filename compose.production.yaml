@@ -15,7 +15,7 @@ services:
       - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy_data:/data
       - caddy_config:/config
-    networks: [edge]
+    networks: [edge, application]
     depends_on:
       web: {condition: service_healthy}
     healthcheck:
@@ -54,6 +54,7 @@ services:
     restart: unless-stopped
     environment:
       PA_ENVIRONMENT: production
+      PA_MOBILE_API_ENABLED: "${PA_MOBILE_API_ENABLED:-false}"
       PA_DATABASE_URL_FILE: /run/secrets/database_url
       PA_REDIS_URL_FILE: /run/secrets/redis_url
       PA_CONTROL_PROXY_TOKEN_FILE: /run/secrets/control_proxy_token

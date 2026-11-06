@@ -7,5 +7,13 @@
         Strict-Transport-Security "max-age=31536000; includeSubDomains"
         -Server
     }
-    reverse_proxy web:3000
+    # Native clients authenticate at the separately allowlisted FastAPI boundary.
+    # No health, OpenAPI, broker or privileged control-plane route is exposed.
+    @native path /mobile/api/v1/*
+    handle @native {
+        reverse_proxy api:8000
+    }
+    handle {
+        reverse_proxy web:3000
+    }
 }
