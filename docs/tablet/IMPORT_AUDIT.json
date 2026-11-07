@@ -1,0 +1,4037 @@
+{
+  "baseline": "c3b843f",
+  "method": "AST import statements; conservative includes TYPE_CHECKING and optional imports; no runtime or Android compatibility proof",
+  "module_count": 177,
+  "external_roots": {
+    "argparse": 6,
+    "base64": 3,
+    "bisect": 1,
+    "calendar": 1,
+    "collections": 20,
+    "contextlib": 4,
+    "copy": 1,
+    "dataclasses": 12,
+    "datetime": 74,
+    "decimal": 72,
+    "defusedxml": 2,
+    "email": 3,
+    "enum": 25,
+    "fastapi": 22,
+    "getpass": 1,
+    "hashlib": 29,
+    "hmac": 4,
+    "importlib": 1,
+    "itertools": 2,
+    "json": 41,
+    "logging": 4,
+    "os": 3,
+    "pathlib": 10,
+    "platform": 1,
+    "pydantic": 53,
+    "pydantic_settings": 3,
+    "random": 1,
+    "re": 4,
+    "redis": 3,
+    "secrets": 2,
+    "sqlalchemy": 89,
+    "sqlite3": 3,
+    "sys": 1,
+    "time": 4,
+    "typing": 75,
+    "urllib": 11,
+    "uuid": 78
+  },
+  "modules": {
+    "pocket_alpha": {
+      "path": "src/pocket_alpha/__init__.py",
+      "sha256_words": [
+        3330749671,
+        3133553083,
+        1847675792,
+        4196841161,
+        3123593170,
+        2029676909,
+        128575517,
+        3468642375
+      ],
+      "imports": []
+    },
+    "pocket_alpha.analysis": {
+      "path": "src/pocket_alpha/analysis/__init__.py",
+      "sha256_words": [
+        3955169840,
+        837961156,
+        2240794293,
+        4263596425,
+        1195287959,
+        964131521,
+        1579977421,
+        633603315
+      ],
+      "imports": []
+    },
+    "pocket_alpha.analysis.api": {
+      "path": "src/pocket_alpha/analysis/api.py",
+      "sha256_words": [
+        3314218380,
+        1099636556,
+        3183604494,
+        4035520544,
+        2000530650,
+        1126346996,
+        2672258852,
+        31425839
+      ],
+      "imports": [
+        "datetime",
+        "fastapi",
+        "pocket_alpha.analysis.models",
+        "pocket_alpha.analysis.storage",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.market_data.api",
+        "pocket_alpha.market_data.storage"
+      ]
+    },
+    "pocket_alpha.analysis.models": {
+      "path": "src/pocket_alpha/analysis/models.py",
+      "sha256_words": [
+        746678572,
+        483701322,
+        3423796610,
+        397840230,
+        1998528555,
+        1519166370,
+        1056484974,
+        2902810879
+      ],
+      "imports": [
+        "enum",
+        "pocket_alpha.directional.models",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.forecasts.models",
+        "pocket_alpha.opportunities.models",
+        "pocket_alpha.scoring.models",
+        "pydantic",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.analysis.service": {
+      "path": "src/pocket_alpha/analysis/service.py",
+      "sha256_words": [
+        2979017730,
+        2709042858,
+        265809827,
+        2838323338,
+        1280474299,
+        4075207879,
+        3529383967,
+        2258612463
+      ],
+      "imports": [
+        "datetime",
+        "hashlib",
+        "json",
+        "pocket_alpha.analysis.models",
+        "pocket_alpha.analysis.storage",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.intelligence.provenance",
+        "pocket_alpha.scoring.models",
+        "typing"
+      ]
+    },
+    "pocket_alpha.analysis.storage": {
+      "path": "src/pocket_alpha/analysis/storage.py",
+      "sha256_words": [
+        4004891142,
+        4122827535,
+        467903491,
+        1100846600,
+        1223615266,
+        2183541603,
+        177290132,
+        3829928284
+      ],
+      "imports": [
+        "datetime",
+        "json",
+        "pocket_alpha.analysis.models",
+        "pocket_alpha.database",
+        "pocket_alpha.market_data.storage",
+        "sqlalchemy",
+        "sqlalchemy.dialects.postgresql",
+        "sqlalchemy.dialects.sqlite",
+        "sqlalchemy.orm",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.audit": {
+      "path": "src/pocket_alpha/audit/__init__.py",
+      "sha256_words": [
+        3453720732,
+        2998021749,
+        2656069058,
+        3206850081,
+        3405798730,
+        3595146666,
+        2238289801,
+        387379843
+      ],
+      "imports": []
+    },
+    "pocket_alpha.audit.models": {
+      "path": "src/pocket_alpha/audit/models.py",
+      "sha256_words": [
+        1282121618,
+        2660445616,
+        327436473,
+        3662810493,
+        3634962433,
+        1163638528,
+        1798540746,
+        584481118
+      ],
+      "imports": [
+        "datetime",
+        "enum",
+        "pocket_alpha.database",
+        "pocket_alpha.domain.models",
+        "pydantic",
+        "sqlalchemy",
+        "sqlalchemy.orm",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.audit.repository": {
+      "path": "src/pocket_alpha/audit/repository.py",
+      "sha256_words": [
+        2202876487,
+        2612511447,
+        660974488,
+        4230859834,
+        4077348886,
+        1922184922,
+        1297059958,
+        2394434290
+      ],
+      "imports": [
+        "pocket_alpha.audit.models",
+        "sqlalchemy.orm"
+      ]
+    },
+    "pocket_alpha.autopilot": {
+      "path": "src/pocket_alpha/autopilot/__init__.py",
+      "sha256_words": [
+        3675669713,
+        3456714141,
+        3439645616,
+        4184762753,
+        3732314544,
+        2701144681,
+        1912831726,
+        2365676049
+      ],
+      "imports": []
+    },
+    "pocket_alpha.autopilot.engine": {
+      "path": "src/pocket_alpha/autopilot/engine.py",
+      "sha256_words": [
+        634452859,
+        796078025,
+        2628582424,
+        770251889,
+        3859649922,
+        1635043898,
+        2119971186,
+        1504546562
+      ],
+      "imports": [
+        "collections.abc",
+        "contextlib",
+        "datetime",
+        "decimal",
+        "json",
+        "pathlib",
+        "pocket_alpha.autopilot.models",
+        "pocket_alpha.backtesting.models",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.directional.models",
+        "pocket_alpha.portfolio.models",
+        "pocket_alpha.spot_execution.engine",
+        "pocket_alpha.spot_execution.models",
+        "sqlite3",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.autopilot.models": {
+      "path": "src/pocket_alpha/autopilot/models.py",
+      "sha256_words": [
+        764797246,
+        975295710,
+        1806704717,
+        2004554478,
+        660082832,
+        118186263,
+        518284798,
+        3578139086
+      ],
+      "imports": [
+        "decimal",
+        "pocket_alpha.backtesting.models",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.research.registry",
+        "pocket_alpha.scanner.models",
+        "pocket_alpha.spot_execution.models",
+        "pocket_alpha.strategies.registry",
+        "pydantic",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.backtesting": {
+      "path": "src/pocket_alpha/backtesting/__init__.py",
+      "sha256_words": [
+        2488340266,
+        1466861640,
+        3190851904,
+        3252379186,
+        1797440559,
+        928758869,
+        2034669164,
+        905408561
+      ],
+      "imports": []
+    },
+    "pocket_alpha.backtesting.api": {
+      "path": "src/pocket_alpha/backtesting/api.py",
+      "sha256_words": [
+        3826160517,
+        2663268235,
+        862629142,
+        347350435,
+        227656759,
+        3499448801,
+        50634432,
+        2499129428
+      ],
+      "imports": [
+        "fastapi",
+        "pocket_alpha.backtesting.models",
+        "pocket_alpha.backtesting.storage",
+        "pocket_alpha.market_data.api",
+        "sqlalchemy.exc",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.backtesting.engine": {
+      "path": "src/pocket_alpha/backtesting/engine.py",
+      "sha256_words": [
+        147105747,
+        2192536064,
+        692045446,
+        1530350684,
+        3445502504,
+        2867685738,
+        1189937198,
+        1084192454
+      ],
+      "imports": [
+        "bisect",
+        "decimal",
+        "pocket_alpha.backtesting.inputs",
+        "pocket_alpha.backtesting.metrics",
+        "pocket_alpha.backtesting.models",
+        "pocket_alpha.backtesting.risk",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.forecasts.models",
+        "pocket_alpha.market_data.datasets",
+        "pocket_alpha.simulation.engine",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.backtesting.execution": {
+      "path": "src/pocket_alpha/backtesting/execution.py",
+      "sha256_words": [
+        1467181791,
+        2248340327,
+        509616572,
+        3162609908,
+        381336839,
+        4048244830,
+        2499285500,
+        1482336861
+      ],
+      "imports": [
+        "decimal",
+        "pocket_alpha.backtesting.models",
+        "pocket_alpha.backtesting.risk",
+        "pocket_alpha.domain.market",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.backtesting.inputs": {
+      "path": "src/pocket_alpha/backtesting/inputs.py",
+      "sha256_words": [
+        1612163396,
+        3957631227,
+        2176768110,
+        4162447530,
+        282230471,
+        1754733391,
+        3570131482,
+        1461975606
+      ],
+      "imports": [
+        "dataclasses",
+        "datetime",
+        "hashlib",
+        "importlib.metadata",
+        "itertools",
+        "pathlib",
+        "platform",
+        "pocket_alpha.backtesting.models",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.forecasts.models",
+        "pocket_alpha.intelligence.technical.models",
+        "pocket_alpha.intelligence.technical.service",
+        "pocket_alpha.market_data.datasets",
+        "pocket_alpha.market_data.quality",
+        "typing"
+      ]
+    },
+    "pocket_alpha.backtesting.metrics": {
+      "path": "src/pocket_alpha/backtesting/metrics.py",
+      "sha256_words": [
+        2079997859,
+        3697299537,
+        2942804552,
+        3995363953,
+        110691917,
+        2336027032,
+        917126832,
+        3821015656
+      ],
+      "imports": [
+        "datetime",
+        "decimal",
+        "pocket_alpha.backtesting.models"
+      ]
+    },
+    "pocket_alpha.backtesting.models": {
+      "path": "src/pocket_alpha/backtesting/models.py",
+      "sha256_words": [
+        3271502627,
+        3221780742,
+        340406915,
+        3169339337,
+        1871826933,
+        930058044,
+        245577276,
+        2692741631
+      ],
+      "imports": [
+        "decimal",
+        "hashlib",
+        "json",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.forecasts.models",
+        "pocket_alpha.intelligence.technical.models",
+        "pydantic",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.backtesting.risk": {
+      "path": "src/pocket_alpha/backtesting/risk.py",
+      "sha256_words": [
+        1162358355,
+        2664930889,
+        208783301,
+        412400081,
+        2350168815,
+        3279176409,
+        1307171521,
+        452104162
+      ],
+      "imports": [
+        "dataclasses",
+        "datetime",
+        "decimal",
+        "pocket_alpha.backtesting.models",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.backtesting.service": {
+      "path": "src/pocket_alpha/backtesting/service.py",
+      "sha256_words": [
+        22269772,
+        3962111006,
+        1376530118,
+        2086609159,
+        801863906,
+        1700820361,
+        3203878322,
+        2757324865
+      ],
+      "imports": [
+        "pocket_alpha.backtesting.engine",
+        "pocket_alpha.backtesting.inputs",
+        "pocket_alpha.backtesting.models",
+        "pocket_alpha.backtesting.storage",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.forecasts.models",
+        "pocket_alpha.market_data.datasets",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.backtesting.storage": {
+      "path": "src/pocket_alpha/backtesting/storage.py",
+      "sha256_words": [
+        622232913,
+        1091272674,
+        1192071716,
+        2482564055,
+        2653956191,
+        3094975605,
+        2492447343,
+        3495451107
+      ],
+      "imports": [
+        "pocket_alpha.backtesting.models",
+        "pocket_alpha.database",
+        "pocket_alpha.market_data.datasets",
+        "pocket_alpha.market_data.quality",
+        "sqlalchemy",
+        "sqlalchemy.dialects.postgresql",
+        "sqlalchemy.dialects.sqlite",
+        "sqlalchemy.orm",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.broker_readonly": {
+      "path": "src/pocket_alpha/broker_readonly/__init__.py",
+      "sha256_words": [
+        3078938562,
+        1672272893,
+        3814583106,
+        4184575800,
+        1073781997,
+        322837119,
+        3273879112,
+        3052900223
+      ],
+      "imports": []
+    },
+    "pocket_alpha.broker_readonly.binance": {
+      "path": "src/pocket_alpha/broker_readonly/binance.py",
+      "sha256_words": [
+        1779173200,
+        2507321103,
+        699856241,
+        3114468179,
+        2213341922,
+        796313058,
+        2222915064,
+        3248828279
+      ],
+      "imports": [
+        "collections.abc",
+        "datetime",
+        "decimal",
+        "hashlib",
+        "hmac",
+        "json",
+        "pocket_alpha.broker_readonly.models",
+        "pocket_alpha.common.clock",
+        "pydantic",
+        "pydantic_settings",
+        "re",
+        "time",
+        "typing",
+        "urllib.parse",
+        "urllib.request"
+      ]
+    },
+    "pocket_alpha.broker_readonly.cli": {
+      "path": "src/pocket_alpha/broker_readonly/cli.py",
+      "sha256_words": [
+        1330736395,
+        4271890953,
+        406055706,
+        748051237,
+        3973579998,
+        1164371005,
+        3777542041,
+        506891720
+      ],
+      "imports": [
+        "argparse",
+        "json",
+        "os",
+        "pathlib",
+        "pocket_alpha.broker_readonly.binance",
+        "pocket_alpha.broker_readonly.models",
+        "pocket_alpha.common.clock"
+      ]
+    },
+    "pocket_alpha.broker_readonly.models": {
+      "path": "src/pocket_alpha/broker_readonly/models.py",
+      "sha256_words": [
+        348142130,
+        2215550816,
+        2692614549,
+        603361182,
+        328282734,
+        262759612,
+        2130987272,
+        1897505493
+      ],
+      "imports": [
+        "decimal",
+        "hashlib",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pydantic",
+        "typing"
+      ]
+    },
+    "pocket_alpha.common": {
+      "path": "src/pocket_alpha/common/__init__.py",
+      "sha256_words": [
+        4034937271,
+        3613435307,
+        2378039623,
+        3345953614,
+        3392474078,
+        2162659367,
+        231838239,
+        3967795560
+      ],
+      "imports": []
+    },
+    "pocket_alpha.common.clock": {
+      "path": "src/pocket_alpha/common/clock.py",
+      "sha256_words": [
+        2488596352,
+        2399386008,
+        248011779,
+        576760597,
+        2752937664,
+        714990991,
+        118251957,
+        4007017556
+      ],
+      "imports": [
+        "dataclasses",
+        "datetime",
+        "typing"
+      ]
+    },
+    "pocket_alpha.common.public_http": {
+      "path": "src/pocket_alpha/common/public_http.py",
+      "sha256_words": [
+        2034681543,
+        1439850921,
+        1535565616,
+        3128006964,
+        1614834132,
+        3021079672,
+        2722200183,
+        3801050338
+      ],
+      "imports": [
+        "collections.abc",
+        "dataclasses",
+        "datetime",
+        "email.utils",
+        "pocket_alpha.common.clock",
+        "time",
+        "typing",
+        "urllib.error",
+        "urllib.parse",
+        "urllib.request"
+      ]
+    },
+    "pocket_alpha.config": {
+      "path": "src/pocket_alpha/config.py",
+      "sha256_words": [
+        2008575629,
+        795607983,
+        3680550126,
+        4244822820,
+        1924288503,
+        3691903582,
+        3678354731,
+        3225577006
+      ],
+      "imports": [
+        "pathlib",
+        "pydantic",
+        "pydantic_settings",
+        "typing"
+      ]
+    },
+    "pocket_alpha.contextual": {
+      "path": "src/pocket_alpha/contextual/__init__.py",
+      "sha256_words": [
+        2517429203,
+        2914572160,
+        2862942884,
+        3475557404,
+        728481341,
+        2807096533,
+        809091234,
+        525021488
+      ],
+      "imports": []
+    },
+    "pocket_alpha.contextual.api": {
+      "path": "src/pocket_alpha/contextual/api.py",
+      "sha256_words": [
+        2948509173,
+        2007932455,
+        397416908,
+        1141618445,
+        3463258491,
+        925820516,
+        673690661,
+        1925403558
+      ],
+      "imports": [
+        "datetime",
+        "fastapi",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.contextual.models",
+        "pocket_alpha.contextual.service",
+        "pocket_alpha.contextual.storage",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.market_data.api",
+        "sqlalchemy.exc"
+      ]
+    },
+    "pocket_alpha.contextual.models": {
+      "path": "src/pocket_alpha/contextual/models.py",
+      "sha256_words": [
+        523930317,
+        1883506545,
+        3028846103,
+        3027772406,
+        2385132277,
+        3848400386,
+        1232284674,
+        340586008
+      ],
+      "imports": [
+        "datetime",
+        "decimal",
+        "enum",
+        "hashlib",
+        "json",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pydantic",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.contextual.providers": {
+      "path": "src/pocket_alpha/contextual/providers.py",
+      "sha256_words": [
+        642503181,
+        3822441570,
+        1018854369,
+        4102620726,
+        2046967221,
+        2478462136,
+        2080038590,
+        3247546709
+      ],
+      "imports": [
+        "dataclasses",
+        "defusedxml",
+        "defusedxml.common",
+        "email.utils",
+        "hashlib",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.common.public_http",
+        "pocket_alpha.contextual.models",
+        "pydantic",
+        "typing"
+      ]
+    },
+    "pocket_alpha.contextual.service": {
+      "path": "src/pocket_alpha/contextual/service.py",
+      "sha256_words": [
+        3464440325,
+        15266542,
+        2580936105,
+        3771639473,
+        3837275741,
+        4283671607,
+        2191885801,
+        4054556522
+      ],
+      "imports": [
+        "datetime",
+        "json",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.contextual.models",
+        "pocket_alpha.contextual.providers",
+        "pocket_alpha.contextual.storage",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.contextual.storage": {
+      "path": "src/pocket_alpha/contextual/storage.py",
+      "sha256_words": [
+        4143150026,
+        810455711,
+        2999829695,
+        3785866534,
+        4213418715,
+        3067396574,
+        1547117076,
+        1793655333
+      ],
+      "imports": [
+        "datetime",
+        "pocket_alpha.contextual.models",
+        "pocket_alpha.database",
+        "pocket_alpha.market_data.storage",
+        "sqlalchemy",
+        "sqlalchemy.orm",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.database": {
+      "path": "src/pocket_alpha/database.py",
+      "sha256_words": [
+        4205469203,
+        4002831931,
+        1955462670,
+        3934162185,
+        2341339797,
+        709012178,
+        3294346826,
+        4203743925
+      ],
+      "imports": [
+        "pocket_alpha.config",
+        "sqlalchemy",
+        "sqlalchemy.orm"
+      ]
+    },
+    "pocket_alpha.derivative_execution": {
+      "path": "src/pocket_alpha/derivative_execution/__init__.py",
+      "sha256_words": [
+        3765892060,
+        2737475831,
+        425956816,
+        4229111993,
+        2884149288,
+        1294336066,
+        3983348403,
+        2887468852
+      ],
+      "imports": [
+        "pocket_alpha.derivative_execution.engine",
+        "pocket_alpha.derivative_execution.models",
+        "pocket_alpha.derivative_execution.qualify"
+      ]
+    },
+    "pocket_alpha.derivative_execution.engine": {
+      "path": "src/pocket_alpha/derivative_execution/engine.py",
+      "sha256_words": [
+        3390456675,
+        4230443368,
+        3214977730,
+        727096946,
+        2642355579,
+        2327850616,
+        81548363,
+        1019008102
+      ],
+      "imports": [
+        "collections.abc",
+        "contextlib",
+        "datetime",
+        "decimal",
+        "hashlib",
+        "json",
+        "pathlib",
+        "pocket_alpha.backtesting.models",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.derivative_execution.models",
+        "pocket_alpha.derivative_execution.risk",
+        "sqlite3",
+        "typing"
+      ]
+    },
+    "pocket_alpha.derivative_execution.models": {
+      "path": "src/pocket_alpha/derivative_execution/models.py",
+      "sha256_words": [
+        3271689301,
+        2763238543,
+        149212744,
+        1302450678,
+        2994673201,
+        2504393608,
+        1612635233,
+        4290342750
+      ],
+      "imports": [
+        "decimal",
+        "pocket_alpha.backtesting.models",
+        "pocket_alpha.derivatives.models",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.leverage.models",
+        "pydantic",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.derivative_execution.qualify": {
+      "path": "src/pocket_alpha/derivative_execution/qualify.py",
+      "sha256_words": [
+        1744712310,
+        3871485119,
+        2492700034,
+        872634288,
+        1440710259,
+        3582632859,
+        4215779969,
+        2068661388
+      ],
+      "imports": [
+        "decimal",
+        "hashlib",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.derivative_execution.models",
+        "typing"
+      ]
+    },
+    "pocket_alpha.derivative_execution.risk": {
+      "path": "src/pocket_alpha/derivative_execution/risk.py",
+      "sha256_words": [
+        1125373066,
+        3077387804,
+        1568767137,
+        2385141272,
+        2339427295,
+        4171697279,
+        1881607614,
+        3605191765
+      ],
+      "imports": [
+        "datetime",
+        "decimal",
+        "pocket_alpha.backtesting.models",
+        "pocket_alpha.derivative_execution.models",
+        "pocket_alpha.derivatives.models",
+        "pocket_alpha.leverage.models",
+        "typing"
+      ]
+    },
+    "pocket_alpha.derivatives": {
+      "path": "src/pocket_alpha/derivatives/__init__.py",
+      "sha256_words": [
+        413855768,
+        3897621512,
+        667057398,
+        2099827977,
+        4073709757,
+        1638295858,
+        2807763327,
+        3228975449
+      ],
+      "imports": []
+    },
+    "pocket_alpha.derivatives.api": {
+      "path": "src/pocket_alpha/derivatives/api.py",
+      "sha256_words": [
+        368907426,
+        808774013,
+        1352019448,
+        1155918025,
+        1855596881,
+        353835275,
+        1741278063,
+        2377921901
+      ],
+      "imports": [
+        "datetime",
+        "fastapi",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.derivatives.models",
+        "pocket_alpha.derivatives.service",
+        "pocket_alpha.derivatives.storage",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.market_data.api",
+        "sqlalchemy.exc",
+        "typing"
+      ]
+    },
+    "pocket_alpha.derivatives.context": {
+      "path": "src/pocket_alpha/derivatives/context.py",
+      "sha256_words": [
+        1813471026,
+        2444436275,
+        3427728438,
+        2627917742,
+        2674225454,
+        2015386881,
+        2811846129,
+        1406096222
+      ],
+      "imports": [
+        "datetime",
+        "decimal",
+        "hashlib",
+        "json",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.derivatives.models",
+        "typing"
+      ]
+    },
+    "pocket_alpha.derivatives.models": {
+      "path": "src/pocket_alpha/derivatives/models.py",
+      "sha256_words": [
+        3791108254,
+        1239978649,
+        2185692809,
+        4233883079,
+        3071580095,
+        1306580834,
+        3935228940,
+        1821770311
+      ],
+      "imports": [
+        "decimal",
+        "enum",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pydantic",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.derivatives.providers": {
+      "path": "src/pocket_alpha/derivatives/providers.py",
+      "sha256_words": [
+        1534367727,
+        1490685670,
+        2347619872,
+        407541697,
+        3877590365,
+        4248325913,
+        529113398,
+        3164013462
+      ],
+      "imports": [
+        "dataclasses",
+        "pocket_alpha.derivatives.models",
+        "typing"
+      ]
+    },
+    "pocket_alpha.derivatives.service": {
+      "path": "src/pocket_alpha/derivatives/service.py",
+      "sha256_words": [
+        3777081107,
+        264335078,
+        2278295904,
+        3557783444,
+        1493132078,
+        1636220629,
+        3940806650,
+        1813689292
+      ],
+      "imports": [
+        "datetime",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.derivatives.context",
+        "pocket_alpha.derivatives.models",
+        "pocket_alpha.derivatives.providers",
+        "pocket_alpha.derivatives.storage",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.derivatives.storage": {
+      "path": "src/pocket_alpha/derivatives/storage.py",
+      "sha256_words": [
+        2031956790,
+        3925542531,
+        1502034242,
+        2520272170,
+        1058904255,
+        2928737954,
+        4177897429,
+        3224543967
+      ],
+      "imports": [
+        "datetime",
+        "pocket_alpha.database",
+        "pocket_alpha.derivatives.models",
+        "pocket_alpha.market_data.storage",
+        "sqlalchemy",
+        "sqlalchemy.orm",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.directional": {
+      "path": "src/pocket_alpha/directional/__init__.py",
+      "sha256_words": [
+        1225402678,
+        1413025240,
+        307990104,
+        2928448426,
+        4205216376,
+        1210426111,
+        3054174037,
+        3225639259
+      ],
+      "imports": []
+    },
+    "pocket_alpha.directional.models": {
+      "path": "src/pocket_alpha/directional/models.py",
+      "sha256_words": [
+        134373504,
+        2400129098,
+        2672170476,
+        574480237,
+        113972366,
+        901950277,
+        1984376686,
+        4225702032
+      ],
+      "imports": [
+        "decimal",
+        "enum",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.forecasts.models",
+        "pydantic",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.directional.service": {
+      "path": "src/pocket_alpha/directional/service.py",
+      "sha256_words": [
+        2901221676,
+        3292277694,
+        3314450040,
+        43058661,
+        615500624,
+        4030385032,
+        1669344744,
+        4200386600
+      ],
+      "imports": [
+        "datetime",
+        "hashlib",
+        "json",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.directional.models",
+        "pocket_alpha.intelligence.provenance"
+      ]
+    },
+    "pocket_alpha.domain": {
+      "path": "src/pocket_alpha/domain/__init__.py",
+      "sha256_words": [
+        1498350791,
+        1402802996,
+        3983336666,
+        675425030,
+        792595937,
+        2445436392,
+        533734309,
+        858733081
+      ],
+      "imports": []
+    },
+    "pocket_alpha.domain.market": {
+      "path": "src/pocket_alpha/domain/market.py",
+      "sha256_words": [
+        223169312,
+        2199023139,
+        1090481999,
+        417614593,
+        504559637,
+        149814046,
+        568568868,
+        1548035749
+      ],
+      "imports": [
+        "datetime",
+        "decimal",
+        "enum",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.domain.models",
+        "pydantic",
+        "typing"
+      ]
+    },
+    "pocket_alpha.domain.models": {
+      "path": "src/pocket_alpha/domain/models.py",
+      "sha256_words": [
+        134105227,
+        2420749262,
+        2422978322,
+        3642528145,
+        2528302841,
+        1697072213,
+        3268428017,
+        1683256555
+      ],
+      "imports": [
+        "datetime",
+        "decimal",
+        "enum",
+        "pydantic",
+        "typing"
+      ]
+    },
+    "pocket_alpha.forecasts": {
+      "path": "src/pocket_alpha/forecasts/__init__.py",
+      "sha256_words": [
+        4030993973,
+        3555979816,
+        1270422954,
+        3650031782,
+        172792485,
+        966016072,
+        3055765837,
+        2695973930
+      ],
+      "imports": []
+    },
+    "pocket_alpha.forecasts.baseline": {
+      "path": "src/pocket_alpha/forecasts/baseline.py",
+      "sha256_words": [
+        2359981870,
+        1530871636,
+        2905787663,
+        4170715493,
+        3962425380,
+        213312810,
+        1203245229,
+        855250232
+      ],
+      "imports": [
+        "datetime",
+        "decimal",
+        "hashlib",
+        "json",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.forecasts.models",
+        "pocket_alpha.forecasts.research_models",
+        "pocket_alpha.intelligence.provenance",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.forecasts.calibration": {
+      "path": "src/pocket_alpha/forecasts/calibration.py",
+      "sha256_words": [
+        618329655,
+        3040093035,
+        426778255,
+        4200829958,
+        2046001897,
+        3288574303,
+        582522027,
+        2902113466
+      ],
+      "imports": [
+        "datetime",
+        "decimal",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.forecasts.baseline",
+        "pocket_alpha.forecasts.models",
+        "pocket_alpha.forecasts.research_models"
+      ]
+    },
+    "pocket_alpha.forecasts.economic": {
+      "path": "src/pocket_alpha/forecasts/economic.py",
+      "sha256_words": [
+        153075774,
+        577463849,
+        3486315760,
+        316360369,
+        1317076413,
+        86954791,
+        2441671851,
+        2112483572
+      ],
+      "imports": [
+        "datetime",
+        "decimal",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.forecasts.baseline",
+        "pocket_alpha.forecasts.models",
+        "pocket_alpha.forecasts.research_models",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.forecasts.evaluation": {
+      "path": "src/pocket_alpha/forecasts/evaluation.py",
+      "sha256_words": [
+        2540065843,
+        1396784341,
+        858776167,
+        3856971087,
+        4040892837,
+        3095012780,
+        1275112044,
+        2960176668
+      ],
+      "imports": [
+        "collections",
+        "decimal",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.forecasts.models",
+        "pocket_alpha.forecasts.service"
+      ]
+    },
+    "pocket_alpha.forecasts.horizons": {
+      "path": "src/pocket_alpha/forecasts/horizons.py",
+      "sha256_words": [
+        442959260,
+        3286980906,
+        1172903136,
+        3932348524,
+        3874114186,
+        3725096491,
+        1708043362,
+        3123574852
+      ],
+      "imports": [
+        "calendar",
+        "datetime",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.domain.models"
+      ]
+    },
+    "pocket_alpha.forecasts.models": {
+      "path": "src/pocket_alpha/forecasts/models.py",
+      "sha256_words": [
+        2744364446,
+        3655634679,
+        3529386976,
+        3854073196,
+        542963705,
+        1345833395,
+        3732927054,
+        1224359789
+      ],
+      "imports": [
+        "decimal",
+        "enum",
+        "hashlib",
+        "json",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.forecasts.horizons",
+        "pydantic",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.forecasts.research_models": {
+      "path": "src/pocket_alpha/forecasts/research_models.py",
+      "sha256_words": [
+        3745014208,
+        1792944040,
+        193317181,
+        1104998557,
+        2882617067,
+        2149636519,
+        2599208801,
+        3402303350
+      ],
+      "imports": [
+        "decimal",
+        "enum",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.forecasts.horizons",
+        "pocket_alpha.forecasts.models",
+        "pydantic",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.forecasts.service": {
+      "path": "src/pocket_alpha/forecasts/service.py",
+      "sha256_words": [
+        4143347092,
+        521626344,
+        1938558622,
+        477354928,
+        3550316385,
+        3552171709,
+        313204464,
+        3825116215
+      ],
+      "imports": [
+        "datetime",
+        "decimal",
+        "hashlib",
+        "json",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.forecasts.models",
+        "pocket_alpha.forecasts.storage",
+        "pocket_alpha.intelligence.provenance",
+        "typing"
+      ]
+    },
+    "pocket_alpha.forecasts.storage": {
+      "path": "src/pocket_alpha/forecasts/storage.py",
+      "sha256_words": [
+        3125759552,
+        577418700,
+        1812269708,
+        382811803,
+        1598102389,
+        1516461224,
+        4211774458,
+        2243415388
+      ],
+      "imports": [
+        "datetime",
+        "json",
+        "pocket_alpha.database",
+        "pocket_alpha.forecasts.models",
+        "pocket_alpha.market_data.storage",
+        "sqlalchemy",
+        "sqlalchemy.dialects.postgresql",
+        "sqlalchemy.dialects.sqlite",
+        "sqlalchemy.orm",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.fundamentals": {
+      "path": "src/pocket_alpha/fundamentals/__init__.py",
+      "sha256_words": [
+        3295817082,
+        2209171627,
+        1272527340,
+        3088487873,
+        4021253270,
+        897930059,
+        3267448008,
+        72574230
+      ],
+      "imports": [
+        "pocket_alpha.fundamentals.models"
+      ]
+    },
+    "pocket_alpha.fundamentals.__main__": {
+      "path": "src/pocket_alpha/fundamentals/__main__.py",
+      "sha256_words": [
+        1761048535,
+        3845957215,
+        1642785018,
+        3008102090,
+        834402660,
+        3817213196,
+        337563102,
+        287813766
+      ],
+      "imports": [
+        "argparse",
+        "os",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.config",
+        "pocket_alpha.database",
+        "pocket_alpha.fundamentals.models",
+        "pocket_alpha.fundamentals.providers",
+        "pocket_alpha.fundamentals.service",
+        "pocket_alpha.fundamentals.storage",
+        "sqlalchemy.orm"
+      ]
+    },
+    "pocket_alpha.fundamentals.api": {
+      "path": "src/pocket_alpha/fundamentals/api.py",
+      "sha256_words": [
+        740825497,
+        1639975892,
+        2893992236,
+        3965213685,
+        1676267768,
+        1502306859,
+        3098953555,
+        2954765938
+      ],
+      "imports": [
+        "datetime",
+        "fastapi",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.fundamentals.context",
+        "pocket_alpha.fundamentals.models",
+        "pocket_alpha.fundamentals.service",
+        "pocket_alpha.fundamentals.storage",
+        "pocket_alpha.market_data.api"
+      ]
+    },
+    "pocket_alpha.fundamentals.context": {
+      "path": "src/pocket_alpha/fundamentals/context.py",
+      "sha256_words": [
+        385429352,
+        773552916,
+        1031428769,
+        1109586951,
+        9180652,
+        1875148719,
+        1643154045,
+        2517977151
+      ],
+      "imports": [
+        "datetime",
+        "decimal",
+        "hashlib",
+        "json",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.fundamentals.models",
+        "pydantic",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.fundamentals.models": {
+      "path": "src/pocket_alpha/fundamentals/models.py",
+      "sha256_words": [
+        3288166561,
+        3132494241,
+        3973583721,
+        1441941072,
+        849300057,
+        3997795507,
+        1238918192,
+        3324955484
+      ],
+      "imports": [
+        "datetime",
+        "decimal",
+        "enum",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pydantic",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.fundamentals.providers": {
+      "path": "src/pocket_alpha/fundamentals/providers.py",
+      "sha256_words": [
+        2066535620,
+        1022589851,
+        3391627634,
+        1374566487,
+        3644995081,
+        1702019760,
+        3521913836,
+        1244115775
+      ],
+      "imports": [
+        "collections.abc",
+        "dataclasses",
+        "datetime",
+        "decimal",
+        "email.message",
+        "json",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.fundamentals.models",
+        "pydantic",
+        "time",
+        "typing",
+        "urllib.error",
+        "urllib.parse",
+        "urllib.request"
+      ]
+    },
+    "pocket_alpha.fundamentals.service": {
+      "path": "src/pocket_alpha/fundamentals/service.py",
+      "sha256_words": [
+        2188751304,
+        969606356,
+        1392835361,
+        466598090,
+        2707571556,
+        3178310230,
+        3457816681,
+        3757341794
+      ],
+      "imports": [
+        "datetime",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.fundamentals.models",
+        "pocket_alpha.fundamentals.providers",
+        "pocket_alpha.fundamentals.storage",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.fundamentals.storage": {
+      "path": "src/pocket_alpha/fundamentals/storage.py",
+      "sha256_words": [
+        2585739107,
+        2489051627,
+        1334960194,
+        1433753481,
+        2075928222,
+        1139600122,
+        2208664992,
+        3933491698
+      ],
+      "imports": [
+        "datetime",
+        "pocket_alpha.database",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.fundamentals.context",
+        "pocket_alpha.fundamentals.models",
+        "pocket_alpha.market_data.storage",
+        "sqlalchemy",
+        "sqlalchemy.orm",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.intelligence": {
+      "path": "src/pocket_alpha/intelligence/__init__.py",
+      "sha256_words": [
+        1671281969,
+        298722739,
+        1935392206,
+        3223484252,
+        2707771397,
+        305376559,
+        1636425679,
+        3479575874
+      ],
+      "imports": []
+    },
+    "pocket_alpha.intelligence.multi_timeframe": {
+      "path": "src/pocket_alpha/intelligence/multi_timeframe/__init__.py",
+      "sha256_words": [
+        3083659351,
+        2557207526,
+        216859732,
+        1370975440,
+        2058534170,
+        3842325524,
+        1127254431,
+        54999551
+      ],
+      "imports": []
+    },
+    "pocket_alpha.intelligence.multi_timeframe.models": {
+      "path": "src/pocket_alpha/intelligence/multi_timeframe/models.py",
+      "sha256_words": [
+        3037368186,
+        2352226376,
+        3424423443,
+        2206882274,
+        1153528036,
+        2902833438,
+        225415007,
+        2541271772
+      ],
+      "imports": [
+        "datetime",
+        "enum",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.intelligence.structure.models",
+        "pocket_alpha.intelligence.technical.models",
+        "pocket_alpha.intelligence.zones.models",
+        "pocket_alpha.market_data.quality",
+        "pydantic",
+        "typing"
+      ]
+    },
+    "pocket_alpha.intelligence.multi_timeframe.service": {
+      "path": "src/pocket_alpha/intelligence/multi_timeframe/service.py",
+      "sha256_words": [
+        3482230803,
+        1261302466,
+        3777593857,
+        4010385372,
+        3751057047,
+        109614604,
+        2426563155,
+        4109881489
+      ],
+      "imports": [
+        "hashlib",
+        "itertools",
+        "json",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.intelligence.multi_timeframe.models",
+        "pocket_alpha.intelligence.provenance",
+        "pocket_alpha.intelligence.structure.models",
+        "pocket_alpha.intelligence.structure.service",
+        "pocket_alpha.intelligence.technical.service",
+        "pocket_alpha.intelligence.zones.service",
+        "pocket_alpha.market_data.replay"
+      ]
+    },
+    "pocket_alpha.intelligence.provenance": {
+      "path": "src/pocket_alpha/intelligence/provenance.py",
+      "sha256_words": [
+        1948190155,
+        4175523002,
+        8602787,
+        1730397000,
+        2326715378,
+        1532089546,
+        301415436,
+        2733214891
+      ],
+      "imports": [
+        "decimal",
+        "json",
+        "pocket_alpha.domain.market"
+      ]
+    },
+    "pocket_alpha.intelligence.regimes": {
+      "path": "src/pocket_alpha/intelligence/regimes/__init__.py",
+      "sha256_words": [
+        1812375926,
+        2360988552,
+        613331009,
+        1288219407,
+        2563570091,
+        3354147071,
+        2250822175,
+        4027253873
+      ],
+      "imports": []
+    },
+    "pocket_alpha.intelligence.regimes.evaluation": {
+      "path": "src/pocket_alpha/intelligence/regimes/evaluation.py",
+      "sha256_words": [
+        2947539295,
+        588994738,
+        1497645998,
+        1216931472,
+        305457110,
+        3833630269,
+        3789019138,
+        3591584053
+      ],
+      "imports": [
+        "datetime",
+        "decimal",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.intelligence.regimes.models",
+        "pocket_alpha.intelligence.regimes.probability"
+      ]
+    },
+    "pocket_alpha.intelligence.regimes.models": {
+      "path": "src/pocket_alpha/intelligence/regimes/models.py",
+      "sha256_words": [
+        2897044809,
+        4046274269,
+        3669951979,
+        3567415239,
+        4117079215,
+        2338620926,
+        1536092704,
+        1809929805
+      ],
+      "imports": [
+        "decimal",
+        "enum",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.intelligence.technical.models",
+        "pydantic",
+        "typing"
+      ]
+    },
+    "pocket_alpha.intelligence.regimes.probability": {
+      "path": "src/pocket_alpha/intelligence/regimes/probability.py",
+      "sha256_words": [
+        57504124,
+        1886707199,
+        2307742027,
+        3984672573,
+        992331172,
+        3062570686,
+        3578550131,
+        1643321385
+      ],
+      "imports": [
+        "datetime",
+        "decimal",
+        "hashlib",
+        "json",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.intelligence.provenance",
+        "pocket_alpha.intelligence.regimes.models"
+      ]
+    },
+    "pocket_alpha.intelligence.regimes.service": {
+      "path": "src/pocket_alpha/intelligence/regimes/service.py",
+      "sha256_words": [
+        730308687,
+        2029440605,
+        1175230867,
+        3569321488,
+        3836171847,
+        2433826708,
+        1972871993,
+        1781464781
+      ],
+      "imports": [
+        "decimal",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.intelligence.regimes.models",
+        "pocket_alpha.intelligence.regimes.probability",
+        "pocket_alpha.intelligence.technical.indicators",
+        "pocket_alpha.intelligence.technical.models",
+        "pocket_alpha.intelligence.technical.service",
+        "pocket_alpha.market_data.quality",
+        "pocket_alpha.market_data.replay"
+      ]
+    },
+    "pocket_alpha.intelligence.structure": {
+      "path": "src/pocket_alpha/intelligence/structure/__init__.py",
+      "sha256_words": [
+        2409955292,
+        295566763,
+        2894513636,
+        2201118325,
+        1082926353,
+        596188873,
+        1515083982,
+        2895748418
+      ],
+      "imports": []
+    },
+    "pocket_alpha.intelligence.structure.models": {
+      "path": "src/pocket_alpha/intelligence/structure/models.py",
+      "sha256_words": [
+        4052164313,
+        1575805453,
+        3002614356,
+        1759774930,
+        1523550043,
+        597855982,
+        3758882269,
+        932661311
+      ],
+      "imports": [
+        "enum",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.market_data.quality",
+        "pydantic",
+        "typing"
+      ]
+    },
+    "pocket_alpha.intelligence.structure.service": {
+      "path": "src/pocket_alpha/intelligence/structure/service.py",
+      "sha256_words": [
+        1025236096,
+        3767485964,
+        352990524,
+        2642823643,
+        2351868056,
+        1376577053,
+        2525546487,
+        1787689656
+      ],
+      "imports": [
+        "collections.abc",
+        "hashlib",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.intelligence.provenance",
+        "pocket_alpha.intelligence.structure.models",
+        "pocket_alpha.market_data.quality",
+        "pocket_alpha.market_data.replay"
+      ]
+    },
+    "pocket_alpha.intelligence.technical": {
+      "path": "src/pocket_alpha/intelligence/technical/__init__.py",
+      "sha256_words": [
+        1453385303,
+        403078962,
+        3089615606,
+        691291747,
+        3340344280,
+        202263094,
+        2451845926,
+        299996249
+      ],
+      "imports": []
+    },
+    "pocket_alpha.intelligence.technical.indicators": {
+      "path": "src/pocket_alpha/intelligence/technical/indicators.py",
+      "sha256_words": [
+        2501167056,
+        2836635741,
+        2439542146,
+        2040379714,
+        3057335691,
+        2581667120,
+        2349233993,
+        3962046452
+      ],
+      "imports": [
+        "collections.abc",
+        "decimal",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.intelligence.technical.models"
+      ]
+    },
+    "pocket_alpha.intelligence.technical.models": {
+      "path": "src/pocket_alpha/intelligence/technical/models.py",
+      "sha256_words": [
+        2276405024,
+        3969102369,
+        3922608384,
+        1025741216,
+        3493521589,
+        2877377998,
+        4171847149,
+        452929871
+      ],
+      "imports": [
+        "decimal",
+        "enum",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.market_data.quality",
+        "pydantic",
+        "typing"
+      ]
+    },
+    "pocket_alpha.intelligence.technical.service": {
+      "path": "src/pocket_alpha/intelligence/technical/service.py",
+      "sha256_words": [
+        2316406038,
+        2807625211,
+        1995682817,
+        4121288733,
+        845533140,
+        1885503942,
+        68048123,
+        2160707722
+      ],
+      "imports": [
+        "decimal",
+        "hashlib",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.intelligence.provenance",
+        "pocket_alpha.intelligence.technical.indicators",
+        "pocket_alpha.intelligence.technical.models",
+        "pocket_alpha.market_data.quality",
+        "pocket_alpha.market_data.replay"
+      ]
+    },
+    "pocket_alpha.intelligence.zones": {
+      "path": "src/pocket_alpha/intelligence/zones/__init__.py",
+      "sha256_words": [
+        2255245119,
+        2330505675,
+        1168847159,
+        1591054295,
+        1351604794,
+        3608148227,
+        3286072401,
+        748335249
+      ],
+      "imports": []
+    },
+    "pocket_alpha.intelligence.zones.api": {
+      "path": "src/pocket_alpha/intelligence/zones/api.py",
+      "sha256_words": [
+        3106121540,
+        2091965917,
+        4168137235,
+        1500931771,
+        1393404840,
+        4058255119,
+        1034211197,
+        4282018076
+      ],
+      "imports": [
+        "datetime",
+        "fastapi",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.intelligence.zones.models",
+        "pocket_alpha.intelligence.zones.service",
+        "pocket_alpha.market_data.api",
+        "pocket_alpha.market_data.quality",
+        "pocket_alpha.market_data.replay",
+        "pocket_alpha.market_data.storage",
+        "pydantic"
+      ]
+    },
+    "pocket_alpha.intelligence.zones.models": {
+      "path": "src/pocket_alpha/intelligence/zones/models.py",
+      "sha256_words": [
+        1190686397,
+        263029887,
+        2213188378,
+        2859560387,
+        843985353,
+        2007300360,
+        826020365,
+        1888934833
+      ],
+      "imports": [
+        "decimal",
+        "enum",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.intelligence.structure.models",
+        "pocket_alpha.market_data.quality",
+        "pydantic",
+        "typing"
+      ]
+    },
+    "pocket_alpha.intelligence.zones.service": {
+      "path": "src/pocket_alpha/intelligence/zones/service.py",
+      "sha256_words": [
+        3436170668,
+        462911326,
+        1152766939,
+        2513141446,
+        99222907,
+        389216776,
+        337483982,
+        2144497108
+      ],
+      "imports": [
+        "dataclasses",
+        "decimal",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.intelligence.structure.models",
+        "pocket_alpha.intelligence.structure.service",
+        "pocket_alpha.intelligence.zones.models",
+        "pocket_alpha.market_data.quality",
+        "pocket_alpha.market_data.replay"
+      ]
+    },
+    "pocket_alpha.leverage": {
+      "path": "src/pocket_alpha/leverage/__init__.py",
+      "sha256_words": [
+        1959895427,
+        165508273,
+        2468593740,
+        828362943,
+        177926543,
+        2665810885,
+        3213081069,
+        1021826282
+      ],
+      "imports": []
+    },
+    "pocket_alpha.leverage.engine": {
+      "path": "src/pocket_alpha/leverage/engine.py",
+      "sha256_words": [
+        282652168,
+        192098680,
+        1719468729,
+        1022724438,
+        1814087803,
+        3071658741,
+        2729106194,
+        4239923113
+      ],
+      "imports": [
+        "decimal",
+        "pocket_alpha.backtesting.models",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.derivatives.models",
+        "pocket_alpha.forecasts.horizons",
+        "pocket_alpha.leverage.models",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.leverage.models": {
+      "path": "src/pocket_alpha/leverage/models.py",
+      "sha256_words": [
+        1656664273,
+        1449777324,
+        1402648146,
+        782837833,
+        105736640,
+        1351051002,
+        704458759,
+        2502591718
+      ],
+      "imports": [
+        "decimal",
+        "enum",
+        "pocket_alpha.backtesting.models",
+        "pocket_alpha.derivatives.models",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pydantic",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.live_control": {
+      "path": "src/pocket_alpha/live_control/__init__.py",
+      "sha256_words": [
+        3054177475,
+        3135712071,
+        3044034162,
+        3940901354,
+        2655139019,
+        1448521690,
+        3417311230,
+        2619580157
+      ],
+      "imports": []
+    },
+    "pocket_alpha.live_control.api": {
+      "path": "src/pocket_alpha/live_control/api.py",
+      "sha256_words": [
+        2664443846,
+        1533196224,
+        2911580928,
+        855348622,
+        4087660574,
+        1970705596,
+        15862074,
+        1387326111
+      ],
+      "imports": [
+        "fastapi",
+        "hmac",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.config",
+        "pocket_alpha.live_control.models",
+        "pocket_alpha.live_control.service",
+        "pocket_alpha.market_data.api",
+        "re",
+        "sqlalchemy.exc",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.live_control.models": {
+      "path": "src/pocket_alpha/live_control/models.py",
+      "sha256_words": [
+        269931012,
+        1979514869,
+        1460995356,
+        3476729926,
+        2112260947,
+        3048883633,
+        1085587846,
+        770894816
+      ],
+      "imports": [
+        "datetime",
+        "decimal",
+        "enum",
+        "pocket_alpha.database",
+        "pocket_alpha.domain.models",
+        "pydantic",
+        "sqlalchemy",
+        "sqlalchemy.orm",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.live_control.service": {
+      "path": "src/pocket_alpha/live_control/service.py",
+      "sha256_words": [
+        1282497075,
+        2880518515,
+        3986598523,
+        2644968932,
+        3482415906,
+        2766769610,
+        73805738,
+        2149281567
+      ],
+      "imports": [
+        "datetime",
+        "hashlib",
+        "json",
+        "pocket_alpha.audit.models",
+        "pocket_alpha.audit.repository",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.config",
+        "pocket_alpha.live_control.models",
+        "sqlalchemy",
+        "sqlalchemy.orm",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.main": {
+      "path": "src/pocket_alpha/main.py",
+      "sha256_words": [
+        1908854795,
+        4088102749,
+        3053226514,
+        3702179699,
+        2096179503,
+        3080280633,
+        2126590973,
+        1333171813
+      ],
+      "imports": [
+        "collections.abc",
+        "contextlib",
+        "fastapi",
+        "fastapi.responses",
+        "logging",
+        "pocket_alpha.analysis.api",
+        "pocket_alpha.audit.models",
+        "pocket_alpha.audit.repository",
+        "pocket_alpha.backtesting.api",
+        "pocket_alpha.config",
+        "pocket_alpha.contextual.api",
+        "pocket_alpha.database",
+        "pocket_alpha.derivatives.api",
+        "pocket_alpha.fundamentals.api",
+        "pocket_alpha.intelligence.zones.api",
+        "pocket_alpha.live_control.api",
+        "pocket_alpha.market_data.api",
+        "pocket_alpha.mobile.app",
+        "pocket_alpha.observability",
+        "pocket_alpha.paper_trading.api",
+        "pocket_alpha.portfolio.api",
+        "pocket_alpha.portfolio_intelligence.api",
+        "pocket_alpha.research.api",
+        "pocket_alpha.scanner.api",
+        "pocket_alpha.strategies.api",
+        "pocket_alpha.watchlists.api",
+        "redis",
+        "redis.exceptions",
+        "sqlalchemy",
+        "sqlalchemy.exc",
+        "sqlalchemy.orm",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.market_data": {
+      "path": "src/pocket_alpha/market_data/__init__.py",
+      "sha256_words": [
+        357463133,
+        634870064,
+        3894872693,
+        513724599,
+        2020579402,
+        1656621432,
+        110032953,
+        1560857313
+      ],
+      "imports": []
+    },
+    "pocket_alpha.market_data.api": {
+      "path": "src/pocket_alpha/market_data/api.py",
+      "sha256_words": [
+        1661089695,
+        1807203559,
+        2797472774,
+        2586243492,
+        766638618,
+        520653584,
+        2226588713,
+        2151619657
+      ],
+      "imports": [
+        "collections.abc",
+        "datetime",
+        "fastapi",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.market_data.quality",
+        "pocket_alpha.market_data.storage",
+        "pydantic",
+        "sqlalchemy",
+        "sqlalchemy.exc",
+        "sqlalchemy.orm",
+        "typing"
+      ]
+    },
+    "pocket_alpha.market_data.coinbase": {
+      "path": "src/pocket_alpha/market_data/coinbase.py",
+      "sha256_words": [
+        3450017395,
+        1130079749,
+        823702260,
+        4033140977,
+        2020690374,
+        2469227489,
+        2915390677,
+        1580751439
+      ],
+      "imports": [
+        "datetime",
+        "decimal",
+        "json",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.common.public_http",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.market_data.providers",
+        "re",
+        "urllib.parse"
+      ]
+    },
+    "pocket_alpha.market_data.datasets": {
+      "path": "src/pocket_alpha/market_data/datasets.py",
+      "sha256_words": [
+        442955601,
+        1513577906,
+        4132888144,
+        1936057987,
+        3102484153,
+        3568724983,
+        2717265387,
+        884939302
+      ],
+      "imports": [
+        "datetime",
+        "hashlib",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.database",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.market_data.providers",
+        "pocket_alpha.market_data.quality",
+        "pocket_alpha.market_data.replay",
+        "pocket_alpha.market_data.storage",
+        "pydantic",
+        "sqlalchemy",
+        "sqlalchemy.orm",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.market_data.import_public": {
+      "path": "src/pocket_alpha/market_data/import_public.py",
+      "sha256_words": [
+        2895141434,
+        2426680162,
+        3376929400,
+        2839139259,
+        957273121,
+        2865188169,
+        3482578318,
+        4031480286
+      ],
+      "imports": [
+        "argparse",
+        "datetime",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.config",
+        "pocket_alpha.database",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.market_data.coinbase",
+        "pocket_alpha.market_data.datasets",
+        "pocket_alpha.market_data.quality",
+        "pocket_alpha.market_data.service",
+        "pocket_alpha.market_data.storage",
+        "sqlalchemy.orm"
+      ]
+    },
+    "pocket_alpha.market_data.providers": {
+      "path": "src/pocket_alpha/market_data/providers.py",
+      "sha256_words": [
+        2242688784,
+        555265590,
+        2158820447,
+        240240790,
+        2886416290,
+        1318469523,
+        1759496357,
+        3023277214
+      ],
+      "imports": [
+        "collections.abc",
+        "copy",
+        "dataclasses",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pydantic",
+        "typing"
+      ]
+    },
+    "pocket_alpha.market_data.quality": {
+      "path": "src/pocket_alpha/market_data/quality.py",
+      "sha256_words": [
+        3075660115,
+        871756982,
+        1989354390,
+        1505718208,
+        1549097952,
+        1468218308,
+        1926759248,
+        29366130
+      ],
+      "imports": [
+        "collections.abc",
+        "datetime",
+        "enum",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pydantic"
+      ]
+    },
+    "pocket_alpha.market_data.replay": {
+      "path": "src/pocket_alpha/market_data/replay.py",
+      "sha256_words": [
+        1418169932,
+        3585996307,
+        2352036420,
+        2175468584,
+        951764787,
+        3258559651,
+        2034819773,
+        1747937344
+      ],
+      "imports": [
+        "dataclasses",
+        "datetime",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.market_data.quality",
+        "pocket_alpha.market_data.storage"
+      ]
+    },
+    "pocket_alpha.market_data.service": {
+      "path": "src/pocket_alpha/market_data/service.py",
+      "sha256_words": [
+        2562391624,
+        1456783039,
+        2371234408,
+        1356163252,
+        1919946956,
+        3177625671,
+        3249980240,
+        2991974494
+      ],
+      "imports": [
+        "collections.abc",
+        "dataclasses",
+        "logging",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.market_data.providers",
+        "pocket_alpha.market_data.quality",
+        "pocket_alpha.market_data.storage",
+        "sqlalchemy.exc",
+        "typing"
+      ]
+    },
+    "pocket_alpha.market_data.smoke_public": {
+      "path": "src/pocket_alpha/market_data/smoke_public.py",
+      "sha256_words": [
+        3825620741,
+        1319298675,
+        2759001293,
+        3476506793,
+        2507963581,
+        3896299799,
+        2018540911,
+        2037407869
+      ],
+      "imports": [
+        "argparse",
+        "datetime",
+        "json",
+        "pathlib",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.contextual.models",
+        "pocket_alpha.contextual.providers",
+        "pocket_alpha.contextual.service",
+        "pocket_alpha.contextual.storage",
+        "pocket_alpha.database",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.market_data.datasets",
+        "pocket_alpha.market_data.import_public",
+        "pocket_alpha.market_data.providers",
+        "pocket_alpha.market_data.storage",
+        "sqlalchemy",
+        "sqlalchemy.orm",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.market_data.storage": {
+      "path": "src/pocket_alpha/market_data/storage.py",
+      "sha256_words": [
+        2255304655,
+        3460056134,
+        264908497,
+        2955107742,
+        213304583,
+        699251831,
+        2346444887,
+        490940332
+      ],
+      "imports": [
+        "datetime",
+        "decimal",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.database",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.market_data.providers",
+        "sqlalchemy",
+        "sqlalchemy.dialects.postgresql",
+        "sqlalchemy.dialects.sqlite",
+        "sqlalchemy.engine",
+        "sqlalchemy.orm",
+        "sqlalchemy.types",
+        "typing"
+      ]
+    },
+    "pocket_alpha.mobile": {
+      "path": "src/pocket_alpha/mobile/__init__.py",
+      "sha256_words": [
+        2580023163,
+        3031024617,
+        462239010,
+        394702700,
+        2190646127,
+        2321924014,
+        564774496,
+        450363077
+      ],
+      "imports": []
+    },
+    "pocket_alpha.mobile.app": {
+      "path": "src/pocket_alpha/mobile/app.py",
+      "sha256_words": [
+        2864979744,
+        1718197507,
+        3090981974,
+        3321322514,
+        2629227833,
+        1560867255,
+        2768851071,
+        1460398047
+      ],
+      "imports": [
+        "collections.abc",
+        "fastapi",
+        "fastapi.responses",
+        "pocket_alpha.analysis.api",
+        "pocket_alpha.backtesting.api",
+        "pocket_alpha.contextual.api",
+        "pocket_alpha.derivatives.api",
+        "pocket_alpha.fundamentals.api",
+        "pocket_alpha.intelligence.zones.api",
+        "pocket_alpha.market_data.api",
+        "pocket_alpha.mobile.auth",
+        "pocket_alpha.mobile.readmodels",
+        "pocket_alpha.paper_trading.api",
+        "pocket_alpha.portfolio.api",
+        "pocket_alpha.portfolio_intelligence.api",
+        "pocket_alpha.research.api",
+        "pocket_alpha.scanner.api",
+        "pocket_alpha.strategies.api",
+        "pocket_alpha.watchlists.api"
+      ]
+    },
+    "pocket_alpha.mobile.auth": {
+      "path": "src/pocket_alpha/mobile/auth.py",
+      "sha256_words": [
+        3375867492,
+        1977643047,
+        3921136591,
+        710916732,
+        3352737790,
+        1119998134,
+        1520015176,
+        169987276
+      ],
+      "imports": [
+        "base64",
+        "datetime",
+        "fastapi",
+        "fastapi.security",
+        "pocket_alpha.audit.models",
+        "pocket_alpha.audit.repository",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.market_data.api",
+        "pocket_alpha.mobile.models",
+        "pocket_alpha.mobile.security",
+        "pydantic",
+        "redis.exceptions",
+        "secrets",
+        "sqlalchemy",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.mobile.export_schema": {
+      "path": "src/pocket_alpha/mobile/export_schema.py",
+      "sha256_words": [
+        2817006844,
+        2131527676,
+        392920686,
+        2346407804,
+        4191197203,
+        109382530,
+        2766776723,
+        3655760590
+      ],
+      "imports": [
+        "json",
+        "pathlib",
+        "pocket_alpha.config",
+        "pocket_alpha.main",
+        "pocket_alpha.mobile.app",
+        "sys"
+      ]
+    },
+    "pocket_alpha.mobile.models": {
+      "path": "src/pocket_alpha/mobile/models.py",
+      "sha256_words": [
+        3804125272,
+        208368843,
+        4036425247,
+        4231126877,
+        3530659580,
+        2315508455,
+        3831006912,
+        1198355585
+      ],
+      "imports": [
+        "datetime",
+        "pocket_alpha.database",
+        "pocket_alpha.market_data.storage",
+        "sqlalchemy",
+        "sqlalchemy.orm",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.mobile.provision": {
+      "path": "src/pocket_alpha/mobile/provision.py",
+      "sha256_words": [
+        549811800,
+        2429319200,
+        3051620631,
+        4205990419,
+        1713841391,
+        1458141880,
+        1757281134,
+        3395054081
+      ],
+      "imports": [
+        "getpass",
+        "pocket_alpha.config",
+        "pocket_alpha.database",
+        "pocket_alpha.mobile.auth",
+        "pocket_alpha.mobile.models",
+        "pocket_alpha.mobile.security",
+        "pydantic",
+        "sqlalchemy",
+        "sqlalchemy.orm",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.mobile.readmodels": {
+      "path": "src/pocket_alpha/mobile/readmodels.py",
+      "sha256_words": [
+        153023887,
+        1474254483,
+        365609498,
+        212209454,
+        360475876,
+        2554016406,
+        3970230829,
+        3796772066
+      ],
+      "imports": [
+        "base64",
+        "datetime",
+        "fastapi",
+        "pocket_alpha.analysis.storage",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.market_data.api",
+        "pocket_alpha.market_data.storage",
+        "pocket_alpha.watchlists.storage",
+        "sqlalchemy",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.mobile.security": {
+      "path": "src/pocket_alpha/mobile/security.py",
+      "sha256_words": [
+        3697022528,
+        3039503180,
+        3101108548,
+        1251525975,
+        229532819,
+        3976739381,
+        46855327,
+        378864794
+      ],
+      "imports": [
+        "base64",
+        "hashlib",
+        "hmac",
+        "secrets"
+      ]
+    },
+    "pocket_alpha.observability": {
+      "path": "src/pocket_alpha/observability.py",
+      "sha256_words": [
+        503759740,
+        3805294752,
+        388326815,
+        2577454291,
+        1802014927,
+        669223123,
+        1961193115,
+        2362332797
+      ],
+      "imports": [
+        "datetime",
+        "json",
+        "logging"
+      ]
+    },
+    "pocket_alpha.opportunities": {
+      "path": "src/pocket_alpha/opportunities/__init__.py",
+      "sha256_words": [
+        1121373123,
+        2935539652,
+        1819159788,
+        4109128357,
+        2875802562,
+        525196607,
+        2326331998,
+        3756809826
+      ],
+      "imports": [
+        "pocket_alpha.opportunities.models",
+        "pocket_alpha.opportunities.service"
+      ]
+    },
+    "pocket_alpha.opportunities.models": {
+      "path": "src/pocket_alpha/opportunities/models.py",
+      "sha256_words": [
+        2758759353,
+        2605125502,
+        4285946242,
+        1343980456,
+        2149597802,
+        1621714617,
+        1513766964,
+        3479611016
+      ],
+      "imports": [
+        "decimal",
+        "enum",
+        "pocket_alpha.directional.models",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.forecasts.models",
+        "pocket_alpha.forecasts.research_models",
+        "pydantic",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.opportunities.service": {
+      "path": "src/pocket_alpha/opportunities/service.py",
+      "sha256_words": [
+        1672006677,
+        30493850,
+        3964025878,
+        2240521115,
+        1040330559,
+        68295013,
+        2984544991,
+        3594790669
+      ],
+      "imports": [
+        "datetime",
+        "decimal",
+        "hashlib",
+        "json",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.directional.models",
+        "pocket_alpha.forecasts.models",
+        "pocket_alpha.intelligence.provenance",
+        "pocket_alpha.opportunities.models",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.paper_trading": {
+      "path": "src/pocket_alpha/paper_trading/__init__.py",
+      "sha256_words": [
+        3240587612,
+        3684331216,
+        2959213051,
+        2309849197,
+        4094733279,
+        1193190761,
+        1949252465,
+        4020108968
+      ],
+      "imports": []
+    },
+    "pocket_alpha.paper_trading.__main__": {
+      "path": "src/pocket_alpha/paper_trading/__main__.py",
+      "sha256_words": [
+        1458452098,
+        3332684685,
+        2946848329,
+        1449666590,
+        2616443605,
+        1990927803,
+        3090465617,
+        2724701277
+      ],
+      "imports": [
+        "argparse",
+        "pathlib",
+        "pocket_alpha.backtesting.models",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.config",
+        "pocket_alpha.database",
+        "pocket_alpha.market_data.storage",
+        "pocket_alpha.observability",
+        "pocket_alpha.paper_trading.feed",
+        "pocket_alpha.paper_trading.models",
+        "pocket_alpha.paper_trading.service",
+        "pocket_alpha.paper_trading.storage",
+        "sqlalchemy.orm",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.paper_trading.api": {
+      "path": "src/pocket_alpha/paper_trading/api.py",
+      "sha256_words": [
+        1675341062,
+        2594186019,
+        2677289694,
+        1632359700,
+        4051931134,
+        61922039,
+        1207230688,
+        3540656461
+      ],
+      "imports": [
+        "fastapi",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.market_data.api",
+        "pocket_alpha.paper_trading.models",
+        "pocket_alpha.paper_trading.service",
+        "pocket_alpha.paper_trading.storage",
+        "sqlalchemy.exc",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.paper_trading.engine": {
+      "path": "src/pocket_alpha/paper_trading/engine.py",
+      "sha256_words": [
+        3102944328,
+        2688072150,
+        3333289019,
+        3304592571,
+        2969704189,
+        3385118069,
+        2399046888,
+        284929937
+      ],
+      "imports": [
+        "decimal",
+        "pocket_alpha.backtesting.inputs",
+        "pocket_alpha.backtesting.models",
+        "pocket_alpha.backtesting.risk",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.forecasts.models",
+        "pocket_alpha.intelligence.technical.service",
+        "pocket_alpha.market_data.quality",
+        "pocket_alpha.paper_trading.models",
+        "pocket_alpha.simulation.engine",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.paper_trading.feed": {
+      "path": "src/pocket_alpha/paper_trading/feed.py",
+      "sha256_words": [
+        3471357406,
+        2436771214,
+        3749385696,
+        2509217035,
+        2754394959,
+        3072890331,
+        2395561271,
+        10703344
+      ],
+      "imports": [
+        "datetime",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.market_data.coinbase",
+        "pocket_alpha.market_data.providers",
+        "pocket_alpha.paper_trading.engine",
+        "pocket_alpha.paper_trading.models",
+        "pocket_alpha.paper_trading.service",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.paper_trading.models": {
+      "path": "src/pocket_alpha/paper_trading/models.py",
+      "sha256_words": [
+        1920638405,
+        1937793302,
+        3336019453,
+        3221341550,
+        2852419154,
+        245802366,
+        2519978493,
+        3301709638
+      ],
+      "imports": [
+        "decimal",
+        "json",
+        "pocket_alpha.backtesting.models",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.forecasts.models",
+        "pocket_alpha.market_data.providers",
+        "pydantic",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.paper_trading.service": {
+      "path": "src/pocket_alpha/paper_trading/service.py",
+      "sha256_words": [
+        3553875979,
+        2418858891,
+        4160677115,
+        4231326358,
+        3909600774,
+        3220999022,
+        4254879118,
+        3983469719
+      ],
+      "imports": [
+        "decimal",
+        "logging",
+        "pocket_alpha.backtesting.inputs",
+        "pocket_alpha.backtesting.models",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.market_data.storage",
+        "pocket_alpha.paper_trading.engine",
+        "pocket_alpha.paper_trading.models",
+        "pocket_alpha.paper_trading.storage",
+        "pocket_alpha.simulation.engine",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.paper_trading.storage": {
+      "path": "src/pocket_alpha/paper_trading/storage.py",
+      "sha256_words": [
+        1912052939,
+        3613220019,
+        676635729,
+        697745577,
+        3521563058,
+        630248816,
+        1047113863,
+        569678672
+      ],
+      "imports": [
+        "decimal",
+        "pocket_alpha.backtesting.models",
+        "pocket_alpha.database",
+        "pocket_alpha.paper_trading.engine",
+        "pocket_alpha.paper_trading.models",
+        "sqlalchemy",
+        "sqlalchemy.orm",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.portfolio": {
+      "path": "src/pocket_alpha/portfolio/__init__.py",
+      "sha256_words": [
+        439905291,
+        2077985635,
+        2408513656,
+        3766798466,
+        2790833484,
+        234420139,
+        4062507069,
+        322890069
+      ],
+      "imports": [
+        "pocket_alpha.portfolio.models"
+      ]
+    },
+    "pocket_alpha.portfolio.api": {
+      "path": "src/pocket_alpha/portfolio/api.py",
+      "sha256_words": [
+        3951181322,
+        3313668495,
+        617314088,
+        4011332095,
+        1366052941,
+        1461082752,
+        2705021050,
+        3346403006
+      ],
+      "imports": [
+        "datetime",
+        "fastapi",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.market_data.api",
+        "pocket_alpha.portfolio.models",
+        "pocket_alpha.portfolio.service",
+        "pocket_alpha.portfolio.storage",
+        "pydantic",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.portfolio.models": {
+      "path": "src/pocket_alpha/portfolio/models.py",
+      "sha256_words": [
+        181741987,
+        3931321804,
+        1360760443,
+        4225821071,
+        58833156,
+        3219547298,
+        759932895,
+        813109883
+      ],
+      "imports": [
+        "decimal",
+        "enum",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pydantic",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.portfolio.service": {
+      "path": "src/pocket_alpha/portfolio/service.py",
+      "sha256_words": [
+        613094765,
+        2298943793,
+        8900043,
+        302676909,
+        3150359224,
+        1829298040,
+        3523011951,
+        2147100183
+      ],
+      "imports": [
+        "dataclasses",
+        "datetime",
+        "decimal",
+        "hashlib",
+        "json",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.intelligence.provenance",
+        "pocket_alpha.portfolio.models",
+        "pocket_alpha.portfolio.storage",
+        "pydantic",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.portfolio.storage": {
+      "path": "src/pocket_alpha/portfolio/storage.py",
+      "sha256_words": [
+        1998059456,
+        1577813714,
+        1539716393,
+        2757381329,
+        1103936859,
+        1704260813,
+        4172446233,
+        781461486
+      ],
+      "imports": [
+        "datetime",
+        "decimal",
+        "json",
+        "pocket_alpha.database",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.market_data.storage",
+        "pocket_alpha.portfolio.models",
+        "pydantic",
+        "sqlalchemy",
+        "sqlalchemy.dialects.postgresql",
+        "sqlalchemy.dialects.sqlite",
+        "sqlalchemy.orm",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.portfolio_intelligence": {
+      "path": "src/pocket_alpha/portfolio_intelligence/__init__.py",
+      "sha256_words": [
+        3155398825,
+        1371862739,
+        3393797036,
+        100538204,
+        1427013732,
+        257872216,
+        1265660692,
+        2290159561
+      ],
+      "imports": [
+        "pocket_alpha.portfolio_intelligence.models",
+        "pocket_alpha.portfolio_intelligence.service"
+      ]
+    },
+    "pocket_alpha.portfolio_intelligence.api": {
+      "path": "src/pocket_alpha/portfolio_intelligence/api.py",
+      "sha256_words": [
+        711474738,
+        1750521987,
+        3530649486,
+        3288286845,
+        1844252630,
+        4106391703,
+        87316488,
+        1523649339
+      ],
+      "imports": [
+        "datetime",
+        "fastapi",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.market_data.api",
+        "pocket_alpha.portfolio.storage",
+        "pocket_alpha.portfolio_intelligence.models",
+        "pocket_alpha.portfolio_intelligence.service",
+        "pocket_alpha.portfolio_intelligence.storage",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.portfolio_intelligence.models": {
+      "path": "src/pocket_alpha/portfolio_intelligence/models.py",
+      "sha256_words": [
+        1498468754,
+        2267244388,
+        2299113780,
+        3824990049,
+        1083826406,
+        2078685916,
+        3798085542,
+        3409460611
+      ],
+      "imports": [
+        "decimal",
+        "enum",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pydantic",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.portfolio_intelligence.service": {
+      "path": "src/pocket_alpha/portfolio_intelligence/service.py",
+      "sha256_words": [
+        401736018,
+        746136244,
+        1487047162,
+        2580028500,
+        4160188660,
+        3280453963,
+        955985322,
+        559381937
+      ],
+      "imports": [
+        "collections",
+        "datetime",
+        "decimal",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.intelligence.provenance",
+        "pocket_alpha.portfolio.models",
+        "pocket_alpha.portfolio.service",
+        "pocket_alpha.portfolio.storage",
+        "pocket_alpha.portfolio_intelligence.models",
+        "pocket_alpha.portfolio_intelligence.storage",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.portfolio_intelligence.storage": {
+      "path": "src/pocket_alpha/portfolio_intelligence/storage.py",
+      "sha256_words": [
+        2595836563,
+        2996637377,
+        547524781,
+        2736714496,
+        2999367141,
+        2065704604,
+        1372587898,
+        3703082542
+      ],
+      "imports": [
+        "datetime",
+        "decimal",
+        "json",
+        "pocket_alpha.database",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.market_data.storage",
+        "pocket_alpha.portfolio_intelligence.models",
+        "pydantic",
+        "sqlalchemy",
+        "sqlalchemy.dialects.postgresql",
+        "sqlalchemy.dialects.sqlite",
+        "sqlalchemy.orm",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.research": {
+      "path": "src/pocket_alpha/research/__init__.py",
+      "sha256_words": [
+        106565,
+        222036998,
+        432735824,
+        592400402,
+        274345314,
+        4271802326,
+        2957431775,
+        3843762008
+      ],
+      "imports": []
+    },
+    "pocket_alpha.research.api": {
+      "path": "src/pocket_alpha/research/api.py",
+      "sha256_words": [
+        497772118,
+        3732050211,
+        2023882661,
+        2697936821,
+        3307446322,
+        3593139866,
+        2501191224,
+        2151583350
+      ],
+      "imports": [
+        "fastapi",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.market_data.api",
+        "pocket_alpha.market_data.quality",
+        "pocket_alpha.research.models",
+        "pocket_alpha.research.registry",
+        "pocket_alpha.research.storage",
+        "sqlalchemy.exc",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.research.diagnostics": {
+      "path": "src/pocket_alpha/research/diagnostics.py",
+      "sha256_words": [
+        359181434,
+        1780043259,
+        3228158783,
+        1569832911,
+        875187920,
+        1603606112,
+        2280199473,
+        1612442804
+      ],
+      "imports": [
+        "datetime",
+        "decimal",
+        "pocket_alpha.backtesting.models",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.forecasts.models",
+        "pocket_alpha.forecasts.service",
+        "pocket_alpha.research.models",
+        "random"
+      ]
+    },
+    "pocket_alpha.research.models": {
+      "path": "src/pocket_alpha/research/models.py",
+      "sha256_words": [
+        3652857681,
+        3615559755,
+        4111132071,
+        2642879225,
+        2636259100,
+        1134258841,
+        746964350,
+        193503241
+      ],
+      "imports": [
+        "decimal",
+        "json",
+        "pocket_alpha.backtesting.models",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.forecasts.horizons",
+        "pocket_alpha.forecasts.models",
+        "pocket_alpha.research.diagnostics",
+        "pydantic",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.research.registry": {
+      "path": "src/pocket_alpha/research/registry.py",
+      "sha256_words": [
+        2647584688,
+        2048463558,
+        214421950,
+        906571038,
+        3587776747,
+        2857077128,
+        2975872804,
+        1313168289
+      ],
+      "imports": [
+        "decimal",
+        "pocket_alpha.backtesting.models",
+        "pocket_alpha.backtesting.storage",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.database",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.forecasts.models",
+        "pocket_alpha.research.models",
+        "pocket_alpha.research.storage",
+        "pydantic",
+        "sqlalchemy",
+        "sqlalchemy.orm",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.research.service": {
+      "path": "src/pocket_alpha/research/service.py",
+      "sha256_words": [
+        3352592734,
+        1881707480,
+        1337660481,
+        3304773154,
+        1367755894,
+        1684760337,
+        1014357054,
+        442472204
+      ],
+      "imports": [
+        "decimal",
+        "json",
+        "pocket_alpha.backtesting.engine",
+        "pocket_alpha.backtesting.inputs",
+        "pocket_alpha.backtesting.models",
+        "pocket_alpha.backtesting.storage",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.forecasts.models",
+        "pocket_alpha.forecasts.storage",
+        "pocket_alpha.market_data.datasets",
+        "pocket_alpha.research.diagnostics",
+        "pocket_alpha.research.models",
+        "pocket_alpha.research.storage",
+        "pocket_alpha.research.temporal",
+        "sqlalchemy",
+        "sqlalchemy.exc",
+        "sqlalchemy.orm",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.research.storage": {
+      "path": "src/pocket_alpha/research/storage.py",
+      "sha256_words": [
+        941356824,
+        196442924,
+        223497511,
+        3446298318,
+        2643021239,
+        3722186316,
+        696400779,
+        1458246885
+      ],
+      "imports": [
+        "datetime",
+        "json",
+        "pocket_alpha.backtesting.models",
+        "pocket_alpha.backtesting.storage",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.database",
+        "pocket_alpha.forecasts.storage",
+        "pocket_alpha.market_data.datasets",
+        "pocket_alpha.research.diagnostics",
+        "pocket_alpha.research.models",
+        "pocket_alpha.research.service",
+        "pocket_alpha.research.temporal",
+        "sqlalchemy",
+        "sqlalchemy.dialects.postgresql",
+        "sqlalchemy.dialects.sqlite",
+        "sqlalchemy.orm",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.research.temporal": {
+      "path": "src/pocket_alpha/research/temporal.py",
+      "sha256_words": [
+        3123394214,
+        3994293135,
+        3725981626,
+        2521199572,
+        3788649175,
+        2631872377,
+        457324661,
+        2882465047
+      ],
+      "imports": [
+        "datetime",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.market_data.datasets",
+        "pocket_alpha.research.models",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.scanner": {
+      "path": "src/pocket_alpha/scanner/__init__.py",
+      "sha256_words": [
+        1009242263,
+        1226059305,
+        334179779,
+        523168391,
+        4020220551,
+        2207140318,
+        654776294,
+        897334315
+      ],
+      "imports": [
+        "pocket_alpha.scanner.models",
+        "pocket_alpha.scanner.service"
+      ]
+    },
+    "pocket_alpha.scanner.api": {
+      "path": "src/pocket_alpha/scanner/api.py",
+      "sha256_words": [
+        1987612838,
+        723340275,
+        549305490,
+        1409573871,
+        2811736698,
+        2769686950,
+        4219817514,
+        2128307801
+      ],
+      "imports": [
+        "fastapi",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.market_data.api",
+        "pocket_alpha.scanner.models",
+        "pocket_alpha.scanner.service",
+        "pocket_alpha.scanner.storage",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.scanner.models": {
+      "path": "src/pocket_alpha/scanner/models.py",
+      "sha256_words": [
+        1704478906,
+        1982350699,
+        4201169487,
+        2592511877,
+        94622352,
+        1187916256,
+        2597106493,
+        1402335176
+      ],
+      "imports": [
+        "decimal",
+        "enum",
+        "pocket_alpha.directional.models",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.opportunities.models",
+        "pydantic",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.scanner.service": {
+      "path": "src/pocket_alpha/scanner/service.py",
+      "sha256_words": [
+        3510880314,
+        587368186,
+        1086540823,
+        2905851292,
+        2558679585,
+        1838188778,
+        2860609307,
+        2154821169
+      ],
+      "imports": [
+        "collections",
+        "decimal",
+        "hashlib",
+        "json",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.intelligence.provenance",
+        "pocket_alpha.opportunities.models",
+        "pocket_alpha.opportunities.service",
+        "pocket_alpha.scanner.models",
+        "pocket_alpha.scanner.storage",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.scanner.storage": {
+      "path": "src/pocket_alpha/scanner/storage.py",
+      "sha256_words": [
+        3492080923,
+        330475841,
+        3970940843,
+        4107782480,
+        1755275023,
+        4126869468,
+        39740262,
+        326143054
+      ],
+      "imports": [
+        "datetime",
+        "json",
+        "pocket_alpha.analysis.models",
+        "pocket_alpha.analysis.storage",
+        "pocket_alpha.database",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.market_data.storage",
+        "pocket_alpha.scanner.models",
+        "pydantic",
+        "sqlalchemy",
+        "sqlalchemy.dialects.postgresql",
+        "sqlalchemy.dialects.sqlite",
+        "sqlalchemy.orm",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.scoring": {
+      "path": "src/pocket_alpha/scoring/__init__.py",
+      "sha256_words": [
+        1810109962,
+        1166425736,
+        547602147,
+        3056037789,
+        2650217541,
+        2675309830,
+        1065204450,
+        2112232935
+      ],
+      "imports": []
+    },
+    "pocket_alpha.scoring.models": {
+      "path": "src/pocket_alpha/scoring/models.py",
+      "sha256_words": [
+        37505530,
+        2398926998,
+        51910375,
+        1423305322,
+        332382901,
+        2160685255,
+        3744575632,
+        1532766522
+      ],
+      "imports": [
+        "decimal",
+        "enum",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.forecasts.models",
+        "pydantic",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.scoring.service": {
+      "path": "src/pocket_alpha/scoring/service.py",
+      "sha256_words": [
+        2488439289,
+        3667134341,
+        4108356990,
+        10468662,
+        1200512751,
+        2064398447,
+        463817410,
+        2577266697
+      ],
+      "imports": [
+        "collections.abc",
+        "datetime",
+        "decimal",
+        "hashlib",
+        "json",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.intelligence.provenance",
+        "pocket_alpha.scoring.models"
+      ]
+    },
+    "pocket_alpha.simulation": {
+      "path": "src/pocket_alpha/simulation/__init__.py",
+      "sha256_words": [
+        889673658,
+        2334941754,
+        3361088586,
+        3354147284,
+        164910478,
+        3467941189,
+        2127205726,
+        3546917330
+      ],
+      "imports": []
+    },
+    "pocket_alpha.simulation.engine": {
+      "path": "src/pocket_alpha/simulation/engine.py",
+      "sha256_words": [
+        2584943505,
+        2452440243,
+        3411240950,
+        1618166682,
+        2206342038,
+        663549314,
+        2749427248,
+        1294501665
+      ],
+      "imports": [
+        "datetime",
+        "decimal",
+        "pocket_alpha.backtesting.execution",
+        "pocket_alpha.backtesting.models",
+        "pocket_alpha.backtesting.risk",
+        "pocket_alpha.domain.market",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.spot_execution": {
+      "path": "src/pocket_alpha/spot_execution/__init__.py",
+      "sha256_words": [
+        3845804466,
+        3074999206,
+        1357707367,
+        690213112,
+        477510520,
+        2809458846,
+        4095668620,
+        2758241148
+      ],
+      "imports": []
+    },
+    "pocket_alpha.spot_execution.binance": {
+      "path": "src/pocket_alpha/spot_execution/binance.py",
+      "sha256_words": [
+        3013980365,
+        1067387876,
+        4080257822,
+        3234300006,
+        3025302178,
+        4014369170,
+        3838529512,
+        2852024147
+      ],
+      "imports": [
+        "collections.abc",
+        "datetime",
+        "decimal",
+        "hashlib",
+        "hmac",
+        "json",
+        "pocket_alpha.broker_readonly.binance",
+        "pocket_alpha.broker_readonly.models",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.config",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.spot_execution.engine",
+        "pocket_alpha.spot_execution.models",
+        "pocket_alpha.spot_execution.risk",
+        "pydantic",
+        "pydantic_settings",
+        "re",
+        "time",
+        "typing",
+        "urllib.parse",
+        "urllib.request"
+      ]
+    },
+    "pocket_alpha.spot_execution.engine": {
+      "path": "src/pocket_alpha/spot_execution/engine.py",
+      "sha256_words": [
+        602046597,
+        2201932876,
+        3501894762,
+        1913218766,
+        1374637316,
+        616086623,
+        3685123958,
+        3630391534
+      ],
+      "imports": [
+        "collections.abc",
+        "contextlib",
+        "datetime",
+        "decimal",
+        "hashlib",
+        "json",
+        "pathlib",
+        "pocket_alpha.backtesting.models",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.spot_execution.binance",
+        "pocket_alpha.spot_execution.models",
+        "pocket_alpha.spot_execution.risk",
+        "sqlite3",
+        "typing"
+      ]
+    },
+    "pocket_alpha.spot_execution.models": {
+      "path": "src/pocket_alpha/spot_execution/models.py",
+      "sha256_words": [
+        453640579,
+        2421611578,
+        281191395,
+        1077233762,
+        3164203009,
+        3489476638,
+        1306005075,
+        3546439976
+      ],
+      "imports": [
+        "decimal",
+        "pocket_alpha.backtesting.models",
+        "pocket_alpha.broker_readonly.models",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.portfolio.models",
+        "pocket_alpha.strategies.models",
+        "pydantic",
+        "typing"
+      ]
+    },
+    "pocket_alpha.spot_execution.qualify": {
+      "path": "src/pocket_alpha/spot_execution/qualify.py",
+      "sha256_words": [
+        299123078,
+        1847770653,
+        1487876516,
+        1781336929,
+        3361100891,
+        2871610503,
+        3311925121,
+        126813485
+      ],
+      "imports": [
+        "argparse",
+        "json",
+        "os",
+        "pathlib",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.spot_execution.binance",
+        "pocket_alpha.spot_execution.models"
+      ]
+    },
+    "pocket_alpha.spot_execution.risk": {
+      "path": "src/pocket_alpha/spot_execution/risk.py",
+      "sha256_words": [
+        3927665965,
+        1477338027,
+        1799634167,
+        4255588330,
+        1841174682,
+        4099222486,
+        1246809182,
+        3626696094
+      ],
+      "imports": [
+        "datetime",
+        "decimal",
+        "pocket_alpha.backtesting.models",
+        "pocket_alpha.broker_readonly.models",
+        "pocket_alpha.portfolio.models",
+        "pocket_alpha.spot_execution.models"
+      ]
+    },
+    "pocket_alpha.strategies": {
+      "path": "src/pocket_alpha/strategies/__init__.py",
+      "sha256_words": [
+        2932072443,
+        3223099093,
+        1222289925,
+        155107421,
+        2113482077,
+        4058125911,
+        4284203744,
+        2853204482
+      ],
+      "imports": []
+    },
+    "pocket_alpha.strategies.api": {
+      "path": "src/pocket_alpha/strategies/api.py",
+      "sha256_words": [
+        750373371,
+        2710407372,
+        99298189,
+        3095676935,
+        3107435880,
+        2242136867,
+        3465145172,
+        3473037624
+      ],
+      "imports": [
+        "fastapi",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.market_data.api",
+        "pocket_alpha.market_data.quality",
+        "pocket_alpha.strategies.registry",
+        "sqlalchemy.exc",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.strategies.engine": {
+      "path": "src/pocket_alpha/strategies/engine.py",
+      "sha256_words": [
+        1893425781,
+        4075265432,
+        3929004825,
+        3147775491,
+        3109256929,
+        3613966811,
+        1743398779,
+        1945397268
+      ],
+      "imports": [
+        "decimal",
+        "json",
+        "pocket_alpha.backtesting.execution",
+        "pocket_alpha.backtesting.models",
+        "pocket_alpha.backtesting.risk",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.directional.models",
+        "pocket_alpha.directional.service",
+        "pocket_alpha.forecasts.horizons",
+        "pocket_alpha.forecasts.models",
+        "pocket_alpha.forecasts.service",
+        "pocket_alpha.intelligence.technical.models",
+        "pocket_alpha.paper_trading.models",
+        "pocket_alpha.strategies.models",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.strategies.models": {
+      "path": "src/pocket_alpha/strategies/models.py",
+      "sha256_words": [
+        312560526,
+        236849659,
+        4150206116,
+        2766197956,
+        529559669,
+        183740417,
+        2319159702,
+        2773597341
+      ],
+      "imports": [
+        "decimal",
+        "enum",
+        "pocket_alpha.backtesting.models",
+        "pocket_alpha.directional.models",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.forecasts.models",
+        "pydantic",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.strategies.registry": {
+      "path": "src/pocket_alpha/strategies/registry.py",
+      "sha256_words": [
+        2801681282,
+        1153362355,
+        242586685,
+        208738683,
+        1597093999,
+        3651226347,
+        4152150903,
+        2384291157
+      ],
+      "imports": [
+        "decimal",
+        "pocket_alpha.backtesting.models",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.database",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.forecasts.models",
+        "pocket_alpha.market_data.storage",
+        "pocket_alpha.paper_trading.models",
+        "pocket_alpha.paper_trading.service",
+        "pocket_alpha.paper_trading.storage",
+        "pocket_alpha.research.registry",
+        "pocket_alpha.research.storage",
+        "pocket_alpha.strategies.engine",
+        "pocket_alpha.strategies.models",
+        "pydantic",
+        "sqlalchemy",
+        "sqlalchemy.orm",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.watchlists": {
+      "path": "src/pocket_alpha/watchlists/__init__.py",
+      "sha256_words": [
+        3477530566,
+        764365508,
+        614173825,
+        3789207887,
+        2382320999,
+        2129691438,
+        1052392129,
+        4239103195
+      ],
+      "imports": [
+        "pocket_alpha.watchlists.models"
+      ]
+    },
+    "pocket_alpha.watchlists.api": {
+      "path": "src/pocket_alpha/watchlists/api.py",
+      "sha256_words": [
+        1521674400,
+        4156527701,
+        2376071385,
+        1692538584,
+        4100787456,
+        913699765,
+        217502091,
+        1257371836
+      ],
+      "imports": [
+        "datetime",
+        "fastapi",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.market_data.api",
+        "pocket_alpha.watchlists.models",
+        "pocket_alpha.watchlists.service",
+        "pocket_alpha.watchlists.storage",
+        "pydantic",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.watchlists.models": {
+      "path": "src/pocket_alpha/watchlists/models.py",
+      "sha256_words": [
+        1207953790,
+        1852135216,
+        3690520653,
+        3204466013,
+        170753344,
+        220991701,
+        58373958,
+        3476195381
+      ],
+      "imports": [
+        "enum",
+        "pocket_alpha.analysis.models",
+        "pocket_alpha.domain.market",
+        "pocket_alpha.domain.models",
+        "pydantic",
+        "typing",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.watchlists.service": {
+      "path": "src/pocket_alpha/watchlists/service.py",
+      "sha256_words": [
+        3968441228,
+        3066808300,
+        3459428568,
+        1016308491,
+        1412384114,
+        3060466166,
+        2750895052,
+        3643233418
+      ],
+      "imports": [
+        "datetime",
+        "pocket_alpha.analysis.models",
+        "pocket_alpha.analysis.storage",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.watchlists.models",
+        "pocket_alpha.watchlists.storage",
+        "uuid"
+      ]
+    },
+    "pocket_alpha.watchlists.storage": {
+      "path": "src/pocket_alpha/watchlists/storage.py",
+      "sha256_words": [
+        3524735489,
+        530392074,
+        1614367404,
+        2249342635,
+        1630335618,
+        909693842,
+        1541564019,
+        1719833412
+      ],
+      "imports": [
+        "collections.abc",
+        "datetime",
+        "hashlib",
+        "json",
+        "pocket_alpha.common.clock",
+        "pocket_alpha.database",
+        "pocket_alpha.domain.models",
+        "pocket_alpha.intelligence.provenance",
+        "pocket_alpha.market_data.storage",
+        "pocket_alpha.watchlists.models",
+        "pydantic",
+        "sqlalchemy",
+        "sqlalchemy.dialects.postgresql",
+        "sqlalchemy.dialects.sqlite",
+        "sqlalchemy.orm",
+        "typing",
+        "uuid"
+      ]
+    }
+  }
+}

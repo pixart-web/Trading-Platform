@@ -14,6 +14,8 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.platform.LocalWindowInfo
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -42,6 +44,7 @@ val Modules = linkedMapOf("watchlists" to "Watchlists", "intelligence" to "Marke
     val authenticated by vm.authenticated.collectAsStateWithLifecycle()
     val message by vm.message.collectAsStateWithLifecycle()
     val busy by vm.busy.collectAsStateWithLifecycle()
+    val tablet = with(LocalDensity.current) { LocalWindowInfo.current.containerSize.width.toDp() >= 840.dp }
     val drawer = rememberDrawerState(DrawerValue.Closed)
     val scope = rememberCoroutineScope()
     val nav = rememberNavController()
@@ -64,13 +67,30 @@ val Modules = linkedMapOf("watchlists" to "Watchlists", "intelligence" to "Marke
                     } }
                 }
             }) {
-                Scaffold(containerColor = Base, topBar = {
+                Row(Modifier.fillMaxSize().testTag("adaptive-workspace")) {
+                if (tablet) Surface(Modifier.width(232.dp).fillMaxHeight(), color = Panel) {
+                    Column(Modifier.padding(12.dp).testTag("tablet-sidebar")) {
+                        Text("POCKET ALPHA", Modifier.padding(12.dp), color = Accent,
+                            style = MaterialTheme.typography.titleMedium)
+                        Text("Connected workspace", Modifier.padding(horizontal = 12.dp),
+                            color = Muted, style = MaterialTheme.typography.labelSmall)
+                        HorizontalDivider(Modifier.padding(vertical = 16.dp), color = Border)
+                        LazyColumn(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                            items((linkedMapOf("dashboard" to "Dashboard", "analyze" to "Analyze",
+                                "scanner" to "Scanner", "portfolio" to "Portfolio") + Modules).entries.toList()) { (route, title) ->
+                                NavigationDrawerItem(label = { Text(title) }, selected = destination == route,
+                                    onClick = { navigate(route) })
+                            }
+                        }
+                    }
+                }
+                Scaffold(modifier = Modifier.weight(1f), containerColor = Base, topBar = {
                     TopAppBar(title = { Column { Text("POCKET ALPHA", style = MaterialTheme.typography.titleMedium)
                         Text("${Modules[destination] ?: destination.replaceFirstChar { it.uppercase() }} · server workspace",
                             style = MaterialTheme.typography.labelSmall, color = Muted) } },
-                        navigationIcon = { IconButton(onClick = { scope.launchOpen(drawer) }) { Icon(Icons.Default.Menu, "Open modules") } })
+                        navigationIcon = { if (!tablet) IconButton(onClick = { scope.launchOpen(drawer) }) { Icon(Icons.Default.Menu, "Open modules") } })
                 }, bottomBar = {
-                    NavigationBar(containerColor = Panel) {
+                    if (!tablet) NavigationBar(containerColor = Panel) {
                         listOf("dashboard" to Icons.Default.Home, "analyze" to Icons.Default.Search,
                             "scanner" to Icons.Default.FilterList, "portfolio" to Icons.Default.AccountBalanceWallet,
                             "more" to Icons.Default.MoreHoriz).forEach { (route, icon) ->
@@ -106,6 +126,7 @@ val Modules = linkedMapOf("watchlists" to "Watchlists", "intelligence" to "Marke
                             } }
                         }
                     }
+                }
                 }
             }
         }
