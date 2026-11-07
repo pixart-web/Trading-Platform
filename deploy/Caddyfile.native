@@ -1,0 +1,18 @@
+{$PA_DOMAIN} {
+    encode zstd gzip
+    request_body {
+        max_size 16KB
+    }
+    header {
+        -Server
+        X-Content-Type-Options nosniff
+        Cache-Control no-store
+    }
+    @native path /mobile/api/v1/*
+    handle @native {
+        reverse_proxy api:8000
+    }
+    handle {
+        respond "Not found" 404
+    }
+}
