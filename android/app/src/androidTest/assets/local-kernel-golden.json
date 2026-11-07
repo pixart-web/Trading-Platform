@@ -1,0 +1,487 @@
+{
+  "origin": "SYNTHETIC_ENGINEERING_FIXTURE",
+  "technical": [
+    {
+      "kind": "SMA",
+      "period": 3,
+      "asOf": "2025-01-01T10:00:00+00:00",
+      "history": [
+        {
+          "close": "101",
+          "closedAt": "2025-01-01T01:00:00+00:00",
+          "receivedAt": "2025-01-01T01:00:00+00:00"
+        },
+        {
+          "close": "99",
+          "closedAt": "2025-01-01T02:00:00+00:00",
+          "receivedAt": "2025-01-01T02:00:00+00:00"
+        },
+        {
+          "close": "103",
+          "closedAt": "2025-01-01T03:00:00+00:00",
+          "receivedAt": "2025-01-01T03:00:00+00:00"
+        },
+        {
+          "close": "98",
+          "closedAt": "2025-01-01T04:00:00+00:00",
+          "receivedAt": "2025-01-01T04:00:00+00:00"
+        },
+        {
+          "close": "107",
+          "closedAt": "2025-01-01T05:00:00+00:00",
+          "receivedAt": "2025-01-01T05:00:00+00:00"
+        },
+        {
+          "close": "102",
+          "closedAt": "2025-01-01T06:00:00+00:00",
+          "receivedAt": "2025-01-01T06:00:00+00:00"
+        },
+        {
+          "close": "110",
+          "closedAt": "2025-01-01T07:00:00+00:00",
+          "receivedAt": "2025-01-01T07:00:00+00:00"
+        },
+        {
+          "close": "105",
+          "closedAt": "2025-01-01T08:00:00+00:00",
+          "receivedAt": "2025-01-01T08:00:00+00:00"
+        },
+        {
+          "close": "100",
+          "closedAt": "2025-01-01T09:00:00+00:00",
+          "receivedAt": "2025-01-01T09:00:00+00:00"
+        },
+        {
+          "close": "112",
+          "closedAt": "2025-01-01T10:00:00+00:00",
+          "receivedAt": "2025-01-01T10:00:00+00:00"
+        }
+      ],
+      "expected": [
+        {
+          "status": "WARMUP",
+          "value": null,
+          "reason": "INSUFFICIENT_HISTORY"
+        },
+        {
+          "status": "WARMUP",
+          "value": null,
+          "reason": "INSUFFICIENT_HISTORY"
+        },
+        {
+          "status": "READY",
+          "value": "101",
+          "reason": null
+        },
+        {
+          "status": "READY",
+          "value": "100",
+          "reason": null
+        },
+        {
+          "status": "READY",
+          "value": "102.66666666666666666666666666666666666666666666667",
+          "reason": null
+        },
+        {
+          "status": "READY",
+          "value": "102.33333333333333333333333333333333333333333333333",
+          "reason": null
+        },
+        {
+          "status": "READY",
+          "value": "106.33333333333333333333333333333333333333333333333",
+          "reason": null
+        },
+        {
+          "status": "READY",
+          "value": "105.66666666666666666666666666666666666666666666667",
+          "reason": null
+        },
+        {
+          "status": "READY",
+          "value": "105",
+          "reason": null
+        },
+        {
+          "status": "READY",
+          "value": "105.66666666666666666666666666666666666666666666667",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "kind": "EMA",
+      "period": 3,
+      "asOf": "2025-01-01T10:00:00+00:00",
+      "history": [
+        {
+          "close": "101",
+          "closedAt": "2025-01-01T01:00:00+00:00",
+          "receivedAt": "2025-01-01T01:00:00+00:00"
+        },
+        {
+          "close": "99",
+          "closedAt": "2025-01-01T02:00:00+00:00",
+          "receivedAt": "2025-01-01T02:00:00+00:00"
+        },
+        {
+          "close": "103",
+          "closedAt": "2025-01-01T03:00:00+00:00",
+          "receivedAt": "2025-01-01T03:00:00+00:00"
+        },
+        {
+          "close": "98",
+          "closedAt": "2025-01-01T04:00:00+00:00",
+          "receivedAt": "2025-01-01T04:00:00+00:00"
+        },
+        {
+          "close": "107",
+          "closedAt": "2025-01-01T05:00:00+00:00",
+          "receivedAt": "2025-01-01T05:00:00+00:00"
+        },
+        {
+          "close": "102",
+          "closedAt": "2025-01-01T06:00:00+00:00",
+          "receivedAt": "2025-01-01T06:00:00+00:00"
+        },
+        {
+          "close": "110",
+          "closedAt": "2025-01-01T07:00:00+00:00",
+          "receivedAt": "2025-01-01T07:00:00+00:00"
+        },
+        {
+          "close": "105",
+          "closedAt": "2025-01-01T08:00:00+00:00",
+          "receivedAt": "2025-01-01T08:00:00+00:00"
+        },
+        {
+          "close": "100",
+          "closedAt": "2025-01-01T09:00:00+00:00",
+          "receivedAt": "2025-01-01T09:00:00+00:00"
+        },
+        {
+          "close": "112",
+          "closedAt": "2025-01-01T10:00:00+00:00",
+          "receivedAt": "2025-01-01T10:00:00+00:00"
+        }
+      ],
+      "expected": [
+        {
+          "status": "WARMUP",
+          "value": null,
+          "reason": "INSUFFICIENT_HISTORY"
+        },
+        {
+          "status": "WARMUP",
+          "value": null,
+          "reason": "INSUFFICIENT_HISTORY"
+        },
+        {
+          "status": "READY",
+          "value": "101",
+          "reason": null
+        },
+        {
+          "status": "READY",
+          "value": "99.5",
+          "reason": null
+        },
+        {
+          "status": "READY",
+          "value": "103.25",
+          "reason": null
+        },
+        {
+          "status": "READY",
+          "value": "102.625",
+          "reason": null
+        },
+        {
+          "status": "READY",
+          "value": "106.3125",
+          "reason": null
+        },
+        {
+          "status": "READY",
+          "value": "105.65625",
+          "reason": null
+        },
+        {
+          "status": "READY",
+          "value": "102.828125",
+          "reason": null
+        },
+        {
+          "status": "READY",
+          "value": "107.4140625",
+          "reason": null
+        }
+      ]
+    }
+  ],
+  "haltCases": [
+    {
+      "cash": "100",
+      "highWater": "1000",
+      "dailyStart": "1000",
+      "reason": "DRAWDOWN_LIMIT"
+    },
+    {
+      "cash": "100",
+      "highWater": "100",
+      "dailyStart": "1000",
+      "reason": "DAILY_LOSS_LIMIT"
+    },
+    {
+      "cash": "0",
+      "highWater": "1000",
+      "dailyStart": "1000",
+      "reason": "BANKRUPTCY"
+    }
+  ],
+  "decimals": [
+    {
+      "left": "1",
+      "right": "3",
+      "operation": "DIV",
+      "expected": "0.33333333333333333333333333333333333333333333333333333333333333333333333333333333"
+    },
+    {
+      "left": "10000000000000000000000000000000000000000000000000000000000000000000000000000002",
+      "right": "0.5",
+      "operation": "ADD",
+      "expected": "10000000000000000000000000000000000000000000000000000000000000000000000000000002"
+    },
+    {
+      "left": "10000000000000000000000000000000000000000000000000000000000000000000000000000003",
+      "right": "0.5",
+      "operation": "ADD",
+      "expected": "10000000000000000000000000000000000000000000000000000000000000000000000000000004"
+    }
+  ],
+  "policy": {
+    "version": "synthetic-golden-1",
+    "fee": "10",
+    "spread": "10",
+    "slippage": "5",
+    "impact": "5",
+    "collar": "0.5",
+    "participation": "0.1",
+    "step": "0.01",
+    "minimumQuantity": "0.01",
+    "minimumNotional": "1",
+    "maximumOrder": "10000",
+    "maximumExposure": "1",
+    "maximumDrawdown": "0.8",
+    "maximumDailyLoss": "0.8",
+    "maximumAge": 60,
+    "maximumSpread": "100",
+    "lifetime": 86400,
+    "kill": false
+  },
+  "capital": "1000",
+  "start": "2025-01-01T01:00:00+00:00",
+  "risk": [
+    {
+      "side": "BUY",
+      "quantity": "1",
+      "overrides": {},
+      "age": 0,
+      "reason": null
+    },
+    {
+      "side": "BUY",
+      "quantity": "1",
+      "overrides": {
+        "kill_switch": true
+      },
+      "age": 0,
+      "reason": "KILL_SWITCH"
+    },
+    {
+      "side": "BUY",
+      "quantity": "1",
+      "overrides": {},
+      "age": 61,
+      "reason": "STALE_DATA"
+    },
+    {
+      "side": "BUY",
+      "quantity": "0.001",
+      "overrides": {},
+      "age": 0,
+      "reason": "INVALID_QUANTITY"
+    },
+    {
+      "side": "BUY",
+      "quantity": "0.01",
+      "overrides": {
+        "maximum_order_notional": "100"
+      },
+      "age": 0,
+      "reason": null
+    },
+    {
+      "side": "BUY",
+      "quantity": "1",
+      "overrides": {
+        "maximum_order_notional": "100"
+      },
+      "age": 0,
+      "reason": "ORDER_NOTIONAL_LIMIT"
+    },
+    {
+      "side": "BUY",
+      "quantity": "1",
+      "overrides": {
+        "maximum_spread_bps": "1"
+      },
+      "age": 0,
+      "reason": "SPREAD_LIMIT"
+    },
+    {
+      "side": "BUY",
+      "quantity": "1",
+      "overrides": {
+        "maximum_exposure_fraction": "0.001"
+      },
+      "age": 0,
+      "reason": "EXPOSURE_LIMIT"
+    },
+    {
+      "side": "BUY",
+      "quantity": "10",
+      "overrides": {},
+      "age": 0,
+      "reason": "INSUFFICIENT_UNRESERVED_CASH"
+    },
+    {
+      "side": "SELL",
+      "quantity": "1",
+      "overrides": {},
+      "age": 0,
+      "reason": "SHORT_NOT_SUPPORTED"
+    }
+  ],
+  "commands": [
+    {
+      "id": "buy",
+      "at": "2025-01-01T01:00:00+00:00",
+      "kind": "ORDER",
+      "side": "BUY",
+      "quantity": "3",
+      "price": "100",
+      "quoteClose": "2025-01-01T01:00:00+00:00"
+    },
+    {
+      "id": "bar-2",
+      "at": "2025-01-01T03:00:00+00:00",
+      "kind": "BAR",
+      "price": "105",
+      "quoteClose": "2025-01-01T03:00:00+00:00",
+      "barOpen": "2025-01-01T02:00:00+00:00",
+      "volume": "10"
+    },
+    {
+      "id": "bar-3",
+      "at": "2025-01-01T04:00:00+00:00",
+      "kind": "BAR",
+      "price": "111",
+      "quoteClose": "2025-01-01T04:00:00+00:00",
+      "barOpen": "2025-01-01T03:00:00+00:00",
+      "volume": "10"
+    },
+    {
+      "id": "bar-4",
+      "at": "2025-01-01T05:00:00+00:00",
+      "kind": "BAR",
+      "price": "115",
+      "quoteClose": "2025-01-01T05:00:00+00:00",
+      "barOpen": "2025-01-01T04:00:00+00:00",
+      "volume": "10"
+    },
+    {
+      "id": "sell",
+      "at": "2025-01-01T05:00:00+00:00",
+      "kind": "ORDER",
+      "side": "SELL",
+      "quantity": "3",
+      "price": "115",
+      "quoteClose": "2025-01-01T05:00:00+00:00"
+    },
+    {
+      "id": "bar-6",
+      "at": "2025-01-01T07:00:00+00:00",
+      "kind": "BAR",
+      "price": "110",
+      "quoteClose": "2025-01-01T07:00:00+00:00",
+      "barOpen": "2025-01-01T06:00:00+00:00",
+      "volume": "10"
+    },
+    {
+      "id": "bar-7",
+      "at": "2025-01-01T08:00:00+00:00",
+      "kind": "BAR",
+      "price": "108",
+      "quoteClose": "2025-01-01T08:00:00+00:00",
+      "barOpen": "2025-01-01T07:00:00+00:00",
+      "volume": "10"
+    },
+    {
+      "id": "bar-8",
+      "at": "2025-01-01T09:00:00+00:00",
+      "kind": "BAR",
+      "price": "112",
+      "quoteClose": "2025-01-01T09:00:00+00:00",
+      "barOpen": "2025-01-01T08:00:00+00:00",
+      "volume": "10"
+    }
+  ],
+  "expected": [
+    null,
+    {
+      "cash": "894.76361875",
+      "quantity": "1.0",
+      "basis": "105.23638125",
+      "fees": "0.10513125",
+      "realized": "0"
+    },
+    {
+      "cash": "783.51373000",
+      "quantity": "2.0",
+      "basis": "216.48627000",
+      "fees": "0.21627000",
+      "realized": "0"
+    },
+    {
+      "cash": "668.25483625",
+      "quantity": "3.0",
+      "basis": "331.74516375",
+      "fees": "0.33141375",
+      "realized": "0"
+    },
+    null,
+    {
+      "cash": "778.00747375",
+      "quantity": "2.0",
+      "basis": "221.16344250",
+      "fees": "0.44127625",
+      "realized": "-0.82908375"
+    },
+    {
+      "cash": "885.76460875",
+      "quantity": "1.0",
+      "basis": "110.58172125",
+      "fees": "0.54914125",
+      "realized": "-3.65367000"
+    },
+    {
+      "cash": "997.51274875",
+      "quantity": "0.0",
+      "basis": "0E-8",
+      "fees": "0.66100125",
+      "realized": "-2.48725125"
+    }
+  ]
+}

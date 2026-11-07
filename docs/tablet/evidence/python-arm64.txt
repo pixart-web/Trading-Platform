@@ -1,0 +1,3 @@
+--------- beginning of main
+11-07 16:48:46.782  3359  3359 I PocketRuntimeProof: {"decimal_1_over_3": "0.33333333333333333333333333333333333333333333333333333333333333333333333333333333", "elapsed_seconds": 0.02179954100000714, "financial_engine_qualified": false, "imports": {"decimal": {"imported": true, "version": "1.70"}, "pydantic": {"error": "ModuleNotFoundError: No module named 'pydantic'", "imported": false}, "pydantic_core": {"error": "ModuleNotFoundError: No module named 'pydantic_core'", "imported": false}, "sqlite3": {"imported": true, "version": null}}, "machine": "aarch64", "python": "3.12.15"}
+11-07 16:48:46.800  3359  3359 I PocketRuntimeProof: startup_ms=399 pss_kb=53879

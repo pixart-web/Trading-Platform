@@ -51,6 +51,7 @@ jobs:
       - run: mypy .
       - run: python -m pocket_alpha.mobile.export_schema --check
       - run: python android/tooling/audit_local_engines.py --check
+      - run: python -m tests.local_kernel_vectors --check
       - name: Verify one Alembic head
         run: test "$(alembic heads | wc -l)" -eq 1
       - name: Full suite with PostgreSQL and Redis
@@ -323,7 +324,7 @@ jobs:
             adb install -r app/build/outputs/apk/debug/app-debug.apk
             adb install -r app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
             mkdir -p app/build/reports/androidTests
-            adb shell am instrument -w -r -e origin https://localhost:18443 -e username android-e2e -e password disposable-android-e2e-password -e screenshotName ci pt.pocketalpha.android.test/androidx.test.runner.AndroidJUnitRunner | tee app/build/reports/androidTests/instrumentation.txt
+            adb shell am instrument -w -r -e class pt.pocketalpha.BackendWorkflowTest,pt.pocketalpha.NativeUiTest -e origin https://localhost:18443 -e username android-e2e -e password disposable-android-e2e-password -e screenshotName ci pt.pocketalpha.android.test/androidx.test.runner.AndroidJUnitRunner | tee app/build/reports/androidTests/instrumentation.txt
             grep -F 'OK (2 tests)' app/build/reports/androidTests/instrumentation.txt
             adb pull /sdcard/Android/data/pt.pocketalpha.android/files/screenshots/ci-dashboard.png app/build/reports/androidTests/ci-dashboard.png
             adb pull /sdcard/Android/data/pt.pocketalpha.android/files/screenshots/ci-overview.png app/build/reports/androidTests/ci-overview.png
@@ -333,3 +334,56 @@ jobs:
           name: android-device-evidence
           path: android/app/build/reports/androidTests/
           retention-days: 14
+
+  android-local-engine:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3
+        with:
+          distribution: temurin
+          java-version: "21"
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: "3.12"
+      - uses: android-actions/setup-android@9fc6c4e9069bf8d3d10b2204b1fb8f6ef7065407
+        with:
+          packages: 'platform-tools platforms;android-36 build-tools;36.0.0'
+          log-accepted-android-sdk-licenses: false
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - uses: ReactiveCircus/android-emulator-runner@a421e43855164a8197daf9d8d40fe71c6996bb0d
+        with:
+          api-level: 36
+          arch: x86_64
+          profile: pixel_7
+          working-directory: android
+          script: |
+            ./gradlew --no-daemon :app:assembleDebug :app:assembleDebugAndroidTest
+            adb install -r app/build/outputs/apk/debug/app-debug.apk
+            adb install -r app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
+            mkdir -p app/build/reports/local-engine
+            adb shell am instrument -w -r -e class pt.pocketalpha.LocalStandaloneEngineTest -e localPhase create pt.pocketalpha.android.test/androidx.test.runner.AndroidJUnitRunner | tee app/build/reports/local-engine/create.txt
+            grep -F 'OK (1 test)' app/build/reports/local-engine/create.txt
+            adb shell am force-stop pt.pocketalpha.android
+            adb shell am instrument -w -r -e class pt.pocketalpha.LocalStandaloneEngineTest -e localPhase recover pt.pocketalpha.android.test/androidx.test.runner.AndroidJUnitRunner | tee app/build/reports/local-engine/recover.txt
+            grep -F 'OK (1 test)' app/build/reports/local-engine/recover.txt
+            adb logcat -d -s LocalEngineProof:I > app/build/reports/local-engine/native-runtime.txt
+            ./gradlew -p runtime-proof --no-daemon -PprobeStdlibOnly=true :probe:assembleDebug
+            adb install -r runtime-proof/probe/build/outputs/apk/debug/probe-debug.apk
+            adb logcat -c
+            adb shell am start -W -n pt.pocketalpha.runtimeproof/.ProbeActivity
+            adb logcat -d -s PocketRuntimeProof:I > app/build/reports/local-engine/python-runtime.txt
+            grep -F '3.12.' app/build/reports/local-engine/python-runtime.txt
+            grep -F 'x86_64' app/build/reports/local-engine/python-runtime.txt
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: standalone-engine-x86-evidence
+          path: android/app/build/reports/local-engine/

@@ -51,3 +51,6 @@ android/.kotlin/
 android/local.properties
 *.jks
 *.keystore
+
+# Isolated Android runtime experiment cache
+android/runtime-proof/.gradle/
