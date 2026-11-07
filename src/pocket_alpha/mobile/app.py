@@ -12,6 +12,7 @@ from pocket_alpha.intelligence.zones.api import router as zones
 from pocket_alpha.market_data.api import router as market
 from pocket_alpha.mobile.auth import Identity, require_session
 from pocket_alpha.mobile.auth import router as auth
+from pocket_alpha.mobile.readmodels import router as native_readmodels
 from pocket_alpha.paper_trading.api import router as paper
 from pocket_alpha.portfolio.api import router as portfolio
 from pocket_alpha.portfolio_intelligence.api import router as portfolio_intelligence
@@ -40,6 +41,7 @@ def create_mobile_app(parent: FastAPI) -> FastAPI:
         research,
         paper,
         strategies,
+        native_readmodels,
     ):
         app.include_router(router, dependencies=[Depends(require_session)])
 

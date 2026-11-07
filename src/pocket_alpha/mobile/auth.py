@@ -1,5 +1,5 @@
 import secrets
-from datetime import timedelta
+from datetime import datetime, timedelta
 from typing import Annotated
 from uuid import UUID, uuid4
 
@@ -36,6 +36,7 @@ class Credentials(DomainModel):
     expires_in: int = 300
     session_id: UUID
     user_id: UUID
+    refresh_expires_at: datetime
 
 
 def rate_limit(request: Request) -> None:
@@ -88,6 +89,7 @@ def credentials(row: DeviceSessionRecord, access: str, refresh: str) -> Credenti
         refresh_token=refresh,
         session_id=row.session_id,
         user_id=row.user_id,
+        refresh_expires_at=row.expires_at,
     )
 
 
@@ -255,6 +257,6 @@ def step_up(payload: StepUp, identity: Identity, db: DB) -> None:
     if operator is None or not verify_password(
         payload.password.get_secret_value(), operator.password_hash
     ):
-        raise HTTPException(401, "invalid credentials")
+        raise HTTPException(403, "password confirmation failed")
     identity.step_up_expires_at = SystemClock().now() + timedelta(minutes=5)
     db.commit()

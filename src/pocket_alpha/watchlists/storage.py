@@ -6,7 +6,19 @@ from typing import Any
 from uuid import UUID
 
 from pydantic import BaseModel
-from sqlalchemy import ForeignKey, Index, Integer, String, Text, Uuid, delete, select, update
+from sqlalchemy import (
+    Boolean,
+    ForeignKey,
+    Index,
+    Integer,
+    String,
+    Text,
+    Uuid,
+    delete,
+    false,
+    select,
+    update,
+)
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.dialects.sqlite import insert as sqlite_insert
 from sqlalchemy.orm import Mapped, Session, mapped_column
@@ -29,6 +41,7 @@ class WatchlistRecord(Base):
     __tablename__ = "watchlists"
     watchlist_id: Mapped[UUID] = mapped_column(Uuid, primary_key=True)
     name: Mapped[str] = mapped_column(String(80))
+    archived: Mapped[bool] = mapped_column(Boolean, default=False, server_default=false())
     revision: Mapped[int] = mapped_column(Integer)
     created_at: Mapped[datetime] = mapped_column(Timestamp())
     updated_at: Mapped[datetime] = mapped_column(Timestamp())
@@ -138,7 +151,7 @@ class WatchlistRepository:
         with self.session.begin_nested():
             if not self._insert(WatchlistRecord, values):
                 row = self.session.get(WatchlistRecord, watchlist_id, populate_existing=True)
-                if row is None or row.name != normalized:
+                if row is None or row.archived or row.name != normalized:
                     raise ConflictingWatchlist(
                         "watchlist identity conflicts with persisted content"
                     )
@@ -149,6 +162,7 @@ class WatchlistRepository:
             raise ValueError("bounded watchlist query required")
         rows = self.session.scalars(
             select(WatchlistRecord)
+            .where(WatchlistRecord.archived.is_(False))
             .order_by(WatchlistRecord.created_at, WatchlistRecord.watchlist_id)
             .limit(limit)
         )
@@ -156,7 +170,7 @@ class WatchlistRepository:
 
     def get(self, watchlist_id: UUID) -> Watchlist:
         row = self.session.get(WatchlistRecord, watchlist_id)
-        if row is None:
+        if row is None or row.archived:
             raise LookupError("watchlist not found")
         return self._value(row)
 
@@ -197,6 +211,11 @@ class WatchlistRepository:
             extra={"name": normalized},
         )
         return self.get(watchlist_id)
+
+    def archive(self, watchlist_id: UUID, expected_revision: int, updated_at: datetime) -> None:
+        # Preserve immutable snapshots/alerts; deletion hides the mutable list on every client.
+        self.get(watchlist_id)
+        self._advance(watchlist_id, expected_revision, utc(updated_at), extra={"archived": True})
 
     def add_member(
         self,
@@ -275,6 +294,7 @@ class WatchlistRepository:
             .where(
                 WatchlistRecord.watchlist_id == watchlist_id,
                 WatchlistRecord.revision == expected_revision,
+                WatchlistRecord.archived.is_(False),
             )
             .values(**values)
             .returning(WatchlistRecord.watchlist_id)

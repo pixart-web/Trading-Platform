@@ -147,7 +147,11 @@ def test_boundaries_and_invalid_credentials(native: tuple[TestClient, Session]) 
     assert (
         client.post(
             "/mobile/api/v1/auth/login",
-            json={"username": "operator", "password": "wrong", "device_name": "phone"},
+            json={
+                "username": "operator",
+                "password": "wrong",  # pragma: allowlist secret -- invalid login fixture
+                "device_name": "phone",
+            },  # pragma: allowlist secret
         ).status_code
         == 401
     )
@@ -187,6 +191,13 @@ def test_accounting_requires_step_up(native: tuple[TestClient, Session]) -> None
     assert client.post(path, headers=headers(tokens), json=payload).status_code == 403
     assert (
         client.post(
+            "/mobile/api/v1/auth/step-up", headers=headers(tokens), json={"password": "incorrect"}
+        ).status_code
+        == 403
+    )
+    assert client.get("/mobile/api/v1/status", headers=headers(tokens)).status_code == 200
+    assert (
+        client.post(
             "/mobile/api/v1/auth/step-up", headers=headers(tokens), json={"password": PASSWORD}
         ).status_code
         == 204
@@ -195,3 +206,129 @@ def test_accounting_requires_step_up(native: tuple[TestClient, Session]) -> None
     assert client.post(path, headers=headers(tokens), json=payload).status_code == 200
     entries = client.get(path, headers=headers(tokens)).json()
     assert len(entries) == 1 and entries[0]["cash_amount"] == "10.010000000000000000"
+
+
+def test_snapshot_discovery_is_bounded_and_requires_identity(
+    native: tuple[TestClient, Session],
+) -> None:
+    client, db = native
+    from pocket_alpha.market_data.storage import MarketRepository
+    from tests.market_fixtures import register
+
+    register(MarketRepository(db))
+    db.commit()
+    tokens = login(client)
+    path = "/mobile/api/v1/markets/test-market/analysis/snapshots"
+    assert client.get(path, params={"timeframe": "1h"}).status_code == 401
+    empty = client.get(path, headers=headers(tokens), params={"timeframe": "1h"})
+    assert empty.status_code == 200 and empty.json()["items"] == []
+    assert (
+        client.get(
+            path, headers=headers(tokens), params={"timeframe": "1h", "limit": 101}
+        ).status_code
+        == 422
+    )
+    assert (
+        client.get(
+            path, headers=headers(tokens), params={"timeframe": "1h", "cursor": "invalid"}
+        ).status_code
+        == 422
+    )
+
+
+def test_watchlist_deletion_is_revision_checked_and_preserves_history(
+    native: tuple[TestClient, Session],
+) -> None:
+    client, db = native
+    from pocket_alpha.watchlists.storage import WatchlistRecord
+
+    tokens = login(client)
+    identifier = str(uuid4())
+    path = f"/mobile/api/v1/watchlists/{identifier}"
+    assert (
+        client.post(
+            "/mobile/api/v1/watchlists",
+            headers=headers(tokens),
+            json={"watchlist_id": identifier, "name": "Delete me"},
+        ).status_code
+        == 200
+    )
+    assert (
+        client.delete(path, headers=headers(tokens), params={"expected_revision": 2}).status_code
+        == 409
+    )
+    assert (
+        client.delete(path, headers=headers(tokens), params={"expected_revision": 1}).status_code
+        == 204
+    )
+    assert client.get(path, headers=headers(tokens)).status_code == 404
+    assert client.get("/mobile/api/v1/watchlists", headers=headers(tokens)).json() == []
+    row = db.get(WatchlistRecord, __import__("uuid").UUID(identifier))
+    assert row is not None
+    db.refresh(row)
+    assert row.archived and row.revision == 2
+
+
+def test_snapshot_cursor_discovers_existing_reports_without_loading_payloads(
+    native: tuple[TestClient, Session],
+) -> None:
+    client, db = native
+    from pocket_alpha.analysis.storage import AnalyzeRepository
+    from pocket_alpha.market_data.storage import MarketRepository
+    from tests.market_fixtures import register
+    from tests.test_analyze import SERVICE, unavailable_request
+    from tests.test_opportunity_score import GENERATED
+
+    register(MarketRepository(db))
+    report = SERVICE.assemble(unavailable_request(), generated_at=GENERATED)
+    AnalyzeRepository(db).put(report)
+    second = report.model_copy(update={"report_id": uuid4()})
+    AnalyzeRepository(db).put(second)
+    db.commit()
+    tokens = login(client)
+    path = "/mobile/api/v1/markets/test-market/analysis/snapshots"
+    page = client.get(path, headers=headers(tokens), params={"timeframe": "1h", "limit": 1})
+    assert page.status_code == 200
+    first = page.json()
+    assert len(first["items"]) == 1 and first["next_cursor"]
+    assert "payload" not in first["items"][0]
+    following = client.get(
+        path,
+        headers=headers(tokens),
+        params={"timeframe": "1h", "limit": 1, "cursor": first["next_cursor"]},
+    ).json()
+    assert len(following["items"]) == 1 and following["next_cursor"] is None
+    assert following["items"][0]["report_id"] != first["items"][0]["report_id"]
+
+
+def test_latest_candle_uses_stored_closed_data_and_excludes_future(
+    native: tuple[TestClient, Session],
+) -> None:
+    client, db = native
+    from pocket_alpha.market_data.storage import MarketRepository
+    from tests.market_fixtures import register, sample
+
+    repository = MarketRepository(db)
+    register(repository)
+    future = SystemClock().now() + timedelta(days=1)
+    repository.put(
+        (
+            sample(0),
+            sample(1),
+            sample(
+                2,
+                open_time=future,
+                close_time=future + timedelta(hours=1),
+                received_at=future + timedelta(hours=1),
+            ),
+        )
+    )
+    db.commit()
+    tokens = login(client)
+    path = "/mobile/api/v1/markets/test-market/candles/latest"
+    result = client.get(path, headers=headers(tokens), params={"timeframe": "1h"})
+    assert result.status_code == 200
+    assert result.json()["candle"]["source"] == "fixture"
+    assert result.json()["candle"]["close_time"].startswith("2025-01-01T02:00:00")
+    assert result.json()["age_seconds"] > 0
+    assert client.get(path, params={"timeframe": "1h"}).status_code == 401

@@ -1,6 +1,7 @@
 """Native boundary against disposable PostgreSQL and Redis, never production."""
 
 import os
+from collections.abc import Iterator
 from uuid import uuid4
 
 import pytest
@@ -8,21 +9,42 @@ from alembic import command
 from alembic.config import Config
 from fastapi.testclient import TestClient
 from redis import Redis
-from sqlalchemy import delete, select
+from sqlalchemy import select, text
+from sqlalchemy.engine import make_url
 from sqlalchemy.orm import Session
 
 from pocket_alpha.config import Settings
 from pocket_alpha.database import build_engine
 from pocket_alpha.main import create_app
-from pocket_alpha.mobile.models import ConsumedRefreshRecord, DeviceSessionRecord, OperatorRecord
+from pocket_alpha.mobile.models import DeviceSessionRecord, OperatorRecord
 from pocket_alpha.mobile.security import password_hash
+
+
+@pytest.fixture
+def native_services(monkeypatch: pytest.MonkeyPatch) -> Iterator[Settings]:
+    # A fresh owned schema makes repeated tests independent of the provisioned E2E workspace.
+    original = Settings(environment="test")
+    schema = "pa_native_" + uuid4().hex
+    admin = build_engine(original)
+    with admin.begin() as connection:
+        connection.execute(text(f'CREATE SCHEMA "{schema}"'))
+    url = make_url(original.database_url.get_secret_value()).update_query_dict(
+        {"options": "-csearch_path=" + schema}
+    )
+    monkeypatch.setenv("PA_DATABASE_URL", url.render_as_string(hide_password=False))
+    try:
+        command.upgrade(Config("alembic.ini"), "head")
+        yield Settings(environment="test", mobile_api_enabled=True)
+    finally:
+        with admin.begin() as connection:
+            connection.execute(text(f'DROP SCHEMA "{schema}" CASCADE'))
+        admin.dispose()
 
 
 @pytest.mark.integration
 @pytest.mark.skipif(os.getenv("PA_INTEGRATION") != "1", reason="requires disposable DB and Redis")
-def test_native_identity_postgres_redis_and_server_ledger() -> None:
-    command.upgrade(Config("alembic.ini"), "head")
-    settings = Settings(environment="test", mobile_api_enabled=True)
+def test_native_identity_postgres_redis_and_server_ledger(native_services: Settings) -> None:
+    settings = native_services
     engine = build_engine(settings)
     user_id = uuid4()
     password = "disposable-native-integration-passphrase"  # pragma: allowlist secret
@@ -99,13 +121,4 @@ def test_native_identity_postgres_redis_and_server_ledger() -> None:
             cache.delete(key)
             cache.close()
     finally:
-        with Session(engine) as db, db.begin():
-            ids = select(DeviceSessionRecord.session_id).where(
-                DeviceSessionRecord.user_id == user_id
-            )
-            db.execute(
-                delete(ConsumedRefreshRecord).where(ConsumedRefreshRecord.session_id.in_(ids))
-            )
-            db.execute(delete(DeviceSessionRecord).where(DeviceSessionRecord.user_id == user_id))
-            db.execute(delete(OperatorRecord).where(OperatorRecord.user_id == user_id))
         engine.dispose()
