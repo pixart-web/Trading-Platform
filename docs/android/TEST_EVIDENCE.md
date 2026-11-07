@@ -10,7 +10,7 @@ Recorded 2026-11-07. Synthetic fixtures prove mechanics and contract behavior, n
 | Strict mypy | PASS | 269 source/test files |
 | Python regression | 1097 passed, 233 skipped | Skips require opt-in PostgreSQL/Redis; no failed tests in this run |
 | Focused PostgreSQL/Redis regression | 46 passed | Native auth, expiry/rotation/replay, step-up/idempotency, real Redis rate admission, snapshot discovery, watchlist archival, migration roundtrip/head check |
-| Earlier complete PostgreSQL/Redis run | 1321 passed, 1 skipped | Before final snapshot/archival refinements; not substituted for final remote regression |
+| Complete remote PostgreSQL/Redis run | 1329 passed, 1 skipped; 91% coverage | First candidate CI backend job passed; later CI corrections affect SDK setup, checksum metadata and web Zod/lint |
 | Kotlin behavioral tests | 7 passed | HTTPS origin validation, exact formatting, path traversal rejection, candle identity/OHLC validation, Analyze identity and typed pagination/permission transport |
 | Android lint | PASS | Strict correctness warnings/errors; dependency-version suggestions informational |
 | Debug + optimized unsigned APK + AAB | PASS | Gradle dependency verification enabled; no production signing key |
@@ -41,7 +41,7 @@ Eight captures (overview and chart in each configuration) are in screenshots/. T
 - Native integration originally shared the E2E operator workspace and violated the intentional single-owner constraint. Each test now owns an isolated PostgreSQL schema; it never deletes another workspace to pass.
 - Strict Gradle artifact verification identified missing lint/tool hashes. Their fixed official artifacts were recorded and the subsequent build passed in strict mode.
 - pip-audit found PYSEC-2026-4320; both certifi locks were updated and re-audited successfully.
-- The local backend-only Docker image built, but startup hit the pre-existing Docker VM disk limit. Only owned smoke containers/volumes/images and the base downloaded for that test were removed. Redis failed closed during the incident, then write admission recovered. Local standalone topology runtime acceptance remains unverified; CI now contains the explicit no-Next.js/auth/exposure smoke.
+- The local backend-only Docker image built, but startup hit the pre-existing Docker VM disk limit. Only owned smoke containers/volumes/images and the base downloaded for that test were removed. Redis failed closed during the incident, then write admission recovered. Local standalone topology runtime acceptance was not completed; the remote container job subsequently passed its explicit no-Next.js/auth/exposure smoke.
 
 - A deterministic concurrent PostgreSQL refresh test reproduced a token-family revocation race. The loser now rechecks consumed tokens in a fresh transaction after row-lock contention; both replay and concurrent regression tests pass.
 - Tablet overview grid children overlapped. Grouping each logical grid item fixed the layout; instrumentation now checks title/subtitle and field/button bounds, and all four viewport runs passed.
@@ -53,7 +53,7 @@ Physical Android devices; full TalkBack/font scaling/keyboard/landscape; actual 
 
 ## Remote CI
 
-The branch must be pushed and its final GitHub Actions run observed. Remote run URL/SHA and final result are recorded after that observation; until then no green remote CI claim is made. All existing backend/frontend/security/container jobs remain, with Android build/audit and device jobs added.
+Branch `codex/android-native` is published. The [first candidate run](https://github.com/pixart-web/Trading-Platform/actions/runs/42380980662) passed the complete backend (1329 passed, one skipped, 91% coverage) and container jobs, including the real standalone native topology/authentication/exposure smoke. It exposed SDK PATH, missing Linux metadata, pre-existing web lint and Zod dependency findings. These were remediated, and Zod 4.6.6 was re-audited with no known vulnerabilities. Local web lint/typecheck, 71 tests and production build passed. A subsequent XML checksum annotation syntax error was also corrected and Gradle revalidated. The final pushed run must still be observed; no full green remote CI claim is made in this record. Final observed run/SHA is included in the delivery response. All existing backend/frontend/security/container jobs remain, with Android build/audit and device jobs added.
 
 ## Reproducing native E2E
 

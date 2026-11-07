@@ -103,6 +103,9 @@ Release verdict: UI_READY=NO; FUNCTIONAL_PARITY=NO; BACKEND_INTEGRATION=NO for c
 - `docs/android/screenshots/tablet-overview.png`
 - `docs/architecture/MACOS_COMPATIBILITY_REQUIREMENTS.md`
 - `docs/architecture/MULTI_DEVICE_SYNC.md`
+- `frontend/app/api/auth/login/route.ts`
+- `frontend/package.json`
+- `frontend/pnpm-lock.yaml`
 - `migrations/env.py`
 - `migrations/versions/0017_mobile_identity.py`
 - `migrations/versions/0018_watchlist_archive.py`
