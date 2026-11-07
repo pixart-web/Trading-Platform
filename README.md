@@ -174,3 +174,9 @@ UNKNOWN reconciliation. See [architecture](docs/architecture/DERIVATIVE_EXECUTIO
 audit](docs/security/PHASE_26_29_SECURITY_AUDIT.md) and [completion
 report](docs/roadmap/PHASE_29_COMPLETION_REPORT.md). Both general live and derivative execution remain
 disabled; no native derivative broker or network path exists.
+
+## Native Android integration candidate
+
+The Kotlin/Jetpack Compose client is in [android/](android/README.md). It uses a separately authenticated native API over the existing backend; the web frontend and all financial engines remain preserved. A backend-only topology is available in `compose.native.yaml` so native clients do not require Next.js to run.
+
+See the [Android parity matrix](docs/android/FEATURE_PARITY_MATRIX.md), [build/install instructions](docs/android/BUILD_AND_INSTALL.md), [test evidence](docs/android/TEST_EVIDENCE.md) and [release readiness](docs/android/RELEASE_READINESS.md). This candidate is not complete Android functional parity or production acceptance; real-money trading remains unauthorized.

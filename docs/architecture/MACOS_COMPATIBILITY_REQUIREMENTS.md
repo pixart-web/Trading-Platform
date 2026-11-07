@@ -1,0 +1,9 @@
+# Future macOS client compatibility
+
+No macOS app is developed by this work. A future native desktop client can reuse `/mobile/api/v1/` (a historical namespace, not an Android-only protocol), `docs/android/native-openapi.json`, the single-operator account/session service and existing server domain models. Financial Decimal values remain strings, timestamps remain offset-aware UTC, timeframe and forecast horizon remain distinct, and immutable artifacts retain their versions/provenance. Do not port the intelligence/execution engines into Swift or create a second ledger.
+
+Store desktop refresh credentials in macOS Keychain; keep short-lived access credentials in memory. Each device has an independently revocable rotating session. Respect token replay invalidation and password step-up for accounting. A browser PIN/cookie or backend control proxy token is not a native client credential. Existing server ownership supports one workspace only; do not claim multi-tenant isolation without an explicit migration.
+
+Use optimistic revision/idempotent mutation contracts and the future committed change feed described in MULTI_DEVICE_SYNC.md. Cache data with origin/user/version/time identity; revoke/clear locally on authorization failure. Never use financial last-write-wins or queue real orders offline. Do not expose administrative routes merely for desktop convenience.
+
+Native backend deployment is independent of Next.js via compose.native.yaml. Database/Redis remain private and clients share the same HTTPS API. Research scheduling, full incremental sync, notification/device registration and safe operational read models still need implementation before shared architecture can be declared ready. Validate two-device concurrency and cursor recovery before macOS delivery. Current verdict: foundation reusable; MACOS_SHARED_ARCHITECTURE_READY=NO.
