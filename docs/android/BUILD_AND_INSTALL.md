@@ -1,13 +1,13 @@
 # Build and install
 
-Application ID: `pt.pocketalpha.android`; version 0.1.0 / code 1. Minimum API 26 (Android 8), compile/target API 35. This is the documented candidate baseline, not a guarantee of current Play Store eligibility. JDK 21 runs Gradle 8.11.1; bytecode targets Java 17. AGP 8.9.2/Kotlin 2.1.20/Compose versions are pinned in the catalog; Room/Hilt use KSP. Gradle Wrapper includes the official distribution SHA-256 and dependency verification metadata/locks.
+Application ID: `pt.pocketalpha.android`; version 0.1.0 / code 1. Minimum API 26 (Android 8), compile/target API 36. This is the documented candidate baseline, not a guarantee of current Play Store eligibility. JDK 21 runs Gradle 8.11.1; bytecode targets Java 17. AGP 8.9.2/Kotlin 2.1.20/Compose versions are pinned in the catalog; Room/Hilt use KSP. Gradle Wrapper includes the official distribution SHA-256 and dependency verification metadata/locks.
 
 ```sh
 cd android
 ./gradlew :app:testDebugUnitTest :app:lintDebug :app:assembleDebug :app:assembleRelease :app:bundleRelease
 ```
 
-Set `ANDROID_HOME` to a licensed SDK with API 35/build-tools 35.0.0. A local `local.properties` may supply sdk.dir and is ignored. Never commit SDK caches or signing material. Run standard builds without `e2eCaFile`.
+Set `ANDROID_HOME` to a licensed SDK with API 36/build-tools 36.0.0. A local `local.properties` may supply sdk.dir and is ignored. Never commit SDK caches or signing material. Run standard builds without `e2eCaFile`.
 
 Artifacts:
 

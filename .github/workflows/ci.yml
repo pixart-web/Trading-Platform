@@ -230,7 +230,7 @@ jobs:
       - name: Install pinned Android SDK
         uses: android-actions/setup-android@9fc6c4e9069bf8d3d10b2204b1fb8f6ef7065407 # v3
         with:
-          packages: 'platform-tools platforms;android-35 build-tools;35.0.0'
+          packages: 'platform-tools platforms;android-36 build-tools;36.0.0'
           log-accepted-android-sdk-licenses: false
       - name: Compile, test, lint and build unsigned release artifacts
         run: ./gradlew --no-daemon :app:testDebugUnitTest :app:lintDebug :app:assembleDebug :app:assembleRelease :app:bundleRelease :app:assembleDebugAndroidTest :app:writeRuntimeCoordinates
@@ -303,7 +303,7 @@ jobs:
           exit 1
       - uses: android-actions/setup-android@9fc6c4e9069bf8d3d10b2204b1fb8f6ef7065407 # v3
         with:
-          packages: 'platform-tools platforms;android-35 build-tools;35.0.0'
+          packages: 'platform-tools platforms;android-36 build-tools;36.0.0'
           log-accepted-android-sdk-licenses: false
       - name: Enable hardware virtualization for disposable emulator
         run: |
@@ -312,13 +312,18 @@ jobs:
           sudo udevadm trigger --name-match=kvm
       - uses: ReactiveCircus/android-emulator-runner@a421e43855164a8197daf9d8d40fe71c6996bb0d # v2
         with:
-          api-level: 35
+          api-level: 36
           arch: x86_64
           profile: pixel_7
           working-directory: android
           script: | # pragma: allowlist secret -- synthetic fixture credentials only
             adb reverse tcp:18443 tcp:18443
-            ./gradlew --no-daemon -Pe2eCaFile="$RUNNER_TEMP/native-e2e-ca.pem" -Pandroid.testInstrumentationRunnerArguments.origin=https://localhost:18443 -Pandroid.testInstrumentationRunnerArguments.username=android-e2e -Pandroid.testInstrumentationRunnerArguments.password=disposable-android-e2e-password -Pandroid.testInstrumentationRunnerArguments.screenshotName=ci :app:connectedDebugAndroidTest
+            ./gradlew --no-daemon -Pe2eCaFile="$RUNNER_TEMP/native-e2e-ca.pem" :app:assembleDebug :app:assembleDebugAndroidTest
+            adb install -r app/build/outputs/apk/debug/app-debug.apk
+            adb install -r app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
+            mkdir -p app/build/reports/androidTests
+            adb shell am instrument -w -r -e origin https://localhost:18443 -e username android-e2e -e password disposable-android-e2e-password -e screenshotName ci pt.pocketalpha.android.test/androidx.test.runner.AndroidJUnitRunner | tee app/build/reports/androidTests/instrumentation.txt
+            grep -F 'OK (2 tests)' app/build/reports/androidTests/instrumentation.txt
             adb pull /sdcard/Android/data/pt.pocketalpha.android/files/screenshots/ci-dashboard.png app/build/reports/androidTests/ci-dashboard.png
             adb pull /sdcard/Android/data/pt.pocketalpha.android/files/screenshots/ci-overview.png app/build/reports/androidTests/ci-overview.png
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

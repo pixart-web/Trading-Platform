@@ -58,3 +58,9 @@ Branch `codex/android-native` is published. The [first candidate run](https://gi
 ## Reproducing native E2E
 
 `tests/native_e2e_seed.py` is an explicit test-only fixture entry point. It refuses non-test environments, enabled live/derivative gates, non-localhost hosts and any database name other than `pocket_alpha_native_e2e`; it refuses to replace a different provisioned operator. It is not imported by application startup or packaged into the runtime image. The complete disposable PostgreSQL/Redis, TLS, emulator and instrumentation commands are in the `android-device` job of `.github/workflows/ci.yml`. That job now runs the real backend workflow instead of treating it as an unconfigured skip. Its TLS-enabled test APK is not the distributable standard debug/release artifact.
+
+## Target SDK and remote evidence collection
+
+The original local four-viewport captures used API35. Remote lint identified its outdated target; the candidate compile/target baseline is now API36. The official SDK repository queried locally supplied API36 but did not supply `platforms;android-37`, despite newer Android documentation. API37 qualification is therefore not claimed. The API36 device job must be observed separately.
+
+On the earlier API35 remote run, both instrumented tests passed (zero skipped), but Gradle removed the installed test app before the separate screenshot pull, deleting app-specific external files. CI now uses the same direct `adb am instrument` flow proven locally, requires the explicit `OK (2 tests)` sentinel, and collects images before runner cleanup. This preserves the functional test gate instead of ignoring missing evidence.

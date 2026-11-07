@@ -2,7 +2,7 @@
 
 Native Kotlin/Compose integration candidate; no WebView or local trading engine.
 
-Use JDK 21, Android SDK 35/build-tools 35.0.0 and the included Gradle Wrapper:
+Use JDK 21, Android SDK 36/build-tools 36.0.0 and the included Gradle Wrapper:
 
 ```sh
 ./gradlew :app:testDebugUnitTest :app:lintDebug :app:assembleDebug :app:assembleRelease :app:bundleRelease
