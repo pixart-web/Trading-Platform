@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <!-- Exact compatible toolchain versions are reviewed with the runtime vulnerability audit.
+         Newest-version recommendations are informational, not correctness/security findings. -->
+    <issue id="GradleDependency" severity="informational" />
+    <issue id="AndroidGradlePluginVersion" severity="informational" />
+</lint>

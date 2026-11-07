@@ -44,3 +44,10 @@ data/local/
 
 # Private broker observations and independently verified local reconciliation state.
 .private/
+
+# Native Android local tools, credentials and artifacts
+android/.gradle/
+android/.kotlin/
+android/local.properties
+*.jks
+*.keystore
