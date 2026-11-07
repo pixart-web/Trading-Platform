@@ -332,3 +332,26 @@ def test_latest_candle_uses_stored_closed_data_and_excludes_future(
     assert result.json()["candle"]["close_time"].startswith("2025-01-01T02:00:00")
     assert result.json()["age_seconds"] > 0
     assert client.get(path, params={"timeframe": "1h"}).status_code == 401
+
+
+def test_native_openapi_declares_bearer_authorization() -> None:
+    from pocket_alpha.mobile.app import create_mobile_app
+
+    schema = create_mobile_app(create_app(Settings(environment="test"))).openapi()
+    assert schema["components"]["securitySchemes"]["NativeSession"]["scheme"] == "bearer"
+    for path, operations in schema["paths"].items():
+        for operation in operations.values():
+            if path not in {"/api/v1/auth/login", "/api/v1/auth/refresh"}:
+                assert operation["security"] == [{"NativeSession": []}]
+
+
+def test_synthetic_seed_refuses_an_unqualified_database(monkeypatch: pytest.MonkeyPatch) -> None:
+    from tests.native_e2e_seed import main
+
+    monkeypatch.setenv("PA_ENVIRONMENT", "test")
+    monkeypatch.setenv("PA_INTEGRATION", "1")
+    monkeypatch.setenv(
+        "PA_DATABASE_URL", "postgresql+psycopg://localhost/not_a_disposable_database"
+    )
+    with pytest.raises(SystemExit, match="explicit localhost disposable"):
+        main()

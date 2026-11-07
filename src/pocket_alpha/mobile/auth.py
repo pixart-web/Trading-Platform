@@ -3,7 +3,8 @@ from datetime import datetime, timedelta
 from typing import Annotated
 from uuid import UUID, uuid4
 
-from fastapi import APIRouter, Depends, Header, HTTPException, Request, Response
+from fastapi import APIRouter, Depends, HTTPException, Request, Response
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from pydantic import Field, SecretStr
 from redis.exceptions import RedisError
 from sqlalchemy import func, select, update
@@ -17,6 +18,7 @@ from pocket_alpha.mobile.models import ConsumedRefreshRecord, DeviceSessionRecor
 from pocket_alpha.mobile.security import token_hash, verify_password
 
 router = APIRouter(prefix="/api/v1/auth", tags=["native identity"])
+bearer = HTTPBearer(auto_error=False, scheme_name="NativeSession", bearerFormat="opaque")
 
 
 class Login(DomainModel):
@@ -54,11 +56,13 @@ def rate_limit(request: Request) -> None:
 
 
 def require_session(
-    request: Request, db: DB, authorization: Annotated[str | None, Header()] = None
+    request: Request,
+    db: DB,
+    authorization: Annotated[HTTPAuthorizationCredentials | None, Depends(bearer)],
 ) -> DeviceSessionRecord:
-    if authorization is None or not authorization.startswith("Bearer "):
+    if authorization is None:
         raise HTTPException(401, "authentication required")
-    token = authorization[7:]
+    token = authorization.credentials
     if not 40 <= len(token) <= 128:
         raise HTTPException(401, "invalid session")
     row = db.scalar(
@@ -141,10 +145,7 @@ def login(payload: Login, db: DB, response: Response) -> Credentials:
     return credentials(session, access, refresh)
 
 
-@router.post("/refresh", dependencies=[Depends(rate_limit)])
-def refresh(payload: Refresh, db: DB, response: Response) -> Credentials:
-    response.headers["Cache-Control"] = "no-store"
-    digest = token_hash(payload.refresh_token.get_secret_value())
+def reject_refresh_replay(digest: str, db: DB) -> None:
     consumed = db.get(ConsumedRefreshRecord, digest)
     if consumed is not None:
         db.execute(
@@ -162,13 +163,26 @@ def refresh(payload: Refresh, db: DB, response: Response) -> Credentials:
         )
         db.commit()  # Replay revocation must survive the subsequent 401.
         raise HTTPException(401, "refresh replay; session revoked")
+
+
+@router.post("/refresh", dependencies=[Depends(rate_limit)])
+def refresh(payload: Refresh, db: DB, response: Response) -> Credentials:
+    response.headers["Cache-Control"] = "no-store"
+    digest = token_hash(payload.refresh_token.get_secret_value())
+    reject_refresh_replay(digest, db)
     row = db.scalar(
         select(DeviceSessionRecord)
         .where(DeviceSessionRecord.refresh_hash == digest)
         .with_for_update()
     )
     now = SystemClock().now()
-    if row is None or row.revoked or row.expires_at <= now:
+    if row is None:
+        # Another rotation may have committed after our first replay read while we
+        # waited for its row lock. Re-read in a fresh transaction before rejecting.
+        db.rollback()
+        reject_refresh_replay(digest, db)
+        raise HTTPException(401, "invalid or expired session")
+    if row.revoked or row.expires_at <= now:
         raise HTTPException(401, "invalid or expired session")
     operator = db.get(OperatorRecord, row.user_id)
     if operator is None or operator.disabled:

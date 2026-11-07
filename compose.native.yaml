@@ -30,7 +30,7 @@ services:
       PA_LIVE_TRADING_ENABLED: "${PA_LIVE_TRADING_ENABLED:-false}"
       PA_DERIVATIVE_EXECUTION_ENABLED: "${PA_DERIVATIVE_EXECUTION_ENABLED:-false}"
     secrets: [database_url, redis_url, control_proxy_token]
-    networks: [application, data]
+    networks: [application, data, providers]
     depends_on:
       migrate: {condition: service_completed_successfully}
       redis: {condition: service_healthy}
@@ -103,6 +103,7 @@ services:
     cap_add: [CHOWN, SETGID, SETUID]
 
 networks:
+  providers: {}
   edge: {}
   application:
     internal: true

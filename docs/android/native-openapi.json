@@ -9174,6 +9174,13 @@
         "title": "Metric",
         "type": "object"
       }
+    },
+    "securitySchemes": {
+      "NativeSession": {
+        "bearerFormat": "opaque",
+        "scheme": "bearer",
+        "type": "http"
+      }
     }
   },
   "info": {
@@ -9220,22 +9227,6 @@
               "title": "Q",
               "type": "string"
             }
-          },
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
           }
         ],
         "responses": {
@@ -9264,6 +9255,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Assets",
         "tags": [
           "market data"
@@ -9281,22 +9277,6 @@
             "schema": {
               "title": "Asset Id",
               "type": "string"
-            }
-          },
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
             }
           }
         ],
@@ -9322,6 +9302,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Asset",
         "tags": [
           "market data"
@@ -9381,22 +9366,6 @@
               "$ref": "#/components/schemas/Timeframe",
               "default": "1d"
             }
-          },
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
           }
         ],
         "responses": {
@@ -9421,6 +9390,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Context",
         "tags": [
           "fundamentals"
@@ -9452,22 +9426,6 @@
               "title": "As Of",
               "type": "string"
             }
-          },
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
           }
         ],
         "responses": {
@@ -9492,6 +9450,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Snapshot",
         "tags": [
           "fundamentals"
@@ -9583,24 +9546,6 @@
     "/api/v1/auth/sessions": {
       "get": {
         "operationId": "sessions_api_v1_auth_sessions_get",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "content": {
@@ -9616,18 +9561,13 @@
               }
             },
             "description": "Successful Response"
-          },
-          "422": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            },
-            "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Sessions",
         "tags": [
           "native identity"
@@ -9647,22 +9587,6 @@
               "title": "Session Id",
               "type": "string"
             }
-          },
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
           }
         ],
         "responses": {
@@ -9680,6 +9604,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Revoke",
         "tags": [
           "native identity"
@@ -9689,24 +9618,6 @@
     "/api/v1/auth/step-up": {
       "post": {
         "operationId": "step_up_api_v1_auth_step_up_post",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
-          }
-        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -9732,6 +9643,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Step Up",
         "tags": [
           "native identity"
@@ -9750,22 +9666,6 @@
               "format": "uuid",
               "title": "Run Id",
               "type": "string"
-            }
-          },
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
             }
           }
         ],
@@ -9791,6 +9691,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Report",
         "tags": [
           "offline-research"
@@ -9822,22 +9727,6 @@
               "title": "As Of",
               "type": "string"
             }
-          },
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
           }
         ],
         "responses": {
@@ -9862,6 +9751,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Context",
         "tags": [
           "contextual-intelligence"
@@ -9905,22 +9799,6 @@
               "title": "As Of",
               "type": "string"
             }
-          },
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
           }
         ],
         "responses": {
@@ -9949,6 +9827,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Contracts",
         "tags": [
           "derivative-intelligence"
@@ -10004,22 +9887,6 @@
               "title": "Maximum Age Seconds",
               "type": "integer"
             }
-          },
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
           }
         ],
         "responses": {
@@ -10044,6 +9911,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Skew",
         "tags": [
           "derivative-intelligence"
@@ -10099,22 +9971,6 @@
               "title": "Maximum Age Seconds",
               "type": "integer"
             }
-          },
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
           }
         ],
         "responses": {
@@ -10139,6 +9995,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Curve",
         "tags": [
           "derivative-intelligence"
@@ -10182,22 +10043,6 @@
               "title": "Maximum Age Seconds",
               "type": "integer"
             }
-          },
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
           }
         ],
         "responses": {
@@ -10222,6 +10067,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Context",
         "tags": [
           "derivative-intelligence"
@@ -10282,22 +10132,6 @@
               ],
               "title": "Asset Type"
             }
-          },
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
           }
         ],
         "responses": {
@@ -10326,6 +10160,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Markets",
         "tags": [
           "market data"
@@ -10362,22 +10201,6 @@
               "title": "As Of",
               "type": "string"
             }
-          },
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
           }
         ],
         "responses": {
@@ -10402,6 +10225,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Analysis",
         "tags": [
           "analysis"
@@ -10457,22 +10285,6 @@
               ],
               "title": "Cursor"
             }
-          },
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
           }
         ],
         "responses": {
@@ -10497,6 +10309,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Snapshots",
         "tags": [
           "native read models"
@@ -10555,22 +10372,6 @@
               "title": "Limit",
               "type": "integer"
             }
-          },
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
           }
         ],
         "responses": {
@@ -10595,6 +10396,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Candles",
         "tags": [
           "market data"
@@ -10621,22 +10427,6 @@
             "schema": {
               "$ref": "#/components/schemas/Timeframe"
             }
-          },
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
           }
         ],
         "responses": {
@@ -10661,6 +10451,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Latest Candle",
         "tags": [
           "native read models"
@@ -10707,22 +10502,6 @@
               "title": "End",
               "type": "string"
             }
-          },
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
           }
         ],
         "responses": {
@@ -10747,6 +10526,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Zones",
         "tags": [
           "support resistance"
@@ -10756,24 +10540,6 @@
     "/api/v1/paper/accounts": {
       "get": {
         "operationId": "accounts_api_v1_paper_accounts_get",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "content": {
@@ -10788,18 +10554,13 @@
               }
             },
             "description": "Successful Response"
-          },
-          "422": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            },
-            "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Accounts",
         "tags": [
           "PAPER-simulation"
@@ -10818,22 +10579,6 @@
               "format": "uuid",
               "title": "Account Id",
               "type": "string"
-            }
-          },
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
             }
           }
         ],
@@ -10859,6 +10604,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Account",
         "tags": [
           "PAPER-simulation"
@@ -10877,22 +10627,6 @@
               "format": "uuid",
               "title": "Analysis Id",
               "type": "string"
-            }
-          },
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
             }
           }
         ],
@@ -10918,6 +10652,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Get",
         "tags": [
           "portfolio-intelligence"
@@ -10927,24 +10666,6 @@
     "/api/v1/portfolios": {
       "get": {
         "operationId": "portfolios_api_v1_portfolios_get",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "content": {
@@ -10959,18 +10680,13 @@
               }
             },
             "description": "Successful Response"
-          },
-          "422": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            },
-            "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Portfolios",
         "tags": [
           "portfolios"
@@ -10978,24 +10694,6 @@
       },
       "post": {
         "operationId": "create_portfolio_api_v1_portfolios_post",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
-          }
-        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -11028,6 +10726,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Create Portfolio",
         "tags": [
           "portfolios"
@@ -11046,22 +10749,6 @@
               "format": "uuid",
               "title": "Portfolio Id",
               "type": "string"
-            }
-          },
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
             }
           }
         ],
@@ -11087,6 +10774,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Portfolio",
         "tags": [
           "portfolios"
@@ -11130,22 +10822,6 @@
               "title": "Offset",
               "type": "integer"
             }
-          },
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
           }
         ],
         "responses": {
@@ -11174,6 +10850,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Entries",
         "tags": [
           "portfolios"
@@ -11190,22 +10871,6 @@
               "format": "uuid",
               "title": "Portfolio Id",
               "type": "string"
-            }
-          },
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
             }
           }
         ],
@@ -11241,6 +10906,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Record Entry",
         "tags": [
           "portfolios"
@@ -11272,22 +10942,6 @@
               "title": "Limit",
               "type": "integer"
             }
-          },
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
           }
         ],
         "responses": {
@@ -11316,6 +10970,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Recent",
         "tags": [
           "portfolio-intelligence"
@@ -11332,22 +10991,6 @@
               "format": "uuid",
               "title": "Portfolio Id",
               "type": "string"
-            }
-          },
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
             }
           }
         ],
@@ -11383,6 +11026,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Create",
         "tags": [
           "portfolio-intelligence"
@@ -11412,22 +11060,6 @@
               "title": "As Of",
               "type": "string"
             }
-          },
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
           }
         ],
         "responses": {
@@ -11452,6 +11084,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Snapshot",
         "tags": [
           "portfolios"
@@ -11470,22 +11107,6 @@
               "format": "uuid",
               "title": "Artifact Id",
               "type": "string"
-            }
-          },
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
             }
           }
         ],
@@ -11525,6 +11146,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Model",
         "tags": [
           "offline-research"
@@ -11543,22 +11169,6 @@
               "format": "uuid",
               "title": "Report Id",
               "type": "string"
-            }
-          },
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
             }
           }
         ],
@@ -11584,6 +11194,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Report",
         "tags": [
           "offline-research"
@@ -11604,22 +11219,6 @@
               "minimum": 1,
               "title": "Limit",
               "type": "integer"
-            }
-          },
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
             }
           }
         ],
@@ -11649,6 +11248,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Recent Scans",
         "tags": [
           "scanner"
@@ -11656,24 +11260,6 @@
       },
       "post": {
         "operationId": "create_scan_api_v1_scans_post",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
-          }
-        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -11706,6 +11292,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Create Scan",
         "tags": [
           "scanner"
@@ -11724,22 +11315,6 @@
               "format": "uuid",
               "title": "Scan Id",
               "type": "string"
-            }
-          },
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
             }
           }
         ],
@@ -11765,6 +11340,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Scan",
         "tags": [
           "scanner"
@@ -11774,24 +11354,6 @@
     "/api/v1/status": {
       "get": {
         "operationId": "status_api_v1_status_get",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "content": {
@@ -11804,42 +11366,19 @@
               }
             },
             "description": "Successful Response"
-          },
-          "422": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            },
-            "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Status"
       }
     },
     "/api/v1/strategies": {
       "get": {
         "operationId": "strategies_api_v1_strategies_get",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "content": {
@@ -11867,18 +11406,13 @@
               }
             },
             "description": "Successful Response"
-          },
-          "422": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            },
-            "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Strategies",
         "tags": [
           "research-PAPER-strategies"
@@ -11897,22 +11431,6 @@
               "format": "uuid",
               "title": "Strategy Id",
               "type": "string"
-            }
-          },
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
             }
           }
         ],
@@ -11952,6 +11470,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Strategy",
         "tags": [
           "research-PAPER-strategies"
@@ -11961,24 +11484,6 @@
     "/api/v1/watchlists": {
       "get": {
         "operationId": "watchlists_api_v1_watchlists_get",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "content": {
@@ -11993,18 +11498,13 @@
               }
             },
             "description": "Successful Response"
-          },
-          "422": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            },
-            "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Watchlists",
         "tags": [
           "watchlists"
@@ -12012,24 +11512,6 @@
       },
       "post": {
         "operationId": "create_watchlist_api_v1_watchlists_post",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
-          }
-        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -12062,6 +11544,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Create Watchlist",
         "tags": [
           "watchlists"
@@ -12091,22 +11578,6 @@
               "title": "Expected Revision",
               "type": "integer"
             }
-          },
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
           }
         ],
         "responses": {
@@ -12124,6 +11595,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Delete Watchlist",
         "tags": [
           "native read models"
@@ -12140,22 +11616,6 @@
               "format": "uuid",
               "title": "Watchlist Id",
               "type": "string"
-            }
-          },
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
             }
           }
         ],
@@ -12181,6 +11641,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Watchlist",
         "tags": [
           "watchlists"
@@ -12197,22 +11662,6 @@
               "format": "uuid",
               "title": "Watchlist Id",
               "type": "string"
-            }
-          },
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
             }
           }
         ],
@@ -12248,6 +11697,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Rename Watchlist",
         "tags": [
           "watchlists"
@@ -12279,22 +11733,6 @@
               "title": "Limit",
               "type": "integer"
             }
-          },
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
           }
         ],
         "responses": {
@@ -12323,6 +11761,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Alerts",
         "tags": [
           "watchlists"
@@ -12361,22 +11804,6 @@
               "title": "Expected Revision",
               "type": "integer"
             }
-          },
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
           }
         ],
         "responses": {
@@ -12401,6 +11828,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Remove Market",
         "tags": [
           "watchlists"
@@ -12426,22 +11858,6 @@
             "schema": {
               "title": "Market Id",
               "type": "string"
-            }
-          },
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
             }
           }
         ],
@@ -12477,6 +11893,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Add Market",
         "tags": [
           "watchlists"
@@ -12495,22 +11916,6 @@
               "format": "uuid",
               "title": "Watchlist Id",
               "type": "string"
-            }
-          },
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
             }
           }
         ],
@@ -12546,6 +11951,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Capture Snapshot",
         "tags": [
           "watchlists"
@@ -12564,22 +11974,6 @@
               "format": "uuid",
               "title": "Watchlist Id",
               "type": "string"
-            }
-          },
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
             }
           }
         ],
@@ -12613,6 +12007,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "NativeSession": []
+          }
+        ],
         "summary": "Latest Snapshot",
         "tags": [
           "watchlists"
