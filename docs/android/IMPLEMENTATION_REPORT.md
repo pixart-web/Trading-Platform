@@ -104,7 +104,12 @@ Release verdict: UI_READY=NO; FUNCTIONAL_PARITY=NO; BACKEND_INTEGRATION=NO for c
 - `docs/architecture/MACOS_COMPATIBILITY_REQUIREMENTS.md`
 - `docs/architecture/MULTI_DEVICE_SYNC.md`
 - `frontend/app/api/auth/login/route.ts`
+- `frontend/e2e/auth.spec.ts`
+- `frontend/e2e/authenticated.ts`
+- `frontend/e2e/paper.spec.ts`
+- `frontend/e2e/workspace.spec.ts`
 - `frontend/package.json`
+- `frontend/playwright.config.ts`
 - `frontend/pnpm-lock.yaml`
 - `migrations/env.py`
 - `migrations/versions/0017_mobile_identity.py`

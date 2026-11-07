@@ -1,4 +1,5 @@
-import { expect, test, type Page } from "@playwright/test";
+import { expect, test } from "./authenticated";
+import type { Page } from "@playwright/test";
 import { durations, type Timeframe } from "../lib/market-data";
 
 const market = { market_id: "synthetic-test", asset_id: "synthetic", venue_id: "fixture-only",
@@ -11,7 +12,7 @@ async function fixtures(page: Page, mode: "valid" | "gap" | "empty" | "offline" 
   let portfolioRevision = 1;
   let portfolioEntries: Array<Record<string, unknown>> = [];
   const portfolioValue = () => ({
-    schema_version: "portfolio-1.0.0", portfolio_id: portfolioId, name: "Carteira principal",
+    schema_version: "portfolio-1.0.0", portfolio_id: portfolioId, name: "Portfolio principal",
     base_currency: "EUR", accounting_method: "MOVING_AVERAGE_V1", valuation_timeframe: "1h",
     revision: portfolioRevision, created_at: "2025-01-01T00:00:00Z",
     updated_at: portfolioRevision === 1 ? "2025-01-01T00:00:00Z" : "2025-01-01T01:00:00Z",
@@ -239,8 +240,8 @@ test("live control is explicit and empty state does not invent account data", as
   await page.goto("/live-trading");
   await expect(page.getByRole("heading", { name: "Live Trading" })).toBeVisible();
   await expect(page.getByText("OFF", { exact: true }).first()).toBeVisible();
-  await expect(page.getByText("Não vinculada")).toBeVisible();
-  await expect(page.getByText("Sem evidência independente atual.")).toBeVisible();
+  await expect(page.getByText("Not linked")).toBeVisible();
+  await expect(page.getByText("No current independent evidence.")).toBeVisible();
   await expect(page.getByRole("button", { name: "activate kill switch" })).toBeVisible();
   await page.screenshot({ path: "test-results/live-control-empty.png", fullPage: true });
 });
@@ -248,7 +249,7 @@ test("live control is explicit and empty state does not invent account data", as
 test("application shell exposes labelled controls and landmarks", async ({ page }) => {
   await fixtures(page, "empty");
   await page.goto("/");
-  await expect(page.getByRole("navigation", { name: "Navegação principal" })).toBeVisible();
+  await expect(page.getByRole("navigation", { name: "Main navigation" })).toBeVisible();
   await expect(page.getByRole("main")).toHaveCount(1);
   const violations = await page.locator("button, input, select").evaluateAll(elements => elements
     .filter(element => {
@@ -264,8 +265,8 @@ test("application shell exposes labelled controls and landmarks", async ({ page 
 test("empty installation is honest", async ({ page }) => {
   await fixtures(page, "empty");
   await page.goto("/");
-  await expect(page.getByText("Ainda não existem mercados")).toBeVisible();
-  await expect(page.getByText("Começa por um mercado")).toBeVisible();
+  await expect(page.getByText("No markets yet")).toBeVisible();
+  await expect(page.getByText("Start with a market")).toBeVisible();
   await expect(page.getByTestId("price-chart")).toHaveCount(0);
   await page.screenshot({ path: "test-results/workspace-empty.png", fullPage: true });
 });
@@ -276,21 +277,21 @@ test("search, select, chart, timeframe and exact table", async ({ page }) => {
   page.on("pageerror", error => errors.push(error.message));
   await fixtures(page);
   await page.goto("/");
-  await page.getByLabel("Pesquisar ativo", { exact: true }).fill("SYNTHETIC");
+  await page.getByLabel("Search asset", { exact: true }).fill("SYNTHETIC");
   const search = page.waitForRequest(r => r.url().includes("q=SYNTHETIC"));
-  await page.getByRole("button", { name: "Pesquisar", exact: true }).click();
+  await page.getByRole("button", { name: "Search", exact: true }).click();
   await search;
   await page.getByRole("button", { name: /SYNTHETIC/ }).click();
   await expect(page.getByTestId("price-chart").locator("canvas").first()).toBeVisible();
-  await page.getByRole("button", { name: "Aproximar gráfico" }).click();
+  await page.getByRole("button", { name: "Zoom in" }).click();
   await page.getByRole("button", { name: "Ajustar", exact: true }).click();
   const timeframe = page.waitForRequest(r => r.url().includes("timeframe=4h"));
   await page.getByRole("button", { name: "4h", exact: true }).click();
   await timeframe;
   await expect(page.getByTestId("price-chart")).toBeVisible();
-  await page.getByText(/Consultar valores originais/).click();
-  await expect(page.getByRole("table", { name: "Observações históricas — timestamps UTC" })).toBeVisible();
-  await page.getByText(/Consultar valores originais/).click();
+  await page.getByText(/View raw values/).click();
+  await expect(page.getByRole("table", { name: "Historical observations — UTC timestamps" })).toBeVisible();
+  await page.getByText(/View raw values/).click();
   await page.evaluate(() => window.scrollTo(0, 0));
   await page.screenshot({ path: "output/playwright/dashboard-1536x1024.png" });
   expect(errors).toEqual([]);
@@ -300,7 +301,7 @@ test("invalid quality blocks the chart", async ({ page }) => {
   await fixtures(page, "gap");
   await page.goto("/");
   await page.getByRole("button", { name: /SYNTHETIC/ }).click();
-  await expect(page.getByText("Gráfico indisponível", { exact: true })).toBeVisible();
+  await expect(page.getByText("Chart unavailable", { exact: true })).toBeVisible();
   await expect(page.getByText("Intervalos em falta", { exact: true })).toBeVisible();
   await expect(page.getByTestId("price-chart")).toHaveCount(0);
 });
@@ -308,17 +309,17 @@ test("invalid quality blocks the chart", async ({ page }) => {
 test("offline service does not invent market data", async ({ page }) => {
   await fixtures(page, "offline");
   await page.goto("/");
-  await expect(page.getByRole("complementary", { name: "Pesquisa de mercados" })
+  await expect(page.getByRole("complementary", { name: "Pesquisa de markets" })
     .getByRole("alert")).toBeVisible();
-  await expect(page.getByRole("button", { name: "Tentar novamente" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Retry" })).toBeVisible();
 });
 
 test("invalid date ranges do not trigger candle requests", async ({ page }) => {
   await fixtures(page);
   await page.goto("/");
-  await page.getByLabel("Início (UTC)", { exact: true }).fill("2025-02-01T00:00");
+  await page.getByLabel("Start (UTC)", { exact: true }).fill("2025-02-01T00:00");
   await page.getByLabel("Fim (UTC)", { exact: true }).fill("2025-01-01T00:00");
-  await page.getByRole("button", { name: "Aplicar período" }).click();
+  await page.getByRole("button", { name: "Apply range" }).click();
   await expect(page.getByText("O fim deve ser posterior ao início.")).toBeVisible();
 });
 
@@ -335,7 +336,7 @@ test("mobile empty layout fits the viewport", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await fixtures(page, "empty");
   await page.goto("/");
-  await expect(page.getByText("Ainda não existem mercados")).toBeVisible();
+  await expect(page.getByText("No markets yet")).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 });
 
@@ -345,16 +346,16 @@ test("zone toggle renders bands, evidence and survives timeframe changes", async
   await fixtures(page, "zones");
   await page.goto("/");
   await page.getByRole("button", { name: /SYNTHETIC/ }).click();
-  await page.getByLabel("Mostrar zonas de suporte / resistência").check();
-  await expect(page.getByRole("table", { name: "Zonas confirmadas — valores exatos" })).toBeVisible();
+  await page.getByLabel("Show support / resistance zones").check();
+  await expect(page.getByRole("table", { name: "Confirmed zones — exact values" })).toBeVisible();
   await expect(page.getByTestId("price-chart").locator("canvas").first()).toBeVisible();
   await page.getByRole("button", { name: "4h", exact: true }).click();
   await expect(page.getByRole("cell", { name: "94 — 98", exact: true })).toBeVisible();
   await page.screenshot({ path: "test-results/zones-synthetic.png", fullPage: true });
   await page.setViewportSize({ width: 390, height: 844 });
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
-  await page.getByLabel("Mostrar zonas de suporte / resistência").uncheck();
-  await expect(page.getByRole("region", { name: "Evidência das zonas" })).toHaveCount(0);
+  await page.getByLabel("Show support / resistance zones").uncheck();
+  await expect(page.getByRole("region", { name: "Zone evidence" })).toHaveCount(0);
   expect(errors).toEqual([]);
 });
 
@@ -362,7 +363,7 @@ test("mismatched zone response blocks chart", async ({ page }) => {
   await fixtures(page, "badzones");
   await page.goto("/");
   await page.getByRole("button", { name: /SYNTHETIC/ }).click();
-  await page.getByLabel("Mostrar zonas de suporte / resistência").check();
+  await page.getByLabel("Show support / resistance zones").check();
   await expect(page.getByText("As zonas não correspondem aos dados deste gráfico.")).toBeVisible();
   await expect(page.getByTestId("price-chart")).toHaveCount(0);
 });
@@ -371,8 +372,8 @@ test("insufficient pivot evidence shows honest no-zone state", async ({ page }) 
   await fixtures(page, "nozones");
   await page.goto("/");
   await page.getByRole("button", { name: /SYNTHETIC/ }).click();
-  await page.getByLabel("Mostrar zonas de suporte / resistência").check();
-  await expect(page.getByText("Ainda não existem zonas confirmadas neste período.")).toBeVisible();
+  await page.getByLabel("Show support / resistance zones").check();
+  await expect(page.getByText("No confirmed zones exist in this range.")).toBeVisible();
   await expect(page.getByTestId("price-chart")).toBeVisible();
 });
 
@@ -381,11 +382,11 @@ test("stored Analyze snapshot renders every honest horizon state", async ({ page
   await fixtures(page, "analysis");
   await page.goto("/");
   await page.getByRole("button", { name: /SYNTHETIC/ }).click();
-  const panel = page.getByRole("region", { name: "Análise partilhada" });
-  await expect(panel.getByText("0 / 13 horizontes completos")).toBeVisible();
+  const panel = page.getByRole("region", { name: "Shared analysis" });
+  await expect(panel.getByText("0 / 13 complete horizons")).toBeVisible();
   await expect(panel.getByText("1H", { exact: true })).toBeVisible();
   await expect(panel.getByText("12M", { exact: true })).toBeVisible();
-  await expect(panel.getByText("Índices não são probabilidades nem aprovação de risco.")).toBeVisible();
+  await expect(panel.getByText("Scores are not probabilities or risk approval.")).toBeVisible();
   await page.screenshot({ path: "test-results/analyze-synthetic.png", fullPage: true });
 });
 
@@ -395,12 +396,12 @@ test("watchlist persists a market and records an honest snapshot", async ({ page
   await page.goto("/");
   await page.getByRole("button", { name: /SYNTHETIC/ }).click();
   const panel = page.getByRole("region", { name: "Watchlists" });
-  await panel.getByRole("button", { name: "Adicionar mercado" }).click();
+  await panel.getByRole("button", { name: "Add market" }).click();
   await expect(panel.getByText("synthetic-test", { exact: true }).first()).toBeVisible();
-  await panel.getByRole("button", { name: "Registar snapshot" }).click();
+  await panel.getByRole("button", { name: "Record snapshot" }).click();
   await expect(panel.getByText("UNAVAILABLE", { exact: true })).toBeVisible();
-  await expect(panel.getByText("0 horizontes elegíveis")).toBeVisible();
-  await expect(panel.getByText(/Não são alertas de preço/)).toBeVisible();
+  await expect(panel.getByText("0 eligible horizons")).toBeVisible();
+  await expect(panel.getByText(/They are not price alerts/)).toBeVisible();
 });
 
 
@@ -409,11 +410,11 @@ test("scanner records an honest no-match result with exclusions", async ({ page 
   await page.goto("/");
   const panel = page.getByRole("region", { name: "Scanner de oportunidades" });
   await panel.getByRole("button", { name: "Executar scan" }).click();
-  await expect(panel.getByText("Sem correspondências", { exact: true })).toBeVisible();
-  await expect(panel.getByText("0 relatórios encontrados em 1 mercados")).toBeVisible();
-  await panel.getByText("Exclusões explícitas · 1").click();
-  await expect(panel.getByText("Sem relatório Analyze")).toBeVisible();
-  await expect(panel.getByText(/Índices não são probabilidades/)).toBeVisible();
+  await expect(panel.getByText("No matches", { exact: true })).toBeVisible();
+  await expect(panel.getByText("0 reports found across 1 markets")).toBeVisible();
+  await panel.getByText("Explicit exclusions · 1").click();
+  await expect(panel.getByText("No Analyze report")).toBeVisible();
+  await expect(panel.getByText(/Scores are not probabilities/)).toBeVisible();
 });
 
 
@@ -422,17 +423,17 @@ test("manual portfolio records funded cash without creating an order", async ({ 
   page.on("pageerror", error => errors.push(error.message));
   await fixtures(page, "portfolio");
   await page.goto("/");
-  const panel = page.getByRole("region", { name: "Carteira" });
-  await panel.getByRole("button", { name: "Criar carteira" }).click();
+  const panel = page.getByRole("region", { name: "Portfolio" });
+  await panel.getByRole("button", { name: "Create portfolio" }).click();
   await expect(panel.getByText("0E-18 EUR", { exact: true })).toBeVisible();
   await panel.getByLabel("Montante").fill("500");
-  await panel.getByRole("button", { name: "Registar lançamento" }).click();
+  await panel.getByRole("button", { name: "Record entry" }).click();
   await expect(panel.getByText("500.000000000000000000 EUR", { exact: true })).toBeVisible();
-  await panel.getByText("Livro imutável · 1 lançamentos").click();
+  await panel.getByText("Immutable ledger · 1 entries").click();
   await expect(panel.getByText("#1 · DEPOSIT", { exact: true })).toBeVisible();
-  await expect(panel.getByText(/Registos manuais não são ordens/)).toBeVisible();
-  const intelligence = panel.getByRole("region", { name: "Inteligência da carteira" });
-  await intelligence.getByRole("button", { name: "Registar análise" }).click();
+  await expect(panel.getByText(/Manual records are not orders/)).toBeVisible();
+  const intelligence = panel.getByRole("region", { name: "Portfolio intelligence" });
+  await intelligence.getByRole("button", { name: "Record analysis" }).click();
   await expect(intelligence.getByText(/NO_OPEN_POSITIONS/).first()).toBeVisible();
   await expect(intelligence.getByText("CASH", { exact: true })).toBeVisible();
   expect(errors).toEqual([]);
