@@ -39,6 +39,8 @@ class LocalStandaloneEngineTest {
                 } }.awaitAll()
                 assertEquals(1, outcomes.count { it.isSuccess })
                 assertEquals(1L, ledger.restore(raceId).revision)
+                try { ledger.submit(id, 2, commands[2].copy(side = "x".repeat(5000))); fail("oversized metadata accepted") } catch (_: IllegalArgumentException) { }
+                assertEquals(2L, ledger.restore(id).revision)
                 assertEquals(2L, partial.revision)
                 assertEquals("2", partial.book.pending?.remaining)
                 assertEquals("1", partial.book.quantity)

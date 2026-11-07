@@ -19,8 +19,10 @@ Exclusions: complete technical indicator catalogue, forecast/model calibration, 
 
 ## Final local observations
 
-JVM: 11 tests passed, zero skipped/failures. ARM64 API35 final create: `OK (1 test)` in 0.216s; recover after force-stop: `OK (1 test)` in 0.237s. Native measured body: create212ms/PSS158,481KB; recover230ms/PSS167,306KB. Distinct process IDs in evidence confirm separate processes. These are single measurements including app/ART overhead, not peak-RAM or sustained-load qualification. Final cash997.51274875 EUR, fees0.66100125, realized P&L−2.48725125, inventory0 and basis0 exactly match the Python fixture. Synthetic loss is a mechanical test outcome, not empirical performance.
+JVM: 11 tests passed, zero skipped/failures. ARM64 API35 final create: `OK (1 test)` in 0.215s; recover after force-stop: `OK (1 test)` in 0.177s. Native measured body: create207ms/PSS159,622KB; recover169ms/PSS167,568KB. Distinct process IDs in evidence confirm separate processes. These are single measurements including app/ART overhead, not peak-RAM or sustained-load qualification. Final cash997.51274875 EUR, fees0.66100125, realized P&L−2.48725125, inventory0 and basis0 exactly match the Python fixture. Synthetic loss is a mechanical test outcome, not empirical performance.
 
 Raw logs are in evidence/arm64-*.txt. CI must separately qualify x86_64 and the final pushed SHA. Force-stop occurs between committed events; power-loss/mid-write endurance has not been tested.
 
 A final review found and fixed integer-second truncation in freshness comparison. New Python admission evidence rejects a quote500µs beyond its allowed age; the native bar test rejects a1µs overrun. Duration is now compared at full precision. ARM64 create/recover was repeated successfully with these cases. The preceding full CI run passed all seven jobs, including x86_64 standalone; the final corrected run must also be observed.
+
+The temporal correction passed [all seven CI jobs](https://github.com/pixart-web/Trading-Platform/actions/runs/42396188419). A subsequent event-budget hardening adds no monetary policy change: malformed metadata must be rejected without advancing revision, and every accepted result must remain replayable. Its ARM64 create/recover repetition passed; final source SHA/CI is reported at delivery.

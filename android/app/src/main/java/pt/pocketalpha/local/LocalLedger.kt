@@ -109,6 +109,7 @@ class LocalPaperLedger(private val db: LocalFinancialDatabase, private val ciphe
             check(book == recorded.after) { "Financial reconstruction mismatch" }
             head = event.hash
         }
+        engine.validateState(book)
         check(head == account.head)
         return ReconciledAccount(id, account.revision, book)
     }
@@ -125,8 +126,10 @@ class LocalPaperLedger(private val db: LocalFinancialDatabase, private val ciphe
         require(current.revision == expectedRevision && current.revision < 10000) { "Revision conflict or journal budget exceeded" }
         val account = requireNotNull(db.ledger().account(id))
         val genesis = json.decodeFromString<Genesis>(cipher.decrypt(account.header, id))
-        val next = FinancialKernel(genesis.policy).apply(current.book, command)
+        val engine = FinancialKernel(genesis.policy)
+        val next = engine.apply(current.book, command).also { engine.validateState(it) }
         val payload = json.encodeToString(RecordedEvent(command, next))
+        require(payload.toByteArray(Charsets.UTF_8).size <= 4096) { "Financial event byte budget exceeded" }
         val hash = digest(account.head + "\n" + payload)
         val sequence = current.revision + 1
         db.ledger().append(LocalEventRow(id, sequence, command.id, cipher.encrypt(payload, "$id:$sequence"), account.head, hash))

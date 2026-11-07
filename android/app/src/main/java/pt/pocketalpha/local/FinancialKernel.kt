@@ -60,10 +60,15 @@ private fun BigDecimal.over80(other: BigDecimal) = Decimal80.div(this, other)
 
 class FinancialKernel(private val policy: LocalPolicy) {
     init { policy.validate() }
-    private fun validateBook(book: LocalBook) {
+    internal fun validateState(book: LocalBook) {
         listOf(book.cash, book.quantity, book.basis, book.fees).forEach { require(d(it) >= BigDecimal.ZERO) }
         require(d(book.highWater) > BigDecimal.ZERO && d(book.dailyStart) > BigDecimal.ZERO)
         d(book.realized)
+        book.pending?.let {
+            require(it.side in setOf("BUY", "SELL") && it.id.isNotBlank() && it.id.length <= 128)
+            require(d(it.remaining) > BigDecimal.ZERO && d(it.reference) > BigDecimal.ZERO)
+            require(Instant.parse(it.approvedAt) <= Instant.parse(book.at))
+        }
         require(d(book.quantity).signum() != 0 || d(book.basis).signum() == 0)
     }
     fun genesis(capital: String, at: String): LocalBook {
@@ -106,9 +111,11 @@ class FinancialKernel(private val policy: LocalPolicy) {
         return null
     }
     fun apply(original: LocalBook, command: PaperCommand): LocalBook {
-        validateBook(original)
+        validateState(original)
         var book = original
         require(listOf(command.at, command.quoteClose, command.barOpen).all { it.length <= 64 })
+        require(command.side in setOf("", "BUY", "SELL"))
+        listOf(command.quantity, command.price, command.volume).forEach { d(it) }
         require(command.id.isNotBlank() && command.id.length <= 128)
         val now = Instant.parse(command.at); require(now >= Instant.parse(book.at))
         if (command.kind == "SUSPEND" || command.kind == "KILL")
@@ -167,6 +174,6 @@ class FinancialKernel(private val policy: LocalPolicy) {
             realized = Decimal80.text(realized), fees = Decimal80.text(d(book.fees).plus80(fee)), at = now.toString(),
             highWater = Decimal80.text(d(book.highWater).max(cash.plus80(qty.times80(mark)))),
             pending = if (remaining.signum() == 0) null else order.copy(remaining = Decimal80.text(remaining)),
-            reason = if (remaining.signum() == 0) "FILLED" else "PARTIALLY_FILLED").also { validateBook(it) }
+            reason = if (remaining.signum() == 0) "FILLED" else "PARTIALLY_FILLED").also { validateState(it) }
     }
 }

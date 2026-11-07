@@ -28,6 +28,7 @@ class LocalKernelSafetyTest {
         val commands = r.getValue("commands").jsonArray.map { json.decodeFromJsonElement<PaperCommand>(it) }
         val ordered = engine.apply(initial, commands.first())
         val partial = engine.apply(ordered, commands[1])
+        assertThrows(IllegalArgumentException::class.java) { engine.apply(ordered, commands[1].copy(side = "x".repeat(5000))) }
         assertThrows(IllegalArgumentException::class.java) { engine.apply(partial, commands[1].copy(id = "repeat")) }
         assertThrows(IllegalArgumentException::class.java) { engine.apply(initial, commands.first().copy(quoteClose = "2099-01-01T00:00:00Z")) }
         assertThrows(IllegalArgumentException::class.java) { engine.apply(ordered, commands[1].copy(at = "2099-01-01T00:00:00Z")) }

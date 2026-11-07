@@ -15,7 +15,7 @@ INSTRUMENTATION_STATUS: test=encryptedJournalReconcilesAcrossProcessRestart
 INSTRUMENTATION_STATUS_CODE: 0
 INSTRUMENTATION_RESULT: stream=
 
-Time: 0.237
+Time: 0.177
 
 OK (1 test)
 

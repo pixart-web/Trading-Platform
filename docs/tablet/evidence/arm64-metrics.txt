@@ -1,3 +1,3 @@
 --------- beginning of main
-11-07 17:23:41.672  3159  3174 I LocalEngineProof: phase=create elapsed_ms=212 pss_kb=158481
-11-07 17:23:42.659  3206  3220 I LocalEngineProof: phase=recover elapsed_ms=230 pss_kb=167306
+11-07 17:32:18.293  3484  3503 I LocalEngineProof: phase=create elapsed_ms=207 pss_kb=159622
+11-07 17:32:19.154  3535  3549 I LocalEngineProof: phase=recover elapsed_ms=169 pss_kb=167568

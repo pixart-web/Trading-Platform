@@ -21,10 +21,10 @@ Create initializes a Keystore-encrypted1000 EUR fixture account, executes the sc
 | Verdict | Current interpretation |
 |---|---|
 | PYTHON_ANDROID_RUNTIME_QUALIFIED | NO: exact native core wheel cannot be resolved; only stdlib runtime measured |
-| KOTLIN_FINANCIAL_FALLBACK_QUALIFIED | Bounded vector scope only; final ABI/CI result is reported with delivery |
-| LOCAL_FINANCIAL_KERNEL_READY | Foundation only: listed decimal/indicator/risk/simulation subset; not complete engines |
-| LOCAL_PAPER_LEDGER_READY | Foundation only: encrypted transactional events and reconstruction; not portable restore or production acceptance |
-| ANDROID_STANDALONE_DEMONSTRATION | Harness acceptance requires create + force-stop + recovery passing on Android, independently of backend |
+| KOTLIN_FINANCIAL_FALLBACK_QUALIFIED | YES within the bounded golden-vector scope; not the complete Python platform |
+| LOCAL_FINANCIAL_KERNEL_READY | YES for the foundation only: listed decimal/indicator/risk/simulation subset; not complete engines |
+| LOCAL_PAPER_LEDGER_READY | YES for the foundation only: encrypted transactional events and reconstruction; not portable restore or production acceptance |
+| ANDROID_STANDALONE_DEMONSTRATION | YES for the isolated engineering harness: create + force-stop + recovery passed without backend; final run is reported with delivery |
 | REAL_MONEY_TRADING_ENABLED | NO: no dispatch/broker transport exists in the local kernel |
 
 Final boolean verdicts and SHA are provided after observing the final CI. Remaining product blockers include real provider adapters, arbitrary strategy qualification, multi-market/order support, day-rollover/reconnect lifecycle, explicit active-tablet scheduling, biometric lock, encrypted portable export/restore, tablet presentation and Redmi hardware endurance tests. Production readiness remains NO even when this foundation's demonstration passes.
