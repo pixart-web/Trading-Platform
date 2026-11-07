@@ -46,6 +46,7 @@ def generate() -> str:
         ("BUY", "1", {}, 0),
         ("BUY", "1", {"kill_switch": True}, 0),
         ("BUY", "1", {}, r.maximum_data_age_seconds + 1),
+        ("BUY", "1", {}, r.maximum_data_age_seconds),
         ("BUY", "0.001", {}, 0),
         ("BUY", "0.01", {"maximum_order_notional": "100"}, 0),
         ("BUY", "1", {"maximum_order_notional": "100"}, 0),
@@ -55,6 +56,7 @@ def generate() -> str:
         ("SELL", "1", {}, 0),
     ]
     for side, quantity, overrides, age in cases:
+        extra_micros = 500 if age == r.maximum_data_age_seconds else 0
         cfg = RunConfig.model_validate(base.model_dump() | {"risk": r.model_dump() | overrides})
         risk.append(
             dict(
@@ -62,6 +64,7 @@ def generate() -> str:
                 quantity=quantity,
                 overrides=overrides,
                 age=age,
+                extraMicros=extra_micros,
                 reason=authorize(
                     Intent(client_id="risk", action=side, quantity=Decimal(quantity)),
                     Book(
@@ -72,7 +75,7 @@ def generate() -> str:
                     [],
                     Decimal(100),
                     START,
-                    START + timedelta(seconds=age),
+                    START + timedelta(seconds=age, microseconds=extra_micros),
                     cfg,
                 ),
             )

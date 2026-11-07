@@ -93,7 +93,7 @@ class FinancialKernel(private val policy: LocalPolicy) {
         val q = d(quantity); val mark = d(price); require(mark > BigDecimal.ZERO)
         val equity = d(book.cash).plus80(d(book.quantity).times80(mark))
         riskHalt(book, mark)?.let { return it }
-        if (java.time.Duration.between(close, now).seconds > policy.maximumAge) return "STALE_DATA"
+        if (java.time.Duration.between(close, now) > java.time.Duration.ofSeconds(policy.maximumAge)) return "STALE_DATA"
         if (d(policy.spread) > d(policy.maximumSpread)) return "SPREAD_LIMIT"
         if (book.pending != null) return "PENDING_ORDER_LIMIT"
         if (q < d(policy.minimumQuantity) || q.remainder(d(policy.step)).compareTo(BigDecimal.ZERO) != 0) return "INVALID_QUANTITY"
@@ -126,7 +126,7 @@ class FinancialKernel(private val policy: LocalPolicy) {
         require(open < close && close <= now && d(command.price) > BigDecimal.ZERO && d(command.volume) >= BigDecimal.ZERO)
         require(book.lastBarOpen == null || open > Instant.parse(book.lastBarOpen)) { "BAR_ALREADY_PROCESSED" }
         book = book.copy(lastBarOpen = open.toString())
-        if (java.time.Duration.between(close, now).seconds > policy.maximumAge)
+        if (java.time.Duration.between(close, now) > java.time.Duration.ofSeconds(policy.maximumAge))
             return book.copy(at = now.toString(), pending = null, reason = "STALE_EXECUTION_DATA")
         val observedMark = d(command.price)
         book = book.copy(highWater = Decimal80.text(d(book.highWater).max(d(book.cash).plus80(d(book.quantity).times80(observedMark)))))

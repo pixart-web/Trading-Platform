@@ -58,7 +58,7 @@ fun verifyLocalGolden(text: String) {
         }
         val actual = FinancialKernel(p).admit(state, row.getValue("side").jsonPrimitive.content,
             row.getValue("quantity").jsonPrimitive.content, "100", start,
-            Instant.parse(start).plusSeconds(row.getValue("age").jsonPrimitive.long).toString())
+            Instant.parse(start).plusSeconds(row.getValue("age").jsonPrimitive.long).plusNanos(row.getValue("extraMicros").jsonPrimitive.long * 1000).toString())
         assertEquals(row.getValue("reason").jsonPrimitive.contentOrNull, actual)
     }
     root.getValue("commands").jsonArray.forEachIndexed { index, element ->

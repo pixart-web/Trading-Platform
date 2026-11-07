@@ -31,7 +31,7 @@ class LocalKernelSafetyTest {
         assertThrows(IllegalArgumentException::class.java) { engine.apply(partial, commands[1].copy(id = "repeat")) }
         assertThrows(IllegalArgumentException::class.java) { engine.apply(initial, commands.first().copy(quoteClose = "2099-01-01T00:00:00Z")) }
         assertThrows(IllegalArgumentException::class.java) { engine.apply(ordered, commands[1].copy(at = "2099-01-01T00:00:00Z")) }
-        val stale = engine.apply(ordered, commands[1].copy(at = Instant.parse(commands[1].at).plusSeconds(policy.maximumAge + 1).toString()))
+        val stale = engine.apply(ordered, commands[1].copy(at = Instant.parse(commands[1].at).plusSeconds(policy.maximumAge).plusNanos(1000).toString()))
         assertEquals("STALE_EXECUTION_DATA", stale.reason)
         assertNull(stale.pending)
         assertEquals("1000", stale.cash)

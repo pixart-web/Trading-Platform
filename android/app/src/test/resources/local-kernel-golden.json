@@ -288,6 +288,7 @@
       "quantity": "1",
       "overrides": {},
       "age": 0,
+      "extraMicros": 0,
       "reason": null
     },
     {
@@ -297,6 +298,7 @@
         "kill_switch": true
       },
       "age": 0,
+      "extraMicros": 0,
       "reason": "KILL_SWITCH"
     },
     {
@@ -304,6 +306,15 @@
       "quantity": "1",
       "overrides": {},
       "age": 61,
+      "extraMicros": 0,
+      "reason": "STALE_DATA"
+    },
+    {
+      "side": "BUY",
+      "quantity": "1",
+      "overrides": {},
+      "age": 60,
+      "extraMicros": 500,
       "reason": "STALE_DATA"
     },
     {
@@ -311,6 +322,7 @@
       "quantity": "0.001",
       "overrides": {},
       "age": 0,
+      "extraMicros": 0,
       "reason": "INVALID_QUANTITY"
     },
     {
@@ -320,6 +332,7 @@
         "maximum_order_notional": "100"
       },
       "age": 0,
+      "extraMicros": 0,
       "reason": null
     },
     {
@@ -329,6 +342,7 @@
         "maximum_order_notional": "100"
       },
       "age": 0,
+      "extraMicros": 0,
       "reason": "ORDER_NOTIONAL_LIMIT"
     },
     {
@@ -338,6 +352,7 @@
         "maximum_spread_bps": "1"
       },
       "age": 0,
+      "extraMicros": 0,
       "reason": "SPREAD_LIMIT"
     },
     {
@@ -347,6 +362,7 @@
         "maximum_exposure_fraction": "0.001"
       },
       "age": 0,
+      "extraMicros": 0,
       "reason": "EXPOSURE_LIMIT"
     },
     {
@@ -354,6 +370,7 @@
       "quantity": "10",
       "overrides": {},
       "age": 0,
+      "extraMicros": 0,
       "reason": "INSUFFICIENT_UNRESERVED_CASH"
     },
     {
@@ -361,6 +378,7 @@
       "quantity": "1",
       "overrides": {},
       "age": 0,
+      "extraMicros": 0,
       "reason": "SHORT_NOT_SUPPORTED"
     }
   ],
