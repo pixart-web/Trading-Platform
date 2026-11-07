@@ -228,7 +228,10 @@ jobs:
       - name: Validate official Gradle Wrapper
         run: echo "2db75c40782f5e8ba1fc278a5574bab070adccb2d21ca5a6e5ed840888448046  gradle/wrapper/gradle-wrapper.jar" | sha256sum --check
       - name: Install pinned Android SDK
-        run: sdkmanager 'platforms;android-35' 'build-tools;35.0.0'
+        uses: android-actions/setup-android@9fc6c4e9069bf8d3d10b2204b1fb8f6ef7065407 # v3
+        with:
+          packages: 'platform-tools platforms;android-35 build-tools;35.0.0'
+          log-accepted-android-sdk-licenses: false
       - name: Compile, test, lint and build unsigned release artifacts
         run: ./gradlew --no-daemon :app:testDebugUnitTest :app:lintDebug :app:assembleDebug :app:assembleRelease :app:bundleRelease :app:assembleDebugAndroidTest :app:writeRuntimeCoordinates
       - name: Audit resolved runtime dependencies
@@ -298,6 +301,10 @@ jobs:
             sleep 1
           done
           exit 1
+      - uses: android-actions/setup-android@9fc6c4e9069bf8d3d10b2204b1fb8f6ef7065407 # v3
+        with:
+          packages: 'platform-tools platforms;android-35 build-tools;35.0.0'
+          log-accepted-android-sdk-licenses: false
       - name: Enable hardware virtualization for disposable emulator
         run: |
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
