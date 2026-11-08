@@ -83,7 +83,7 @@ import pt.pocketalpha.feature.*
             }
         } }
         LazyVerticalGrid(columns = GridCells.Adaptive(440.dp), modifier = Modifier.weight(1f).fillMaxHeight().testTag("local-workspace-grid"), contentPadding = PaddingValues(20.dp), verticalArrangement = Arrangement.spacedBy(16.dp), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            item(span = { GridItemSpan(maxLineSpan) }) { Column { Text("Local workspace", style = MaterialTheme.typography.headlineMedium); Note("Private tablet storage · no Pocket Alpha server · real-money execution disabled") } }
+            item(span = { GridItemSpan(maxLineSpan) }) { Column { Text("Local workspace", style = MaterialTheme.typography.headlineMedium); Text(androidx.compose.ui.res.stringResource(pt.pocketalpha.R.string.app_name), color = Accent); Note("Private tablet storage · no Pocket Alpha server · real-money execution disabled") } }
             if (!wide) item { Row { listOf("Overview", "Paper Trading", "Backup & Settings").forEach { title -> TextButton(onClick = { page = title }) { Text(title) } } } }
             if (busy || networkBusy) item { LinearProgressIndicator(Modifier.fillMaxWidth()) }
             if (lockedAccounts > 0) item { Note("$lockedAccounts experiments cannot be decrypted. They were preserved; restore a portable backup as a new experiment.", true) }

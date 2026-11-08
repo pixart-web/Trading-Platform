@@ -13,3 +13,7 @@ See [build/install](../docs/android/BUILD_AND_INSTALL.md), [architecture](../doc
 ## Current application entry
 
 The launcher now opens the local workspace, without Pocket Alpha server credentials. Public Coinbase HTTPS is used for actual EUR spot H1 history. Manual single-market PAPER experiments and Settings → portable encrypted backup operate locally. Settings can open the optional legacy server client; it is no longer required for startup. Automated strategy/PAPER autopilot, consolidated multi-market cash and UTC day rollover remain unavailable. See docs/tablet/LOCAL_WORKSPACE.md and RELEASE_READINESS.md before evaluation. Real-money execution remains disabled.
+
+## Tablet Preview 0.1
+
+[Download and tablet installation instructions](../docs/tablet/PREVIEW_0_1.md). The public GitHub prerelease contains a signed universal debug APK and SHA-256 checksum. PAPER manual only; Autopilot and real-money execution are unavailable.

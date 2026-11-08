@@ -18,6 +18,10 @@ class PublicWorkspaceAndroidTest {
     @Test fun productionLaunchIsLocalWithoutServerCredentials() {
         compose.waitUntil(15000) { compose.onAllNodesWithText("Local workspace").fetchSemanticsNodes().isNotEmpty() }
         compose.onNodeWithText("Local workspace").assertExists()
+        compose.onNodeWithText("Pocket Alpha Tablet — Preview 0.1").assertExists()
+        val context = compose.activity
+        assertEquals("Pocket Alpha Tablet — Preview 0.1", context.applicationInfo.loadLabel(context.packageManager).toString())
+        assertEquals("0.1-preview", context.packageManager.getPackageInfo(context.packageName, 0).versionName)
         compose.onNodeWithText("HTTPS server origin").assertDoesNotExist()
         compose.onNodeWithText("Private tablet storage · no Pocket Alpha server · real-money execution disabled").assertExists()
         if (InstrumentationRegistry.getArguments().getString("realProvider") == "true") {
