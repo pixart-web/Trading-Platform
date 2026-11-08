@@ -324,8 +324,8 @@ jobs:
             adb install -r app/build/outputs/apk/debug/app-debug.apk
             adb install -r app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
             mkdir -p app/build/reports/androidTests
-            adb shell am instrument -w -r -e class pt.pocketalpha.BackendWorkflowTest,pt.pocketalpha.NativeUiTest -e origin https://localhost:18443 -e username android-e2e -e password disposable-android-e2e-password -e screenshotName ci pt.pocketalpha.android.test/androidx.test.runner.AndroidJUnitRunner | tee app/build/reports/androidTests/instrumentation.txt
-            grep -F 'OK (2 tests)' app/build/reports/androidTests/instrumentation.txt
+            adb shell am instrument -w -r -e class pt.pocketalpha.BackendWorkflowTest,pt.pocketalpha.NativeUiTest,pt.pocketalpha.PublicWorkspaceAndroidTest -e origin https://localhost:18443 -e username android-e2e -e password disposable-android-e2e-password -e screenshotName ci pt.pocketalpha.android.test/androidx.test.runner.AndroidJUnitRunner | tee app/build/reports/androidTests/instrumentation.txt
+            grep -F 'OK (3 tests)' app/build/reports/androidTests/instrumentation.txt
             adb pull /sdcard/Android/data/pt.pocketalpha.android/files/screenshots/ci-dashboard.png app/build/reports/androidTests/ci-dashboard.png
             adb pull /sdcard/Android/data/pt.pocketalpha.android/files/screenshots/ci-overview.png app/build/reports/androidTests/ci-overview.png
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
@@ -369,12 +369,14 @@ jobs:
             adb install -r app/build/outputs/apk/debug/app-debug.apk
             adb install -r app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
             mkdir -p app/build/reports/local-engine
-            adb shell am instrument -w -r -e class pt.pocketalpha.LocalStandaloneEngineTest -e localPhase create pt.pocketalpha.android.test/androidx.test.runner.AndroidJUnitRunner | tee app/build/reports/local-engine/create.txt
-            grep -F 'OK (1 test)' app/build/reports/local-engine/create.txt
+            adb shell am instrument -w -r -e class pt.pocketalpha.LocalStandaloneEngineTest,pt.pocketalpha.PortableLedgerAndroidTest -e localPhase create pt.pocketalpha.android.test/androidx.test.runner.AndroidJUnitRunner | tee app/build/reports/local-engine/create.txt
+            grep -F 'OK (2 tests)' app/build/reports/local-engine/create.txt
             adb shell am force-stop pt.pocketalpha.android
             adb shell am instrument -w -r -e class pt.pocketalpha.LocalStandaloneEngineTest -e localPhase recover pt.pocketalpha.android.test/androidx.test.runner.AndroidJUnitRunner | tee app/build/reports/local-engine/recover.txt
             grep -F 'OK (1 test)' app/build/reports/local-engine/recover.txt
             adb logcat -d -s LocalEngineProof:I > app/build/reports/local-engine/native-runtime.txt
+            adb shell am instrument -w -r -e class pt.pocketalpha.KeyLossAndroidTest pt.pocketalpha.android.test/androidx.test.runner.AndroidJUnitRunner | tee app/build/reports/local-engine/key-loss.txt
+            grep -F 'OK (1 test)' app/build/reports/local-engine/key-loss.txt
             ./gradlew -p runtime-proof --no-daemon -PprobeStdlibOnly=true :probe:assembleDebug
             adb install -r runtime-proof/probe/build/outputs/apk/debug/probe-debug.apk
             adb logcat -c

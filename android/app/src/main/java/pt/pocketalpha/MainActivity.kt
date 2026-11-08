@@ -26,11 +26,17 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import pt.pocketalpha.feature.*
 
-@AndroidEntryPoint class MainActivity : ComponentActivity() {
+@AndroidEntryPoint open class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
-        setContent { PocketTheme { PocketApplication() } }
+        setContent { PocketTheme {
+            var legacy by rememberSaveable { mutableStateOf(intent.getBooleanExtra("legacyClient", false)) }
+            if (legacy) Column(Modifier.fillMaxSize()) {
+                TextButton(onClick = { legacy = false }) { Text("Return to local workspace") }
+                Box(Modifier.weight(1f)) { PocketApplication() }
+            } else pt.pocketalpha.workspace.LocalWorkspaceScreen(onServerClient = { legacy = true })
+        } }
     }
 }
 val Modules = linkedMapOf("watchlists" to "Watchlists", "intelligence" to "Market Intelligence",

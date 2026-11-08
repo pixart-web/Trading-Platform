@@ -9,7 +9,7 @@ from typing import Literal
 from uuid import UUID
 
 from pocket_alpha.backtesting.models import Intent, RunConfig
-from pocket_alpha.backtesting.risk import Book, authorize, halt
+from pocket_alpha.backtesting.risk import Book, authorize, halt, snapshot
 from pocket_alpha.intelligence.technical.models import IndicatorKind, IndicatorSpec
 from pocket_alpha.intelligence.technical.service import _calculate
 from pocket_alpha.market_data.quality import FreshnessPolicy
@@ -120,8 +120,15 @@ def generate() -> str:
                         volume="10",
                     )
                 )
+                valued = snapshot(sim.book, sim.pending, candle.close)
                 expected.append(
                     dict(
+                        highWater=str(sim.book.high_water),
+                        equity=str(valued.equity),
+                        reservedCash=str(valued.reserved_cash),
+                        reservedQuantity=str(valued.reserved_quantity),
+                        availableCash=str(valued.cash - valued.reserved_cash),
+                        unrealized=str(sim.book.quantity * candle.close - sim.book.cost_basis),
                         cash=str(sim.book.cash),
                         quantity=str(sim.book.quantity),
                         basis=str(sim.book.cost_basis),

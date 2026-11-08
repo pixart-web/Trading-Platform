@@ -1,18 +1,19 @@
-# Tablet release readiness — initial migration checkpoint
+# Operational integration readiness
 
-This checkpoint does not deliver a standalone product. The current build still has server login and remote financial APIs. No local balance, prediction or trade is fabricated to hide that dependency.
+The application now defaults to a real native local workspace. This is a functional manual PAPER slice, not the complete requested tablet product. Final test/SHA/CI observations are supplied with delivery.
 
-| Verdict | Value | Exact blocker | Remediation and verification |
-|---|---|---|---|
-| TABLET_STANDALONE_READY | NO | Required kernel/native runtime and local persistence absent | Resolve T001 runtime gate; launch and execute acceptance flow without Pocket Alpha server |
-| TABLET_UI_READY | NO | Only adaptive sidebar started; ticker/multi-panel composition and tablet interaction acceptance incomplete | Implement reference-based layouts and compare screenshots at 8/11/14 inch profiles, portrait, touch/stylus/keyboard |
-| FULL_FUNCTIONAL_PARITY | NO | No complete local phase qualified | Complete FEATURE_PARITY.md with financial golden and user-flow evidence |
-| REAL_MARKET_DATA_READY | NO | Current provider path is server-side | Native approved public adapter with real retrieval, freshness, limits, provenance and outage tests |
-| PAPER_ACCOUNT_READY | NO | No durable local PAPER journal/reconciliation | Local atomic journal, account creation, fees/P&L golden vectors, export/restore and process-death tests |
-| PAPER_AUTOPILOT_READY | NO | No local qualified orchestration | Active-session start/pause/resume/kill and reconciliation tests; actual suspended/missed intervals |
-| FINANCIAL_ENGINE_VALIDATED | NO | Static audit is not Android financial qualification | Execute unchanged oracle vectors on both supported Android ABIs; explicit rounding/causality checks |
-| PHYSICAL_TABLET_TESTED | NO | No physical hardware tested in this checkpoint | Operator-connected target tablet; thermal/battery/accessibility and endurance evidence |
-| ANDROID_RELEASE_READY | NO | Standalone criteria, physical tests and production signing absent | Complete above, signed release verification and safe update/backup/restore |
-| REAL_MONEY_TRADING_ENABLED | NO | Deliberately forbidden | Never enable broker dispatch in the tablet product |
+| Verdict | Value | Scope / blocker and required verification |
+|---|---|---|
+| LOCAL_WORKSPACE_READY | YES | Default native entry, local reconciliation and optional isolated server client; verify final UI instrumentation |
+| REAL_MARKET_DATA_READY | YES | Verified BTC-EUR public H1/metadata/history; broader providers, live quotes and feeds are not claimed |
+| MULTI_MARKET_PAPER_READY | NO | Separate single-market experiments only; qualify shared cash, concurrent orders and multi-position accounting before enabling |
+| LOCAL_STRATEGY_PIPELINE_READY | NO | Qualified indicators/manual risk execution only; port/test mandatory forecasts, directional and strategy evidence |
+| PAPER_AUTOPILOT_READY | NO | No automated strategy/runtime; qualify lifecycle, scheduling, suspended intervals and safe reconciliation/resume |
+| TABLET_UI_OPERATIONAL | NO | Supported local pages operate; full watchlist/scanner/risk/reporting layouts and accessibility/visual acceptance incomplete |
+| ENCRYPTED_BACKUP_RESTORE_READY | YES | Bounded authenticated portable experiment export/import; device-key loss and final CI must remain covered; no biometric gate or hardware qualification implied |
+| STANDALONE_E2E_VERIFIED | NO | Real-data/manual/restore subset verified; complete strategy/autopilot/forward-fill acceptance absent |
+| PHYSICAL_TABLET_TESTED | NO | Redmi hardware unavailable; require physical functional, accessibility, battery/thermal and endurance tests |
+| FULL_TABLET_PRODUCT_READY | NO | Complete the above, day rollover, configurable risk, biometric security and production signing/distribution |
+| REAL_MONEY_TRADING_ENABLED | NO | Deliberately absent/forbidden; no native broker dispatch |
 
-Existing debug/release builds remain candidate clients. Their buildability does not establish standalone readiness. Evaluation ends 2026-12-31; January 2027 review never automatically enables real money.
+The evaluation deadline2026-12-31 does not justify bypassing financial evidence or enabling real money. January2027 is review only.

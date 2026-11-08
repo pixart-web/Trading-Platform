@@ -22,7 +22,7 @@ import retrofit2.converter.kotlinx.serialization.asConverterFactory
 
 /** Requires explicit disposable HTTPS server credentials; no production defaults or fixtures. */
 class BackendWorkflowTest {
-    @get:Rule val compose = createAndroidComposeRule<MainActivity>()
+    @get:Rule val compose = createAndroidComposeRule<LegacyClientActivity>()
     private fun waitText(text: String) {
         compose.waitUntil(30000) { compose.onAllNodesWithText(text, substring = true).fetchSemanticsNodes().isNotEmpty() }
     }

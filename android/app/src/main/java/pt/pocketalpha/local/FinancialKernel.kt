@@ -58,6 +58,8 @@ private fun BigDecimal.over80(other: BigDecimal) = Decimal80.div(this, other)
     val dailyStart: String, val day: String, val at: String,
     val pending: LocalOrder? = null, val lastBarOpen: String? = null, val reason: String? = null, val halted: Boolean = false)
 
+data class LocalValuation(val availableCash: String, val reservedCash: String, val reservedQuantity: String, val equity: String, val unrealized: String)
+
 class FinancialKernel(private val policy: LocalPolicy) {
     init { policy.validate() }
     internal fun validateState(book: LocalBook) {
@@ -90,6 +92,15 @@ class FinancialKernel(private val policy: LocalPolicy) {
         if (d(book.highWater).minus80(equity).over80(d(book.highWater)) >= d(policy.maximumDrawdown)) return "DRAWDOWN_LIMIT"
         if (d(book.dailyStart).minus80(equity).over80(d(book.dailyStart)) >= d(policy.maximumDailyLoss)) return "DAILY_LOSS_LIMIT"
         return null
+    }
+    fun valuation(book: LocalBook, mark: String): LocalValuation {
+        validateState(book)
+        val price = d(mark); require(price > BigDecimal.ZERO)
+        val pending = book.pending
+        val reservedCash = if (pending?.side == "BUY") d(pending.remaining).times80(reserve(d(pending.reference))) else BigDecimal.ZERO
+        val reservedQuantity = if (pending?.side == "SELL") d(pending.remaining) else BigDecimal.ZERO
+        return LocalValuation(Decimal80.text(d(book.cash).minus80(reservedCash)), Decimal80.text(reservedCash), Decimal80.text(reservedQuantity),
+            Decimal80.text(d(book.cash).plus80(d(book.quantity).times80(price))), Decimal80.text(d(book.quantity).times80(price).minus80(d(book.basis))))
     }
     fun admit(book: LocalBook, side: String, quantity: String, price: String, quoteClose: String, at: String): String? {
         require(side in setOf("BUY", "SELL"))

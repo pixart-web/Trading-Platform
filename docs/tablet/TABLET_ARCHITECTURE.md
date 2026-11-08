@@ -23,3 +23,9 @@ WorkManager is deferred maintenance/import scheduling, not a continuous trading 
 ## Acceptance gates
 
 Runtime/native ABI proof → financial golden equality → transactional ledger/recovery → real public provider provenance → bounded local research → risk/PAPER orchestration → tablet UI and hardware endurance. No gate may be replaced by the previous server-backed E2E success. Standalone readiness stays NO until all essential paths work without external Pocket Alpha services.
+
+## Native operational integration update
+
+The production launch route is now LocalWorkspaceScreen → Hilt LocalWorkspaceModel → LocalPaperLedger/LocalFinancialDatabase and PublicMarkets/PublicHistoryDatabase. Python embedding remains unqualified and is not a runtime dependency. Legacy PocketApplication is explicitly optional, with a return-to-local action and debug regression entry. Public provider reads do not require Pocket Alpha services. The old backend cache worker is cancelled on default startup.
+
+The shipped local slice supports actual EUR spot observations, SMA/EMA, isolated manual PAPER experiments and password-derived portable backups. Operational journals use a separate version/origin from synthetic engineering fixtures. Automatic entry strategies, consolidated multi-market authority, day rollover, background trading and biometric gates remain disabled/incomplete; preserve all source financial boundaries when implementing them.

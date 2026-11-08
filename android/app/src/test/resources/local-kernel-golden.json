@@ -459,6 +459,12 @@
   "expected": [
     null,
     {
+      "highWater": "1000",
+      "equity": "999.76361875",
+      "reservedCash": "300.750450000",
+      "reservedQuantity": "0",
+      "availableCash": "594.013168750",
+      "unrealized": "-0.23638125",
       "cash": "894.76361875",
       "quantity": "1.0",
       "basis": "105.23638125",
@@ -466,6 +472,12 @@
       "realized": "0"
     },
     {
+      "highWater": "1005.76361875",
+      "equity": "1005.51373000",
+      "reservedCash": "150.375225000",
+      "reservedQuantity": "0",
+      "availableCash": "633.138505000",
+      "unrealized": "5.51373000",
       "cash": "783.51373000",
       "quantity": "2.0",
       "basis": "216.48627000",
@@ -473,6 +485,12 @@
       "realized": "0"
     },
     {
+      "highWater": "1013.51373000",
+      "equity": "1013.25483625",
+      "reservedCash": "0",
+      "reservedQuantity": "0",
+      "availableCash": "668.25483625",
+      "unrealized": "13.25483625",
       "cash": "668.25483625",
       "quantity": "3.0",
       "basis": "331.74516375",
@@ -481,6 +499,12 @@
     },
     null,
     {
+      "highWater": "1013.51373000",
+      "equity": "998.00747375",
+      "reservedCash": "0",
+      "reservedQuantity": "2.0",
+      "availableCash": "778.00747375",
+      "unrealized": "-1.16344250",
       "cash": "778.00747375",
       "quantity": "2.0",
       "basis": "221.16344250",
@@ -488,6 +512,12 @@
       "realized": "-0.82908375"
     },
     {
+      "highWater": "1013.51373000",
+      "equity": "993.76460875",
+      "reservedCash": "0",
+      "reservedQuantity": "1.0",
+      "availableCash": "885.76460875",
+      "unrealized": "-2.58172125",
       "cash": "885.76460875",
       "quantity": "1.0",
       "basis": "110.58172125",
@@ -495,6 +525,12 @@
       "realized": "-3.65367000"
     },
     {
+      "highWater": "1013.51373000",
+      "equity": "997.51274875",
+      "reservedCash": "0",
+      "reservedQuantity": "0",
+      "availableCash": "997.51274875",
+      "unrealized": "0E-8",
       "cash": "997.51274875",
       "quantity": "0.0",
       "basis": "0E-8",

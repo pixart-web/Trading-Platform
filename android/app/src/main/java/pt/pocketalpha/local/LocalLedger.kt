@@ -25,6 +25,7 @@ data class LocalEventRow(val accountId: String, val sequence: Long, val eventId:
     val payload: ByteArray, val previous: String, val hash: String)
 @Dao interface LocalLedgerDao {
     @Query("SELECT * FROM local_accounts WHERE id = :id") suspend fun account(id: String): LocalAccountRow?
+    @Query("SELECT * FROM local_accounts ORDER BY id LIMIT 100") suspend fun accounts(): List<LocalAccountRow>
     @Insert suspend fun create(row: LocalAccountRow)
     @Query("SELECT * FROM local_events WHERE accountId = :id ORDER BY sequence LIMIT 10001") suspend fun events(id: String): List<LocalEventRow>
     @Insert suspend fun append(row: LocalEventRow)
@@ -66,6 +67,8 @@ class LedgerCipher {
     val currency: String, val origin: String, val marketId: String = "SYNTHETIC-EUR",
     val strategyVersion: String = "synthetic-plan-1", val capital: String, val at: String, val policy: LocalPolicy)
 @Serializable private data class RecordedEvent(val command: PaperCommand, val after: LocalBook)
+@Serializable data class AccountInfo(val id: String, val market: String, val origin: String, val policy: LocalPolicy)
+@Serializable private data class PortableJournal(val version: Int = 1, val header: String, val events: List<String>, val head: String)
 data class ReconciledAccount(val id: String, val revision: Long, val book: LocalBook)
 
 /** Local financial authority independent of Activity, HTTP, provider clients and navigation. */
@@ -74,6 +77,8 @@ interface LocalFinancialAuthority {
     suspend fun submit(id: String, expectedRevision: Long, command: PaperCommand): ReconciledAccount
 }
 class LocalPaperLedger(private val db: LocalFinancialDatabase, private val cipher: LedgerCipher = LedgerCipher()) : LocalFinancialAuthority {
+    var unavailableAccounts: List<String> = emptyList()
+        private set
     private val json = Json { encodeDefaults = true; ignoreUnknownKeys = false }
     private fun digest(text: String) = MessageDigest.getInstance("SHA-256").digest(text.toByteArray(Charsets.UTF_8)).joinToString("") { "%02x".format(it) }
     suspend fun create(id: String, capital: String, at: String, policy: LocalPolicy): ReconciledAccount = db.withTransaction {
@@ -88,11 +93,62 @@ class LocalPaperLedger(private val db: LocalFinancialDatabase, private val ciphe
         db.ledger().create(LocalAccountRow(id, cipher.encrypt(header, id), 0, digest(header)))
         ReconciledAccount(id, 0, initial)
     }
+    suspend fun accounts(): List<AccountInfo> = db.withTransaction {
+        val unavailable = mutableListOf<String>()
+        val available = db.ledger().accounts().mapNotNull { row ->
+            try {
+                val header = json.decodeFromString<Genesis>(cipher.decrypt(row.header, row.id))
+                AccountInfo(row.id, header.marketId, header.origin, header.policy)
+            } catch (failure: java.security.GeneralSecurityException) { unavailable.add(row.id); null }
+        }
+        unavailableAccounts = unavailable
+        available
+    }
+    suspend fun createPublic(id: String, capital: String, at: String, policy: LocalPolicy, market: String): ReconciledAccount = db.withTransaction {
+        UUID.fromString(id); require(market.matches(Regex("[A-Z0-9]{2,16}-EUR")))
+        require(db.ledger().accounts().size < 100) { "Experiment limit reached; existing history is preserved" }
+        val initial = FinancialKernel(policy).genesis(capital, at)
+        val header = json.encodeToString(Genesis(version = "local-paper-2", currency = "EUR", origin = "PUBLIC_COINBASE",
+            marketId = market, strategyVersion = "MONITOR_ONLY_NO_QUALIFIED_ENTRY", capital = capital, at = at, policy = policy))
+        db.ledger().create(LocalAccountRow(id, cipher.encrypt(header, id), 0, digest(header)))
+        ReconciledAccount(id, 0, initial)
+    }
+    suspend fun history(id: String): List<Pair<PaperCommand, LocalBook>> = db.withTransaction {
+        restoreLocked(id)
+        db.ledger().events(id).map { row -> json.decodeFromString<RecordedEvent>(cipher.decrypt(row.payload, "$id:${row.sequence}")).let { it.command to it.after } }
+    }
+    suspend fun portable(id: String): String = db.withTransaction {
+        restoreLocked(id)
+        val row = requireNotNull(db.ledger().account(id))
+        json.encodeToString(PortableJournal(header = cipher.decrypt(row.header, id), events = db.ledger().events(id).map { cipher.decrypt(it.payload, "$id:${it.sequence}") }, head = row.head))
+    }
+    suspend fun importPortable(value: String, allowSynthetic: Boolean = true): ReconciledAccount = db.withTransaction {
+        require(value.toByteArray().size <= 8 * 1024 * 1024)
+        require(db.ledger().accounts().size < 100) { "Experiment limit reached" }
+        val backup = json.decodeFromString<PortableJournal>(value)
+        if (!allowSynthetic) require(json.decodeFromString<Genesis>(backup.header).origin == "PUBLIC_COINBASE") { "Synthetic journals cannot enter operational mode" }
+        require(backup.version == 1 && backup.events.size <= 10000)
+        val id = UUID.randomUUID().toString()
+        var head = digest(backup.header)
+        db.ledger().create(LocalAccountRow(id, cipher.encrypt(backup.header, id), 0, head))
+        backup.events.forEachIndexed { index, payload ->
+            require(payload.toByteArray().size <= 4096)
+            val event = json.decodeFromString<RecordedEvent>(payload)
+            val hash = digest(head + "\n" + payload)
+            db.ledger().append(LocalEventRow(id, index + 1L, event.command.id, cipher.encrypt(payload, "$id:${index+1}"), head, hash))
+            check(db.ledger().advance(id, index.toLong(), index+1L, hash) == 1)
+            head = hash
+        }
+        require(head == backup.head)
+        restoreLocked(id)
+    }
     private suspend fun restoreLocked(id: String): ReconciledAccount {
         val account = requireNotNull(db.ledger().account(id)) { "Unknown PAPER account" }
         val header = cipher.decrypt(account.header, id)
         val genesis = json.decodeFromString<Genesis>(header)
-        require(genesis.version == "local-paper-1" && genesis.mode == "PAPER" && genesis.currency == "EUR" && genesis.origin == "SYNTHETIC_ENGINEERING_FIXTURE" && genesis.marketId == "SYNTHETIC-EUR" && genesis.strategyVersion == "synthetic-plan-1")
+        require(genesis.mode == "PAPER" && genesis.currency == "EUR")
+        require((genesis.version == "local-paper-1" && genesis.origin == "SYNTHETIC_ENGINEERING_FIXTURE" && genesis.marketId == "SYNTHETIC-EUR" && genesis.strategyVersion == "synthetic-plan-1") ||
+            (genesis.version == "local-paper-2" && genesis.origin == "PUBLIC_COINBASE" && genesis.marketId.matches(Regex("[A-Z0-9]{2,16}-EUR")) && genesis.strategyVersion == "MONITOR_ONLY_NO_QUALIFIED_ENTRY"))
         val engine = FinancialKernel(genesis.policy)
         var book = engine.genesis(genesis.capital, genesis.at)
         var head = digest(header)

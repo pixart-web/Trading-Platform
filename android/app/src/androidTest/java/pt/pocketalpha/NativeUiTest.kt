@@ -6,7 +6,7 @@ import org.junit.Rule
 import org.junit.Test
 
 class NativeUiTest {
-    @get:Rule val compose = createAndroidComposeRule<MainActivity>()
+    @get:Rule val compose = createAndroidComposeRule<LegacyClientActivity>()
     @Test fun secureLoginIsNativeAndAccessible() {
         compose.waitUntil(15000) { compose.onAllNodesWithText("Sign in securely").fetchSemanticsNodes().isNotEmpty() }
         compose.onNodeWithText("HTTPS server origin").assertExists().performTextInput("https://example.test")

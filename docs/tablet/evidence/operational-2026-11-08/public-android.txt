@@ -1,0 +1,53 @@
+INSTRUMENTATION_STATUS: class=pt.pocketalpha.PublicWorkspaceAndroidTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+pt.pocketalpha.PublicWorkspaceAndroidTest:
+INSTRUMENTATION_STATUS: test=productionLaunchIsLocalWithoutServerCredentials
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=pt.pocketalpha.PublicWorkspaceAndroidTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=productionLaunchIsLocalWithoutServerCredentials
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=pt.pocketalpha.RealPublicProviderAndroidTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+pt.pocketalpha.RealPublicProviderAndroidTest:
+INSTRUMENTATION_STATUS: test=actualMarketObservationsLocalIndicatorAndPortableAccount
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=pt.pocketalpha.RealPublicProviderAndroidTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=actualMarketObservationsLocalIndicatorAndPortableAccount
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=pt.pocketalpha.PortableLedgerAndroidTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+pt.pocketalpha.PortableLedgerAndroidTest:
+INSTRUMENTATION_STATUS: test=encryptedRestoreIsIndependentAndAtomic
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=pt.pocketalpha.PortableLedgerAndroidTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=encryptedRestoreIsIndependentAndAtomic
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 7.823
+
+OK (3 tests)
+
+
+INSTRUMENTATION_CODE: -1

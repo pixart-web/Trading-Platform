@@ -65,7 +65,8 @@ fun verifyLocalGolden(text: String) {
         state = engine.apply(state, json.decodeFromJsonElement<PaperCommand>(element))
         val expected = root.getValue("expected").jsonArray[index]
         if (expected != JsonNull) {
-            val actual = mapOf("highWater" to state.highWater, "cash" to state.cash, "quantity" to state.quantity, "basis" to state.basis,
+            val valuation = engine.valuation(state, element.jsonObject.getValue("price").jsonPrimitive.content)
+            val actual = mapOf("availableCash" to valuation.availableCash, "reservedCash" to valuation.reservedCash, "reservedQuantity" to valuation.reservedQuantity, "equity" to valuation.equity, "unrealized" to valuation.unrealized, "highWater" to state.highWater, "cash" to state.cash, "quantity" to state.quantity, "basis" to state.basis,
                 "fees" to state.fees, "realized" to state.realized)
             expected.jsonObject.forEach { (key, value) ->
                 assertEquals("exact $key after event $index", 0,

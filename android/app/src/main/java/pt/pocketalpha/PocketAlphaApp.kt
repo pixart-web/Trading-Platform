@@ -21,11 +21,7 @@ import java.util.concurrent.TimeUnit
             "system" to "System health").forEach { (id, name) ->
             manager.createNotificationChannel(NotificationChannel(id, name, NotificationManager.IMPORTANCE_DEFAULT))
         }
-        val request = PeriodicWorkRequestBuilder<CacheSyncWorker>(30, TimeUnit.MINUTES)
-            .setConstraints(Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED)
-                .setRequiresBatteryNotLow(true).build())
-            .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 30, TimeUnit.SECONDS).build()
-        WorkManager.getInstance(this).enqueueUniquePeriodicWork("read-cache-sync", ExistingPeriodicWorkPolicy.KEEP, request)
+        WorkManager.getInstance(this).cancelUniqueWork("read-cache-sync")
     }
 }
 @EntryPoint @InstallIn(SingletonComponent::class) interface SyncEntryPoint { fun repository(): Repository }

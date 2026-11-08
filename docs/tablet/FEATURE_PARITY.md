@@ -35,3 +35,7 @@ Baseline: c3b843fe. Existing server-backed Android acceptance is not standalone 
 | F28 | Autopilot — fail-closed scanning, existing allocation, monitoring and fresh-portfolio compounding orchestration implemented; see [report](PHASE_28_COMPLETION_REPORT.md). | NOT QUALIFIED | Qualify kernel/dependencies, native persistence, working tablet workflow and acceptance vectors |
 | F29 | Derivative execution — isolated linear LONG/SHORT, controlled leverage, durable synthetic | EXCLUDED: real-money operation | No native broker dispatch; preserve safety controls |
 | F30 | Live control plane — persistent modes, policy, readiness, operator transitions and kill switch; | EXCLUDED: real-money operation | No native broker dispatch; preserve safety controls |
+
+## Operational UI update
+
+Default standalone launch, public EUR spot discovery/history, qualified local SMA/EMA, one-market manual PAPER accounts, local portfolio valuation/history and portable encrypted restore are implemented. This does not change complete phase-level acceptance: no full F0–F30 parity is claimed. Native strategy/forecast/directional, multi-position accounting, autopilot, scanner/watchlists, operational reports, biometric security and physical qualification remain incomplete. See RELEASE_READINESS.md and the operational flow documents for current bounded capabilities.
