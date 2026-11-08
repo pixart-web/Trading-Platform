@@ -39,3 +39,5 @@ Baseline: c3b843fe. Existing server-backed Android acceptance is not standalone 
 ## Operational UI update
 
 Default standalone launch, public EUR spot discovery/history, qualified local SMA/EMA, one-market manual PAPER accounts, local portfolio valuation/history and portable encrypted restore are implemented. This does not change complete phase-level acceptance: no full F0–F30 parity is claimed. Native strategy/forecast/directional, multi-position accounting, autopilot, scanner/watchlists, operational reports, biometric security and physical qualification remain incomplete. See RELEASE_READINESS.md and the operational flow documents for current bounded capabilities.
+
+Post-Preview: the native strategy decision projection and horizon clock have isolated Python-oracle coverage and an actual-data read-only diagnostic panel. F8/F9/F11/F24/F28 full phase acceptance remains NOT QUALIFIED: no native forecast generation/evidence ledger, complete generic directional engine, strategy lifecycle/allocation or active Autopilot has been accepted. See NATIVE_STRATEGY_REVIEW.md.

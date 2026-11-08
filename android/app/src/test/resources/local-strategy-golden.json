@@ -1,0 +1,2804 @@
+{
+  "schema": "native-trend-review-oracle-1",
+  "origin": "SYNTHETIC_ENGINEERING_FIXTURE",
+  "cases": [
+    {
+      "name": "long",
+      "definition": {
+        "version": "synthetic-sma-trend-1",
+        "market": "simulation:BTC-USD",
+        "asset": "synthetic:BTC",
+        "source": "synthetic-simulation",
+        "timeframe": "1h",
+        "horizon": "4H",
+        "modelVersion": "synthetic-model-1",
+        "featureVersion": "technical-1.0.0",
+        "fastPeriod": 2,
+        "slowPeriod": 3,
+        "minimumTrend": "0.001",
+        "minimumReturn": "0.001",
+        "invalidation": "0.1",
+        "maximumAge": 60
+      },
+      "input": {
+        "asOf": "2025-01-01T04:00:00+00:00",
+        "history": [
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "100",
+            "closedAt": "2025-01-01T01:00:00+00:00",
+            "receivedAt": "2025-01-01T01:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "102",
+            "closedAt": "2025-01-01T02:00:00+00:00",
+            "receivedAt": "2025-01-01T02:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "104",
+            "closedAt": "2025-01-01T03:00:00+00:00",
+            "receivedAt": "2025-01-01T03:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "106",
+            "closedAt": "2025-01-01T04:00:00+00:00",
+            "receivedAt": "2025-01-01T04:00:00+00:00"
+          }
+        ],
+        "technical": {
+          "market": "simulation:BTC-USD",
+          "source": "synthetic-simulation",
+          "timeframe": "1h",
+          "featureVersion": "technical-1.0.0",
+          "barClose": "2025-01-01T04:00:00+00:00",
+          "availableAt": "2025-01-01T04:00:00+00:00",
+          "fastValues": [
+            "105"
+          ],
+          "slowValues": [
+            "104"
+          ]
+        },
+        "forecasts": [
+          {
+            "id": "18145d5a-05a8-56d2-863a-5cca8f3d7933",
+            "market": "simulation:BTC-USD",
+            "asset": "synthetic:BTC",
+            "timeframe": "1h",
+            "horizon": "4H",
+            "modelVersion": "synthetic-model-1",
+            "featureVersion": "technical-1.0.0",
+            "status": "AVAILABLE",
+            "generatedAt": "2025-01-01T04:00:00+00:00",
+            "expiresAt": "2025-01-01T08:00:00+00:00",
+            "expectedReturn": "0.04"
+          }
+        ],
+        "quantity": "0",
+        "memory": {
+          "observedQuantity": "0",
+          "invalidationPrice": null,
+          "holdingUntil": null
+        }
+      },
+      "expected": {
+        "action": "ENTER_LONG",
+        "reason": "LONG_CASE_ONLY",
+        "referencePrice": "106",
+        "invalidationPrice": "95.4",
+        "expiresAt": "2025-01-01T08:00:00+00:00",
+        "directional": "LONG",
+        "trend": "0.009615384615384615384615",
+        "expectedReturn": "0.040000000000000000000000",
+        "forecastId": "18145d5a-05a8-56d2-863a-5cca8f3d7933"
+      }
+    },
+    {
+      "name": "missing",
+      "definition": {
+        "version": "synthetic-sma-trend-1",
+        "market": "simulation:BTC-USD",
+        "asset": "synthetic:BTC",
+        "source": "synthetic-simulation",
+        "timeframe": "1h",
+        "horizon": "4H",
+        "modelVersion": "synthetic-model-1",
+        "featureVersion": "technical-1.0.0",
+        "fastPeriod": 2,
+        "slowPeriod": 3,
+        "minimumTrend": "0.001",
+        "minimumReturn": "0.001",
+        "invalidation": "0.1",
+        "maximumAge": 60
+      },
+      "input": {
+        "asOf": "2025-01-01T04:00:00+00:00",
+        "history": [
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "100",
+            "closedAt": "2025-01-01T01:00:00+00:00",
+            "receivedAt": "2025-01-01T01:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "102",
+            "closedAt": "2025-01-01T02:00:00+00:00",
+            "receivedAt": "2025-01-01T02:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "104",
+            "closedAt": "2025-01-01T03:00:00+00:00",
+            "receivedAt": "2025-01-01T03:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "106",
+            "closedAt": "2025-01-01T04:00:00+00:00",
+            "receivedAt": "2025-01-01T04:00:00+00:00"
+          }
+        ],
+        "technical": {
+          "market": "simulation:BTC-USD",
+          "source": "synthetic-simulation",
+          "timeframe": "1h",
+          "featureVersion": "technical-1.0.0",
+          "barClose": "2025-01-01T04:00:00+00:00",
+          "availableAt": "2025-01-01T04:00:00+00:00",
+          "fastValues": [
+            "105"
+          ],
+          "slowValues": [
+            "104"
+          ]
+        },
+        "forecasts": [],
+        "quantity": "0",
+        "memory": {
+          "observedQuantity": "0",
+          "invalidationPrice": null,
+          "holdingUntil": null
+        }
+      },
+      "expected": {
+        "action": "NO_TRADE",
+        "reason": "MISSING_EVIDENCE",
+        "referencePrice": "106",
+        "invalidationPrice": "95.4",
+        "expiresAt": "2025-01-01T08:00:00+00:00",
+        "directional": null,
+        "trend": null,
+        "expectedReturn": null,
+        "forecastId": null
+      }
+    },
+    {
+      "name": "flat",
+      "definition": {
+        "version": "synthetic-sma-trend-1",
+        "market": "simulation:BTC-USD",
+        "asset": "synthetic:BTC",
+        "source": "synthetic-simulation",
+        "timeframe": "1h",
+        "horizon": "4H",
+        "modelVersion": "synthetic-model-1",
+        "featureVersion": "technical-1.0.0",
+        "fastPeriod": 2,
+        "slowPeriod": 3,
+        "minimumTrend": "0.001",
+        "minimumReturn": "0.001",
+        "invalidation": "0.1",
+        "maximumAge": 60
+      },
+      "input": {
+        "asOf": "2025-01-01T04:00:00+00:00",
+        "history": [
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "100",
+            "closedAt": "2025-01-01T01:00:00+00:00",
+            "receivedAt": "2025-01-01T01:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "100",
+            "closedAt": "2025-01-01T02:00:00+00:00",
+            "receivedAt": "2025-01-01T02:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "100",
+            "closedAt": "2025-01-01T03:00:00+00:00",
+            "receivedAt": "2025-01-01T03:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "100",
+            "closedAt": "2025-01-01T04:00:00+00:00",
+            "receivedAt": "2025-01-01T04:00:00+00:00"
+          }
+        ],
+        "technical": {
+          "market": "simulation:BTC-USD",
+          "source": "synthetic-simulation",
+          "timeframe": "1h",
+          "featureVersion": "technical-1.0.0",
+          "barClose": "2025-01-01T04:00:00+00:00",
+          "availableAt": "2025-01-01T04:00:00+00:00",
+          "fastValues": [
+            "100"
+          ],
+          "slowValues": [
+            "100"
+          ]
+        },
+        "forecasts": [
+          {
+            "id": "18145d5a-05a8-56d2-863a-5cca8f3d7933",
+            "market": "simulation:BTC-USD",
+            "asset": "synthetic:BTC",
+            "timeframe": "1h",
+            "horizon": "4H",
+            "modelVersion": "synthetic-model-1",
+            "featureVersion": "technical-1.0.0",
+            "status": "AVAILABLE",
+            "generatedAt": "2025-01-01T04:00:00+00:00",
+            "expiresAt": "2025-01-01T08:00:00+00:00",
+            "expectedReturn": "0.04"
+          }
+        ],
+        "quantity": "0",
+        "memory": {
+          "observedQuantity": "0",
+          "invalidationPrice": null,
+          "holdingUntil": null
+        }
+      },
+      "expected": {
+        "action": "NO_TRADE",
+        "reason": "NO_CASE_PASSED",
+        "referencePrice": "100",
+        "invalidationPrice": "90.0",
+        "expiresAt": "2025-01-01T08:00:00+00:00",
+        "directional": "NO_TRADE",
+        "trend": "0E-24",
+        "expectedReturn": "0.040000000000000000000000",
+        "forecastId": "18145d5a-05a8-56d2-863a-5cca8f3d7933"
+      }
+    },
+    {
+      "name": "short",
+      "definition": {
+        "version": "synthetic-sma-trend-1",
+        "market": "simulation:BTC-USD",
+        "asset": "synthetic:BTC",
+        "source": "synthetic-simulation",
+        "timeframe": "1h",
+        "horizon": "4H",
+        "modelVersion": "synthetic-model-1",
+        "featureVersion": "technical-1.0.0",
+        "fastPeriod": 2,
+        "slowPeriod": 3,
+        "minimumTrend": "0.001",
+        "minimumReturn": "0.001",
+        "invalidation": "0.1",
+        "maximumAge": 60
+      },
+      "input": {
+        "asOf": "2025-01-01T04:00:00+00:00",
+        "history": [
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "106",
+            "closedAt": "2025-01-01T01:00:00+00:00",
+            "receivedAt": "2025-01-01T01:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "104",
+            "closedAt": "2025-01-01T02:00:00+00:00",
+            "receivedAt": "2025-01-01T02:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "102",
+            "closedAt": "2025-01-01T03:00:00+00:00",
+            "receivedAt": "2025-01-01T03:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "100",
+            "closedAt": "2025-01-01T04:00:00+00:00",
+            "receivedAt": "2025-01-01T04:00:00+00:00"
+          }
+        ],
+        "technical": {
+          "market": "simulation:BTC-USD",
+          "source": "synthetic-simulation",
+          "timeframe": "1h",
+          "featureVersion": "technical-1.0.0",
+          "barClose": "2025-01-01T04:00:00+00:00",
+          "availableAt": "2025-01-01T04:00:00+00:00",
+          "fastValues": [
+            "101"
+          ],
+          "slowValues": [
+            "102"
+          ]
+        },
+        "forecasts": [
+          {
+            "id": "81f8336b-52a1-587f-bbf0-3a2f74ab9158",
+            "market": "simulation:BTC-USD",
+            "asset": "synthetic:BTC",
+            "timeframe": "1h",
+            "horizon": "4H",
+            "modelVersion": "synthetic-model-1",
+            "featureVersion": "technical-1.0.0",
+            "status": "AVAILABLE",
+            "generatedAt": "2025-01-01T04:00:00+00:00",
+            "expiresAt": "2025-01-01T08:00:00+00:00",
+            "expectedReturn": "-0.02"
+          }
+        ],
+        "quantity": "0",
+        "memory": {
+          "observedQuantity": "0",
+          "invalidationPrice": null,
+          "holdingUntil": null
+        }
+      },
+      "expected": {
+        "action": "NO_TRADE",
+        "reason": "SHORT_CASE_ONLY",
+        "referencePrice": "100",
+        "invalidationPrice": "90.0",
+        "expiresAt": "2025-01-01T08:00:00+00:00",
+        "directional": "SHORT",
+        "trend": "-0.009803921568627450980392",
+        "expectedReturn": "-0.020000000000000000000000",
+        "forecastId": "81f8336b-52a1-587f-bbf0-3a2f74ab9158"
+      }
+    },
+    {
+      "name": "opposing-return",
+      "definition": {
+        "version": "synthetic-sma-trend-1",
+        "market": "simulation:BTC-USD",
+        "asset": "synthetic:BTC",
+        "source": "synthetic-simulation",
+        "timeframe": "1h",
+        "horizon": "4H",
+        "modelVersion": "synthetic-model-1",
+        "featureVersion": "technical-1.0.0",
+        "fastPeriod": 2,
+        "slowPeriod": 3,
+        "minimumTrend": "0.001",
+        "minimumReturn": "0.001",
+        "invalidation": "0.1",
+        "maximumAge": 60
+      },
+      "input": {
+        "asOf": "2025-01-01T04:00:00+00:00",
+        "history": [
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "100",
+            "closedAt": "2025-01-01T01:00:00+00:00",
+            "receivedAt": "2025-01-01T01:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "102",
+            "closedAt": "2025-01-01T02:00:00+00:00",
+            "receivedAt": "2025-01-01T02:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "104",
+            "closedAt": "2025-01-01T03:00:00+00:00",
+            "receivedAt": "2025-01-01T03:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "106",
+            "closedAt": "2025-01-01T04:00:00+00:00",
+            "receivedAt": "2025-01-01T04:00:00+00:00"
+          }
+        ],
+        "technical": {
+          "market": "simulation:BTC-USD",
+          "source": "synthetic-simulation",
+          "timeframe": "1h",
+          "featureVersion": "technical-1.0.0",
+          "barClose": "2025-01-01T04:00:00+00:00",
+          "availableAt": "2025-01-01T04:00:00+00:00",
+          "fastValues": [
+            "105"
+          ],
+          "slowValues": [
+            "104"
+          ]
+        },
+        "forecasts": [
+          {
+            "id": "81f8336b-52a1-587f-bbf0-3a2f74ab9158",
+            "market": "simulation:BTC-USD",
+            "asset": "synthetic:BTC",
+            "timeframe": "1h",
+            "horizon": "4H",
+            "modelVersion": "synthetic-model-1",
+            "featureVersion": "technical-1.0.0",
+            "status": "AVAILABLE",
+            "generatedAt": "2025-01-01T04:00:00+00:00",
+            "expiresAt": "2025-01-01T08:00:00+00:00",
+            "expectedReturn": "-0.02"
+          }
+        ],
+        "quantity": "0",
+        "memory": {
+          "observedQuantity": "0",
+          "invalidationPrice": null,
+          "holdingUntil": null
+        }
+      },
+      "expected": {
+        "action": "NO_TRADE",
+        "reason": "NO_CASE_PASSED",
+        "referencePrice": "106",
+        "invalidationPrice": "95.4",
+        "expiresAt": "2025-01-01T08:00:00+00:00",
+        "directional": "NO_TRADE",
+        "trend": "0.009615384615384615384615",
+        "expectedReturn": "-0.020000000000000000000000",
+        "forecastId": "81f8336b-52a1-587f-bbf0-3a2f74ab9158"
+      }
+    },
+    {
+      "name": "opposing-trend",
+      "definition": {
+        "version": "synthetic-sma-trend-1",
+        "market": "simulation:BTC-USD",
+        "asset": "synthetic:BTC",
+        "source": "synthetic-simulation",
+        "timeframe": "1h",
+        "horizon": "4H",
+        "modelVersion": "synthetic-model-1",
+        "featureVersion": "technical-1.0.0",
+        "fastPeriod": 2,
+        "slowPeriod": 3,
+        "minimumTrend": "0.001",
+        "minimumReturn": "0.001",
+        "invalidation": "0.1",
+        "maximumAge": 60
+      },
+      "input": {
+        "asOf": "2025-01-01T04:00:00+00:00",
+        "history": [
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "106",
+            "closedAt": "2025-01-01T01:00:00+00:00",
+            "receivedAt": "2025-01-01T01:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "104",
+            "closedAt": "2025-01-01T02:00:00+00:00",
+            "receivedAt": "2025-01-01T02:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "102",
+            "closedAt": "2025-01-01T03:00:00+00:00",
+            "receivedAt": "2025-01-01T03:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "100",
+            "closedAt": "2025-01-01T04:00:00+00:00",
+            "receivedAt": "2025-01-01T04:00:00+00:00"
+          }
+        ],
+        "technical": {
+          "market": "simulation:BTC-USD",
+          "source": "synthetic-simulation",
+          "timeframe": "1h",
+          "featureVersion": "technical-1.0.0",
+          "barClose": "2025-01-01T04:00:00+00:00",
+          "availableAt": "2025-01-01T04:00:00+00:00",
+          "fastValues": [
+            "101"
+          ],
+          "slowValues": [
+            "102"
+          ]
+        },
+        "forecasts": [
+          {
+            "id": "18145d5a-05a8-56d2-863a-5cca8f3d7933",
+            "market": "simulation:BTC-USD",
+            "asset": "synthetic:BTC",
+            "timeframe": "1h",
+            "horizon": "4H",
+            "modelVersion": "synthetic-model-1",
+            "featureVersion": "technical-1.0.0",
+            "status": "AVAILABLE",
+            "generatedAt": "2025-01-01T04:00:00+00:00",
+            "expiresAt": "2025-01-01T08:00:00+00:00",
+            "expectedReturn": "0.04"
+          }
+        ],
+        "quantity": "0",
+        "memory": {
+          "observedQuantity": "0",
+          "invalidationPrice": null,
+          "holdingUntil": null
+        }
+      },
+      "expected": {
+        "action": "NO_TRADE",
+        "reason": "NO_CASE_PASSED",
+        "referencePrice": "100",
+        "invalidationPrice": "90.0",
+        "expiresAt": "2025-01-01T08:00:00+00:00",
+        "directional": "NO_TRADE",
+        "trend": "-0.009803921568627450980392",
+        "expectedReturn": "0.040000000000000000000000",
+        "forecastId": "18145d5a-05a8-56d2-863a-5cca8f3d7933"
+      }
+    },
+    {
+      "name": "holding",
+      "definition": {
+        "version": "synthetic-sma-trend-1",
+        "market": "simulation:BTC-USD",
+        "asset": "synthetic:BTC",
+        "source": "synthetic-simulation",
+        "timeframe": "1h",
+        "horizon": "4H",
+        "modelVersion": "synthetic-model-1",
+        "featureVersion": "technical-1.0.0",
+        "fastPeriod": 2,
+        "slowPeriod": 3,
+        "minimumTrend": "0.001",
+        "minimumReturn": "0.001",
+        "invalidation": "0.1",
+        "maximumAge": 60
+      },
+      "input": {
+        "asOf": "2025-01-01T04:00:00+00:00",
+        "history": [
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "100",
+            "closedAt": "2025-01-01T01:00:00+00:00",
+            "receivedAt": "2025-01-01T01:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "102",
+            "closedAt": "2025-01-01T02:00:00+00:00",
+            "receivedAt": "2025-01-01T02:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "104",
+            "closedAt": "2025-01-01T03:00:00+00:00",
+            "receivedAt": "2025-01-01T03:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "106",
+            "closedAt": "2025-01-01T04:00:00+00:00",
+            "receivedAt": "2025-01-01T04:00:00+00:00"
+          }
+        ],
+        "technical": {
+          "market": "simulation:BTC-USD",
+          "source": "synthetic-simulation",
+          "timeframe": "1h",
+          "featureVersion": "technical-1.0.0",
+          "barClose": "2025-01-01T04:00:00+00:00",
+          "availableAt": "2025-01-01T04:00:00+00:00",
+          "fastValues": [
+            "105"
+          ],
+          "slowValues": [
+            "104"
+          ]
+        },
+        "forecasts": [
+          {
+            "id": "18145d5a-05a8-56d2-863a-5cca8f3d7933",
+            "market": "simulation:BTC-USD",
+            "asset": "synthetic:BTC",
+            "timeframe": "1h",
+            "horizon": "4H",
+            "modelVersion": "synthetic-model-1",
+            "featureVersion": "technical-1.0.0",
+            "status": "AVAILABLE",
+            "generatedAt": "2025-01-01T04:00:00+00:00",
+            "expiresAt": "2025-01-01T08:00:00+00:00",
+            "expectedReturn": "0.04"
+          }
+        ],
+        "quantity": "2",
+        "memory": {
+          "observedQuantity": "0",
+          "invalidationPrice": null,
+          "holdingUntil": null
+        }
+      },
+      "expected": {
+        "action": "NO_TRADE",
+        "reason": "HOLD_OR_NO_TRADE",
+        "referencePrice": "106",
+        "invalidationPrice": "95.4",
+        "expiresAt": "2025-01-01T08:00:00+00:00",
+        "directional": "LONG",
+        "trend": "0.009615384615384615384615",
+        "expectedReturn": "0.040000000000000000000000",
+        "forecastId": "18145d5a-05a8-56d2-863a-5cca8f3d7933"
+      }
+    },
+    {
+      "name": "price-stop",
+      "definition": {
+        "version": "synthetic-sma-trend-1",
+        "market": "simulation:BTC-USD",
+        "asset": "synthetic:BTC",
+        "source": "synthetic-simulation",
+        "timeframe": "1h",
+        "horizon": "4H",
+        "modelVersion": "synthetic-model-1",
+        "featureVersion": "technical-1.0.0",
+        "fastPeriod": 2,
+        "slowPeriod": 3,
+        "minimumTrend": "0.001",
+        "minimumReturn": "0.001",
+        "invalidation": "0.1",
+        "maximumAge": 60
+      },
+      "input": {
+        "asOf": "2025-01-01T04:00:00+00:00",
+        "history": [
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "100",
+            "closedAt": "2025-01-01T01:00:00+00:00",
+            "receivedAt": "2025-01-01T01:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "102",
+            "closedAt": "2025-01-01T02:00:00+00:00",
+            "receivedAt": "2025-01-01T02:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "104",
+            "closedAt": "2025-01-01T03:00:00+00:00",
+            "receivedAt": "2025-01-01T03:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "106",
+            "closedAt": "2025-01-01T04:00:00+00:00",
+            "receivedAt": "2025-01-01T04:00:00+00:00"
+          }
+        ],
+        "technical": {
+          "market": "simulation:BTC-USD",
+          "source": "synthetic-simulation",
+          "timeframe": "1h",
+          "featureVersion": "technical-1.0.0",
+          "barClose": "2025-01-01T04:00:00+00:00",
+          "availableAt": "2025-01-01T04:00:00+00:00",
+          "fastValues": [
+            "105"
+          ],
+          "slowValues": [
+            "104"
+          ]
+        },
+        "forecasts": [],
+        "quantity": "2",
+        "memory": {
+          "observedQuantity": "2",
+          "invalidationPrice": "200",
+          "holdingUntil": null
+        }
+      },
+      "expected": {
+        "action": "EXIT_LONG",
+        "reason": "PRICE_INVALIDATION",
+        "referencePrice": "106",
+        "invalidationPrice": "200",
+        "expiresAt": "2025-01-01T08:00:00+00:00",
+        "directional": null,
+        "trend": null,
+        "expectedReturn": null,
+        "forecastId": null
+      }
+    },
+    {
+      "name": "holding-expiry",
+      "definition": {
+        "version": "synthetic-sma-trend-1",
+        "market": "simulation:BTC-USD",
+        "asset": "synthetic:BTC",
+        "source": "synthetic-simulation",
+        "timeframe": "1h",
+        "horizon": "4H",
+        "modelVersion": "synthetic-model-1",
+        "featureVersion": "technical-1.0.0",
+        "fastPeriod": 2,
+        "slowPeriod": 3,
+        "minimumTrend": "0.001",
+        "minimumReturn": "0.001",
+        "invalidation": "0.1",
+        "maximumAge": 60
+      },
+      "input": {
+        "asOf": "2025-01-01T04:00:00+00:00",
+        "history": [
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "100",
+            "closedAt": "2025-01-01T01:00:00+00:00",
+            "receivedAt": "2025-01-01T01:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "102",
+            "closedAt": "2025-01-01T02:00:00+00:00",
+            "receivedAt": "2025-01-01T02:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "104",
+            "closedAt": "2025-01-01T03:00:00+00:00",
+            "receivedAt": "2025-01-01T03:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "106",
+            "closedAt": "2025-01-01T04:00:00+00:00",
+            "receivedAt": "2025-01-01T04:00:00+00:00"
+          }
+        ],
+        "technical": {
+          "market": "simulation:BTC-USD",
+          "source": "synthetic-simulation",
+          "timeframe": "1h",
+          "featureVersion": "technical-1.0.0",
+          "barClose": "2025-01-01T04:00:00+00:00",
+          "availableAt": "2025-01-01T04:00:00+00:00",
+          "fastValues": [
+            "105"
+          ],
+          "slowValues": [
+            "104"
+          ]
+        },
+        "forecasts": [],
+        "quantity": "2",
+        "memory": {
+          "observedQuantity": "2",
+          "invalidationPrice": "90",
+          "holdingUntil": "2025-01-01T04:00:00+00:00"
+        }
+      },
+      "expected": {
+        "action": "EXIT_LONG",
+        "reason": "HORIZON_EXPIRED",
+        "referencePrice": "106",
+        "invalidationPrice": "90",
+        "expiresAt": "2025-01-01T08:00:00+00:00",
+        "directional": null,
+        "trend": null,
+        "expectedReturn": null,
+        "forecastId": null
+      }
+    },
+    {
+      "name": "stop-and-expiry",
+      "definition": {
+        "version": "synthetic-sma-trend-1",
+        "market": "simulation:BTC-USD",
+        "asset": "synthetic:BTC",
+        "source": "synthetic-simulation",
+        "timeframe": "1h",
+        "horizon": "4H",
+        "modelVersion": "synthetic-model-1",
+        "featureVersion": "technical-1.0.0",
+        "fastPeriod": 2,
+        "slowPeriod": 3,
+        "minimumTrend": "0.001",
+        "minimumReturn": "0.001",
+        "invalidation": "0.1",
+        "maximumAge": 60
+      },
+      "input": {
+        "asOf": "2025-01-01T04:00:00+00:00",
+        "history": [
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "100",
+            "closedAt": "2025-01-01T01:00:00+00:00",
+            "receivedAt": "2025-01-01T01:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "102",
+            "closedAt": "2025-01-01T02:00:00+00:00",
+            "receivedAt": "2025-01-01T02:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "104",
+            "closedAt": "2025-01-01T03:00:00+00:00",
+            "receivedAt": "2025-01-01T03:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "106",
+            "closedAt": "2025-01-01T04:00:00+00:00",
+            "receivedAt": "2025-01-01T04:00:00+00:00"
+          }
+        ],
+        "technical": {
+          "market": "simulation:BTC-USD",
+          "source": "synthetic-simulation",
+          "timeframe": "1h",
+          "featureVersion": "technical-1.0.0",
+          "barClose": "2025-01-01T04:00:00+00:00",
+          "availableAt": "2025-01-01T04:00:00+00:00",
+          "fastValues": [
+            "105"
+          ],
+          "slowValues": [
+            "104"
+          ]
+        },
+        "forecasts": [],
+        "quantity": "2",
+        "memory": {
+          "observedQuantity": "2",
+          "invalidationPrice": "200",
+          "holdingUntil": "2025-01-01T04:00:00+00:00"
+        }
+      },
+      "expected": {
+        "action": "EXIT_LONG",
+        "reason": "HORIZON_EXPIRED",
+        "referencePrice": "106",
+        "invalidationPrice": "200",
+        "expiresAt": "2025-01-01T08:00:00+00:00",
+        "directional": null,
+        "trend": null,
+        "expectedReturn": null,
+        "forecastId": null
+      }
+    },
+    {
+      "name": "trend-exit",
+      "definition": {
+        "version": "synthetic-sma-trend-1",
+        "market": "simulation:BTC-USD",
+        "asset": "synthetic:BTC",
+        "source": "synthetic-simulation",
+        "timeframe": "1h",
+        "horizon": "4H",
+        "modelVersion": "synthetic-model-1",
+        "featureVersion": "technical-1.0.0",
+        "fastPeriod": 2,
+        "slowPeriod": 3,
+        "minimumTrend": "0.001",
+        "minimumReturn": "0.001",
+        "invalidation": "0.1",
+        "maximumAge": 60
+      },
+      "input": {
+        "asOf": "2025-01-01T04:00:00+00:00",
+        "history": [
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "106",
+            "closedAt": "2025-01-01T01:00:00+00:00",
+            "receivedAt": "2025-01-01T01:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "104",
+            "closedAt": "2025-01-01T02:00:00+00:00",
+            "receivedAt": "2025-01-01T02:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "102",
+            "closedAt": "2025-01-01T03:00:00+00:00",
+            "receivedAt": "2025-01-01T03:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "100",
+            "closedAt": "2025-01-01T04:00:00+00:00",
+            "receivedAt": "2025-01-01T04:00:00+00:00"
+          }
+        ],
+        "technical": {
+          "market": "simulation:BTC-USD",
+          "source": "synthetic-simulation",
+          "timeframe": "1h",
+          "featureVersion": "technical-1.0.0",
+          "barClose": "2025-01-01T04:00:00+00:00",
+          "availableAt": "2025-01-01T04:00:00+00:00",
+          "fastValues": [
+            "101"
+          ],
+          "slowValues": [
+            "102"
+          ]
+        },
+        "forecasts": [
+          {
+            "id": "81f8336b-52a1-587f-bbf0-3a2f74ab9158",
+            "market": "simulation:BTC-USD",
+            "asset": "synthetic:BTC",
+            "timeframe": "1h",
+            "horizon": "4H",
+            "modelVersion": "synthetic-model-1",
+            "featureVersion": "technical-1.0.0",
+            "status": "AVAILABLE",
+            "generatedAt": "2025-01-01T04:00:00+00:00",
+            "expiresAt": "2025-01-01T08:00:00+00:00",
+            "expectedReturn": "-0.02"
+          }
+        ],
+        "quantity": "2",
+        "memory": {
+          "observedQuantity": "0",
+          "invalidationPrice": null,
+          "holdingUntil": null
+        }
+      },
+      "expected": {
+        "action": "EXIT_LONG",
+        "reason": "TREND_INVALIDATION",
+        "referencePrice": "100",
+        "invalidationPrice": "90.0",
+        "expiresAt": "2025-01-01T08:00:00+00:00",
+        "directional": "SHORT",
+        "trend": "-0.009803921568627450980392",
+        "expectedReturn": "-0.020000000000000000000000",
+        "forecastId": "81f8336b-52a1-587f-bbf0-3a2f74ab9158"
+      }
+    },
+    {
+      "name": "stale-stop",
+      "definition": {
+        "version": "synthetic-sma-trend-1",
+        "market": "simulation:BTC-USD",
+        "asset": "synthetic:BTC",
+        "source": "synthetic-simulation",
+        "timeframe": "1h",
+        "horizon": "4H",
+        "modelVersion": "synthetic-model-1",
+        "featureVersion": "technical-1.0.0",
+        "fastPeriod": 2,
+        "slowPeriod": 3,
+        "minimumTrend": "0.001",
+        "minimumReturn": "0.001",
+        "invalidation": "0.1",
+        "maximumAge": 60
+      },
+      "input": {
+        "asOf": "2025-01-01T04:01:01+00:00",
+        "history": [
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "100",
+            "closedAt": "2025-01-01T01:00:00+00:00",
+            "receivedAt": "2025-01-01T01:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "102",
+            "closedAt": "2025-01-01T02:00:00+00:00",
+            "receivedAt": "2025-01-01T02:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "104",
+            "closedAt": "2025-01-01T03:00:00+00:00",
+            "receivedAt": "2025-01-01T03:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "106",
+            "closedAt": "2025-01-01T04:00:00+00:00",
+            "receivedAt": "2025-01-01T04:00:00+00:00"
+          }
+        ],
+        "technical": {
+          "market": "simulation:BTC-USD",
+          "source": "synthetic-simulation",
+          "timeframe": "1h",
+          "featureVersion": "technical-1.0.0",
+          "barClose": "2025-01-01T04:00:00+00:00",
+          "availableAt": "2025-01-01T04:00:00+00:00",
+          "fastValues": [
+            "105"
+          ],
+          "slowValues": [
+            "104"
+          ]
+        },
+        "forecasts": [],
+        "quantity": "2",
+        "memory": {
+          "observedQuantity": "2",
+          "invalidationPrice": "200",
+          "holdingUntil": null
+        }
+      },
+      "expected": {
+        "action": "NO_TRADE",
+        "reason": "MISSING_EVIDENCE",
+        "referencePrice": null,
+        "invalidationPrice": null,
+        "expiresAt": "2025-01-01T08:01:01+00:00",
+        "directional": null,
+        "trend": null,
+        "expectedReturn": null,
+        "forecastId": null
+      }
+    },
+    {
+      "name": "warmup",
+      "definition": {
+        "version": "synthetic-sma-trend-1",
+        "market": "simulation:BTC-USD",
+        "asset": "synthetic:BTC",
+        "source": "synthetic-simulation",
+        "timeframe": "1h",
+        "horizon": "4H",
+        "modelVersion": "synthetic-model-1",
+        "featureVersion": "technical-1.0.0",
+        "fastPeriod": 2,
+        "slowPeriod": 3,
+        "minimumTrend": "0.001",
+        "minimumReturn": "0.001",
+        "invalidation": "0.1",
+        "maximumAge": 60
+      },
+      "input": {
+        "asOf": "2025-01-01T01:00:00+00:00",
+        "history": [
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "100",
+            "closedAt": "2025-01-01T01:00:00+00:00",
+            "receivedAt": "2025-01-01T01:00:00+00:00"
+          }
+        ],
+        "technical": {
+          "market": "simulation:BTC-USD",
+          "source": "synthetic-simulation",
+          "timeframe": "1h",
+          "featureVersion": "technical-1.0.0",
+          "barClose": "2025-01-01T01:00:00+00:00",
+          "availableAt": "2025-01-01T01:00:00+00:00",
+          "fastValues": [
+            null
+          ],
+          "slowValues": [
+            null
+          ]
+        },
+        "forecasts": [
+          {
+            "id": "94b4e5fb-1a68-5b49-8364-9fc778b35062",
+            "market": "simulation:BTC-USD",
+            "asset": "synthetic:BTC",
+            "timeframe": "1h",
+            "horizon": "4H",
+            "modelVersion": "synthetic-model-1",
+            "featureVersion": "technical-1.0.0",
+            "status": "AVAILABLE",
+            "generatedAt": "2025-01-01T01:00:00+00:00",
+            "expiresAt": "2025-01-01T05:00:00+00:00",
+            "expectedReturn": "0.04"
+          }
+        ],
+        "quantity": "0",
+        "memory": {
+          "observedQuantity": "0",
+          "invalidationPrice": null,
+          "holdingUntil": null
+        }
+      },
+      "expected": {
+        "action": "NO_TRADE",
+        "reason": "MISSING_EVIDENCE",
+        "referencePrice": "100",
+        "invalidationPrice": "90.0",
+        "expiresAt": "2025-01-01T05:00:00+00:00",
+        "directional": null,
+        "trend": null,
+        "expectedReturn": null,
+        "forecastId": null
+      }
+    },
+    {
+      "name": "wrong-model",
+      "definition": {
+        "version": "synthetic-sma-trend-1",
+        "market": "simulation:BTC-USD",
+        "asset": "synthetic:BTC",
+        "source": "synthetic-simulation",
+        "timeframe": "1h",
+        "horizon": "4H",
+        "modelVersion": "synthetic-model-1",
+        "featureVersion": "technical-1.0.0",
+        "fastPeriod": 2,
+        "slowPeriod": 3,
+        "minimumTrend": "0.001",
+        "minimumReturn": "0.001",
+        "invalidation": "0.1",
+        "maximumAge": 60
+      },
+      "input": {
+        "asOf": "2025-01-01T04:00:00+00:00",
+        "history": [
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "100",
+            "closedAt": "2025-01-01T01:00:00+00:00",
+            "receivedAt": "2025-01-01T01:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "102",
+            "closedAt": "2025-01-01T02:00:00+00:00",
+            "receivedAt": "2025-01-01T02:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "104",
+            "closedAt": "2025-01-01T03:00:00+00:00",
+            "receivedAt": "2025-01-01T03:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "106",
+            "closedAt": "2025-01-01T04:00:00+00:00",
+            "receivedAt": "2025-01-01T04:00:00+00:00"
+          }
+        ],
+        "technical": {
+          "market": "simulation:BTC-USD",
+          "source": "synthetic-simulation",
+          "timeframe": "1h",
+          "featureVersion": "technical-1.0.0",
+          "barClose": "2025-01-01T04:00:00+00:00",
+          "availableAt": "2025-01-01T04:00:00+00:00",
+          "fastValues": [
+            "105"
+          ],
+          "slowValues": [
+            "104"
+          ]
+        },
+        "forecasts": [
+          {
+            "id": "18145d5a-05a8-56d2-863a-5cca8f3d7933",
+            "market": "simulation:BTC-USD",
+            "asset": "synthetic:BTC",
+            "timeframe": "1h",
+            "horizon": "4H",
+            "modelVersion": "other-identity",
+            "featureVersion": "technical-1.0.0",
+            "status": "AVAILABLE",
+            "generatedAt": "2025-01-01T04:00:00+00:00",
+            "expiresAt": "2025-01-01T08:00:00+00:00",
+            "expectedReturn": "0.04"
+          }
+        ],
+        "quantity": "0",
+        "memory": {
+          "observedQuantity": "0",
+          "invalidationPrice": null,
+          "holdingUntil": null
+        }
+      },
+      "expected": {
+        "action": "NO_TRADE",
+        "reason": "MISSING_EVIDENCE",
+        "referencePrice": "106",
+        "invalidationPrice": "95.4",
+        "expiresAt": "2025-01-01T08:00:00+00:00",
+        "directional": null,
+        "trend": null,
+        "expectedReturn": null,
+        "forecastId": null
+      }
+    },
+    {
+      "name": "wrong-horizon",
+      "definition": {
+        "version": "synthetic-sma-trend-1",
+        "market": "simulation:BTC-USD",
+        "asset": "synthetic:BTC",
+        "source": "synthetic-simulation",
+        "timeframe": "1h",
+        "horizon": "4H",
+        "modelVersion": "synthetic-model-1",
+        "featureVersion": "technical-1.0.0",
+        "fastPeriod": 2,
+        "slowPeriod": 3,
+        "minimumTrend": "0.001",
+        "minimumReturn": "0.001",
+        "invalidation": "0.1",
+        "maximumAge": 60
+      },
+      "input": {
+        "asOf": "2025-01-01T04:00:00+00:00",
+        "history": [
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "100",
+            "closedAt": "2025-01-01T01:00:00+00:00",
+            "receivedAt": "2025-01-01T01:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "102",
+            "closedAt": "2025-01-01T02:00:00+00:00",
+            "receivedAt": "2025-01-01T02:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "104",
+            "closedAt": "2025-01-01T03:00:00+00:00",
+            "receivedAt": "2025-01-01T03:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "106",
+            "closedAt": "2025-01-01T04:00:00+00:00",
+            "receivedAt": "2025-01-01T04:00:00+00:00"
+          }
+        ],
+        "technical": {
+          "market": "simulation:BTC-USD",
+          "source": "synthetic-simulation",
+          "timeframe": "1h",
+          "featureVersion": "technical-1.0.0",
+          "barClose": "2025-01-01T04:00:00+00:00",
+          "availableAt": "2025-01-01T04:00:00+00:00",
+          "fastValues": [
+            "105"
+          ],
+          "slowValues": [
+            "104"
+          ]
+        },
+        "forecasts": [
+          {
+            "id": "18145d5a-05a8-56d2-863a-5cca8f3d7933",
+            "market": "simulation:BTC-USD",
+            "asset": "synthetic:BTC",
+            "timeframe": "1h",
+            "horizon": "1H",
+            "modelVersion": "synthetic-model-1",
+            "featureVersion": "technical-1.0.0",
+            "status": "AVAILABLE",
+            "generatedAt": "2025-01-01T04:00:00+00:00",
+            "expiresAt": "2025-01-01T05:00:00+00:00",
+            "expectedReturn": "0.04"
+          }
+        ],
+        "quantity": "0",
+        "memory": {
+          "observedQuantity": "0",
+          "invalidationPrice": null,
+          "holdingUntil": null
+        }
+      },
+      "expected": {
+        "action": "NO_TRADE",
+        "reason": "MISSING_EVIDENCE",
+        "referencePrice": "106",
+        "invalidationPrice": "95.4",
+        "expiresAt": "2025-01-01T08:00:00+00:00",
+        "directional": null,
+        "trend": null,
+        "expectedReturn": null,
+        "forecastId": null
+      }
+    },
+    {
+      "name": "wrong-feature",
+      "definition": {
+        "version": "synthetic-sma-trend-1",
+        "market": "simulation:BTC-USD",
+        "asset": "synthetic:BTC",
+        "source": "synthetic-simulation",
+        "timeframe": "1h",
+        "horizon": "4H",
+        "modelVersion": "synthetic-model-1",
+        "featureVersion": "technical-1.0.0",
+        "fastPeriod": 2,
+        "slowPeriod": 3,
+        "minimumTrend": "0.001",
+        "minimumReturn": "0.001",
+        "invalidation": "0.1",
+        "maximumAge": 60
+      },
+      "input": {
+        "asOf": "2025-01-01T04:00:00+00:00",
+        "history": [
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "100",
+            "closedAt": "2025-01-01T01:00:00+00:00",
+            "receivedAt": "2025-01-01T01:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "102",
+            "closedAt": "2025-01-01T02:00:00+00:00",
+            "receivedAt": "2025-01-01T02:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "104",
+            "closedAt": "2025-01-01T03:00:00+00:00",
+            "receivedAt": "2025-01-01T03:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "106",
+            "closedAt": "2025-01-01T04:00:00+00:00",
+            "receivedAt": "2025-01-01T04:00:00+00:00"
+          }
+        ],
+        "technical": {
+          "market": "simulation:BTC-USD",
+          "source": "synthetic-simulation",
+          "timeframe": "1h",
+          "featureVersion": "technical-1.0.0",
+          "barClose": "2025-01-01T04:00:00+00:00",
+          "availableAt": "2025-01-01T04:00:00+00:00",
+          "fastValues": [
+            "105"
+          ],
+          "slowValues": [
+            "104"
+          ]
+        },
+        "forecasts": [
+          {
+            "id": "18145d5a-05a8-56d2-863a-5cca8f3d7933",
+            "market": "simulation:BTC-USD",
+            "asset": "synthetic:BTC",
+            "timeframe": "1h",
+            "horizon": "4H",
+            "modelVersion": "synthetic-model-1",
+            "featureVersion": "other-identity",
+            "status": "AVAILABLE",
+            "generatedAt": "2025-01-01T04:00:00+00:00",
+            "expiresAt": "2025-01-01T08:00:00+00:00",
+            "expectedReturn": "0.04"
+          }
+        ],
+        "quantity": "0",
+        "memory": {
+          "observedQuantity": "0",
+          "invalidationPrice": null,
+          "holdingUntil": null
+        }
+      },
+      "expected": {
+        "action": "NO_TRADE",
+        "reason": "MISSING_EVIDENCE",
+        "referencePrice": "106",
+        "invalidationPrice": "95.4",
+        "expiresAt": "2025-01-01T08:00:00+00:00",
+        "directional": null,
+        "trend": null,
+        "expectedReturn": null,
+        "forecastId": null
+      }
+    },
+    {
+      "name": "wrong-market",
+      "definition": {
+        "version": "synthetic-sma-trend-1",
+        "market": "simulation:BTC-USD",
+        "asset": "synthetic:BTC",
+        "source": "synthetic-simulation",
+        "timeframe": "1h",
+        "horizon": "4H",
+        "modelVersion": "synthetic-model-1",
+        "featureVersion": "technical-1.0.0",
+        "fastPeriod": 2,
+        "slowPeriod": 3,
+        "minimumTrend": "0.001",
+        "minimumReturn": "0.001",
+        "invalidation": "0.1",
+        "maximumAge": 60
+      },
+      "input": {
+        "asOf": "2025-01-01T04:00:00+00:00",
+        "history": [
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "100",
+            "closedAt": "2025-01-01T01:00:00+00:00",
+            "receivedAt": "2025-01-01T01:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "102",
+            "closedAt": "2025-01-01T02:00:00+00:00",
+            "receivedAt": "2025-01-01T02:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "104",
+            "closedAt": "2025-01-01T03:00:00+00:00",
+            "receivedAt": "2025-01-01T03:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "106",
+            "closedAt": "2025-01-01T04:00:00+00:00",
+            "receivedAt": "2025-01-01T04:00:00+00:00"
+          }
+        ],
+        "technical": {
+          "market": "simulation:BTC-USD",
+          "source": "synthetic-simulation",
+          "timeframe": "1h",
+          "featureVersion": "technical-1.0.0",
+          "barClose": "2025-01-01T04:00:00+00:00",
+          "availableAt": "2025-01-01T04:00:00+00:00",
+          "fastValues": [
+            "105"
+          ],
+          "slowValues": [
+            "104"
+          ]
+        },
+        "forecasts": [
+          {
+            "id": "18145d5a-05a8-56d2-863a-5cca8f3d7933",
+            "market": "other-identity",
+            "asset": "synthetic:BTC",
+            "timeframe": "1h",
+            "horizon": "4H",
+            "modelVersion": "synthetic-model-1",
+            "featureVersion": "technical-1.0.0",
+            "status": "AVAILABLE",
+            "generatedAt": "2025-01-01T04:00:00+00:00",
+            "expiresAt": "2025-01-01T08:00:00+00:00",
+            "expectedReturn": "0.04"
+          }
+        ],
+        "quantity": "0",
+        "memory": {
+          "observedQuantity": "0",
+          "invalidationPrice": null,
+          "holdingUntil": null
+        }
+      },
+      "expected": {
+        "action": "NO_TRADE",
+        "reason": "MISSING_EVIDENCE",
+        "referencePrice": "106",
+        "invalidationPrice": "95.4",
+        "expiresAt": "2025-01-01T08:00:00+00:00",
+        "directional": null,
+        "trend": null,
+        "expectedReturn": null,
+        "forecastId": null
+      }
+    },
+    {
+      "name": "ambiguous",
+      "definition": {
+        "version": "synthetic-sma-trend-1",
+        "market": "simulation:BTC-USD",
+        "asset": "synthetic:BTC",
+        "source": "synthetic-simulation",
+        "timeframe": "1h",
+        "horizon": "4H",
+        "modelVersion": "synthetic-model-1",
+        "featureVersion": "technical-1.0.0",
+        "fastPeriod": 2,
+        "slowPeriod": 3,
+        "minimumTrend": "0.001",
+        "minimumReturn": "0.001",
+        "invalidation": "0.1",
+        "maximumAge": 60
+      },
+      "input": {
+        "asOf": "2025-01-01T04:00:00+00:00",
+        "history": [
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "100",
+            "closedAt": "2025-01-01T01:00:00+00:00",
+            "receivedAt": "2025-01-01T01:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "102",
+            "closedAt": "2025-01-01T02:00:00+00:00",
+            "receivedAt": "2025-01-01T02:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "104",
+            "closedAt": "2025-01-01T03:00:00+00:00",
+            "receivedAt": "2025-01-01T03:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "106",
+            "closedAt": "2025-01-01T04:00:00+00:00",
+            "receivedAt": "2025-01-01T04:00:00+00:00"
+          }
+        ],
+        "technical": {
+          "market": "simulation:BTC-USD",
+          "source": "synthetic-simulation",
+          "timeframe": "1h",
+          "featureVersion": "technical-1.0.0",
+          "barClose": "2025-01-01T04:00:00+00:00",
+          "availableAt": "2025-01-01T04:00:00+00:00",
+          "fastValues": [
+            "105"
+          ],
+          "slowValues": [
+            "104"
+          ]
+        },
+        "forecasts": [
+          {
+            "id": "18145d5a-05a8-56d2-863a-5cca8f3d7933",
+            "market": "simulation:BTC-USD",
+            "asset": "synthetic:BTC",
+            "timeframe": "1h",
+            "horizon": "4H",
+            "modelVersion": "synthetic-model-1",
+            "featureVersion": "technical-1.0.0",
+            "status": "AVAILABLE",
+            "generatedAt": "2025-01-01T04:00:00+00:00",
+            "expiresAt": "2025-01-01T08:00:00+00:00",
+            "expectedReturn": "0.04"
+          },
+          {
+            "id": "00000000-0000-0000-0000-00000000270f",
+            "market": "simulation:BTC-USD",
+            "asset": "synthetic:BTC",
+            "timeframe": "1h",
+            "horizon": "4H",
+            "modelVersion": "synthetic-model-1",
+            "featureVersion": "technical-1.0.0",
+            "status": "AVAILABLE",
+            "generatedAt": "2025-01-01T04:00:00+00:00",
+            "expiresAt": "2025-01-01T08:00:00+00:00",
+            "expectedReturn": "0.04"
+          }
+        ],
+        "quantity": "0",
+        "memory": {
+          "observedQuantity": "0",
+          "invalidationPrice": null,
+          "holdingUntil": null
+        }
+      },
+      "expected": {
+        "action": "NO_TRADE",
+        "reason": "MISSING_EVIDENCE",
+        "referencePrice": "106",
+        "invalidationPrice": "95.4",
+        "expiresAt": "2025-01-01T08:00:00+00:00",
+        "directional": null,
+        "trend": null,
+        "expectedReturn": null,
+        "forecastId": null
+      }
+    },
+    {
+      "name": "newest",
+      "definition": {
+        "version": "synthetic-sma-trend-1",
+        "market": "simulation:BTC-USD",
+        "asset": "synthetic:BTC",
+        "source": "synthetic-simulation",
+        "timeframe": "1h",
+        "horizon": "4H",
+        "modelVersion": "synthetic-model-1",
+        "featureVersion": "technical-1.0.0",
+        "fastPeriod": 2,
+        "slowPeriod": 3,
+        "minimumTrend": "0.001",
+        "minimumReturn": "0.001",
+        "invalidation": "0.1",
+        "maximumAge": 60
+      },
+      "input": {
+        "asOf": "2025-01-01T04:00:00+00:00",
+        "history": [
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "100",
+            "closedAt": "2025-01-01T01:00:00+00:00",
+            "receivedAt": "2025-01-01T01:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "102",
+            "closedAt": "2025-01-01T02:00:00+00:00",
+            "receivedAt": "2025-01-01T02:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "104",
+            "closedAt": "2025-01-01T03:00:00+00:00",
+            "receivedAt": "2025-01-01T03:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "106",
+            "closedAt": "2025-01-01T04:00:00+00:00",
+            "receivedAt": "2025-01-01T04:00:00+00:00"
+          }
+        ],
+        "technical": {
+          "market": "simulation:BTC-USD",
+          "source": "synthetic-simulation",
+          "timeframe": "1h",
+          "featureVersion": "technical-1.0.0",
+          "barClose": "2025-01-01T04:00:00+00:00",
+          "availableAt": "2025-01-01T04:00:00+00:00",
+          "fastValues": [
+            "105"
+          ],
+          "slowValues": [
+            "104"
+          ]
+        },
+        "forecasts": [
+          {
+            "id": "59ffa400-d064-5f7a-8cf4-5a1c6f9a2921",
+            "market": "simulation:BTC-USD",
+            "asset": "synthetic:BTC",
+            "timeframe": "1h",
+            "horizon": "4H",
+            "modelVersion": "synthetic-model-1",
+            "featureVersion": "technical-1.0.0",
+            "status": "AVAILABLE",
+            "generatedAt": "2025-01-01T03:59:59+00:00",
+            "expiresAt": "2025-01-01T07:59:59+00:00",
+            "expectedReturn": "-0.02"
+          },
+          {
+            "id": "18145d5a-05a8-56d2-863a-5cca8f3d7933",
+            "market": "simulation:BTC-USD",
+            "asset": "synthetic:BTC",
+            "timeframe": "1h",
+            "horizon": "4H",
+            "modelVersion": "synthetic-model-1",
+            "featureVersion": "technical-1.0.0",
+            "status": "AVAILABLE",
+            "generatedAt": "2025-01-01T04:00:00+00:00",
+            "expiresAt": "2025-01-01T08:00:00+00:00",
+            "expectedReturn": "0.04"
+          }
+        ],
+        "quantity": "0",
+        "memory": {
+          "observedQuantity": "0",
+          "invalidationPrice": null,
+          "holdingUntil": null
+        }
+      },
+      "expected": {
+        "action": "ENTER_LONG",
+        "reason": "LONG_CASE_ONLY",
+        "referencePrice": "106",
+        "invalidationPrice": "95.4",
+        "expiresAt": "2025-01-01T08:00:00+00:00",
+        "directional": "LONG",
+        "trend": "0.009615384615384615384615",
+        "expectedReturn": "0.040000000000000000000000",
+        "forecastId": "18145d5a-05a8-56d2-863a-5cca8f3d7933"
+      }
+    },
+    {
+      "name": "compatible-older",
+      "definition": {
+        "version": "synthetic-sma-trend-1",
+        "market": "simulation:BTC-USD",
+        "asset": "synthetic:BTC",
+        "source": "synthetic-simulation",
+        "timeframe": "1h",
+        "horizon": "4H",
+        "modelVersion": "synthetic-model-1",
+        "featureVersion": "technical-1.0.0",
+        "fastPeriod": 2,
+        "slowPeriod": 3,
+        "minimumTrend": "0.001",
+        "minimumReturn": "0.001",
+        "invalidation": "0.1",
+        "maximumAge": 60
+      },
+      "input": {
+        "asOf": "2025-01-01T04:00:00+00:00",
+        "history": [
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "100",
+            "closedAt": "2025-01-01T01:00:00+00:00",
+            "receivedAt": "2025-01-01T01:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "102",
+            "closedAt": "2025-01-01T02:00:00+00:00",
+            "receivedAt": "2025-01-01T02:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "104",
+            "closedAt": "2025-01-01T03:00:00+00:00",
+            "receivedAt": "2025-01-01T03:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "106",
+            "closedAt": "2025-01-01T04:00:00+00:00",
+            "receivedAt": "2025-01-01T04:00:00+00:00"
+          }
+        ],
+        "technical": {
+          "market": "simulation:BTC-USD",
+          "source": "synthetic-simulation",
+          "timeframe": "1h",
+          "featureVersion": "technical-1.0.0",
+          "barClose": "2025-01-01T04:00:00+00:00",
+          "availableAt": "2025-01-01T04:00:00+00:00",
+          "fastValues": [
+            "105"
+          ],
+          "slowValues": [
+            "104"
+          ]
+        },
+        "forecasts": [
+          {
+            "id": "59ffa400-d064-5f7a-8cf4-5a1c6f9a2921",
+            "market": "simulation:BTC-USD",
+            "asset": "synthetic:BTC",
+            "timeframe": "1h",
+            "horizon": "4H",
+            "modelVersion": "synthetic-model-1",
+            "featureVersion": "technical-1.0.0",
+            "status": "AVAILABLE",
+            "generatedAt": "2025-01-01T03:59:59+00:00",
+            "expiresAt": "2025-01-01T07:59:59+00:00",
+            "expectedReturn": "-0.02"
+          },
+          {
+            "id": "18145d5a-05a8-56d2-863a-5cca8f3d7933",
+            "market": "simulation:BTC-USD",
+            "asset": "synthetic:BTC",
+            "timeframe": "1h",
+            "horizon": "4H",
+            "modelVersion": "other-model",
+            "featureVersion": "technical-1.0.0",
+            "status": "AVAILABLE",
+            "generatedAt": "2025-01-01T04:00:00+00:00",
+            "expiresAt": "2025-01-01T08:00:00+00:00",
+            "expectedReturn": "0.04"
+          }
+        ],
+        "quantity": "0",
+        "memory": {
+          "observedQuantity": "0",
+          "invalidationPrice": null,
+          "holdingUntil": null
+        }
+      },
+      "expected": {
+        "action": "NO_TRADE",
+        "reason": "NO_CASE_PASSED",
+        "referencePrice": "106",
+        "invalidationPrice": "95.4",
+        "expiresAt": "2025-01-01T08:00:00+00:00",
+        "directional": "NO_TRADE",
+        "trend": "0.009615384615384615384615",
+        "expectedReturn": "-0.020000000000000000000000",
+        "forecastId": "59ffa400-d064-5f7a-8cf4-5a1c6f9a2921"
+      }
+    },
+    {
+      "name": "stale",
+      "definition": {
+        "version": "synthetic-sma-trend-1",
+        "market": "simulation:BTC-USD",
+        "asset": "synthetic:BTC",
+        "source": "synthetic-simulation",
+        "timeframe": "1h",
+        "horizon": "4H",
+        "modelVersion": "synthetic-model-1",
+        "featureVersion": "technical-1.0.0",
+        "fastPeriod": 2,
+        "slowPeriod": 3,
+        "minimumTrend": "0.001",
+        "minimumReturn": "0.001",
+        "invalidation": "0.1",
+        "maximumAge": 60
+      },
+      "input": {
+        "asOf": "2025-01-01T04:01:01+00:00",
+        "history": [
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "100",
+            "closedAt": "2025-01-01T01:00:00+00:00",
+            "receivedAt": "2025-01-01T01:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "102",
+            "closedAt": "2025-01-01T02:00:00+00:00",
+            "receivedAt": "2025-01-01T02:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "104",
+            "closedAt": "2025-01-01T03:00:00+00:00",
+            "receivedAt": "2025-01-01T03:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "106",
+            "closedAt": "2025-01-01T04:00:00+00:00",
+            "receivedAt": "2025-01-01T04:00:00+00:00"
+          }
+        ],
+        "technical": {
+          "market": "simulation:BTC-USD",
+          "source": "synthetic-simulation",
+          "timeframe": "1h",
+          "featureVersion": "technical-1.0.0",
+          "barClose": "2025-01-01T04:00:00+00:00",
+          "availableAt": "2025-01-01T04:00:00+00:00",
+          "fastValues": [
+            "105"
+          ],
+          "slowValues": [
+            "104"
+          ]
+        },
+        "forecasts": [
+          {
+            "id": "18145d5a-05a8-56d2-863a-5cca8f3d7933",
+            "market": "simulation:BTC-USD",
+            "asset": "synthetic:BTC",
+            "timeframe": "1h",
+            "horizon": "4H",
+            "modelVersion": "synthetic-model-1",
+            "featureVersion": "technical-1.0.0",
+            "status": "AVAILABLE",
+            "generatedAt": "2025-01-01T04:00:00+00:00",
+            "expiresAt": "2025-01-01T08:00:00+00:00",
+            "expectedReturn": "0.04"
+          }
+        ],
+        "quantity": "0",
+        "memory": {
+          "observedQuantity": "0",
+          "invalidationPrice": null,
+          "holdingUntil": null
+        }
+      },
+      "expected": {
+        "action": "NO_TRADE",
+        "reason": "MISSING_EVIDENCE",
+        "referencePrice": null,
+        "invalidationPrice": null,
+        "expiresAt": "2025-01-01T08:01:01+00:00",
+        "directional": null,
+        "trend": null,
+        "expectedReturn": null,
+        "forecastId": null
+      }
+    },
+    {
+      "name": "fresh-boundary",
+      "definition": {
+        "version": "synthetic-sma-trend-1",
+        "market": "simulation:BTC-USD",
+        "asset": "synthetic:BTC",
+        "source": "synthetic-simulation",
+        "timeframe": "1h",
+        "horizon": "4H",
+        "modelVersion": "synthetic-model-1",
+        "featureVersion": "technical-1.0.0",
+        "fastPeriod": 2,
+        "slowPeriod": 3,
+        "minimumTrend": "0.001",
+        "minimumReturn": "0.001",
+        "invalidation": "0.1",
+        "maximumAge": 60
+      },
+      "input": {
+        "asOf": "2025-01-01T04:01:00+00:00",
+        "history": [
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "100",
+            "closedAt": "2025-01-01T01:00:00+00:00",
+            "receivedAt": "2025-01-01T01:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "102",
+            "closedAt": "2025-01-01T02:00:00+00:00",
+            "receivedAt": "2025-01-01T02:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "104",
+            "closedAt": "2025-01-01T03:00:00+00:00",
+            "receivedAt": "2025-01-01T03:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "106",
+            "closedAt": "2025-01-01T04:00:00+00:00",
+            "receivedAt": "2025-01-01T04:00:00+00:00"
+          }
+        ],
+        "technical": {
+          "market": "simulation:BTC-USD",
+          "source": "synthetic-simulation",
+          "timeframe": "1h",
+          "featureVersion": "technical-1.0.0",
+          "barClose": "2025-01-01T04:00:00+00:00",
+          "availableAt": "2025-01-01T04:00:00+00:00",
+          "fastValues": [
+            "105"
+          ],
+          "slowValues": [
+            "104"
+          ]
+        },
+        "forecasts": [
+          {
+            "id": "18145d5a-05a8-56d2-863a-5cca8f3d7933",
+            "market": "simulation:BTC-USD",
+            "asset": "synthetic:BTC",
+            "timeframe": "1h",
+            "horizon": "4H",
+            "modelVersion": "synthetic-model-1",
+            "featureVersion": "technical-1.0.0",
+            "status": "AVAILABLE",
+            "generatedAt": "2025-01-01T04:00:00+00:00",
+            "expiresAt": "2025-01-01T08:00:00+00:00",
+            "expectedReturn": "0.04"
+          }
+        ],
+        "quantity": "0",
+        "memory": {
+          "observedQuantity": "0",
+          "invalidationPrice": null,
+          "holdingUntil": null
+        }
+      },
+      "expected": {
+        "action": "ENTER_LONG",
+        "reason": "LONG_CASE_ONLY",
+        "referencePrice": "106",
+        "invalidationPrice": "95.4",
+        "expiresAt": "2025-01-01T08:01:00+00:00",
+        "directional": "LONG",
+        "trend": "0.009615384615384615384615",
+        "expectedReturn": "0.040000000000000000000000",
+        "forecastId": "18145d5a-05a8-56d2-863a-5cca8f3d7933"
+      }
+    },
+    {
+      "name": "stale-subsecond",
+      "definition": {
+        "version": "synthetic-sma-trend-1",
+        "market": "simulation:BTC-USD",
+        "asset": "synthetic:BTC",
+        "source": "synthetic-simulation",
+        "timeframe": "1h",
+        "horizon": "4H",
+        "modelVersion": "synthetic-model-1",
+        "featureVersion": "technical-1.0.0",
+        "fastPeriod": 2,
+        "slowPeriod": 3,
+        "minimumTrend": "0.001",
+        "minimumReturn": "0.001",
+        "invalidation": "0.1",
+        "maximumAge": 60
+      },
+      "input": {
+        "asOf": "2025-01-01T04:01:00.000001+00:00",
+        "history": [
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "100",
+            "closedAt": "2025-01-01T01:00:00+00:00",
+            "receivedAt": "2025-01-01T01:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "102",
+            "closedAt": "2025-01-01T02:00:00+00:00",
+            "receivedAt": "2025-01-01T02:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "104",
+            "closedAt": "2025-01-01T03:00:00+00:00",
+            "receivedAt": "2025-01-01T03:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "106",
+            "closedAt": "2025-01-01T04:00:00+00:00",
+            "receivedAt": "2025-01-01T04:00:00+00:00"
+          }
+        ],
+        "technical": {
+          "market": "simulation:BTC-USD",
+          "source": "synthetic-simulation",
+          "timeframe": "1h",
+          "featureVersion": "technical-1.0.0",
+          "barClose": "2025-01-01T04:00:00+00:00",
+          "availableAt": "2025-01-01T04:00:00+00:00",
+          "fastValues": [
+            "105"
+          ],
+          "slowValues": [
+            "104"
+          ]
+        },
+        "forecasts": [
+          {
+            "id": "18145d5a-05a8-56d2-863a-5cca8f3d7933",
+            "market": "simulation:BTC-USD",
+            "asset": "synthetic:BTC",
+            "timeframe": "1h",
+            "horizon": "4H",
+            "modelVersion": "synthetic-model-1",
+            "featureVersion": "technical-1.0.0",
+            "status": "AVAILABLE",
+            "generatedAt": "2025-01-01T04:00:00+00:00",
+            "expiresAt": "2025-01-01T08:00:00+00:00",
+            "expectedReturn": "0.04"
+          }
+        ],
+        "quantity": "0",
+        "memory": {
+          "observedQuantity": "0",
+          "invalidationPrice": null,
+          "holdingUntil": null
+        }
+      },
+      "expected": {
+        "action": "NO_TRADE",
+        "reason": "MISSING_EVIDENCE",
+        "referencePrice": null,
+        "invalidationPrice": null,
+        "expiresAt": "2025-01-01T08:01:00.000001+00:00",
+        "directional": null,
+        "trend": null,
+        "expectedReturn": null,
+        "forecastId": null
+      }
+    },
+    {
+      "name": "wrong-source",
+      "definition": {
+        "version": "synthetic-sma-trend-1",
+        "market": "simulation:BTC-USD",
+        "asset": "synthetic:BTC",
+        "source": "synthetic-simulation",
+        "timeframe": "1h",
+        "horizon": "4H",
+        "modelVersion": "synthetic-model-1",
+        "featureVersion": "technical-1.0.0",
+        "fastPeriod": 2,
+        "slowPeriod": 3,
+        "minimumTrend": "0.001",
+        "minimumReturn": "0.001",
+        "invalidation": "0.1",
+        "maximumAge": 60
+      },
+      "input": {
+        "asOf": "2025-01-01T04:00:00+00:00",
+        "history": [
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "100",
+            "closedAt": "2025-01-01T01:00:00+00:00",
+            "receivedAt": "2025-01-01T01:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "102",
+            "closedAt": "2025-01-01T02:00:00+00:00",
+            "receivedAt": "2025-01-01T02:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "104",
+            "closedAt": "2025-01-01T03:00:00+00:00",
+            "receivedAt": "2025-01-01T03:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "106",
+            "closedAt": "2025-01-01T04:00:00+00:00",
+            "receivedAt": "2025-01-01T04:00:00+00:00"
+          }
+        ],
+        "technical": {
+          "market": "simulation:BTC-USD",
+          "source": "other-source",
+          "timeframe": "1h",
+          "featureVersion": "technical-1.0.0",
+          "barClose": "2025-01-01T04:00:00+00:00",
+          "availableAt": "2025-01-01T04:00:00+00:00",
+          "fastValues": [
+            "105"
+          ],
+          "slowValues": [
+            "104"
+          ]
+        },
+        "forecasts": [
+          {
+            "id": "18145d5a-05a8-56d2-863a-5cca8f3d7933",
+            "market": "simulation:BTC-USD",
+            "asset": "synthetic:BTC",
+            "timeframe": "1h",
+            "horizon": "4H",
+            "modelVersion": "synthetic-model-1",
+            "featureVersion": "technical-1.0.0",
+            "status": "AVAILABLE",
+            "generatedAt": "2025-01-01T04:00:00+00:00",
+            "expiresAt": "2025-01-01T08:00:00+00:00",
+            "expectedReturn": "0.04"
+          }
+        ],
+        "quantity": "0",
+        "memory": {
+          "observedQuantity": "0",
+          "invalidationPrice": null,
+          "holdingUntil": null
+        }
+      },
+      "expected": {
+        "action": "NO_TRADE",
+        "reason": "MISSING_EVIDENCE",
+        "referencePrice": null,
+        "invalidationPrice": null,
+        "expiresAt": "2025-01-01T08:00:00+00:00",
+        "directional": null,
+        "trend": null,
+        "expectedReturn": null,
+        "forecastId": null
+      }
+    },
+    {
+      "name": "bar-mismatch",
+      "definition": {
+        "version": "synthetic-sma-trend-1",
+        "market": "simulation:BTC-USD",
+        "asset": "synthetic:BTC",
+        "source": "synthetic-simulation",
+        "timeframe": "1h",
+        "horizon": "4H",
+        "modelVersion": "synthetic-model-1",
+        "featureVersion": "technical-1.0.0",
+        "fastPeriod": 2,
+        "slowPeriod": 3,
+        "minimumTrend": "0.001",
+        "minimumReturn": "0.001",
+        "invalidation": "0.1",
+        "maximumAge": 60
+      },
+      "input": {
+        "asOf": "2025-01-01T04:00:00+00:00",
+        "history": [
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "100",
+            "closedAt": "2025-01-01T01:00:00+00:00",
+            "receivedAt": "2025-01-01T01:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "102",
+            "closedAt": "2025-01-01T02:00:00+00:00",
+            "receivedAt": "2025-01-01T02:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "104",
+            "closedAt": "2025-01-01T03:00:00+00:00",
+            "receivedAt": "2025-01-01T03:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "106",
+            "closedAt": "2025-01-01T04:00:00+00:00",
+            "receivedAt": "2025-01-01T04:00:00+00:00"
+          }
+        ],
+        "technical": {
+          "market": "simulation:BTC-USD",
+          "source": "synthetic-simulation",
+          "timeframe": "1h",
+          "featureVersion": "technical-1.0.0",
+          "barClose": "2025-01-01T03:00:00+00:00",
+          "availableAt": "2025-01-01T04:00:00+00:00",
+          "fastValues": [
+            "105"
+          ],
+          "slowValues": [
+            "104"
+          ]
+        },
+        "forecasts": [
+          {
+            "id": "18145d5a-05a8-56d2-863a-5cca8f3d7933",
+            "market": "simulation:BTC-USD",
+            "asset": "synthetic:BTC",
+            "timeframe": "1h",
+            "horizon": "4H",
+            "modelVersion": "synthetic-model-1",
+            "featureVersion": "technical-1.0.0",
+            "status": "AVAILABLE",
+            "generatedAt": "2025-01-01T04:00:00+00:00",
+            "expiresAt": "2025-01-01T08:00:00+00:00",
+            "expectedReturn": "0.04"
+          }
+        ],
+        "quantity": "0",
+        "memory": {
+          "observedQuantity": "0",
+          "invalidationPrice": null,
+          "holdingUntil": null
+        }
+      },
+      "expected": {
+        "action": "NO_TRADE",
+        "reason": "MISSING_EVIDENCE",
+        "referencePrice": null,
+        "invalidationPrice": null,
+        "expiresAt": "2025-01-01T08:00:00+00:00",
+        "directional": null,
+        "trend": null,
+        "expectedReturn": null,
+        "forecastId": null
+      }
+    },
+    {
+      "name": "rounded-return",
+      "definition": {
+        "version": "synthetic-sma-trend-1",
+        "market": "simulation:BTC-USD",
+        "asset": "synthetic:BTC",
+        "source": "synthetic-simulation",
+        "timeframe": "1h",
+        "horizon": "4H",
+        "modelVersion": "synthetic-model-1",
+        "featureVersion": "technical-1.0.0",
+        "fastPeriod": 2,
+        "slowPeriod": 3,
+        "minimumTrend": "0.001",
+        "minimumReturn": "0.001",
+        "invalidation": "0.1",
+        "maximumAge": 60
+      },
+      "input": {
+        "asOf": "2025-01-01T04:00:00+00:00",
+        "history": [
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "100",
+            "closedAt": "2025-01-01T01:00:00+00:00",
+            "receivedAt": "2025-01-01T01:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "102",
+            "closedAt": "2025-01-01T02:00:00+00:00",
+            "receivedAt": "2025-01-01T02:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "104",
+            "closedAt": "2025-01-01T03:00:00+00:00",
+            "receivedAt": "2025-01-01T03:00:00+00:00"
+          },
+          {
+            "market": "simulation:BTC-USD",
+            "source": "synthetic-simulation",
+            "timeframe": "1h",
+            "close": "106",
+            "closedAt": "2025-01-01T04:00:00+00:00",
+            "receivedAt": "2025-01-01T04:00:00+00:00"
+          }
+        ],
+        "technical": {
+          "market": "simulation:BTC-USD",
+          "source": "synthetic-simulation",
+          "timeframe": "1h",
+          "featureVersion": "technical-1.0.0",
+          "barClose": "2025-01-01T04:00:00+00:00",
+          "availableAt": "2025-01-01T04:00:00+00:00",
+          "fastValues": [
+            "105"
+          ],
+          "slowValues": [
+            "104"
+          ]
+        },
+        "forecasts": [
+          {
+            "id": "fc81560c-5419-56d5-a530-6fe8be691d47",
+            "market": "simulation:BTC-USD",
+            "asset": "synthetic:BTC",
+            "timeframe": "1h",
+            "horizon": "4H",
+            "modelVersion": "synthetic-model-1",
+            "featureVersion": "technical-1.0.0",
+            "status": "AVAILABLE",
+            "generatedAt": "2025-01-01T04:00:00+00:00",
+            "expiresAt": "2025-01-01T08:00:00+00:00",
+            "expectedReturn": "0.0009999999999999999999995"
+          }
+        ],
+        "quantity": "0",
+        "memory": {
+          "observedQuantity": "0",
+          "invalidationPrice": null,
+          "holdingUntil": null
+        }
+      },
+      "expected": {
+        "action": "ENTER_LONG",
+        "reason": "LONG_CASE_ONLY",
+        "referencePrice": "106",
+        "invalidationPrice": "95.4",
+        "expiresAt": "2025-01-01T08:00:00+00:00",
+        "directional": "LONG",
+        "trend": "0.009615384615384615384615",
+        "expectedReturn": "0.001000000000000000000000",
+        "forecastId": "fc81560c-5419-56d5-a530-6fe8be691d47"
+      }
+    },
+    {
+      "name": "empty-history",
+      "definition": {
+        "version": "synthetic-sma-trend-1",
+        "market": "simulation:BTC-USD",
+        "asset": "synthetic:BTC",
+        "source": "synthetic-simulation",
+        "timeframe": "1h",
+        "horizon": "4H",
+        "modelVersion": "synthetic-model-1",
+        "featureVersion": "technical-1.0.0",
+        "fastPeriod": 2,
+        "slowPeriod": 3,
+        "minimumTrend": "0.001",
+        "minimumReturn": "0.001",
+        "invalidation": "0.1",
+        "maximumAge": 60
+      },
+      "input": {
+        "asOf": "2025-01-01T04:00:00+00:00",
+        "history": [],
+        "technical": {
+          "market": "simulation:BTC-USD",
+          "source": "synthetic-simulation",
+          "timeframe": "1h",
+          "featureVersion": "technical-1.0.0",
+          "barClose": "2025-01-01T04:00:00+00:00",
+          "availableAt": "2025-01-01T04:00:00+00:00",
+          "fastValues": [
+            "105"
+          ],
+          "slowValues": [
+            "104"
+          ]
+        },
+        "forecasts": [
+          {
+            "id": "18145d5a-05a8-56d2-863a-5cca8f3d7933",
+            "market": "simulation:BTC-USD",
+            "asset": "synthetic:BTC",
+            "timeframe": "1h",
+            "horizon": "4H",
+            "modelVersion": "synthetic-model-1",
+            "featureVersion": "technical-1.0.0",
+            "status": "AVAILABLE",
+            "generatedAt": "2025-01-01T04:00:00+00:00",
+            "expiresAt": "2025-01-01T08:00:00+00:00",
+            "expectedReturn": "0.04"
+          }
+        ],
+        "quantity": "0",
+        "memory": {
+          "observedQuantity": "0",
+          "invalidationPrice": null,
+          "holdingUntil": null
+        }
+      },
+      "expected": {
+        "action": "NO_TRADE",
+        "reason": "MISSING_EVIDENCE",
+        "referencePrice": null,
+        "invalidationPrice": null,
+        "expiresAt": "2025-01-01T08:00:00+00:00",
+        "directional": null,
+        "trend": null,
+        "expectedReturn": null,
+        "forecastId": null
+      }
+    }
+  ],
+  "horizons": [
+    {
+      "at": "2024-08-31T23:59:59.123456+00:00",
+      "horizon": "1H",
+      "expected": "2024-09-01T00:59:59.123456+00:00"
+    },
+    {
+      "at": "2024-08-31T23:59:59.123456+00:00",
+      "horizon": "4H",
+      "expected": "2024-09-01T03:59:59.123456+00:00"
+    },
+    {
+      "at": "2024-08-31T23:59:59.123456+00:00",
+      "horizon": "8H",
+      "expected": "2024-09-01T07:59:59.123456+00:00"
+    },
+    {
+      "at": "2024-08-31T23:59:59.123456+00:00",
+      "horizon": "12H",
+      "expected": "2024-09-01T11:59:59.123456+00:00"
+    },
+    {
+      "at": "2024-08-31T23:59:59.123456+00:00",
+      "horizon": "24H",
+      "expected": "2024-09-01T23:59:59.123456+00:00"
+    },
+    {
+      "at": "2024-08-31T23:59:59.123456+00:00",
+      "horizon": "2D",
+      "expected": "2024-09-02T23:59:59.123456+00:00"
+    },
+    {
+      "at": "2024-08-31T23:59:59.123456+00:00",
+      "horizon": "3D",
+      "expected": "2024-09-03T23:59:59.123456+00:00"
+    },
+    {
+      "at": "2024-08-31T23:59:59.123456+00:00",
+      "horizon": "7D",
+      "expected": "2024-09-07T23:59:59.123456+00:00"
+    },
+    {
+      "at": "2024-08-31T23:59:59.123456+00:00",
+      "horizon": "14D",
+      "expected": "2024-09-14T23:59:59.123456+00:00"
+    },
+    {
+      "at": "2024-08-31T23:59:59.123456+00:00",
+      "horizon": "30D",
+      "expected": "2024-09-30T23:59:59.123456+00:00"
+    },
+    {
+      "at": "2024-08-31T23:59:59.123456+00:00",
+      "horizon": "90D",
+      "expected": "2024-11-29T23:59:59.123456+00:00"
+    },
+    {
+      "at": "2024-08-31T23:59:59.123456+00:00",
+      "horizon": "6M",
+      "expected": "2025-02-28T23:59:59.123456+00:00"
+    },
+    {
+      "at": "2024-08-31T23:59:59.123456+00:00",
+      "horizon": "12M",
+      "expected": "2025-08-31T23:59:59.123456+00:00"
+    },
+    {
+      "at": "2024-02-29T00:00:00+00:00",
+      "horizon": "1H",
+      "expected": "2024-02-29T01:00:00+00:00"
+    },
+    {
+      "at": "2024-02-29T00:00:00+00:00",
+      "horizon": "4H",
+      "expected": "2024-02-29T04:00:00+00:00"
+    },
+    {
+      "at": "2024-02-29T00:00:00+00:00",
+      "horizon": "8H",
+      "expected": "2024-02-29T08:00:00+00:00"
+    },
+    {
+      "at": "2024-02-29T00:00:00+00:00",
+      "horizon": "12H",
+      "expected": "2024-02-29T12:00:00+00:00"
+    },
+    {
+      "at": "2024-02-29T00:00:00+00:00",
+      "horizon": "24H",
+      "expected": "2024-03-01T00:00:00+00:00"
+    },
+    {
+      "at": "2024-02-29T00:00:00+00:00",
+      "horizon": "2D",
+      "expected": "2024-03-02T00:00:00+00:00"
+    },
+    {
+      "at": "2024-02-29T00:00:00+00:00",
+      "horizon": "3D",
+      "expected": "2024-03-03T00:00:00+00:00"
+    },
+    {
+      "at": "2024-02-29T00:00:00+00:00",
+      "horizon": "7D",
+      "expected": "2024-03-07T00:00:00+00:00"
+    },
+    {
+      "at": "2024-02-29T00:00:00+00:00",
+      "horizon": "14D",
+      "expected": "2024-03-14T00:00:00+00:00"
+    },
+    {
+      "at": "2024-02-29T00:00:00+00:00",
+      "horizon": "30D",
+      "expected": "2024-03-30T00:00:00+00:00"
+    },
+    {
+      "at": "2024-02-29T00:00:00+00:00",
+      "horizon": "90D",
+      "expected": "2024-05-29T00:00:00+00:00"
+    },
+    {
+      "at": "2024-02-29T00:00:00+00:00",
+      "horizon": "6M",
+      "expected": "2024-08-29T00:00:00+00:00"
+    },
+    {
+      "at": "2024-02-29T00:00:00+00:00",
+      "horizon": "12M",
+      "expected": "2025-02-28T00:00:00+00:00"
+    }
+  ]
+}

@@ -18,6 +18,7 @@ class LocalStandaloneEngineTest {
         val args = InstrumentationRegistry.getArguments()
         val text = instrumentation.context.assets.open("local-kernel-golden.json").bufferedReader().use { it.readText() }
         verifyLocalGolden(text)
+        verifyStrategyGolden(instrumentation.context.assets.open("local-strategy-golden.json").bufferedReader().use { it.readText() })
         val json = Json
         val root = json.parseToJsonElement(text).jsonObject
         val policy = json.decodeFromJsonElement<LocalPolicy>(root.getValue("policy"))

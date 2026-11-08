@@ -17,3 +17,5 @@ The application now defaults to a real native local workspace. This is a functio
 | REAL_MONEY_TRADING_ENABLED | NO | Deliberately absent/forbidden; no native broker dispatch |
 
 The evaluation deadline2026-12-31 does not justify bypassing financial evidence or enabling real money. January2027 is review only.
+
+The frozen [Preview 0.1 download](PREVIEW_0_1.md) is a separately tagged debug asset. Later branch development adds a read-only strategy research review with oracle comparisons, not a qualified forecast/directional/strategy pipeline or Autopilot. All NO verdicts above remain unchanged. See [native strategy qualification scope](NATIVE_STRATEGY_REVIEW.md).

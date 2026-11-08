@@ -31,9 +31,15 @@ class PublicWorkspaceAndroidTest {
             val image = compose.onRoot().captureToImage().asAndroidBitmap()
             val directory = java.io.File(compose.activity.getExternalFilesDir(null),"screenshots").apply { mkdirs() }
             java.io.File(directory,"local-real-market.png").outputStream().use { image.compress(android.graphics.Bitmap.CompressFormat.PNG,100,it) }
+            compose.onNodeWithTag("local-workspace-grid").performScrollToNode(hasText("Strategy research review · read only"))
+            compose.onNodeWithText("NO_TRADE · MISSING_EVIDENCE").assertExists()
             compose.onNodeWithTag("local-workspace-grid").performScrollToNode(hasText("Create new PAPER experiment"))
             compose.onNodeWithText("Create new PAPER experiment").performClick()
-            compose.waitUntil(15000) { compose.onAllNodesWithText("Authoritative local account",substring=true).fetchSemanticsNodes().isNotEmpty() }
+            val workspace = androidx.lifecycle.ViewModelProvider(compose.activity)[LocalWorkspaceModel::class.java]
+            compose.waitUntil(15000) { workspace.account.value != null }
+            assertEquals("1000",requireNotNull(workspace.account.value).book.cash)
+            compose.onNodeWithTag("local-workspace-grid").performScrollToNode(hasText("Authoritative local account",substring=true))
+            compose.onNodeWithText("Authoritative local account",substring=true).assertExists()
         }
     }
 }
@@ -48,6 +54,11 @@ class RealPublicProviderAndroidTest {
         assertTrue(candles.none { it.synthetic })
         val features = LocalIndicators.calculate(candles.map { CausalClose(it.close,it.close_time,it.received_at) },20,"SMA",Instant.now().toString())
         assertEquals("READY",features.last().status)
+        val research = requireNotNull(StrategyReviewAdapter.review(candles,market.id,"0",Instant.now().toString()))
+        assertEquals("NO_TRADE",research.action)
+        assertEquals("MISSING_EVIDENCE",research.reason)
+        assertNull(research.forecastId)
+        assertTrue(research.researchOnly)
         val db = LocalFinancialDatabase.open(context)
         try {
             val ledger = LocalPaperLedger(db)

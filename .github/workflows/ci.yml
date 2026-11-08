@@ -52,6 +52,7 @@ jobs:
       - run: python -m pocket_alpha.mobile.export_schema --check
       - run: python android/tooling/audit_local_engines.py --check
       - run: python -m tests.local_kernel_vectors --check
+      - run: python -m tests.local_strategy_vectors --check
       - name: Verify one Alembic head
         run: test "$(alembic heads | wc -l)" -eq 1
       - name: Full suite with PostgreSQL and Redis

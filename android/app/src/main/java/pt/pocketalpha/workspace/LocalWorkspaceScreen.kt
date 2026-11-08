@@ -111,6 +111,16 @@ import pt.pocketalpha.feature.*
                     }
                     Note("Technical policy: decimal50 HALF_EVEN. Pocket Score, forecasts and directional models are unavailable until their native qualification passes.")
                 } }
+                item { PocketCard("Strategy research review · read only") {
+                    val review = remember(candles,selected,account?.book?.quantity) {
+                        runCatching { StrategyReviewAdapter.review(candles,selected,account?.book?.quantity ?: "0",Instant.now().toString()) }
+                    }
+                    review.getOrNull()?.let { result ->
+                        Text("${result.action} · ${result.reason}")
+                        Note("As of ${result.at} · H1 candles / 4H horizon · native-trend-review-1")
+                    } ?: Note(review.exceptionOrNull()?.message ?: "No actual provider observations", true)
+                    Note("No qualified native forecast is available. This research review cannot place orders. Forecast generation, full directional evidence and Paper Autopilot remain unavailable.")
+                } }
             }
             if (page == "Paper Trading" || page == "Overview") {
                 item { PocketCard("PAPER experiments · virtual EUR") {
